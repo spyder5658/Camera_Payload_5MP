@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "ssdv.h": "c"
+  },
+  "ros.distro": "humble"
+}

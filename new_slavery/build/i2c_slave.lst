@@ -1,0 +1,541 @@
+ARM GAS  /tmp/ccp4HTne.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"i2c_slave.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.HAL_I2C_ListenCpltCallback,"ax",%progbits
+  16              		.align	1
+  17              		.global	HAL_I2C_ListenCpltCallback
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	HAL_I2C_ListenCpltCallback:
+  25              	.LVL0:
+  26              	.LFB68:
+  27              		.file 1 "Core/Src/i2c_slave.c"
+   1:Core/Src/i2c_slave.c **** #include "main.h"
+   2:Core/Src/i2c_slave.c **** #include "i2c_slave.h"
+   3:Core/Src/i2c_slave.c **** #include "camera.h"
+   4:Core/Src/i2c_slave.c **** 
+   5:Core/Src/i2c_slave.c **** volatile uint8_t capture_requested = 0;
+   6:Core/Src/i2c_slave.c **** 
+   7:Core/Src/i2c_slave.c **** volatile uint8_t send_all_packets = 0;
+   8:Core/Src/i2c_slave.c **** volatile uint16_t current_packet_index = 0;
+   9:Core/Src/i2c_slave.c **** 
+  10:Core/Src/i2c_slave.c **** 
+  11:Core/Src/i2c_slave.c **** extern uint32_t ssdv_start_addr;
+  12:Core/Src/i2c_slave.c **** extern uint32_t ssdv_packets_in_image;
+  13:Core/Src/i2c_slave.c **** 
+  14:Core/Src/i2c_slave.c **** extern I2C_HandleTypeDef hi2c2;
+  15:Core/Src/i2c_slave.c **** #define RxSize 1
+  16:Core/Src/i2c_slave.c **** uint8_t RxData[RxSize];
+  17:Core/Src/i2c_slave.c **** 
+  18:Core/Src/i2c_slave.c **** int rxcount = 0 ;
+  19:Core/Src/i2c_slave.c **** // extern ssdv_packets_in_image, ssdv_start_addr;
+  20:Core/Src/i2c_slave.c **** 
+  21:Core/Src/i2c_slave.c **** 
+  22:Core/Src/i2c_slave.c **** void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
+  23:Core/Src/i2c_slave.c **** {
+  28              		.loc 1 23 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 23 1 is_stmt 0 view .LVU1
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+ARM GAS  /tmp/ccp4HTne.s 			page 2
+
+
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  24:Core/Src/i2c_slave.c ****     HAL_I2C_EnableListen_IT(hi2c);
+  38              		.loc 1 24 5 is_stmt 1 view .LVU2
+  39 0002 FFF7FEFF 		bl	HAL_I2C_EnableListen_IT
+  40              	.LVL1:
+  25:Core/Src/i2c_slave.c **** }
+  41              		.loc 1 25 1 is_stmt 0 view .LVU3
+  42 0006 08BD     		pop	{r3, pc}
+  43              		.cfi_endproc
+  44              	.LFE68:
+  46              		.section	.rodata.HAL_I2C_AddrCallback.str1.4,"aMS",%progbits,1
+  47              		.align	2
+  48              	.LC0:
+  49 0000 53656E74 		.ascii	"Sent SSDV packet %d\012\000"
+  49      20535344 
+  49      56207061 
+  49      636B6574 
+  49      2025640A 
+  50              		.section	.text.HAL_I2C_AddrCallback,"ax",%progbits
+  51              		.align	1
+  52              		.global	HAL_I2C_AddrCallback
+  53              		.syntax unified
+  54              		.thumb
+  55              		.thumb_func
+  56              		.fpu softvfp
+  58              	HAL_I2C_AddrCallback:
+  59              	.LVL2:
+  60              	.LFB69:
+  26:Core/Src/i2c_slave.c **** 
+  27:Core/Src/i2c_slave.c **** 
+  28:Core/Src/i2c_slave.c **** 
+  29:Core/Src/i2c_slave.c **** void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCod
+  30:Core/Src/i2c_slave.c **** {
+  61              		.loc 1 30 1 is_stmt 1 view -0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 224
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		.loc 1 30 1 is_stmt 0 view .LVU5
+  66 0000 30B5     		push	{r4, r5, lr}
+  67              	.LCFI1:
+  68              		.cfi_def_cfa_offset 12
+  69              		.cfi_offset 4, -12
+  70              		.cfi_offset 5, -8
+  71              		.cfi_offset 14, -4
+  72 0002 B9B0     		sub	sp, sp, #228
+  73              	.LCFI2:
+  74              		.cfi_def_cfa_offset 240
+  75 0004 0446     		mov	r4, r0
+  31:Core/Src/i2c_slave.c ****     if (TransferDirection == I2C_DIRECTION_TRANSMIT) {
+  76              		.loc 1 31 5 is_stmt 1 view .LVU6
+  77              		.loc 1 31 8 is_stmt 0 view .LVU7
+  78 0006 0129     		cmp	r1, #1
+  79 0008 18D0     		beq	.L8
+  32:Core/Src/i2c_slave.c ****         HAL_I2C_Slave_Seq_Receive_IT(hi2c, RxData, RxSize, I2C_FIRST_AND_LAST_FRAME);
+  33:Core/Src/i2c_slave.c ****     } 
+  34:Core/Src/i2c_slave.c ****     else if (TransferDirection == I2C_DIRECTION_RECEIVE) {
+ARM GAS  /tmp/ccp4HTne.s 			page 3
+
+
+  80              		.loc 1 34 10 is_stmt 1 view .LVU8
+  81              		.loc 1 34 13 is_stmt 0 view .LVU9
+  82 000a A9B9     		cbnz	r1, .L3
+  35:Core/Src/i2c_slave.c ****         if (send_all_packets && current_packet_index < ssdv_packets_in_image) {
+  83              		.loc 1 35 9 is_stmt 1 view .LVU10
+  84              		.loc 1 35 13 is_stmt 0 view .LVU11
+  85 000c 204B     		ldr	r3, .L10
+  86 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  87              		.loc 1 35 12 view .LVU12
+  88 0010 33B1     		cbz	r3, .L6
+  89              		.loc 1 35 54 discriminator 1 view .LVU13
+  90 0012 204B     		ldr	r3, .L10+4
+  91 0014 1B88     		ldrh	r3, [r3]
+  92 0016 9BB2     		uxth	r3, r3
+  93 0018 1F4A     		ldr	r2, .L10+8
+  94              	.LVL3:
+  95              		.loc 1 35 54 discriminator 1 view .LVU14
+  96 001a 1268     		ldr	r2, [r2]
+  97              		.loc 1 35 30 discriminator 1 view .LVU15
+  98 001c 9342     		cmp	r3, r2
+  99 001e 13D3     		bcc	.L9
+ 100              	.L6:
+ 101              	.LBB2:
+  36:Core/Src/i2c_slave.c ****             uint8_t ssdv_pkt[SSDV_PKT_SIZE] = {0};
+  37:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt, ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE, SSD
+  38:Core/Src/i2c_slave.c **** 
+  39:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, ssdv_pkt, SSDV_PKT_SIZE, I2C_FIRST_AND_LAST_FRAME);
+  40:Core/Src/i2c_slave.c ****             printf("Sent SSDV packet %d\n", current_packet_index);
+  41:Core/Src/i2c_slave.c ****             current_packet_index++;
+  42:Core/Src/i2c_slave.c ****         } else {
+  43:Core/Src/i2c_slave.c ****             // All packets sent or transfer not started
+  44:Core/Src/i2c_slave.c ****             uint8_t dummy[1] = {0xFF};
+ 102              		.loc 1 44 13 is_stmt 1 view .LVU16
+ 103              		.loc 1 44 21 is_stmt 0 view .LVU17
+ 104 0020 FF23     		movs	r3, #255
+ 105 0022 8DF80030 		strb	r3, [sp]
+  45:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
+ 106              		.loc 1 45 13 is_stmt 1 view .LVU18
+ 107 0026 0823     		movs	r3, #8
+ 108 0028 0122     		movs	r2, #1
+ 109 002a 6946     		mov	r1, sp
+ 110              	.LVL4:
+ 111              		.loc 1 45 13 is_stmt 0 view .LVU19
+ 112 002c 2046     		mov	r0, r4
+ 113              	.LVL5:
+ 114              		.loc 1 45 13 view .LVU20
+ 115 002e FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
+ 116              	.LVL6:
+  46:Core/Src/i2c_slave.c ****             send_all_packets = 0;  // Reset stream mode
+ 117              		.loc 1 46 13 is_stmt 1 view .LVU21
+ 118              		.loc 1 46 30 is_stmt 0 view .LVU22
+ 119 0032 174B     		ldr	r3, .L10
+ 120 0034 0022     		movs	r2, #0
+ 121 0036 1A70     		strb	r2, [r3]
+ 122              	.L3:
+ 123              		.loc 1 46 30 view .LVU23
+ 124              	.LBE2:
+ARM GAS  /tmp/ccp4HTne.s 			page 4
+
+
+  47:Core/Src/i2c_slave.c ****         }
+  48:Core/Src/i2c_slave.c ****     }
+  49:Core/Src/i2c_slave.c **** }
+ 125              		.loc 1 49 1 view .LVU24
+ 126 0038 39B0     		add	sp, sp, #228
+ 127              	.LCFI3:
+ 128              		.cfi_remember_state
+ 129              		.cfi_def_cfa_offset 12
+ 130              		@ sp needed
+ 131 003a 30BD     		pop	{r4, r5, pc}
+ 132              	.LVL7:
+ 133              	.L8:
+ 134              	.LCFI4:
+ 135              		.cfi_restore_state
+  32:Core/Src/i2c_slave.c ****     } 
+ 136              		.loc 1 32 9 is_stmt 1 view .LVU25
+ 137 003c 0823     		movs	r3, #8
+ 138 003e 0122     		movs	r2, #1
+ 139              	.LVL8:
+  32:Core/Src/i2c_slave.c ****     } 
+ 140              		.loc 1 32 9 is_stmt 0 view .LVU26
+ 141 0040 1649     		ldr	r1, .L10+12
+ 142              	.LVL9:
+  32:Core/Src/i2c_slave.c ****     } 
+ 143              		.loc 1 32 9 view .LVU27
+ 144 0042 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Receive_IT
+ 145              	.LVL10:
+  32:Core/Src/i2c_slave.c ****     } 
+ 146              		.loc 1 32 9 view .LVU28
+ 147 0046 F7E7     		b	.L3
+ 148              	.LVL11:
+ 149              	.L9:
+ 150              	.LBB3:
+  36:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt, ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE, SSD
+ 151              		.loc 1 36 13 is_stmt 1 view .LVU29
+  36:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt, ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE, SSD
+ 152              		.loc 1 36 21 is_stmt 0 view .LVU30
+ 153 0048 0091     		str	r1, [sp]
+ 154 004a DC22     		movs	r2, #220
+ 155 004c 01A8     		add	r0, sp, #4
+ 156              	.LVL12:
+  36:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt, ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE, SSD
+ 157              		.loc 1 36 21 view .LVU31
+ 158 004e FFF7FEFF 		bl	memset
+ 159              	.LVL13:
+  37:Core/Src/i2c_slave.c **** 
+ 160              		.loc 1 37 13 is_stmt 1 view .LVU32
+  37:Core/Src/i2c_slave.c **** 
+ 161              		.loc 1 37 80 is_stmt 0 view .LVU33
+ 162 0052 104D     		ldr	r5, .L10+4
+ 163 0054 2988     		ldrh	r1, [r5]
+ 164 0056 89B2     		uxth	r1, r1
+ 165 0058 C1EBC101 		rsb	r1, r1, r1, lsl #3
+  37:Core/Src/i2c_slave.c **** 
+ 166              		.loc 1 37 13 view .LVU34
+ 167 005c 104B     		ldr	r3, .L10+16
+ 168 005e 1B68     		ldr	r3, [r3]
+ARM GAS  /tmp/ccp4HTne.s 			page 5
+
+
+ 169 0060 E022     		movs	r2, #224
+ 170 0062 03EB4111 		add	r1, r3, r1, lsl #5
+ 171 0066 6846     		mov	r0, sp
+ 172 0068 FFF7FEFF 		bl	flash_read_buffer
+ 173              	.LVL14:
+  39:Core/Src/i2c_slave.c ****             printf("Sent SSDV packet %d\n", current_packet_index);
+ 174              		.loc 1 39 13 is_stmt 1 view .LVU35
+ 175 006c 0823     		movs	r3, #8
+ 176 006e E022     		movs	r2, #224
+ 177 0070 6946     		mov	r1, sp
+ 178 0072 2046     		mov	r0, r4
+ 179 0074 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
+ 180              	.LVL15:
+  40:Core/Src/i2c_slave.c ****             current_packet_index++;
+ 181              		.loc 1 40 13 view .LVU36
+ 182 0078 2988     		ldrh	r1, [r5]
+ 183 007a 89B2     		uxth	r1, r1
+ 184 007c 0948     		ldr	r0, .L10+20
+ 185 007e FFF7FEFF 		bl	printf
+ 186              	.LVL16:
+  41:Core/Src/i2c_slave.c ****         } else {
+ 187              		.loc 1 41 13 view .LVU37
+  41:Core/Src/i2c_slave.c ****         } else {
+ 188              		.loc 1 41 33 is_stmt 0 view .LVU38
+ 189 0082 2B88     		ldrh	r3, [r5]
+ 190 0084 9BB2     		uxth	r3, r3
+ 191 0086 0133     		adds	r3, r3, #1
+ 192 0088 9BB2     		uxth	r3, r3
+ 193 008a 2B80     		strh	r3, [r5]	@ movhi
+ 194              	.LBE3:
+  35:Core/Src/i2c_slave.c ****             uint8_t ssdv_pkt[SSDV_PKT_SIZE] = {0};
+ 195              		.loc 1 35 79 view .LVU39
+ 196 008c D4E7     		b	.L3
+ 197              	.L11:
+ 198 008e 00BF     		.align	2
+ 199              	.L10:
+ 200 0090 00000000 		.word	.LANCHOR1
+ 201 0094 00000000 		.word	.LANCHOR2
+ 202 0098 00000000 		.word	ssdv_packets_in_image
+ 203 009c 00000000 		.word	.LANCHOR0
+ 204 00a0 00000000 		.word	ssdv_start_addr
+ 205 00a4 00000000 		.word	.LC0
+ 206              		.cfi_endproc
+ 207              	.LFE69:
+ 209              		.section	.rodata.HAL_I2C_SlaveRxCpltCallback.str1.4,"aMS",%progbits,1
+ 210              		.align	2
+ 211              	.LC1:
+ 212 0000 43617074 		.ascii	"Capture command received\015\000"
+ 212      75726520 
+ 212      636F6D6D 
+ 212      616E6420 
+ 212      72656365 
+ 213 001a 0000     		.align	2
+ 214              	.LC2:
+ 215 001c 53534456 		.ascii	"SSDV stream requested\015\000"
+ 215      20737472 
+ 215      65616D20 
+ARM GAS  /tmp/ccp4HTne.s 			page 6
+
+
+ 215      72657175 
+ 215      65737465 
+ 216              		.section	.text.HAL_I2C_SlaveRxCpltCallback,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	HAL_I2C_SlaveRxCpltCallback
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 222              		.fpu softvfp
+ 224              	HAL_I2C_SlaveRxCpltCallback:
+ 225              	.LVL17:
+ 226              	.LFB70:
+  50:Core/Src/i2c_slave.c **** 
+  51:Core/Src/i2c_slave.c **** 
+  52:Core/Src/i2c_slave.c **** void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
+  53:Core/Src/i2c_slave.c **** {
+ 227              		.loc 1 53 1 is_stmt 1 view -0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231              		.loc 1 53 1 is_stmt 0 view .LVU41
+ 232 0000 08B5     		push	{r3, lr}
+ 233              	.LCFI5:
+ 234              		.cfi_def_cfa_offset 8
+ 235              		.cfi_offset 3, -8
+ 236              		.cfi_offset 14, -4
+  54:Core/Src/i2c_slave.c ****     rxcount++;
+ 237              		.loc 1 54 5 is_stmt 1 view .LVU42
+ 238              		.loc 1 54 12 is_stmt 0 view .LVU43
+ 239 0002 0E4A     		ldr	r2, .L18
+ 240 0004 1368     		ldr	r3, [r2]
+ 241 0006 0133     		adds	r3, r3, #1
+ 242 0008 1360     		str	r3, [r2]
+  55:Core/Src/i2c_slave.c ****     uint8_t cmd = RxData[0];
+ 243              		.loc 1 55 5 is_stmt 1 view .LVU44
+ 244              		.loc 1 55 13 is_stmt 0 view .LVU45
+ 245 000a 0D4B     		ldr	r3, .L18+4
+ 246 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 247              	.LVL18:
+  56:Core/Src/i2c_slave.c **** 
+  57:Core/Src/i2c_slave.c ****     if (cmd == 0x10) {
+ 248              		.loc 1 57 5 is_stmt 1 view .LVU46
+ 249              		.loc 1 57 8 is_stmt 0 view .LVU47
+ 250 000e 102B     		cmp	r3, #16
+ 251 0010 02D0     		beq	.L16
+  58:Core/Src/i2c_slave.c ****         printf("Capture command received\r\n");
+  59:Core/Src/i2c_slave.c ****         capture_requested = 1;
+  60:Core/Src/i2c_slave.c ****     }
+  61:Core/Src/i2c_slave.c ****     else if (cmd == 0x40) {
+ 252              		.loc 1 61 10 is_stmt 1 view .LVU48
+ 253              		.loc 1 61 13 is_stmt 0 view .LVU49
+ 254 0012 402B     		cmp	r3, #64
+ 255 0014 07D0     		beq	.L17
+ 256              	.LVL19:
+ 257              	.L12:
+  62:Core/Src/i2c_slave.c ****         printf("SSDV stream requested\r\n");
+  63:Core/Src/i2c_slave.c ****         send_all_packets = 1;
+ARM GAS  /tmp/ccp4HTne.s 			page 7
+
+
+  64:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+  65:Core/Src/i2c_slave.c ****     }
+  66:Core/Src/i2c_slave.c **** }
+ 258              		.loc 1 66 1 view .LVU50
+ 259 0016 08BD     		pop	{r3, pc}
+ 260              	.LVL20:
+ 261              	.L16:
+  58:Core/Src/i2c_slave.c ****         printf("Capture command received\r\n");
+ 262              		.loc 1 58 9 is_stmt 1 view .LVU51
+ 263 0018 0A48     		ldr	r0, .L18+8
+ 264              	.LVL21:
+  58:Core/Src/i2c_slave.c ****         printf("Capture command received\r\n");
+ 265              		.loc 1 58 9 is_stmt 0 view .LVU52
+ 266 001a FFF7FEFF 		bl	puts
+ 267              	.LVL22:
+  59:Core/Src/i2c_slave.c ****     }
+ 268              		.loc 1 59 9 is_stmt 1 view .LVU53
+  59:Core/Src/i2c_slave.c ****     }
+ 269              		.loc 1 59 27 is_stmt 0 view .LVU54
+ 270 001e 0A4B     		ldr	r3, .L18+12
+ 271 0020 0122     		movs	r2, #1
+ 272 0022 1A70     		strb	r2, [r3]
+ 273 0024 F7E7     		b	.L12
+ 274              	.LVL23:
+ 275              	.L17:
+  62:Core/Src/i2c_slave.c ****         printf("SSDV stream requested\r\n");
+ 276              		.loc 1 62 9 is_stmt 1 view .LVU55
+ 277 0026 0948     		ldr	r0, .L18+16
+ 278              	.LVL24:
+  62:Core/Src/i2c_slave.c ****         printf("SSDV stream requested\r\n");
+ 279              		.loc 1 62 9 is_stmt 0 view .LVU56
+ 280 0028 FFF7FEFF 		bl	puts
+ 281              	.LVL25:
+  63:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 282              		.loc 1 63 9 is_stmt 1 view .LVU57
+  63:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 283              		.loc 1 63 26 is_stmt 0 view .LVU58
+ 284 002c 084B     		ldr	r3, .L18+20
+ 285 002e 0122     		movs	r2, #1
+ 286 0030 1A70     		strb	r2, [r3]
+  64:Core/Src/i2c_slave.c ****     }
+ 287              		.loc 1 64 9 is_stmt 1 view .LVU59
+  64:Core/Src/i2c_slave.c ****     }
+ 288              		.loc 1 64 30 is_stmt 0 view .LVU60
+ 289 0032 084B     		ldr	r3, .L18+24
+ 290 0034 0022     		movs	r2, #0
+ 291 0036 1A80     		strh	r2, [r3]	@ movhi
+ 292              		.loc 1 66 1 view .LVU61
+ 293 0038 EDE7     		b	.L12
+ 294              	.L19:
+ 295 003a 00BF     		.align	2
+ 296              	.L18:
+ 297 003c 00000000 		.word	.LANCHOR3
+ 298 0040 00000000 		.word	.LANCHOR0
+ 299 0044 00000000 		.word	.LC1
+ 300 0048 00000000 		.word	.LANCHOR4
+ 301 004c 1C000000 		.word	.LC2
+ARM GAS  /tmp/ccp4HTne.s 			page 8
+
+
+ 302 0050 00000000 		.word	.LANCHOR1
+ 303 0054 00000000 		.word	.LANCHOR2
+ 304              		.cfi_endproc
+ 305              	.LFE70:
+ 307              		.section	.text.HAL_I2C_ErrorCallback,"ax",%progbits
+ 308              		.align	1
+ 309              		.global	HAL_I2C_ErrorCallback
+ 310              		.syntax unified
+ 311              		.thumb
+ 312              		.thumb_func
+ 313              		.fpu softvfp
+ 315              	HAL_I2C_ErrorCallback:
+ 316              	.LVL26:
+ 317              	.LFB71:
+  67:Core/Src/i2c_slave.c **** 
+  68:Core/Src/i2c_slave.c **** 
+  69:Core/Src/i2c_slave.c **** 
+  70:Core/Src/i2c_slave.c **** void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
+  71:Core/Src/i2c_slave.c **** {
+ 318              		.loc 1 71 1 is_stmt 1 view -0
+ 319              		.cfi_startproc
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 0, uses_anonymous_args = 0
+ 322              		.loc 1 71 1 is_stmt 0 view .LVU63
+ 323 0000 08B5     		push	{r3, lr}
+ 324              	.LCFI6:
+ 325              		.cfi_def_cfa_offset 8
+ 326              		.cfi_offset 3, -8
+ 327              		.cfi_offset 14, -4
+  72:Core/Src/i2c_slave.c ****     HAL_I2C_EnableListen_IT(hi2c);
+ 328              		.loc 1 72 5 is_stmt 1 view .LVU64
+ 329 0002 FFF7FEFF 		bl	HAL_I2C_EnableListen_IT
+ 330              	.LVL27:
+  73:Core/Src/i2c_slave.c **** }
+ 331              		.loc 1 73 1 is_stmt 0 view .LVU65
+ 332 0006 08BD     		pop	{r3, pc}
+ 333              		.cfi_endproc
+ 334              	.LFE71:
+ 336              		.global	rxcount
+ 337              		.global	RxData
+ 338              		.global	current_packet_index
+ 339              		.global	send_all_packets
+ 340              		.global	capture_requested
+ 341              		.section	.bss.RxData,"aw",%nobits
+ 342              		.align	2
+ 343              		.set	.LANCHOR0,. + 0
+ 346              	RxData:
+ 347 0000 00       		.space	1
+ 348              		.section	.bss.capture_requested,"aw",%nobits
+ 349              		.set	.LANCHOR4,. + 0
+ 352              	capture_requested:
+ 353 0000 00       		.space	1
+ 354              		.section	.bss.current_packet_index,"aw",%nobits
+ 355              		.align	1
+ 356              		.set	.LANCHOR2,. + 0
+ 359              	current_packet_index:
+ 360 0000 0000     		.space	2
+ARM GAS  /tmp/ccp4HTne.s 			page 9
+
+
+ 361              		.section	.bss.rxcount,"aw",%nobits
+ 362              		.align	2
+ 363              		.set	.LANCHOR3,. + 0
+ 366              	rxcount:
+ 367 0000 00000000 		.space	4
+ 368              		.section	.bss.send_all_packets,"aw",%nobits
+ 369              		.set	.LANCHOR1,. + 0
+ 372              	send_all_packets:
+ 373 0000 00       		.space	1
+ 374              		.text
+ 375              	.Letext0:
+ 376              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 377              		.file 3 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 378              		.file 4 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 379              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 380              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 381              		.file 7 "Core/Inc/i2c_slave.h"
+ 382              		.file 8 "<built-in>"
+ 383              		.file 9 "libs/flash/flash.h"
+ 384              		.file 10 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/ccp4HTne.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 i2c_slave.c
+     /tmp/ccp4HTne.s:16     .text.HAL_I2C_ListenCpltCallback:0000000000000000 $t
+     /tmp/ccp4HTne.s:24     .text.HAL_I2C_ListenCpltCallback:0000000000000000 HAL_I2C_ListenCpltCallback
+     /tmp/ccp4HTne.s:47     .rodata.HAL_I2C_AddrCallback.str1.4:0000000000000000 $d
+     /tmp/ccp4HTne.s:51     .text.HAL_I2C_AddrCallback:0000000000000000 $t
+     /tmp/ccp4HTne.s:58     .text.HAL_I2C_AddrCallback:0000000000000000 HAL_I2C_AddrCallback
+     /tmp/ccp4HTne.s:200    .text.HAL_I2C_AddrCallback:0000000000000090 $d
+     /tmp/ccp4HTne.s:210    .rodata.HAL_I2C_SlaveRxCpltCallback.str1.4:0000000000000000 $d
+     /tmp/ccp4HTne.s:217    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 $t
+     /tmp/ccp4HTne.s:224    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 HAL_I2C_SlaveRxCpltCallback
+     /tmp/ccp4HTne.s:297    .text.HAL_I2C_SlaveRxCpltCallback:000000000000003c $d
+     /tmp/ccp4HTne.s:308    .text.HAL_I2C_ErrorCallback:0000000000000000 $t
+     /tmp/ccp4HTne.s:315    .text.HAL_I2C_ErrorCallback:0000000000000000 HAL_I2C_ErrorCallback
+     /tmp/ccp4HTne.s:366    .bss.rxcount:0000000000000000 rxcount
+     /tmp/ccp4HTne.s:346    .bss.RxData:0000000000000000 RxData
+     /tmp/ccp4HTne.s:359    .bss.current_packet_index:0000000000000000 current_packet_index
+     /tmp/ccp4HTne.s:372    .bss.send_all_packets:0000000000000000 send_all_packets
+     /tmp/ccp4HTne.s:352    .bss.capture_requested:0000000000000000 capture_requested
+     /tmp/ccp4HTne.s:342    .bss.RxData:0000000000000000 $d
+     /tmp/ccp4HTne.s:353    .bss.capture_requested:0000000000000000 $d
+     /tmp/ccp4HTne.s:355    .bss.current_packet_index:0000000000000000 $d
+     /tmp/ccp4HTne.s:362    .bss.rxcount:0000000000000000 $d
+     /tmp/ccp4HTne.s:373    .bss.send_all_packets:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_EnableListen_IT
+HAL_I2C_Slave_Seq_Transmit_IT
+HAL_I2C_Slave_Seq_Receive_IT
+memset
+flash_read_buffer
+printf
+ssdv_packets_in_image
+ssdv_start_addr
+puts
