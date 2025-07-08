@@ -111,6 +111,7 @@ int main(void)
   //   process_image_capture();
   // }
 
+
   /* USER CODE END 2 */
 
   /* Infinite loop */

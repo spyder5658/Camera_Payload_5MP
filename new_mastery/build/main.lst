@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccQmHoCK.s 			page 1
+ARM GAS  /tmp/ccghkqoK.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -32,64 +32,66 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
    3:Core/Src/main.c ****   ******************************************************************************
    4:Core/Src/main.c ****   * @file           : main.c
    5:Core/Src/main.c ****   * @brief          : Main program body
-   6:Core/Src/main.c ****   ******************************************************************************
-   7:Core/Src/main.c ****   * @attention
-   8:Core/Src/main.c ****   *
-   9:Core/Src/main.c ****   * Copyright (c) 2025 STMicroelectronics.
-  10:Core/Src/main.c ****   * All rights reserved.
-  11:Core/Src/main.c ****   *
-  12:Core/Src/main.c ****   * This software is licensed under terms that can be found in the LICENSE file
-  13:Core/Src/main.c ****   * in the root directory of this software component.
-  14:Core/Src/main.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
-  15:Core/Src/main.c ****   *
-  16:Core/Src/main.c ****   ******************************************************************************
-  17:Core/Src/main.c ****   */
-  18:Core/Src/main.c **** /* USER CODE END Header */
-  19:Core/Src/main.c **** /* Includes ------------------------------------------------------------------*/
-  20:Core/Src/main.c **** #include "main.h"
-  21:Core/Src/main.c **** #include "i2c.h"
-  22:Core/Src/main.c **** #include "usart.h"
-  23:Core/Src/main.c **** #include "gpio.h"
-  24:Core/Src/main.c **** 
-  25:Core/Src/main.c **** /* Private includes ----------------------------------------------------------*/
-  26:Core/Src/main.c **** /* USER CODE BEGIN Includes */
-  27:Core/Src/main.c **** #include <stdio.h>
-  28:Core/Src/main.c **** #include <inttypes.h>
-  29:Core/Src/main.c **** int _write(int file, char *data, int len) {
-  28              		.loc 1 29 43 view -0
+   6:Core/Src/main.c ****   * @date           : 04-07-2025
+   7:Core/Src/main.c ****   * @author         : Sarthak Chaudhary
+   8:Core/Src/main.c ****   ******************************************************************************
+   9:Core/Src/main.c ****   * @attention
+  10:Core/Src/main.c ****   *
+  11:Core/Src/main.c ****   * Copyright (c) 2025 STMicroelectronics.
+  12:Core/Src/main.c ****   * All rights reserved.
+  13:Core/Src/main.c ****   *
+  14:Core/Src/main.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  15:Core/Src/main.c ****   * in the root directory of this software component.
+  16:Core/Src/main.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+  17:Core/Src/main.c ****   *
+  18:Core/Src/main.c ****   ******************************************************************************
+  19:Core/Src/main.c ****   */
+  20:Core/Src/main.c **** /* USER CODE END Header */
+  21:Core/Src/main.c **** /* Includes ------------------------------------------------------------------*/
+  22:Core/Src/main.c **** #include "main.h"
+  23:Core/Src/main.c **** #include "i2c.h"
+  24:Core/Src/main.c **** #include "usart.h"
+  25:Core/Src/main.c **** #include "gpio.h"
+  26:Core/Src/main.c **** 
+  27:Core/Src/main.c **** /* Private includes ----------------------------------------------------------*/
+  28:Core/Src/main.c **** /* USER CODE BEGIN Includes */
+  29:Core/Src/main.c **** #include <stdio.h>
+  30:Core/Src/main.c **** #include <inttypes.h>
+  31:Core/Src/main.c **** int _write(int file, char *data, int len) {
+ARM GAS  /tmp/ccghkqoK.s 			page 2
+
+
+  28              		.loc 1 31 43 view -0
   29              		.cfi_startproc
-ARM GAS  /tmp/ccQmHoCK.s 			page 2
-
-
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32              		.loc 1 29 43 is_stmt 0 view .LVU1
+  32              		.loc 1 31 43 is_stmt 0 view .LVU1
   33 0000 10B5     		push	{r4, lr}
   34              	.LCFI0:
   35              		.cfi_def_cfa_offset 8
   36              		.cfi_offset 4, -8
   37              		.cfi_offset 14, -4
   38 0002 1446     		mov	r4, r2
-  30:Core/Src/main.c ****     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
-  39              		.loc 1 30 5 is_stmt 1 view .LVU2
+  32:Core/Src/main.c ****     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
+  39              		.loc 1 32 5 is_stmt 1 view .LVU2
   40 0004 4FF0FF33 		mov	r3, #-1
   41 0008 92B2     		uxth	r2, r2
   42              	.LVL1:
-  43              		.loc 1 30 5 is_stmt 0 view .LVU3
+  43              		.loc 1 32 5 is_stmt 0 view .LVU3
   44 000a 0248     		ldr	r0, .L3
   45              	.LVL2:
-  46              		.loc 1 30 5 view .LVU4
+  46              		.loc 1 32 5 view .LVU4
   47 000c FFF7FEFF 		bl	HAL_UART_Transmit
   48              	.LVL3:
-  31:Core/Src/main.c ****     return len;
-  49              		.loc 1 31 5 is_stmt 1 view .LVU5
-  32:Core/Src/main.c **** }
-  50              		.loc 1 32 1 is_stmt 0 view .LVU6
+  33:Core/Src/main.c ****     return len;
+  49              		.loc 1 33 5 is_stmt 1 view .LVU5
+  34:Core/Src/main.c **** }
+  50              		.loc 1 34 1 is_stmt 0 view .LVU6
   51 0010 2046     		mov	r0, r4
   52 0012 10BD     		pop	{r4, pc}
   53              	.LVL4:
   54              	.L4:
-  55              		.loc 1 32 1 view .LVU7
+  55              		.loc 1 34 1 view .LVU7
   56              		.align	2
   57              	.L3:
   58 0014 00000000 		.word	huart1
@@ -116,28 +118,28 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
   72              		.syntax unified
   73              		.thumb
   74              		.thumb_func
+ARM GAS  /tmp/ccghkqoK.s 			page 3
+
+
   75              		.fpu softvfp
   77              	request_image_capture:
-ARM GAS  /tmp/ccQmHoCK.s 			page 3
-
-
   78              	.LFB69:
-  33:Core/Src/main.c **** /* USER CODE END Includes */
-  34:Core/Src/main.c **** 
-  35:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
-  36:Core/Src/main.c **** /* USER CODE BEGIN PTD */
-  37:Core/Src/main.c **** 
-  38:Core/Src/main.c **** #define SSDV_SLAVE_ADDR (0x12<<1)
+  35:Core/Src/main.c **** /* USER CODE END Includes */
+  36:Core/Src/main.c **** 
+  37:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
+  38:Core/Src/main.c **** /* USER CODE BEGIN PTD */
   39:Core/Src/main.c **** 
-  40:Core/Src/main.c **** 
-  41:Core/Src/main.c **** // uint8_t SSDV_Buffer[SSDV_PKT_SIZE];      // Buffer to hold each received packet
+  40:Core/Src/main.c **** #define SSDV_SLAVE_ADDR (0x12<<1)
+  41:Core/Src/main.c **** 
   42:Core/Src/main.c **** 
-  43:Core/Src/main.c **** 
-  44:Core/Src/main.c **** #define SSDV_PKT_SIZE       224
-  45:Core/Src/main.c **** #define SSDV_MAX_PACKETS    255
-  46:Core/Src/main.c **** 
-  47:Core/Src/main.c **** void request_image_capture() {
-  79              		.loc 1 47 30 is_stmt 1 view -0
+  43:Core/Src/main.c **** // uint8_t SSDV_Buffer[SSDV_PKT_SIZE];      // Buffer to hold each received packet
+  44:Core/Src/main.c **** 
+  45:Core/Src/main.c **** 
+  46:Core/Src/main.c **** #define SSDV_PKT_SIZE       224
+  47:Core/Src/main.c **** #define SSDV_MAX_PACKETS    255
+  48:Core/Src/main.c **** 
+  49:Core/Src/main.c **** void request_image_capture() {
+  79              		.loc 1 49 30 is_stmt 1 view -0
   80              		.cfi_startproc
   81              		@ args = 0, pretend = 0, frame = 8
   82              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -148,56 +150,56 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
   87 0002 85B0     		sub	sp, sp, #20
   88              	.LCFI2:
   89              		.cfi_def_cfa_offset 24
-  48:Core/Src/main.c ****     uint8_t cmd = 0x10;
-  90              		.loc 1 48 5 view .LVU9
-  91              		.loc 1 48 13 is_stmt 0 view .LVU10
+  50:Core/Src/main.c ****     uint8_t cmd[2] = {0x10,0};
+  90              		.loc 1 50 5 view .LVU9
+  91              		.loc 1 50 13 is_stmt 0 view .LVU10
   92 0004 1023     		movs	r3, #16
-  93 0006 8DF80F30 		strb	r3, [sp, #15]
-  49:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY) == HAL_OK) {
-  94              		.loc 1 49 5 is_stmt 1 view .LVU11
-  95              		.loc 1 49 9 is_stmt 0 view .LVU12
+  93 0006 ADF80C30 		strh	r3, [sp, #12]	@ movhi
+  51:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+  94              		.loc 1 51 5 is_stmt 1 view .LVU11
+  95              		.loc 1 51 9 is_stmt 0 view .LVU12
   96 000a 4FF0FF33 		mov	r3, #-1
   97 000e 0093     		str	r3, [sp]
-  98 0010 0123     		movs	r3, #1
-  99 0012 0DF10F02 		add	r2, sp, #15
- 100 0016 2421     		movs	r1, #36
- 101 0018 0648     		ldr	r0, .L9
- 102 001a FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+  98 0010 0223     		movs	r3, #2
+  99 0012 03AA     		add	r2, sp, #12
+ 100 0014 2421     		movs	r1, #36
+ 101 0016 0748     		ldr	r0, .L9
+ 102 0018 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
  103              	.LVL5:
- 104              		.loc 1 49 8 view .LVU13
- 105 001e 28B9     		cbnz	r0, .L6
-  50:Core/Src/main.c ****         printf("Image capture command sent.\r\n");
- 106              		.loc 1 50 9 is_stmt 1 view .LVU14
- 107 0020 0548     		ldr	r0, .L9+4
- 108 0022 FFF7FEFF 		bl	puts
+ 104              		.loc 1 51 8 view .LVU13
+ 105 001c 28B9     		cbnz	r0, .L6
+  52:Core/Src/main.c ****         printf("Image capture command sent.\r\n");
+ 106              		.loc 1 52 9 is_stmt 1 view .LVU14
+ 107 001e 0648     		ldr	r0, .L9+4
+ 108 0020 FFF7FEFF 		bl	puts
  109              	.LVL6:
  110              	.L5:
-  51:Core/Src/main.c ****     } else {
-  52:Core/Src/main.c ****         printf("Failed to send image capture command.\r\n");
-  53:Core/Src/main.c ****     }
-  54:Core/Src/main.c **** }
- 111              		.loc 1 54 1 is_stmt 0 view .LVU15
- 112 0026 05B0     		add	sp, sp, #20
-ARM GAS  /tmp/ccQmHoCK.s 			page 4
+  53:Core/Src/main.c ****     } else {
+  54:Core/Src/main.c ****         printf("Failed to send image capture command.\r\n");
+  55:Core/Src/main.c ****     }
+  56:Core/Src/main.c **** }
+ARM GAS  /tmp/ccghkqoK.s 			page 4
 
 
+ 111              		.loc 1 56 1 is_stmt 0 view .LVU15
+ 112 0024 05B0     		add	sp, sp, #20
  113              	.LCFI3:
  114              		.cfi_remember_state
  115              		.cfi_def_cfa_offset 4
  116              		@ sp needed
- 117 0028 5DF804FB 		ldr	pc, [sp], #4
+ 117 0026 5DF804FB 		ldr	pc, [sp], #4
  118              	.L6:
  119              	.LCFI4:
  120              		.cfi_restore_state
-  52:Core/Src/main.c ****     }
- 121              		.loc 1 52 9 is_stmt 1 view .LVU16
- 122 002c 0348     		ldr	r0, .L9+8
- 123 002e FFF7FEFF 		bl	puts
+  54:Core/Src/main.c ****     }
+ 121              		.loc 1 54 9 is_stmt 1 view .LVU16
+ 122 002a 0448     		ldr	r0, .L9+8
+ 123 002c FFF7FEFF 		bl	puts
  124              	.LVL7:
- 125              		.loc 1 54 1 is_stmt 0 view .LVU17
- 126 0032 F8E7     		b	.L5
+ 125              		.loc 1 56 1 is_stmt 0 view .LVU17
+ 126 0030 F8E7     		b	.L5
  127              	.L10:
- 128              		.align	2
+ 128 0032 00BF     		.align	2
  129              	.L9:
  130 0034 00000000 		.word	hi2c2
  131 0038 00000000 		.word	.LC0
@@ -228,79 +230,79 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  149              		.fpu softvfp
  151              	request_ssdv_stream:
  152              	.LFB70:
-  55:Core/Src/main.c **** 
-  56:Core/Src/main.c **** void request_ssdv_stream() {
- 153              		.loc 1 56 28 is_stmt 1 view -0
+  57:Core/Src/main.c **** 
+  58:Core/Src/main.c **** void request_ssdv_stream() {
+ 153              		.loc 1 58 28 is_stmt 1 view -0
  154              		.cfi_startproc
  155              		@ args = 0, pretend = 0, frame = 8
  156              		@ frame_needed = 0, uses_anonymous_args = 0
  157 0000 00B5     		push	{lr}
  158              	.LCFI5:
+ARM GAS  /tmp/ccghkqoK.s 			page 5
+
+
  159              		.cfi_def_cfa_offset 4
  160              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccQmHoCK.s 			page 5
-
-
  161 0002 85B0     		sub	sp, sp, #20
  162              	.LCFI6:
  163              		.cfi_def_cfa_offset 24
-  57:Core/Src/main.c ****     uint8_t cmd = 0x40;
- 164              		.loc 1 57 5 view .LVU19
- 165              		.loc 1 57 13 is_stmt 0 view .LVU20
- 166 0004 4023     		movs	r3, #64
- 167 0006 8DF80F30 		strb	r3, [sp, #15]
-  58:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY) == HAL_OK) {
- 168              		.loc 1 58 5 is_stmt 1 view .LVU21
- 169              		.loc 1 58 9 is_stmt 0 view .LVU22
+  59:Core/Src/main.c ****     uint8_t cmd[2] = {0x20,0};
+ 164              		.loc 1 59 5 view .LVU19
+ 165              		.loc 1 59 13 is_stmt 0 view .LVU20
+ 166 0004 2023     		movs	r3, #32
+ 167 0006 ADF80C30 		strh	r3, [sp, #12]	@ movhi
+  60:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 168              		.loc 1 60 5 is_stmt 1 view .LVU21
+ 169              		.loc 1 60 9 is_stmt 0 view .LVU22
  170 000a 4FF0FF33 		mov	r3, #-1
  171 000e 0093     		str	r3, [sp]
- 172 0010 0123     		movs	r3, #1
- 173 0012 0DF10F02 		add	r2, sp, #15
- 174 0016 2421     		movs	r1, #36
- 175 0018 0648     		ldr	r0, .L15
- 176 001a FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 172 0010 0223     		movs	r3, #2
+ 173 0012 03AA     		add	r2, sp, #12
+ 174 0014 2421     		movs	r1, #36
+ 175 0016 0748     		ldr	r0, .L15
+ 176 0018 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
  177              	.LVL8:
- 178              		.loc 1 58 8 view .LVU23
- 179 001e 28B9     		cbnz	r0, .L12
-  59:Core/Src/main.c ****         printf("SSDV stream command sent.\r\n");
- 180              		.loc 1 59 9 is_stmt 1 view .LVU24
- 181 0020 0548     		ldr	r0, .L15+4
- 182 0022 FFF7FEFF 		bl	puts
+ 178              		.loc 1 60 8 view .LVU23
+ 179 001c 28B9     		cbnz	r0, .L12
+  61:Core/Src/main.c ****         printf("SSDV stream command sent.\r\n");
+ 180              		.loc 1 61 9 is_stmt 1 view .LVU24
+ 181 001e 0648     		ldr	r0, .L15+4
+ 182 0020 FFF7FEFF 		bl	puts
  183              	.LVL9:
  184              	.L11:
-  60:Core/Src/main.c ****     } else {
-  61:Core/Src/main.c ****         printf("Failed to send SSDV stream command.\r\n");
-  62:Core/Src/main.c ****     }
-  63:Core/Src/main.c **** }
- 185              		.loc 1 63 1 is_stmt 0 view .LVU25
- 186 0026 05B0     		add	sp, sp, #20
+  62:Core/Src/main.c ****     } else {
+  63:Core/Src/main.c ****         printf("Failed to send SSDV stream command.\r\n");
+  64:Core/Src/main.c ****     }
+  65:Core/Src/main.c **** }
+ 185              		.loc 1 65 1 is_stmt 0 view .LVU25
+ 186 0024 05B0     		add	sp, sp, #20
  187              	.LCFI7:
  188              		.cfi_remember_state
  189              		.cfi_def_cfa_offset 4
  190              		@ sp needed
- 191 0028 5DF804FB 		ldr	pc, [sp], #4
+ 191 0026 5DF804FB 		ldr	pc, [sp], #4
  192              	.L12:
  193              	.LCFI8:
  194              		.cfi_restore_state
-  61:Core/Src/main.c ****     }
- 195              		.loc 1 61 9 is_stmt 1 view .LVU26
- 196 002c 0348     		ldr	r0, .L15+8
- 197 002e FFF7FEFF 		bl	puts
+  63:Core/Src/main.c ****     }
+ 195              		.loc 1 63 9 is_stmt 1 view .LVU26
+ 196 002a 0448     		ldr	r0, .L15+8
+ 197 002c FFF7FEFF 		bl	puts
  198              	.LVL10:
- 199              		.loc 1 63 1 is_stmt 0 view .LVU27
- 200 0032 F8E7     		b	.L11
+ 199              		.loc 1 65 1 is_stmt 0 view .LVU27
+ 200 0030 F8E7     		b	.L11
  201              	.L16:
- 202              		.align	2
+ 202 0032 00BF     		.align	2
  203              	.L15:
  204 0034 00000000 		.word	hi2c2
  205 0038 00000000 		.word	.LC2
  206 003c 1C000000 		.word	.LC3
  207              		.cfi_endproc
+ARM GAS  /tmp/ccghkqoK.s 			page 6
+
+
  208              	.LFE70:
  210              		.section	.rodata.read_ssdv_stream.str1.4,"aMS",%progbits,1
-ARM GAS  /tmp/ccQmHoCK.s 			page 6
-
-
  211              		.align	2
  212              	.LC4:
  213 0000 4572726F 		.ascii	"Error receiving packet %d\015\012\000"
@@ -350,17 +352,17 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  235              		.fpu softvfp
  237              	read_ssdv_stream:
  238              	.LFB71:
-  64:Core/Src/main.c **** 
-  65:Core/Src/main.c **** void read_ssdv_stream() {
- 239              		.loc 1 65 25 is_stmt 1 view -0
+  66:Core/Src/main.c **** 
+  67:Core/Src/main.c **** void read_ssdv_stream() {
+ 239              		.loc 1 67 25 is_stmt 1 view -0
  240              		.cfi_startproc
  241              		@ args = 0, pretend = 0, frame = 224
  242              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccghkqoK.s 			page 7
+
+
  243 0000 30B5     		push	{r4, r5, lr}
  244              	.LCFI9:
-ARM GAS  /tmp/ccQmHoCK.s 			page 7
-
-
  245              		.cfi_def_cfa_offset 12
  246              		.cfi_offset 4, -12
  247              		.cfi_offset 5, -8
@@ -368,104 +370,104 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  249 0002 BBB0     		sub	sp, sp, #236
  250              	.LCFI10:
  251              		.cfi_def_cfa_offset 248
-  66:Core/Src/main.c ****     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
- 252              		.loc 1 66 5 view .LVU29
-  67:Core/Src/main.c ****     uint16_t packet_index = 0;
- 253              		.loc 1 67 5 view .LVU30
+  68:Core/Src/main.c ****     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
+ 252              		.loc 1 68 5 view .LVU29
+  69:Core/Src/main.c ****     uint16_t packet_index = 0;
+ 253              		.loc 1 69 5 view .LVU30
  254              	.LVL11:
- 255              		.loc 1 67 14 is_stmt 0 view .LVU31
+ 255              		.loc 1 69 14 is_stmt 0 view .LVU31
  256 0004 0025     		movs	r5, #0
  257 0006 10E0     		b	.L24
  258              	.LVL12:
  259              	.L27:
-  68:Core/Src/main.c **** 
-  69:Core/Src/main.c ****     while (1) {
-  70:Core/Src/main.c ****         if (HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, ssdv_pkt, SSDV_PKT_SIZE, HAL_MAX_DELAY)
-  71:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
- 260              		.loc 1 71 13 is_stmt 1 view .LVU32
+  70:Core/Src/main.c **** 
+  71:Core/Src/main.c ****     while (1) {
+  72:Core/Src/main.c ****         if (HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, ssdv_pkt, SSDV_PKT_SIZE, HAL_MAX_DELAY)
+  73:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
+ 260              		.loc 1 73 13 is_stmt 1 view .LVU32
  261 0008 2946     		mov	r1, r5
  262 000a 1D48     		ldr	r0, .L30
  263 000c FFF7FEFF 		bl	printf
  264              	.LVL13:
-  72:Core/Src/main.c ****             break;
- 265              		.loc 1 72 13 view .LVU33
+  74:Core/Src/main.c ****             break;
+ 265              		.loc 1 74 13 view .LVU33
  266              	.L17:
-  73:Core/Src/main.c ****         }
-  74:Core/Src/main.c **** 
-  75:Core/Src/main.c ****         // Stop when dummy packet 0xFF is received
-  76:Core/Src/main.c ****         if (ssdv_pkt[0] == 0xFF) {
-  77:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
-  78:Core/Src/main.c ****             break;
-  79:Core/Src/main.c ****         }
-  80:Core/Src/main.c **** 
-  81:Core/Src/main.c ****         // Print packet content (optional)
-  82:Core/Src/main.c ****         printf("Packet %d received:\n", packet_index);
-  83:Core/Src/main.c ****         for (int i = 0; i < SSDV_PKT_SIZE; i++) {
-  84:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
-  85:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
-  86:Core/Src/main.c ****         }
-  87:Core/Src/main.c ****         printf("\n-----------------------------\n");
-  88:Core/Src/main.c **** 
-  89:Core/Src/main.c ****         packet_index++;
-  90:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
-  91:Core/Src/main.c ****             printf("Max SSDV packet limit reached.\r\n");
-  92:Core/Src/main.c ****             break;
-  93:Core/Src/main.c ****         }
-  94:Core/Src/main.c ****     }
-  95:Core/Src/main.c **** }
- 267              		.loc 1 95 1 is_stmt 0 view .LVU34
+  75:Core/Src/main.c ****         }
+  76:Core/Src/main.c **** 
+  77:Core/Src/main.c ****         // Stop when dummy packet 0xFF is received
+  78:Core/Src/main.c ****         if (ssdv_pkt[0] == 0xFF) {
+  79:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
+  80:Core/Src/main.c ****             break;
+  81:Core/Src/main.c ****         }
+  82:Core/Src/main.c **** 
+  83:Core/Src/main.c ****         // Print packet content (optional)
+  84:Core/Src/main.c ****         printf("Packet %d received:\n", packet_index);
+  85:Core/Src/main.c ****         for (int i = 0; i < SSDV_PKT_SIZE; i++) {
+  86:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
+  87:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
+  88:Core/Src/main.c ****         }
+  89:Core/Src/main.c ****         printf("\n-----------------------------\n");
+  90:Core/Src/main.c **** 
+  91:Core/Src/main.c ****         packet_index++;
+  92:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
+  93:Core/Src/main.c ****             printf("Max SSDV packet limit reached.\r\n");
+  94:Core/Src/main.c ****             break;
+  95:Core/Src/main.c ****         }
+  96:Core/Src/main.c ****     }
+  97:Core/Src/main.c **** }
+ 267              		.loc 1 97 1 is_stmt 0 view .LVU34
  268 0010 3BB0     		add	sp, sp, #236
  269              	.LCFI11:
+ARM GAS  /tmp/ccghkqoK.s 			page 8
+
+
  270              		.cfi_remember_state
  271              		.cfi_def_cfa_offset 12
-ARM GAS  /tmp/ccQmHoCK.s 			page 8
-
-
  272              		@ sp needed
  273 0012 30BD     		pop	{r4, r5, pc}
  274              	.LVL14:
  275              	.L28:
  276              	.LCFI12:
  277              		.cfi_restore_state
-  77:Core/Src/main.c ****             break;
- 278              		.loc 1 77 13 is_stmt 1 view .LVU35
+  79:Core/Src/main.c ****             break;
+ 278              		.loc 1 79 13 is_stmt 1 view .LVU35
  279 0014 1B48     		ldr	r0, .L30+4
  280 0016 FFF7FEFF 		bl	puts
  281              	.LVL15:
-  78:Core/Src/main.c ****         }
- 282              		.loc 1 78 13 view .LVU36
+  80:Core/Src/main.c ****         }
+ 282              		.loc 1 80 13 view .LVU36
  283 001a F9E7     		b	.L17
  284              	.LVL16:
  285              	.L29:
-  87:Core/Src/main.c **** 
- 286              		.loc 1 87 9 view .LVU37
+  89:Core/Src/main.c **** 
+ 286              		.loc 1 89 9 view .LVU37
  287 001c 1A48     		ldr	r0, .L30+8
  288 001e FFF7FEFF 		bl	puts
  289              	.LVL17:
-  89:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
- 290              		.loc 1 89 9 view .LVU38
-  89:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
- 291              		.loc 1 89 21 is_stmt 0 view .LVU39
+  91:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
+ 290              		.loc 1 91 9 view .LVU38
+  91:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
+ 291              		.loc 1 91 21 is_stmt 0 view .LVU39
  292 0022 0135     		adds	r5, r5, #1
  293              	.LVL18:
-  89:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
- 294              		.loc 1 89 21 view .LVU40
+  91:Core/Src/main.c ****         if (packet_index >= SSDV_MAX_PACKETS) {
+ 294              		.loc 1 91 21 view .LVU40
  295 0024 ADB2     		uxth	r5, r5
  296              	.LVL19:
-  90:Core/Src/main.c ****             printf("Max SSDV packet limit reached.\r\n");
- 297              		.loc 1 90 9 is_stmt 1 view .LVU41
-  90:Core/Src/main.c ****             printf("Max SSDV packet limit reached.\r\n");
- 298              		.loc 1 90 12 is_stmt 0 view .LVU42
+  92:Core/Src/main.c ****             printf("Max SSDV packet limit reached.\r\n");
+ 297              		.loc 1 92 9 is_stmt 1 view .LVU41
+  92:Core/Src/main.c ****             printf("Max SSDV packet limit reached.\r\n");
+ 298              		.loc 1 92 12 is_stmt 0 view .LVU42
  299 0026 FE2D     		cmp	r5, #254
  300 0028 25D8     		bhi	.L26
  301              	.LVL20:
  302              	.L24:
-  69:Core/Src/main.c ****         if (HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, ssdv_pkt, SSDV_PKT_SIZE, HAL_MAX_DELAY)
- 303              		.loc 1 69 5 is_stmt 1 view .LVU43
-  70:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
- 304              		.loc 1 70 9 view .LVU44
-  70:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
- 305              		.loc 1 70 13 is_stmt 0 view .LVU45
+  71:Core/Src/main.c ****         if (HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, ssdv_pkt, SSDV_PKT_SIZE, HAL_MAX_DELAY)
+ 303              		.loc 1 71 5 is_stmt 1 view .LVU43
+  72:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
+ 304              		.loc 1 72 9 view .LVU44
+  72:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
+ 305              		.loc 1 72 13 is_stmt 0 view .LVU45
  306 002a 4FF0FF33 		mov	r3, #-1
  307 002e 0093     		str	r3, [sp]
  308 0030 E023     		movs	r3, #224
@@ -474,88 +476,88 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  311 0036 1548     		ldr	r0, .L30+12
  312 0038 FFF7FEFF 		bl	HAL_I2C_Master_Receive
  313              	.LVL21:
-  70:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
- 314              		.loc 1 70 12 view .LVU46
+  72:Core/Src/main.c ****             printf("Error receiving packet %d\r\n", packet_index);
+ 314              		.loc 1 72 12 view .LVU46
+ARM GAS  /tmp/ccghkqoK.s 			page 9
+
+
  315 003c 0028     		cmp	r0, #0
  316 003e E3D1     		bne	.L27
-ARM GAS  /tmp/ccQmHoCK.s 			page 9
-
-
-  76:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
- 317              		.loc 1 76 9 is_stmt 1 view .LVU47
-  76:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
- 318              		.loc 1 76 21 is_stmt 0 view .LVU48
+  78:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
+ 317              		.loc 1 78 9 is_stmt 1 view .LVU47
+  78:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
+ 318              		.loc 1 78 21 is_stmt 0 view .LVU48
  319 0040 9DF80830 		ldrb	r3, [sp, #8]	@ zero_extendqisi2
-  76:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
- 320              		.loc 1 76 12 view .LVU49
+  78:Core/Src/main.c ****             printf("End of SSDV stream reached.\r\n");
+ 320              		.loc 1 78 12 view .LVU49
  321 0044 FF2B     		cmp	r3, #255
  322 0046 E5D0     		beq	.L28
-  82:Core/Src/main.c ****         for (int i = 0; i < SSDV_PKT_SIZE; i++) {
- 323              		.loc 1 82 9 is_stmt 1 view .LVU50
+  84:Core/Src/main.c ****         for (int i = 0; i < SSDV_PKT_SIZE; i++) {
+ 323              		.loc 1 84 9 is_stmt 1 view .LVU50
  324 0048 2946     		mov	r1, r5
  325 004a 1148     		ldr	r0, .L30+16
  326 004c FFF7FEFF 		bl	printf
  327              	.LVL22:
-  83:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
- 328              		.loc 1 83 9 view .LVU51
+  85:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
+ 328              		.loc 1 85 9 view .LVU51
  329              	.LBB4:
-  83:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
- 330              		.loc 1 83 14 view .LVU52
-  83:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
- 331              		.loc 1 83 18 is_stmt 0 view .LVU53
+  85:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
+ 330              		.loc 1 85 14 view .LVU52
+  85:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
+ 331              		.loc 1 85 18 is_stmt 0 view .LVU53
  332 0050 0024     		movs	r4, #0
  333              	.LVL23:
  334              	.L21:
-  83:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
- 335              		.loc 1 83 25 is_stmt 1 discriminator 1 view .LVU54
-  83:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
- 336              		.loc 1 83 9 is_stmt 0 discriminator 1 view .LVU55
+  85:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
+ 335              		.loc 1 85 25 is_stmt 1 discriminator 1 view .LVU54
+  85:Core/Src/main.c ****             printf("0x%02X, ", ssdv_pkt[i]);
+ 336              		.loc 1 85 9 is_stmt 0 discriminator 1 view .LVU55
  337 0052 DF2C     		cmp	r4, #223
  338 0054 E2DC     		bgt	.L29
-  84:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
- 339              		.loc 1 84 13 is_stmt 1 view .LVU56
-  84:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
- 340              		.loc 1 84 40 is_stmt 0 view .LVU57
+  86:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
+ 339              		.loc 1 86 13 is_stmt 1 view .LVU56
+  86:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
+ 340              		.loc 1 86 40 is_stmt 0 view .LVU57
  341 0056 04F1E803 		add	r3, r4, #232
  342 005a 6B44     		add	r3, sp, r3
-  84:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
- 343              		.loc 1 84 13 view .LVU58
+  86:Core/Src/main.c ****             if ((i + 1) % 16 == 0) printf("\n");
+ 343              		.loc 1 86 13 view .LVU58
  344 005c 13F8E01C 		ldrb	r1, [r3, #-224]	@ zero_extendqisi2
  345 0060 0C48     		ldr	r0, .L30+20
  346 0062 FFF7FEFF 		bl	printf
  347              	.LVL24:
-  85:Core/Src/main.c ****         }
- 348              		.loc 1 85 13 is_stmt 1 view .LVU59
-  85:Core/Src/main.c ****         }
- 349              		.loc 1 85 20 is_stmt 0 view .LVU60
+  87:Core/Src/main.c ****         }
+ 348              		.loc 1 87 13 is_stmt 1 view .LVU59
+  87:Core/Src/main.c ****         }
+ 349              		.loc 1 87 20 is_stmt 0 view .LVU60
  350 0066 0134     		adds	r4, r4, #1
  351              	.LVL25:
-  85:Core/Src/main.c ****         }
- 352              		.loc 1 85 16 view .LVU61
+  87:Core/Src/main.c ****         }
+ 352              		.loc 1 87 16 view .LVU61
  353 0068 14F00F0F 		tst	r4, #15
  354 006c F1D1     		bne	.L21
-  85:Core/Src/main.c ****         }
- 355              		.loc 1 85 36 is_stmt 1 discriminator 1 view .LVU62
+  87:Core/Src/main.c ****         }
+ 355              		.loc 1 87 36 is_stmt 1 discriminator 1 view .LVU62
+ARM GAS  /tmp/ccghkqoK.s 			page 10
+
+
  356 006e 0A20     		movs	r0, #10
  357 0070 FFF7FEFF 		bl	putchar
-ARM GAS  /tmp/ccQmHoCK.s 			page 10
-
-
  358              	.LVL26:
  359 0074 EDE7     		b	.L21
  360              	.LVL27:
  361              	.L26:
-  85:Core/Src/main.c ****         }
- 362              		.loc 1 85 36 is_stmt 0 discriminator 1 view .LVU63
+  87:Core/Src/main.c ****         }
+ 362              		.loc 1 87 36 is_stmt 0 discriminator 1 view .LVU63
  363              	.LBE4:
-  91:Core/Src/main.c ****             break;
- 364              		.loc 1 91 13 is_stmt 1 view .LVU64
+  93:Core/Src/main.c ****             break;
+ 364              		.loc 1 93 13 is_stmt 1 view .LVU64
  365 0076 0848     		ldr	r0, .L30+24
  366 0078 FFF7FEFF 		bl	puts
  367              	.LVL28:
-  92:Core/Src/main.c ****         }
- 368              		.loc 1 92 13 view .LVU65
- 369              		.loc 1 95 1 is_stmt 0 view .LVU66
+  94:Core/Src/main.c ****         }
+ 368              		.loc 1 94 13 view .LVU65
+ 369              		.loc 1 97 1 is_stmt 0 view .LVU66
  370 007c C8E7     		b	.L17
  371              	.L31:
  372 007e 00BF     		.align	2
@@ -569,168 +571,895 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  380 0098 80000000 		.word	.LC9
  381              		.cfi_endproc
  382              	.LFE71:
- 384              		.section	.text.Error_Handler,"ax",%progbits
- 385              		.align	1
- 386              		.global	Error_Handler
- 387              		.syntax unified
- 388              		.thumb
- 389              		.thumb_func
- 390              		.fpu softvfp
- 392              	Error_Handler:
- 393              	.LFB74:
-  96:Core/Src/main.c **** /* USER CODE END PTD */
-  97:Core/Src/main.c **** 
-  98:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
-  99:Core/Src/main.c **** /* USER CODE BEGIN PD */
- 100:Core/Src/main.c **** 
- 101:Core/Src/main.c **** /* USER CODE END PD */
- 102:Core/Src/main.c **** 
- 103:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
- 104:Core/Src/main.c **** /* USER CODE BEGIN PM */
+ 384              		.section	.rodata.set_brightness_.str1.4,"aMS",%progbits,1
+ 385              		.align	2
+ 386              	.LC10:
+ 387 0000 62726967 		.ascii	"brightness set.\015\000"
+ 387      68746E65 
+ 387      73732073 
+ 387      65742E0D 
+ 387      00
+ 388 0011 000000   		.align	2
+ 389              	.LC11:
+ 390 0014 4661696C 		.ascii	"Failed to set brigtness.\015\000"
+ 390      65642074 
+ 390      6F207365 
+ 390      74206272 
+ 390      6967746E 
+ 391              		.section	.text.set_brightness_,"ax",%progbits
+ 392              		.align	1
+ 393              		.global	set_brightness_
+ 394              		.syntax unified
+ 395              		.thumb
+ 396              		.thumb_func
+ 397              		.fpu softvfp
+ 399              	set_brightness_:
+ 400              	.LVL29:
+ 401              	.LFB72:
+  98:Core/Src/main.c **** 
+  99:Core/Src/main.c **** #define CAM_BRIGHTNESS_LEVEL_CMD  0x30
+ARM GAS  /tmp/ccghkqoK.s 			page 11
+
+
+ 100:Core/Src/main.c **** #define CAM_SHARPNESS_LEVEL_CMD   0x40
+ 101:Core/Src/main.c **** #define CAM_CONTRAST_LEVEL_CMD    0x50
+ 102:Core/Src/main.c **** #define CAM_EV_LEVEL_CMD          0x60
+ 103:Core/Src/main.c **** #define CAM_STAURATION_LEVEL_CMD  0x70
+ 104:Core/Src/main.c **** #define CAM_COLOR_FX_CMD          0x80
  105:Core/Src/main.c **** 
- 106:Core/Src/main.c **** /* USER CODE END PM */
- 107:Core/Src/main.c **** 
- 108:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
- 109:Core/Src/main.c **** 
- 110:Core/Src/main.c **** /* USER CODE BEGIN PV */
- 111:Core/Src/main.c **** 
- 112:Core/Src/main.c **** /* USER CODE END PV */
- 113:Core/Src/main.c **** 
- 114:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
- 115:Core/Src/main.c **** void SystemClock_Config(void);
-ARM GAS  /tmp/ccQmHoCK.s 			page 11
-
-
- 116:Core/Src/main.c **** /* USER CODE BEGIN PFP */
- 117:Core/Src/main.c **** 
- 118:Core/Src/main.c **** /* USER CODE END PFP */
- 119:Core/Src/main.c **** 
- 120:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
- 121:Core/Src/main.c **** /* USER CODE BEGIN 0 */
- 122:Core/Src/main.c **** 
- 123:Core/Src/main.c **** /* USER CODE END 0 */
- 124:Core/Src/main.c **** 
- 125:Core/Src/main.c **** /**
- 126:Core/Src/main.c ****   * @brief  The application entry point.
- 127:Core/Src/main.c ****   * @retval int
- 128:Core/Src/main.c ****   */
- 129:Core/Src/main.c **** int main(void)
- 130:Core/Src/main.c **** {
+ 106:Core/Src/main.c **** 
+ 107:Core/Src/main.c **** typedef enum {
+ 108:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_MINUS_4 = 8, /**<Level -4 */
+ 109:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_MINUS_3 = 6, /**<Level -3 */
+ 110:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_MINUS_2 = 4, /**<Level -2 */
+ 111:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_MINUS_1 = 2, /**<Level -1 */
+ 112:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_DEFAULT = 0, /**<Level Default*/
+ 113:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_1       = 1, /**<Level +1 */
+ 114:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_2       = 3, /**<Level +2 */
+ 115:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_3       = 5, /**<Level +3 */
+ 116:Core/Src/main.c ****     CAM_BRIGHTNESS_LEVEL_4       = 7, /**<Level +4 */
+ 117:Core/Src/main.c **** } CAM_BRIGHTNESS_LEVEL;
+ 118:Core/Src/main.c **** 
+ 119:Core/Src/main.c **** typedef enum {
+ 120:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_AUTO = 0, /**<Sharpness Auto */
+ 121:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_1,        /**<Sharpness Level 1 */
+ 122:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_2,        /**<Sharpness Level 2 */
+ 123:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_3,        /**<Sharpness Level 3 */
+ 124:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_4,        /**<Sharpness Level 4 */
+ 125:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_5,        /**<Sharpness Level 5 */
+ 126:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_6,        /**<Sharpness Level 6 */
+ 127:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_7,        /**<Sharpness Level 7 */
+ 128:Core/Src/main.c ****     CAM_SHARPNESS_LEVEL_8,        /**<Sharpness Level 8 */
+ 129:Core/Src/main.c **** } CAM_SHARPNESS_LEVEL;
+ 130:Core/Src/main.c **** 
  131:Core/Src/main.c **** 
- 132:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
- 133:Core/Src/main.c **** 
- 134:Core/Src/main.c ****   /* USER CODE END 1 */
- 135:Core/Src/main.c **** 
- 136:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
- 137:Core/Src/main.c **** 
- 138:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
- 139:Core/Src/main.c ****   HAL_Init();
- 140:Core/Src/main.c **** 
- 141:Core/Src/main.c ****   /* USER CODE BEGIN Init */
+ 132:Core/Src/main.c **** typedef enum {
+ 133:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_MINUS_3 = 6, /**<Level -3 */
+ 134:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_MINUS_2 = 4, /**<Level -2 */
+ 135:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_MINUS_1 = 2, /**<Level -1 */
+ 136:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_DEFAULT = 0, /**<Level Default*/
+ 137:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_1       = 1, /**<Level +1 */
+ 138:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_2       = 3, /**<Level +2 */
+ 139:Core/Src/main.c ****     CAM_CONTRAST_LEVEL_3       = 5, /**<Level +3 */
+ 140:Core/Src/main.c **** } CAM_CONTRAST_LEVEL;
+ 141:Core/Src/main.c **** 
  142:Core/Src/main.c **** 
- 143:Core/Src/main.c ****   /* USER CODE END Init */
- 144:Core/Src/main.c **** 
- 145:Core/Src/main.c ****   /* Configure the system clock */
- 146:Core/Src/main.c ****   SystemClock_Config();
- 147:Core/Src/main.c **** 
- 148:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
- 149:Core/Src/main.c **** 
- 150:Core/Src/main.c ****   /* USER CODE END SysInit */
- 151:Core/Src/main.c **** 
- 152:Core/Src/main.c ****   /* Initialize all configured peripherals */
- 153:Core/Src/main.c ****   MX_GPIO_Init();
- 154:Core/Src/main.c ****   MX_I2C2_Init();
- 155:Core/Src/main.c ****   MX_USART1_UART_Init();
- 156:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 157:Core/Src/main.c ****   printf("Master starting...\r\n");
- 158:Core/Src/main.c **** 
- 159:Core/Src/main.c ****   // Step 1: Request Image Capture
- 160:Core/Src/main.c ****   request_image_capture();
- 161:Core/Src/main.c ****   HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
- 162:Core/Src/main.c **** 
- 163:Core/Src/main.c ****   // Step 2: Request SSDV Stream
- 164:Core/Src/main.c ****   request_ssdv_stream();
- 165:Core/Src/main.c ****   HAL_Delay(200);
- 166:Core/Src/main.c **** 
- 167:Core/Src/main.c ****   // Step 3: Read All SSDV Packets
- 168:Core/Src/main.c ****   read_ssdv_stream();
- 169:Core/Src/main.c ****   /* USER CODE END 2 */
- 170:Core/Src/main.c **** 
- 171:Core/Src/main.c ****   /* Infinite loop */
- 172:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
-ARM GAS  /tmp/ccQmHoCK.s 			page 12
+ 143:Core/Src/main.c **** typedef enum {
+ 144:Core/Src/main.c ****     CAM_EV_LEVEL_MINUS_3 = 6, /**<Level -3 */
+ 145:Core/Src/main.c ****     CAM_EV_LEVEL_MINUS_2 = 4, /**<Level -2 */
+ 146:Core/Src/main.c ****     CAM_EV_LEVEL_MINUS_1 = 2, /**<Level -1 */
+ 147:Core/Src/main.c ****     CAM_EV_LEVEL_DEFAULT = 0, /**<Level Default*/
+ 148:Core/Src/main.c ****     CAM_EV_LEVEL_1       = 1, /**<Level +1 */
+ 149:Core/Src/main.c ****     CAM_EV_LEVEL_2       = 3, /**<Level +2 */
+ 150:Core/Src/main.c ****     CAM_EV_LEVEL_3       = 5, /**<Level +3 */
+ 151:Core/Src/main.c **** } CAM_EV_LEVEL;
+ 152:Core/Src/main.c **** 
+ 153:Core/Src/main.c **** 
+ 154:Core/Src/main.c **** typedef enum {
+ 155:Core/Src/main.c ****     CAM_STAURATION_LEVEL_MINUS_3 = 6, /**<Level -3 */
+ 156:Core/Src/main.c ****     CAM_STAURATION_LEVEL_MINUS_2 = 4, /**<Level -2 */
+ARM GAS  /tmp/ccghkqoK.s 			page 12
 
 
- 173:Core/Src/main.c ****   while (1)
- 174:Core/Src/main.c ****   {
- 175:Core/Src/main.c ****     /* USER CODE END WHILE */
+ 157:Core/Src/main.c ****     CAM_STAURATION_LEVEL_MINUS_1 = 2, /**<Level -1 */
+ 158:Core/Src/main.c ****     CAM_STAURATION_LEVEL_DEFAULT = 0, /**<Level Default*/
+ 159:Core/Src/main.c ****     CAM_STAURATION_LEVEL_1       = 1, /**<Level +1 */
+ 160:Core/Src/main.c ****     CAM_STAURATION_LEVEL_2       = 3, /**<Level +2 */
+ 161:Core/Src/main.c ****     CAM_STAURATION_LEVEL_3       = 5, /**<Level +3 */
+ 162:Core/Src/main.c **** } CAM_STAURATION_LEVEL;
+ 163:Core/Src/main.c **** 
+ 164:Core/Src/main.c **** 
+ 165:Core/Src/main.c **** typedef enum {
+ 166:Core/Src/main.c ****     CAM_COLOR_FX_NONE = 0,      /**< no effect   */
+ 167:Core/Src/main.c ****     CAM_COLOR_FX_BLUEISH,       /**< cool light   */
+ 168:Core/Src/main.c ****     CAM_COLOR_FX_REDISH,        /**< warm   */
+ 169:Core/Src/main.c ****     CAM_COLOR_FX_BW,            /**< Black/white   */
+ 170:Core/Src/main.c ****     CAM_COLOR_FX_SEPIA,         /**<Sepia   */
+ 171:Core/Src/main.c ****     CAM_COLOR_FX_NEGATIVE,      /**<positive/negative inversion  */
+ 172:Core/Src/main.c ****     CAM_COLOR_FX_GRASS_GREEN,   /**<Grass green */
+ 173:Core/Src/main.c ****     CAM_COLOR_FX_OVER_EXPOSURE, /**<Over exposure*/ //redish
+ 174:Core/Src/main.c ****     CAM_COLOR_FX_SOLARIZE,      /**< Solarize   */
+ 175:Core/Src/main.c **** } CAM_COLOR_FX;
  176:Core/Src/main.c **** 
- 177:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
- 178:Core/Src/main.c ****   }
- 179:Core/Src/main.c ****   /* USER CODE END 3 */
- 180:Core/Src/main.c **** }
- 181:Core/Src/main.c **** 
- 182:Core/Src/main.c **** /**
- 183:Core/Src/main.c ****   * @brief System Clock Configuration
- 184:Core/Src/main.c ****   * @retval None
- 185:Core/Src/main.c ****   */
- 186:Core/Src/main.c **** void SystemClock_Config(void)
- 187:Core/Src/main.c **** {
- 188:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 189:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 177:Core/Src/main.c **** 
+ 178:Core/Src/main.c **** 
+ 179:Core/Src/main.c **** void set_brightness_(CAM_BRIGHTNESS_LEVEL level )
+ 180:Core/Src/main.c ****  {
+ 402              		.loc 1 180 2 is_stmt 1 view -0
+ 403              		.cfi_startproc
+ 404              		@ args = 0, pretend = 0, frame = 8
+ 405              		@ frame_needed = 0, uses_anonymous_args = 0
+ 406              		.loc 1 180 2 is_stmt 0 view .LVU68
+ 407 0000 00B5     		push	{lr}
+ 408              	.LCFI13:
+ 409              		.cfi_def_cfa_offset 4
+ 410              		.cfi_offset 14, -4
+ 411 0002 85B0     		sub	sp, sp, #20
+ 412              	.LCFI14:
+ 413              		.cfi_def_cfa_offset 24
+ 181:Core/Src/main.c ****     uint8_t cmd[2];
+ 414              		.loc 1 181 5 is_stmt 1 view .LVU69
+ 182:Core/Src/main.c ****     cmd[0] = CAM_BRIGHTNESS_LEVEL_CMD;
+ 415              		.loc 1 182 5 view .LVU70
+ 416              		.loc 1 182 12 is_stmt 0 view .LVU71
+ 417 0004 3023     		movs	r3, #48
+ 418 0006 8DF80C30 		strb	r3, [sp, #12]
+ 183:Core/Src/main.c ****     cmd [1] = level ;
+ 419              		.loc 1 183 5 is_stmt 1 view .LVU72
+ 420              		.loc 1 183 13 is_stmt 0 view .LVU73
+ 421 000a 8DF80D00 		strb	r0, [sp, #13]
+ 184:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 422              		.loc 1 184 5 is_stmt 1 view .LVU74
+ 423              		.loc 1 184 9 is_stmt 0 view .LVU75
+ 424 000e 4FF0FF33 		mov	r3, #-1
+ 425 0012 0093     		str	r3, [sp]
+ 426 0014 0223     		movs	r3, #2
+ 427 0016 03AA     		add	r2, sp, #12
+ 428 0018 2421     		movs	r1, #36
+ 429 001a 0748     		ldr	r0, .L36
+ 430              	.LVL30:
+ARM GAS  /tmp/ccghkqoK.s 			page 13
+
+
+ 431              		.loc 1 184 9 view .LVU76
+ 432 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 433              	.LVL31:
+ 434              		.loc 1 184 8 view .LVU77
+ 435 0020 28B9     		cbnz	r0, .L33
+ 185:Core/Src/main.c ****         printf("brightness set.\r\n");
+ 436              		.loc 1 185 9 is_stmt 1 view .LVU78
+ 437 0022 0648     		ldr	r0, .L36+4
+ 438 0024 FFF7FEFF 		bl	puts
+ 439              	.LVL32:
+ 440              	.L32:
+ 186:Core/Src/main.c ****     } else {
+ 187:Core/Src/main.c ****         printf("Failed to set brigtness.\r\n");
+ 188:Core/Src/main.c ****     }
+ 189:Core/Src/main.c **** }
+ 441              		.loc 1 189 1 is_stmt 0 view .LVU79
+ 442 0028 05B0     		add	sp, sp, #20
+ 443              	.LCFI15:
+ 444              		.cfi_remember_state
+ 445              		.cfi_def_cfa_offset 4
+ 446              		@ sp needed
+ 447 002a 5DF804FB 		ldr	pc, [sp], #4
+ 448              	.L33:
+ 449              	.LCFI16:
+ 450              		.cfi_restore_state
+ 187:Core/Src/main.c ****     }
+ 451              		.loc 1 187 9 is_stmt 1 view .LVU80
+ 452 002e 0448     		ldr	r0, .L36+8
+ 453 0030 FFF7FEFF 		bl	puts
+ 454              	.LVL33:
+ 455              		.loc 1 189 1 is_stmt 0 view .LVU81
+ 456 0034 F8E7     		b	.L32
+ 457              	.L37:
+ 458 0036 00BF     		.align	2
+ 459              	.L36:
+ 460 0038 00000000 		.word	hi2c2
+ 461 003c 00000000 		.word	.LC10
+ 462 0040 14000000 		.word	.LC11
+ 463              		.cfi_endproc
+ 464              	.LFE72:
+ 466              		.section	.rodata.set_sharpness_.str1.4,"aMS",%progbits,1
+ 467              		.align	2
+ 468              	.LC12:
+ 469 0000 73686172 		.ascii	"sharpness set.\015\000"
+ 469      706E6573 
+ 469      73207365 
+ 469      742E0D00 
+ 470              		.align	2
+ 471              	.LC13:
+ 472 0010 4661696C 		.ascii	"Failed to set sharpness.\015\000"
+ 472      65642074 
+ 472      6F207365 
+ 472      74207368 
+ 472      6172706E 
+ 473              		.section	.text.set_sharpness_,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	set_sharpness_
+ARM GAS  /tmp/ccghkqoK.s 			page 14
+
+
+ 476              		.syntax unified
+ 477              		.thumb
+ 478              		.thumb_func
+ 479              		.fpu softvfp
+ 481              	set_sharpness_:
+ 482              	.LVL34:
+ 483              	.LFB73:
  190:Core/Src/main.c **** 
- 191:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
- 192:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
- 193:Core/Src/main.c ****   */
- 194:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
- 195:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
- 196:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 197:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 198:Core/Src/main.c ****   {
- 199:Core/Src/main.c ****     Error_Handler();
- 200:Core/Src/main.c ****   }
- 201:Core/Src/main.c **** 
- 202:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
- 203:Core/Src/main.c ****   */
- 204:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
- 205:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 206:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
- 207:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 208:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 209:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 210:Core/Src/main.c **** 
- 211:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
- 212:Core/Src/main.c ****   {
- 213:Core/Src/main.c ****     Error_Handler();
- 214:Core/Src/main.c ****   }
+ 191:Core/Src/main.c **** void set_sharpness_(CAM_SHARPNESS_LEVEL level )
+ 192:Core/Src/main.c ****  {
+ 484              		.loc 1 192 2 is_stmt 1 view -0
+ 485              		.cfi_startproc
+ 486              		@ args = 0, pretend = 0, frame = 8
+ 487              		@ frame_needed = 0, uses_anonymous_args = 0
+ 488              		.loc 1 192 2 is_stmt 0 view .LVU83
+ 489 0000 00B5     		push	{lr}
+ 490              	.LCFI17:
+ 491              		.cfi_def_cfa_offset 4
+ 492              		.cfi_offset 14, -4
+ 493 0002 85B0     		sub	sp, sp, #20
+ 494              	.LCFI18:
+ 495              		.cfi_def_cfa_offset 24
+ 193:Core/Src/main.c ****     uint8_t cmd[2];
+ 496              		.loc 1 193 5 is_stmt 1 view .LVU84
+ 194:Core/Src/main.c ****     cmd[0] = CAM_SHARPNESS_LEVEL_CMD;
+ 497              		.loc 1 194 5 view .LVU85
+ 498              		.loc 1 194 12 is_stmt 0 view .LVU86
+ 499 0004 4023     		movs	r3, #64
+ 500 0006 8DF80C30 		strb	r3, [sp, #12]
+ 195:Core/Src/main.c ****     cmd [1] = level ;
+ 501              		.loc 1 195 5 is_stmt 1 view .LVU87
+ 502              		.loc 1 195 13 is_stmt 0 view .LVU88
+ 503 000a 8DF80D00 		strb	r0, [sp, #13]
+ 196:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 504              		.loc 1 196 5 is_stmt 1 view .LVU89
+ 505              		.loc 1 196 9 is_stmt 0 view .LVU90
+ 506 000e 4FF0FF33 		mov	r3, #-1
+ 507 0012 0093     		str	r3, [sp]
+ 508 0014 0223     		movs	r3, #2
+ 509 0016 03AA     		add	r2, sp, #12
+ 510 0018 2421     		movs	r1, #36
+ 511 001a 0748     		ldr	r0, .L42
+ 512              	.LVL35:
+ 513              		.loc 1 196 9 view .LVU91
+ 514 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 515              	.LVL36:
+ 516              		.loc 1 196 8 view .LVU92
+ 517 0020 28B9     		cbnz	r0, .L39
+ 197:Core/Src/main.c ****         printf("sharpness set.\r\n");
+ 518              		.loc 1 197 9 is_stmt 1 view .LVU93
+ 519 0022 0648     		ldr	r0, .L42+4
+ 520 0024 FFF7FEFF 		bl	puts
+ 521              	.LVL37:
+ 522              	.L38:
+ 198:Core/Src/main.c ****     } else {
+ 199:Core/Src/main.c ****         printf("Failed to set sharpness.\r\n");
+ 200:Core/Src/main.c **** 
+ARM GAS  /tmp/ccghkqoK.s 			page 15
+
+
+ 201:Core/Src/main.c ****     }
+ 202:Core/Src/main.c **** }
+ 523              		.loc 1 202 1 is_stmt 0 view .LVU94
+ 524 0028 05B0     		add	sp, sp, #20
+ 525              	.LCFI19:
+ 526              		.cfi_remember_state
+ 527              		.cfi_def_cfa_offset 4
+ 528              		@ sp needed
+ 529 002a 5DF804FB 		ldr	pc, [sp], #4
+ 530              	.L39:
+ 531              	.LCFI20:
+ 532              		.cfi_restore_state
+ 199:Core/Src/main.c **** 
+ 533              		.loc 1 199 9 is_stmt 1 view .LVU95
+ 534 002e 0448     		ldr	r0, .L42+8
+ 535 0030 FFF7FEFF 		bl	puts
+ 536              	.LVL38:
+ 537              		.loc 1 202 1 is_stmt 0 view .LVU96
+ 538 0034 F8E7     		b	.L38
+ 539              	.L43:
+ 540 0036 00BF     		.align	2
+ 541              	.L42:
+ 542 0038 00000000 		.word	hi2c2
+ 543 003c 00000000 		.word	.LC12
+ 544 0040 10000000 		.word	.LC13
+ 545              		.cfi_endproc
+ 546              	.LFE73:
+ 548              		.section	.rodata.set_contrast_.str1.4,"aMS",%progbits,1
+ 549              		.align	2
+ 550              	.LC14:
+ 551 0000 636F6E74 		.ascii	"contrast set.\015\000"
+ 551      72617374 
+ 551      20736574 
+ 551      2E0D00
+ 552 000f 00       		.align	2
+ 553              	.LC15:
+ 554 0010 4661696C 		.ascii	"Failed to set contrast.\015\000"
+ 554      65642074 
+ 554      6F207365 
+ 554      7420636F 
+ 554      6E747261 
+ 555              		.section	.text.set_contrast_,"ax",%progbits
+ 556              		.align	1
+ 557              		.global	set_contrast_
+ 558              		.syntax unified
+ 559              		.thumb
+ 560              		.thumb_func
+ 561              		.fpu softvfp
+ 563              	set_contrast_:
+ 564              	.LVL39:
+ 565              	.LFB74:
+ 203:Core/Src/main.c **** 
+ 204:Core/Src/main.c **** void set_contrast_(CAM_CONTRAST_LEVEL level )
+ 205:Core/Src/main.c ****  {
+ 566              		.loc 1 205 2 is_stmt 1 view -0
+ 567              		.cfi_startproc
+ 568              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /tmp/ccghkqoK.s 			page 16
+
+
+ 569              		@ frame_needed = 0, uses_anonymous_args = 0
+ 570              		.loc 1 205 2 is_stmt 0 view .LVU98
+ 571 0000 00B5     		push	{lr}
+ 572              	.LCFI21:
+ 573              		.cfi_def_cfa_offset 4
+ 574              		.cfi_offset 14, -4
+ 575 0002 85B0     		sub	sp, sp, #20
+ 576              	.LCFI22:
+ 577              		.cfi_def_cfa_offset 24
+ 206:Core/Src/main.c ****     uint8_t cmd[2];
+ 578              		.loc 1 206 5 is_stmt 1 view .LVU99
+ 207:Core/Src/main.c ****     cmd[0] = CAM_CONTRAST_LEVEL_CMD;
+ 579              		.loc 1 207 5 view .LVU100
+ 580              		.loc 1 207 12 is_stmt 0 view .LVU101
+ 581 0004 5023     		movs	r3, #80
+ 582 0006 8DF80C30 		strb	r3, [sp, #12]
+ 208:Core/Src/main.c ****     cmd [1] = level ;
+ 583              		.loc 1 208 5 is_stmt 1 view .LVU102
+ 584              		.loc 1 208 13 is_stmt 0 view .LVU103
+ 585 000a 8DF80D00 		strb	r0, [sp, #13]
+ 209:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 586              		.loc 1 209 5 is_stmt 1 view .LVU104
+ 587              		.loc 1 209 9 is_stmt 0 view .LVU105
+ 588 000e 4FF0FF33 		mov	r3, #-1
+ 589 0012 0093     		str	r3, [sp]
+ 590 0014 0223     		movs	r3, #2
+ 591 0016 03AA     		add	r2, sp, #12
+ 592 0018 2421     		movs	r1, #36
+ 593 001a 0748     		ldr	r0, .L48
+ 594              	.LVL40:
+ 595              		.loc 1 209 9 view .LVU106
+ 596 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 597              	.LVL41:
+ 598              		.loc 1 209 8 view .LVU107
+ 599 0020 28B9     		cbnz	r0, .L45
+ 210:Core/Src/main.c ****         printf("contrast set.\r\n");
+ 600              		.loc 1 210 9 is_stmt 1 view .LVU108
+ 601 0022 0648     		ldr	r0, .L48+4
+ 602 0024 FFF7FEFF 		bl	puts
+ 603              	.LVL42:
+ 604              	.L44:
+ 211:Core/Src/main.c ****     } else {
+ 212:Core/Src/main.c ****         printf("Failed to set contrast.\r\n");
+ 213:Core/Src/main.c **** 
+ 214:Core/Src/main.c ****     }
  215:Core/Src/main.c **** }
+ 605              		.loc 1 215 1 is_stmt 0 view .LVU109
+ 606 0028 05B0     		add	sp, sp, #20
+ 607              	.LCFI23:
+ 608              		.cfi_remember_state
+ 609              		.cfi_def_cfa_offset 4
+ 610              		@ sp needed
+ 611 002a 5DF804FB 		ldr	pc, [sp], #4
+ 612              	.L45:
+ 613              	.LCFI24:
+ 614              		.cfi_restore_state
+ 212:Core/Src/main.c **** 
+ARM GAS  /tmp/ccghkqoK.s 			page 17
+
+
+ 615              		.loc 1 212 9 is_stmt 1 view .LVU110
+ 616 002e 0448     		ldr	r0, .L48+8
+ 617 0030 FFF7FEFF 		bl	puts
+ 618              	.LVL43:
+ 619              		.loc 1 215 1 is_stmt 0 view .LVU111
+ 620 0034 F8E7     		b	.L44
+ 621              	.L49:
+ 622 0036 00BF     		.align	2
+ 623              	.L48:
+ 624 0038 00000000 		.word	hi2c2
+ 625 003c 00000000 		.word	.LC14
+ 626 0040 10000000 		.word	.LC15
+ 627              		.cfi_endproc
+ 628              	.LFE74:
+ 630              		.section	.rodata.set_exposure_.str1.4,"aMS",%progbits,1
+ 631              		.align	2
+ 632              	.LC16:
+ 633 0000 65787073 		.ascii	"expsoure set.\015\000"
+ 633      6F757265 
+ 633      20736574 
+ 633      2E0D00
+ 634 000f 00       		.align	2
+ 635              	.LC17:
+ 636 0010 4661696C 		.ascii	"Failed to set expsoure.\015\000"
+ 636      65642074 
+ 636      6F207365 
+ 636      74206578 
+ 636      70736F75 
+ 637              		.section	.text.set_exposure_,"ax",%progbits
+ 638              		.align	1
+ 639              		.global	set_exposure_
+ 640              		.syntax unified
+ 641              		.thumb
+ 642              		.thumb_func
+ 643              		.fpu softvfp
+ 645              	set_exposure_:
+ 646              	.LVL44:
+ 647              	.LFB75:
  216:Core/Src/main.c **** 
- 217:Core/Src/main.c **** /* USER CODE BEGIN 4 */
- 218:Core/Src/main.c **** 
- 219:Core/Src/main.c **** /* USER CODE END 4 */
- 220:Core/Src/main.c **** 
- 221:Core/Src/main.c **** /**
- 222:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
- 223:Core/Src/main.c ****   * @retval None
- 224:Core/Src/main.c ****   */
- 225:Core/Src/main.c **** void Error_Handler(void)
- 226:Core/Src/main.c **** {
- 394              		.loc 1 226 1 is_stmt 1 view -0
- 395              		.cfi_startproc
- 396              		@ Volatile: function does not return.
-ARM GAS  /tmp/ccQmHoCK.s 			page 13
+ 217:Core/Src/main.c **** void set_exposure_(CAM_EV_LEVEL level )
+ 218:Core/Src/main.c ****  {
+ 648              		.loc 1 218 2 is_stmt 1 view -0
+ 649              		.cfi_startproc
+ 650              		@ args = 0, pretend = 0, frame = 8
+ 651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 652              		.loc 1 218 2 is_stmt 0 view .LVU113
+ 653 0000 00B5     		push	{lr}
+ 654              	.LCFI25:
+ 655              		.cfi_def_cfa_offset 4
+ 656              		.cfi_offset 14, -4
+ 657 0002 85B0     		sub	sp, sp, #20
+ 658              	.LCFI26:
+ 659              		.cfi_def_cfa_offset 24
+ 219:Core/Src/main.c ****     uint8_t cmd[2];
+ 660              		.loc 1 219 5 is_stmt 1 view .LVU114
+ 220:Core/Src/main.c ****     cmd[0] = CAM_EV_LEVEL_CMD;
+ 661              		.loc 1 220 5 view .LVU115
+ARM GAS  /tmp/ccghkqoK.s 			page 18
 
 
- 397              		@ args = 0, pretend = 0, frame = 0
- 398              		@ frame_needed = 0, uses_anonymous_args = 0
- 399              		@ link register save eliminated.
- 227:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
- 228:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
- 229:Core/Src/main.c ****   __disable_irq();
- 400              		.loc 1 229 3 view .LVU68
- 401              	.LBB5:
- 402              	.LBI5:
- 403              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+ 662              		.loc 1 220 12 is_stmt 0 view .LVU116
+ 663 0004 6023     		movs	r3, #96
+ 664 0006 8DF80C30 		strb	r3, [sp, #12]
+ 221:Core/Src/main.c ****     cmd [1] = level ;
+ 665              		.loc 1 221 5 is_stmt 1 view .LVU117
+ 666              		.loc 1 221 13 is_stmt 0 view .LVU118
+ 667 000a 8DF80D00 		strb	r0, [sp, #13]
+ 222:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 668              		.loc 1 222 5 is_stmt 1 view .LVU119
+ 669              		.loc 1 222 9 is_stmt 0 view .LVU120
+ 670 000e 4FF0FF33 		mov	r3, #-1
+ 671 0012 0093     		str	r3, [sp]
+ 672 0014 0223     		movs	r3, #2
+ 673 0016 03AA     		add	r2, sp, #12
+ 674 0018 2421     		movs	r1, #36
+ 675 001a 0748     		ldr	r0, .L54
+ 676              	.LVL45:
+ 677              		.loc 1 222 9 view .LVU121
+ 678 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 679              	.LVL46:
+ 680              		.loc 1 222 8 view .LVU122
+ 681 0020 28B9     		cbnz	r0, .L51
+ 223:Core/Src/main.c ****         printf("expsoure set.\r\n");
+ 682              		.loc 1 223 9 is_stmt 1 view .LVU123
+ 683 0022 0648     		ldr	r0, .L54+4
+ 684 0024 FFF7FEFF 		bl	puts
+ 685              	.LVL47:
+ 686              	.L50:
+ 224:Core/Src/main.c ****     } else {
+ 225:Core/Src/main.c ****         printf("Failed to set expsoure.\r\n");
+ 226:Core/Src/main.c **** 
+ 227:Core/Src/main.c ****     }
+ 228:Core/Src/main.c **** }
+ 687              		.loc 1 228 1 is_stmt 0 view .LVU124
+ 688 0028 05B0     		add	sp, sp, #20
+ 689              	.LCFI27:
+ 690              		.cfi_remember_state
+ 691              		.cfi_def_cfa_offset 4
+ 692              		@ sp needed
+ 693 002a 5DF804FB 		ldr	pc, [sp], #4
+ 694              	.L51:
+ 695              	.LCFI28:
+ 696              		.cfi_restore_state
+ 225:Core/Src/main.c **** 
+ 697              		.loc 1 225 9 is_stmt 1 view .LVU125
+ 698 002e 0448     		ldr	r0, .L54+8
+ 699 0030 FFF7FEFF 		bl	puts
+ 700              	.LVL48:
+ 701              		.loc 1 228 1 is_stmt 0 view .LVU126
+ 702 0034 F8E7     		b	.L50
+ 703              	.L55:
+ 704 0036 00BF     		.align	2
+ 705              	.L54:
+ 706 0038 00000000 		.word	hi2c2
+ 707 003c 00000000 		.word	.LC16
+ 708 0040 10000000 		.word	.LC17
+ 709              		.cfi_endproc
+ARM GAS  /tmp/ccghkqoK.s 			page 19
+
+
+ 710              	.LFE75:
+ 712              		.section	.rodata.set_saturation_.str1.4,"aMS",%progbits,1
+ 713              		.align	2
+ 714              	.LC18:
+ 715 0000 73617475 		.ascii	"saturation set.\015\000"
+ 715      72617469 
+ 715      6F6E2073 
+ 715      65742E0D 
+ 715      00
+ 716 0011 000000   		.align	2
+ 717              	.LC19:
+ 718 0014 4661696C 		.ascii	"Failed to set saturation.\015\000"
+ 718      65642074 
+ 718      6F207365 
+ 718      74207361 
+ 718      74757261 
+ 719              		.section	.text.set_saturation_,"ax",%progbits
+ 720              		.align	1
+ 721              		.global	set_saturation_
+ 722              		.syntax unified
+ 723              		.thumb
+ 724              		.thumb_func
+ 725              		.fpu softvfp
+ 727              	set_saturation_:
+ 728              	.LVL49:
+ 729              	.LFB76:
+ 229:Core/Src/main.c **** 
+ 230:Core/Src/main.c **** void set_saturation_(CAM_STAURATION_LEVEL level )
+ 231:Core/Src/main.c ****  {
+ 730              		.loc 1 231 2 is_stmt 1 view -0
+ 731              		.cfi_startproc
+ 732              		@ args = 0, pretend = 0, frame = 8
+ 733              		@ frame_needed = 0, uses_anonymous_args = 0
+ 734              		.loc 1 231 2 is_stmt 0 view .LVU128
+ 735 0000 00B5     		push	{lr}
+ 736              	.LCFI29:
+ 737              		.cfi_def_cfa_offset 4
+ 738              		.cfi_offset 14, -4
+ 739 0002 85B0     		sub	sp, sp, #20
+ 740              	.LCFI30:
+ 741              		.cfi_def_cfa_offset 24
+ 232:Core/Src/main.c ****     uint8_t cmd[2];
+ 742              		.loc 1 232 5 is_stmt 1 view .LVU129
+ 233:Core/Src/main.c ****     cmd[0] = CAM_STAURATION_LEVEL_CMD;
+ 743              		.loc 1 233 5 view .LVU130
+ 744              		.loc 1 233 12 is_stmt 0 view .LVU131
+ 745 0004 7023     		movs	r3, #112
+ 746 0006 8DF80C30 		strb	r3, [sp, #12]
+ 234:Core/Src/main.c ****     cmd [1] = level ;
+ 747              		.loc 1 234 5 is_stmt 1 view .LVU132
+ 748              		.loc 1 234 13 is_stmt 0 view .LVU133
+ 749 000a 8DF80D00 		strb	r0, [sp, #13]
+ 235:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 750              		.loc 1 235 5 is_stmt 1 view .LVU134
+ 751              		.loc 1 235 9 is_stmt 0 view .LVU135
+ 752 000e 4FF0FF33 		mov	r3, #-1
+ 753 0012 0093     		str	r3, [sp]
+ARM GAS  /tmp/ccghkqoK.s 			page 20
+
+
+ 754 0014 0223     		movs	r3, #2
+ 755 0016 03AA     		add	r2, sp, #12
+ 756 0018 2421     		movs	r1, #36
+ 757 001a 0748     		ldr	r0, .L60
+ 758              	.LVL50:
+ 759              		.loc 1 235 9 view .LVU136
+ 760 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 761              	.LVL51:
+ 762              		.loc 1 235 8 view .LVU137
+ 763 0020 28B9     		cbnz	r0, .L57
+ 236:Core/Src/main.c ****         printf("saturation set.\r\n");
+ 764              		.loc 1 236 9 is_stmt 1 view .LVU138
+ 765 0022 0648     		ldr	r0, .L60+4
+ 766 0024 FFF7FEFF 		bl	puts
+ 767              	.LVL52:
+ 768              	.L56:
+ 237:Core/Src/main.c ****     } else {
+ 238:Core/Src/main.c ****         printf("Failed to set saturation.\r\n");
+ 239:Core/Src/main.c **** 
+ 240:Core/Src/main.c ****     }
+ 241:Core/Src/main.c **** }
+ 769              		.loc 1 241 1 is_stmt 0 view .LVU139
+ 770 0028 05B0     		add	sp, sp, #20
+ 771              	.LCFI31:
+ 772              		.cfi_remember_state
+ 773              		.cfi_def_cfa_offset 4
+ 774              		@ sp needed
+ 775 002a 5DF804FB 		ldr	pc, [sp], #4
+ 776              	.L57:
+ 777              	.LCFI32:
+ 778              		.cfi_restore_state
+ 238:Core/Src/main.c **** 
+ 779              		.loc 1 238 9 is_stmt 1 view .LVU140
+ 780 002e 0448     		ldr	r0, .L60+8
+ 781 0030 FFF7FEFF 		bl	puts
+ 782              	.LVL53:
+ 783              		.loc 1 241 1 is_stmt 0 view .LVU141
+ 784 0034 F8E7     		b	.L56
+ 785              	.L61:
+ 786 0036 00BF     		.align	2
+ 787              	.L60:
+ 788 0038 00000000 		.word	hi2c2
+ 789 003c 00000000 		.word	.LC18
+ 790 0040 14000000 		.word	.LC19
+ 791              		.cfi_endproc
+ 792              	.LFE76:
+ 794              		.section	.rodata.set_effect_.str1.4,"aMS",%progbits,1
+ 795              		.align	2
+ 796              	.LC20:
+ 797 0000 65666665 		.ascii	"effect set.\015\000"
+ 797      63742073 
+ 797      65742E0D 
+ 797      00
+ 798 000d 000000   		.align	2
+ 799              	.LC21:
+ 800 0010 4661696C 		.ascii	"Failed to set effect.\015\000"
+ 800      65642074 
+ARM GAS  /tmp/ccghkqoK.s 			page 21
+
+
+ 800      6F207365 
+ 800      74206566 
+ 800      66656374 
+ 801              		.section	.text.set_effect_,"ax",%progbits
+ 802              		.align	1
+ 803              		.global	set_effect_
+ 804              		.syntax unified
+ 805              		.thumb
+ 806              		.thumb_func
+ 807              		.fpu softvfp
+ 809              	set_effect_:
+ 810              	.LVL54:
+ 811              	.LFB77:
+ 242:Core/Src/main.c **** 
+ 243:Core/Src/main.c **** void set_effect_(CAM_COLOR_FX effect )
+ 244:Core/Src/main.c ****  {
+ 812              		.loc 1 244 2 is_stmt 1 view -0
+ 813              		.cfi_startproc
+ 814              		@ args = 0, pretend = 0, frame = 8
+ 815              		@ frame_needed = 0, uses_anonymous_args = 0
+ 816              		.loc 1 244 2 is_stmt 0 view .LVU143
+ 817 0000 00B5     		push	{lr}
+ 818              	.LCFI33:
+ 819              		.cfi_def_cfa_offset 4
+ 820              		.cfi_offset 14, -4
+ 821 0002 85B0     		sub	sp, sp, #20
+ 822              	.LCFI34:
+ 823              		.cfi_def_cfa_offset 24
+ 245:Core/Src/main.c ****     uint8_t cmd[2];
+ 824              		.loc 1 245 5 is_stmt 1 view .LVU144
+ 246:Core/Src/main.c ****     cmd[0] = CAM_COLOR_FX_CMD;
+ 825              		.loc 1 246 5 view .LVU145
+ 826              		.loc 1 246 12 is_stmt 0 view .LVU146
+ 827 0004 8023     		movs	r3, #128
+ 828 0006 8DF80C30 		strb	r3, [sp, #12]
+ 247:Core/Src/main.c ****     cmd [1] = effect ;
+ 829              		.loc 1 247 5 is_stmt 1 view .LVU147
+ 830              		.loc 1 247 13 is_stmt 0 view .LVU148
+ 831 000a 8DF80D00 		strb	r0, [sp, #13]
+ 248:Core/Src/main.c ****     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+ 832              		.loc 1 248 5 is_stmt 1 view .LVU149
+ 833              		.loc 1 248 9 is_stmt 0 view .LVU150
+ 834 000e 4FF0FF33 		mov	r3, #-1
+ 835 0012 0093     		str	r3, [sp]
+ 836 0014 0223     		movs	r3, #2
+ 837 0016 03AA     		add	r2, sp, #12
+ 838 0018 2421     		movs	r1, #36
+ 839 001a 0748     		ldr	r0, .L66
+ 840              	.LVL55:
+ 841              		.loc 1 248 9 view .LVU151
+ 842 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 843              	.LVL56:
+ 844              		.loc 1 248 8 view .LVU152
+ 845 0020 28B9     		cbnz	r0, .L63
+ 249:Core/Src/main.c ****         printf("effect set.\r\n");
+ 846              		.loc 1 249 9 is_stmt 1 view .LVU153
+ 847 0022 0648     		ldr	r0, .L66+4
+ARM GAS  /tmp/ccghkqoK.s 			page 22
+
+
+ 848 0024 FFF7FEFF 		bl	puts
+ 849              	.LVL57:
+ 850              	.L62:
+ 250:Core/Src/main.c ****     } else {
+ 251:Core/Src/main.c ****         printf("Failed to set effect.\r\n");
+ 252:Core/Src/main.c **** 
+ 253:Core/Src/main.c ****     }
+ 254:Core/Src/main.c **** }
+ 851              		.loc 1 254 1 is_stmt 0 view .LVU154
+ 852 0028 05B0     		add	sp, sp, #20
+ 853              	.LCFI35:
+ 854              		.cfi_remember_state
+ 855              		.cfi_def_cfa_offset 4
+ 856              		@ sp needed
+ 857 002a 5DF804FB 		ldr	pc, [sp], #4
+ 858              	.L63:
+ 859              	.LCFI36:
+ 860              		.cfi_restore_state
+ 251:Core/Src/main.c **** 
+ 861              		.loc 1 251 9 is_stmt 1 view .LVU155
+ 862 002e 0448     		ldr	r0, .L66+8
+ 863 0030 FFF7FEFF 		bl	puts
+ 864              	.LVL58:
+ 865              		.loc 1 254 1 is_stmt 0 view .LVU156
+ 866 0034 F8E7     		b	.L62
+ 867              	.L67:
+ 868 0036 00BF     		.align	2
+ 869              	.L66:
+ 870 0038 00000000 		.word	hi2c2
+ 871 003c 00000000 		.word	.LC20
+ 872 0040 10000000 		.word	.LC21
+ 873              		.cfi_endproc
+ 874              	.LFE77:
+ 876              		.section	.text.Error_Handler,"ax",%progbits
+ 877              		.align	1
+ 878              		.global	Error_Handler
+ 879              		.syntax unified
+ 880              		.thumb
+ 881              		.thumb_func
+ 882              		.fpu softvfp
+ 884              	Error_Handler:
+ 885              	.LFB80:
+ 255:Core/Src/main.c **** 
+ 256:Core/Src/main.c **** /* USER CODE END PTD */
+ 257:Core/Src/main.c **** 
+ 258:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
+ 259:Core/Src/main.c **** /* USER CODE BEGIN PD */
+ 260:Core/Src/main.c **** 
+ 261:Core/Src/main.c **** /* USER CODE END PD */
+ 262:Core/Src/main.c **** 
+ 263:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
+ 264:Core/Src/main.c **** /* USER CODE BEGIN PM */
+ 265:Core/Src/main.c **** 
+ 266:Core/Src/main.c **** /* USER CODE END PM */
+ 267:Core/Src/main.c **** 
+ 268:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
+ 269:Core/Src/main.c **** 
+ARM GAS  /tmp/ccghkqoK.s 			page 23
+
+
+ 270:Core/Src/main.c **** /* USER CODE BEGIN PV */
+ 271:Core/Src/main.c **** 
+ 272:Core/Src/main.c **** /* USER CODE END PV */
+ 273:Core/Src/main.c **** 
+ 274:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
+ 275:Core/Src/main.c **** void SystemClock_Config(void);
+ 276:Core/Src/main.c **** /* USER CODE BEGIN PFP */
+ 277:Core/Src/main.c **** 
+ 278:Core/Src/main.c **** /* USER CODE END PFP */
+ 279:Core/Src/main.c **** 
+ 280:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
+ 281:Core/Src/main.c **** /* USER CODE BEGIN 0 */
+ 282:Core/Src/main.c **** 
+ 283:Core/Src/main.c **** /* USER CODE END 0 */
+ 284:Core/Src/main.c **** 
+ 285:Core/Src/main.c **** /**
+ 286:Core/Src/main.c ****   * @brief  The application entry point.
+ 287:Core/Src/main.c ****   * @retval int
+ 288:Core/Src/main.c ****   */
+ 289:Core/Src/main.c **** int main(void)
+ 290:Core/Src/main.c **** {
+ 291:Core/Src/main.c **** 
+ 292:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
+ 293:Core/Src/main.c **** 
+ 294:Core/Src/main.c ****   /* USER CODE END 1 */
+ 295:Core/Src/main.c **** 
+ 296:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
+ 297:Core/Src/main.c **** 
+ 298:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+ 299:Core/Src/main.c ****   HAL_Init();
+ 300:Core/Src/main.c **** 
+ 301:Core/Src/main.c ****   /* USER CODE BEGIN Init */
+ 302:Core/Src/main.c **** 
+ 303:Core/Src/main.c ****   /* USER CODE END Init */
+ 304:Core/Src/main.c **** 
+ 305:Core/Src/main.c ****   /* Configure the system clock */
+ 306:Core/Src/main.c ****   SystemClock_Config();
+ 307:Core/Src/main.c **** 
+ 308:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
+ 309:Core/Src/main.c **** 
+ 310:Core/Src/main.c ****   /* USER CODE END SysInit */
+ 311:Core/Src/main.c **** 
+ 312:Core/Src/main.c ****   /* Initialize all configured peripherals */
+ 313:Core/Src/main.c ****   MX_GPIO_Init();
+ 314:Core/Src/main.c ****   MX_I2C2_Init();
+ 315:Core/Src/main.c ****   MX_USART1_UART_Init();
+ 316:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 317:Core/Src/main.c ****   printf("Master starting...\r\n");
+ 318:Core/Src/main.c ****   set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
+ 319:Core/Src/main.c ****   set_effect_(CAM_COLOR_FX_SEPIA );
+ 320:Core/Src/main.c ****   // set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
+ 321:Core/Src/main.c **** 
+ 322:Core/Src/main.c ****   // Step 1: Request Image Capture
+ 323:Core/Src/main.c ****   request_image_capture();
+ 324:Core/Src/main.c ****   HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+ 325:Core/Src/main.c **** 
+ 326:Core/Src/main.c ****   // Step 2: Request SSDV Stream
+ARM GAS  /tmp/ccghkqoK.s 			page 24
+
+
+ 327:Core/Src/main.c ****   request_ssdv_stream();
+ 328:Core/Src/main.c ****   HAL_Delay(200);
+ 329:Core/Src/main.c **** 
+ 330:Core/Src/main.c ****   // Step 3: Read All SSDV Packets
+ 331:Core/Src/main.c ****   read_ssdv_stream();
+ 332:Core/Src/main.c ****   /* USER CODE END 2 */
+ 333:Core/Src/main.c **** 
+ 334:Core/Src/main.c ****   /* Infinite loop */
+ 335:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
+ 336:Core/Src/main.c ****   while (1)
+ 337:Core/Src/main.c ****   {
+ 338:Core/Src/main.c ****     /* USER CODE END WHILE */
+ 339:Core/Src/main.c **** 
+ 340:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
+ 341:Core/Src/main.c ****   }
+ 342:Core/Src/main.c ****   /* USER CODE END 3 */
+ 343:Core/Src/main.c **** }
+ 344:Core/Src/main.c **** 
+ 345:Core/Src/main.c **** /**
+ 346:Core/Src/main.c ****   * @brief System Clock Configuration
+ 347:Core/Src/main.c ****   * @retval None
+ 348:Core/Src/main.c ****   */
+ 349:Core/Src/main.c **** void SystemClock_Config(void)
+ 350:Core/Src/main.c **** {
+ 351:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 352:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 353:Core/Src/main.c **** 
+ 354:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
+ 355:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
+ 356:Core/Src/main.c ****   */
+ 357:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+ 358:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 359:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 360:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 361:Core/Src/main.c ****   {
+ 362:Core/Src/main.c ****     Error_Handler();
+ 363:Core/Src/main.c ****   }
+ 364:Core/Src/main.c **** 
+ 365:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
+ 366:Core/Src/main.c ****   */
+ 367:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 368:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 369:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
+ 370:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 371:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 372:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 373:Core/Src/main.c **** 
+ 374:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+ 375:Core/Src/main.c ****   {
+ 376:Core/Src/main.c ****     Error_Handler();
+ 377:Core/Src/main.c ****   }
+ 378:Core/Src/main.c **** }
+ 379:Core/Src/main.c **** 
+ 380:Core/Src/main.c **** /* USER CODE BEGIN 4 */
+ 381:Core/Src/main.c **** 
+ 382:Core/Src/main.c **** /* USER CODE END 4 */
+ 383:Core/Src/main.c **** 
+ARM GAS  /tmp/ccghkqoK.s 			page 25
+
+
+ 384:Core/Src/main.c **** /**
+ 385:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
+ 386:Core/Src/main.c ****   * @retval None
+ 387:Core/Src/main.c ****   */
+ 388:Core/Src/main.c **** void Error_Handler(void)
+ 389:Core/Src/main.c **** {
+ 886              		.loc 1 389 1 is_stmt 1 view -0
+ 887              		.cfi_startproc
+ 888              		@ Volatile: function does not return.
+ 889              		@ args = 0, pretend = 0, frame = 0
+ 890              		@ frame_needed = 0, uses_anonymous_args = 0
+ 891              		@ link register save eliminated.
+ 390:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 391:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
+ 392:Core/Src/main.c ****   __disable_irq();
+ 892              		.loc 1 392 3 view .LVU158
+ 893              	.LBB5:
+ 894              	.LBI5:
+ 895              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
    1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
    2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
@@ -769,6 +1498,9 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
   36:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
   37:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   38:Drivers/CMSIS/Include/cmsis_gcc.h **** 
+ARM GAS  /tmp/ccghkqoK.s 			page 26
+
+
   39:Drivers/CMSIS/Include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
   40:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ASM
   41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
@@ -778,9 +1510,6 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
   45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
   47:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_INLINE                        static inline
-ARM GAS  /tmp/ccQmHoCK.s 			page 14
-
-
   48:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   49:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_FORCEINLINE                 
   50:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __STATIC_FORCEINLINE                   __attribute__((always_inline)) static inline
@@ -829,6 +1558,9 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
   93:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   94:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
   95:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
+ARM GAS  /tmp/ccghkqoK.s 			page 27
+
+
   96:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
   97:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
   98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
@@ -838,9 +1570,6 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
  103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
  104:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-ARM GAS  /tmp/ccQmHoCK.s 			page 15
-
-
  105:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
  106:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
  107:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
@@ -877,302 +1606,336 @@ ARM GAS  /tmp/ccQmHoCK.s 			page 1
  138:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  139:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  140:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 404              		.loc 2 140 27 view .LVU69
- 405              	.LBB6:
+ 896              		.loc 2 140 27 view .LVU159
+ 897              	.LBB6:
  141:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  142:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
- 406              		.loc 2 142 3 view .LVU70
- 407              		.syntax unified
- 408              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 409 0000 72B6     		cpsid i
- 410              	@ 0 "" 2
- 411              		.thumb
- 412              		.syntax unified
- 413              	.L33:
- 414              	.LBE6:
- 415              	.LBE5:
- 230:Core/Src/main.c ****   while (1)
- 416              		.loc 1 230 3 discriminator 1 view .LVU71
- 231:Core/Src/main.c ****   {
- 232:Core/Src/main.c ****   }
- 417              		.loc 1 232 3 discriminator 1 view .LVU72
- 230:Core/Src/main.c ****   while (1)
- 418              		.loc 1 230 9 discriminator 1 view .LVU73
-ARM GAS  /tmp/ccQmHoCK.s 			page 16
+ 898              		.loc 2 142 3 view .LVU160
+ 899              		.syntax unified
+ 900              	@ 142 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 901 0000 72B6     		cpsid i
+ 902              	@ 0 "" 2
+ 903              		.thumb
+ 904              		.syntax unified
+ 905              	.L69:
+ARM GAS  /tmp/ccghkqoK.s 			page 28
 
 
- 419 0002 FEE7     		b	.L33
- 420              		.cfi_endproc
- 421              	.LFE74:
- 423              		.section	.text.SystemClock_Config,"ax",%progbits
- 424              		.align	1
- 425              		.global	SystemClock_Config
- 426              		.syntax unified
- 427              		.thumb
- 428              		.thumb_func
- 429              		.fpu softvfp
- 431              	SystemClock_Config:
- 432              	.LFB73:
- 187:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 433              		.loc 1 187 1 view -0
- 434              		.cfi_startproc
- 435              		@ args = 0, pretend = 0, frame = 64
- 436              		@ frame_needed = 0, uses_anonymous_args = 0
- 437 0000 00B5     		push	{lr}
- 438              	.LCFI13:
- 439              		.cfi_def_cfa_offset 4
- 440              		.cfi_offset 14, -4
- 441 0002 91B0     		sub	sp, sp, #68
- 442              	.LCFI14:
- 443              		.cfi_def_cfa_offset 72
- 188:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 444              		.loc 1 188 3 view .LVU75
- 188:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 445              		.loc 1 188 22 is_stmt 0 view .LVU76
- 446 0004 2822     		movs	r2, #40
- 447 0006 0021     		movs	r1, #0
- 448 0008 06A8     		add	r0, sp, #24
- 449 000a FFF7FEFF 		bl	memset
- 450              	.LVL29:
- 189:Core/Src/main.c **** 
- 451              		.loc 1 189 3 is_stmt 1 view .LVU77
- 189:Core/Src/main.c **** 
- 452              		.loc 1 189 22 is_stmt 0 view .LVU78
- 453 000e 0023     		movs	r3, #0
- 454 0010 0193     		str	r3, [sp, #4]
- 455 0012 0293     		str	r3, [sp, #8]
- 456 0014 0393     		str	r3, [sp, #12]
- 457 0016 0493     		str	r3, [sp, #16]
- 458 0018 0593     		str	r3, [sp, #20]
- 194:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
- 459              		.loc 1 194 3 is_stmt 1 view .LVU79
- 194:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
- 460              		.loc 1 194 36 is_stmt 0 view .LVU80
- 461 001a 0123     		movs	r3, #1
- 462 001c 0693     		str	r3, [sp, #24]
- 195:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 463              		.loc 1 195 3 is_stmt 1 view .LVU81
- 195:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 464              		.loc 1 195 30 is_stmt 0 view .LVU82
- 465 001e 4FF48033 		mov	r3, #65536
- 466 0022 0793     		str	r3, [sp, #28]
- 196:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 467              		.loc 1 196 3 is_stmt 1 view .LVU83
-ARM GAS  /tmp/ccQmHoCK.s 			page 17
+ 906              	.LBE6:
+ 907              	.LBE5:
+ 393:Core/Src/main.c ****   while (1)
+ 908              		.loc 1 393 3 discriminator 1 view .LVU161
+ 394:Core/Src/main.c ****   {
+ 395:Core/Src/main.c ****   }
+ 909              		.loc 1 395 3 discriminator 1 view .LVU162
+ 393:Core/Src/main.c ****   while (1)
+ 910              		.loc 1 393 9 discriminator 1 view .LVU163
+ 911 0002 FEE7     		b	.L69
+ 912              		.cfi_endproc
+ 913              	.LFE80:
+ 915              		.section	.text.SystemClock_Config,"ax",%progbits
+ 916              		.align	1
+ 917              		.global	SystemClock_Config
+ 918              		.syntax unified
+ 919              		.thumb
+ 920              		.thumb_func
+ 921              		.fpu softvfp
+ 923              	SystemClock_Config:
+ 924              	.LFB79:
+ 350:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 925              		.loc 1 350 1 view -0
+ 926              		.cfi_startproc
+ 927              		@ args = 0, pretend = 0, frame = 64
+ 928              		@ frame_needed = 0, uses_anonymous_args = 0
+ 929 0000 00B5     		push	{lr}
+ 930              	.LCFI37:
+ 931              		.cfi_def_cfa_offset 4
+ 932              		.cfi_offset 14, -4
+ 933 0002 91B0     		sub	sp, sp, #68
+ 934              	.LCFI38:
+ 935              		.cfi_def_cfa_offset 72
+ 351:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 936              		.loc 1 351 3 view .LVU165
+ 351:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 937              		.loc 1 351 22 is_stmt 0 view .LVU166
+ 938 0004 2822     		movs	r2, #40
+ 939 0006 0021     		movs	r1, #0
+ 940 0008 06A8     		add	r0, sp, #24
+ 941 000a FFF7FEFF 		bl	memset
+ 942              	.LVL59:
+ 352:Core/Src/main.c **** 
+ 943              		.loc 1 352 3 is_stmt 1 view .LVU167
+ 352:Core/Src/main.c **** 
+ 944              		.loc 1 352 22 is_stmt 0 view .LVU168
+ 945 000e 0023     		movs	r3, #0
+ 946 0010 0193     		str	r3, [sp, #4]
+ 947 0012 0293     		str	r3, [sp, #8]
+ 948 0014 0393     		str	r3, [sp, #12]
+ 949 0016 0493     		str	r3, [sp, #16]
+ 950 0018 0593     		str	r3, [sp, #20]
+ 357:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 951              		.loc 1 357 3 is_stmt 1 view .LVU169
+ 357:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 952              		.loc 1 357 36 is_stmt 0 view .LVU170
+ 953 001a 0123     		movs	r3, #1
+ARM GAS  /tmp/ccghkqoK.s 			page 29
 
 
- 197:Core/Src/main.c ****   {
- 468              		.loc 1 197 3 view .LVU84
- 197:Core/Src/main.c ****   {
- 469              		.loc 1 197 7 is_stmt 0 view .LVU85
- 470 0024 06A8     		add	r0, sp, #24
- 471 0026 FFF7FEFF 		bl	HAL_RCC_OscConfig
- 472              	.LVL30:
- 197:Core/Src/main.c ****   {
- 473              		.loc 1 197 6 view .LVU86
- 474 002a 70B9     		cbnz	r0, .L38
- 204:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 475              		.loc 1 204 3 is_stmt 1 view .LVU87
- 204:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 476              		.loc 1 204 31 is_stmt 0 view .LVU88
- 477 002c 0F23     		movs	r3, #15
- 478 002e 0193     		str	r3, [sp, #4]
- 206:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 479              		.loc 1 206 3 is_stmt 1 view .LVU89
- 206:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 480              		.loc 1 206 34 is_stmt 0 view .LVU90
- 481 0030 0123     		movs	r3, #1
- 482 0032 0293     		str	r3, [sp, #8]
- 207:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 483              		.loc 1 207 3 is_stmt 1 view .LVU91
- 207:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 484              		.loc 1 207 35 is_stmt 0 view .LVU92
- 485 0034 0021     		movs	r1, #0
- 486 0036 0391     		str	r1, [sp, #12]
- 208:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 487              		.loc 1 208 3 is_stmt 1 view .LVU93
- 208:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 488              		.loc 1 208 36 is_stmt 0 view .LVU94
- 489 0038 0491     		str	r1, [sp, #16]
- 209:Core/Src/main.c **** 
- 490              		.loc 1 209 3 is_stmt 1 view .LVU95
- 209:Core/Src/main.c **** 
- 491              		.loc 1 209 36 is_stmt 0 view .LVU96
- 492 003a 0591     		str	r1, [sp, #20]
- 211:Core/Src/main.c ****   {
- 493              		.loc 1 211 3 is_stmt 1 view .LVU97
- 211:Core/Src/main.c ****   {
- 494              		.loc 1 211 7 is_stmt 0 view .LVU98
- 495 003c 01A8     		add	r0, sp, #4
- 496 003e FFF7FEFF 		bl	HAL_RCC_ClockConfig
- 497              	.LVL31:
- 211:Core/Src/main.c ****   {
- 498              		.loc 1 211 6 view .LVU99
- 499 0042 20B9     		cbnz	r0, .L39
- 215:Core/Src/main.c **** 
- 500              		.loc 1 215 1 view .LVU100
- 501 0044 11B0     		add	sp, sp, #68
- 502              	.LCFI15:
- 503              		.cfi_remember_state
- 504              		.cfi_def_cfa_offset 4
- 505              		@ sp needed
- 506 0046 5DF804FB 		ldr	pc, [sp], #4
- 507              	.L38:
-ARM GAS  /tmp/ccQmHoCK.s 			page 18
+ 954 001c 0693     		str	r3, [sp, #24]
+ 358:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 955              		.loc 1 358 3 is_stmt 1 view .LVU171
+ 358:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 956              		.loc 1 358 30 is_stmt 0 view .LVU172
+ 957 001e 4FF48033 		mov	r3, #65536
+ 958 0022 0793     		str	r3, [sp, #28]
+ 359:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 959              		.loc 1 359 3 is_stmt 1 view .LVU173
+ 360:Core/Src/main.c ****   {
+ 960              		.loc 1 360 3 view .LVU174
+ 360:Core/Src/main.c ****   {
+ 961              		.loc 1 360 7 is_stmt 0 view .LVU175
+ 962 0024 06A8     		add	r0, sp, #24
+ 963 0026 FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 964              	.LVL60:
+ 360:Core/Src/main.c ****   {
+ 965              		.loc 1 360 6 view .LVU176
+ 966 002a 70B9     		cbnz	r0, .L74
+ 367:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 967              		.loc 1 367 3 is_stmt 1 view .LVU177
+ 367:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 968              		.loc 1 367 31 is_stmt 0 view .LVU178
+ 969 002c 0F23     		movs	r3, #15
+ 970 002e 0193     		str	r3, [sp, #4]
+ 369:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 971              		.loc 1 369 3 is_stmt 1 view .LVU179
+ 369:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 972              		.loc 1 369 34 is_stmt 0 view .LVU180
+ 973 0030 0123     		movs	r3, #1
+ 974 0032 0293     		str	r3, [sp, #8]
+ 370:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 975              		.loc 1 370 3 is_stmt 1 view .LVU181
+ 370:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 976              		.loc 1 370 35 is_stmt 0 view .LVU182
+ 977 0034 0021     		movs	r1, #0
+ 978 0036 0391     		str	r1, [sp, #12]
+ 371:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 979              		.loc 1 371 3 is_stmt 1 view .LVU183
+ 371:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 980              		.loc 1 371 36 is_stmt 0 view .LVU184
+ 981 0038 0491     		str	r1, [sp, #16]
+ 372:Core/Src/main.c **** 
+ 982              		.loc 1 372 3 is_stmt 1 view .LVU185
+ 372:Core/Src/main.c **** 
+ 983              		.loc 1 372 36 is_stmt 0 view .LVU186
+ 984 003a 0591     		str	r1, [sp, #20]
+ 374:Core/Src/main.c ****   {
+ 985              		.loc 1 374 3 is_stmt 1 view .LVU187
+ 374:Core/Src/main.c ****   {
+ 986              		.loc 1 374 7 is_stmt 0 view .LVU188
+ 987 003c 01A8     		add	r0, sp, #4
+ 988 003e FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 989              	.LVL61:
+ 374:Core/Src/main.c ****   {
+ 990              		.loc 1 374 6 view .LVU189
+ 991 0042 20B9     		cbnz	r0, .L75
+ARM GAS  /tmp/ccghkqoK.s 			page 30
 
 
- 508              	.LCFI16:
- 509              		.cfi_restore_state
- 199:Core/Src/main.c ****   }
- 510              		.loc 1 199 5 is_stmt 1 view .LVU101
- 511 004a FFF7FEFF 		bl	Error_Handler
- 512              	.LVL32:
- 513              	.L39:
- 213:Core/Src/main.c ****   }
- 514              		.loc 1 213 5 view .LVU102
- 515 004e FFF7FEFF 		bl	Error_Handler
- 516              	.LVL33:
- 517              		.cfi_endproc
- 518              	.LFE73:
- 520              		.section	.rodata.main.str1.4,"aMS",%progbits,1
- 521              		.align	2
- 522              	.LC10:
- 523 0000 4D617374 		.ascii	"Master starting...\015\000"
- 523      65722073 
- 523      74617274 
- 523      696E672E 
- 523      2E2E0D00 
- 524              		.section	.text.main,"ax",%progbits
- 525              		.align	1
- 526              		.global	main
- 527              		.syntax unified
- 528              		.thumb
- 529              		.thumb_func
- 530              		.fpu softvfp
- 532              	main:
- 533              	.LFB72:
- 130:Core/Src/main.c **** 
- 534              		.loc 1 130 1 view -0
- 535              		.cfi_startproc
- 536              		@ Volatile: function does not return.
- 537              		@ args = 0, pretend = 0, frame = 0
- 538              		@ frame_needed = 0, uses_anonymous_args = 0
- 539 0000 08B5     		push	{r3, lr}
- 540              	.LCFI17:
- 541              		.cfi_def_cfa_offset 8
- 542              		.cfi_offset 3, -8
- 543              		.cfi_offset 14, -4
- 139:Core/Src/main.c **** 
- 544              		.loc 1 139 3 view .LVU104
- 545 0002 FFF7FEFF 		bl	HAL_Init
- 546              	.LVL34:
- 146:Core/Src/main.c **** 
- 547              		.loc 1 146 3 view .LVU105
- 548 0006 FFF7FEFF 		bl	SystemClock_Config
- 549              	.LVL35:
- 153:Core/Src/main.c ****   MX_I2C2_Init();
- 550              		.loc 1 153 3 view .LVU106
- 551 000a FFF7FEFF 		bl	MX_GPIO_Init
- 552              	.LVL36:
- 154:Core/Src/main.c ****   MX_USART1_UART_Init();
- 553              		.loc 1 154 3 view .LVU107
- 554 000e FFF7FEFF 		bl	MX_I2C2_Init
- 555              	.LVL37:
-ARM GAS  /tmp/ccQmHoCK.s 			page 19
+ 378:Core/Src/main.c **** 
+ 992              		.loc 1 378 1 view .LVU190
+ 993 0044 11B0     		add	sp, sp, #68
+ 994              	.LCFI39:
+ 995              		.cfi_remember_state
+ 996              		.cfi_def_cfa_offset 4
+ 997              		@ sp needed
+ 998 0046 5DF804FB 		ldr	pc, [sp], #4
+ 999              	.L74:
+ 1000              	.LCFI40:
+ 1001              		.cfi_restore_state
+ 362:Core/Src/main.c ****   }
+ 1002              		.loc 1 362 5 is_stmt 1 view .LVU191
+ 1003 004a FFF7FEFF 		bl	Error_Handler
+ 1004              	.LVL62:
+ 1005              	.L75:
+ 376:Core/Src/main.c ****   }
+ 1006              		.loc 1 376 5 view .LVU192
+ 1007 004e FFF7FEFF 		bl	Error_Handler
+ 1008              	.LVL63:
+ 1009              		.cfi_endproc
+ 1010              	.LFE79:
+ 1012              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+ 1013              		.align	2
+ 1014              	.LC22:
+ 1015 0000 4D617374 		.ascii	"Master starting...\015\000"
+ 1015      65722073 
+ 1015      74617274 
+ 1015      696E672E 
+ 1015      2E2E0D00 
+ 1016              		.section	.text.main,"ax",%progbits
+ 1017              		.align	1
+ 1018              		.global	main
+ 1019              		.syntax unified
+ 1020              		.thumb
+ 1021              		.thumb_func
+ 1022              		.fpu softvfp
+ 1024              	main:
+ 1025              	.LFB78:
+ 290:Core/Src/main.c **** 
+ 1026              		.loc 1 290 1 view -0
+ 1027              		.cfi_startproc
+ 1028              		@ Volatile: function does not return.
+ 1029              		@ args = 0, pretend = 0, frame = 0
+ 1030              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1031 0000 08B5     		push	{r3, lr}
+ 1032              	.LCFI41:
+ 1033              		.cfi_def_cfa_offset 8
+ 1034              		.cfi_offset 3, -8
+ 1035              		.cfi_offset 14, -4
+ 299:Core/Src/main.c **** 
+ 1036              		.loc 1 299 3 view .LVU194
+ 1037 0002 FFF7FEFF 		bl	HAL_Init
+ 1038              	.LVL64:
+ 306:Core/Src/main.c **** 
+ 1039              		.loc 1 306 3 view .LVU195
+ 1040 0006 FFF7FEFF 		bl	SystemClock_Config
+ARM GAS  /tmp/ccghkqoK.s 			page 31
 
 
- 155:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 556              		.loc 1 155 3 view .LVU108
- 557 0012 FFF7FEFF 		bl	MX_USART1_UART_Init
- 558              	.LVL38:
- 157:Core/Src/main.c **** 
- 559              		.loc 1 157 3 view .LVU109
- 560 0016 0848     		ldr	r0, .L43
- 561 0018 FFF7FEFF 		bl	puts
- 562              	.LVL39:
- 160:Core/Src/main.c ****   HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
- 563              		.loc 1 160 3 view .LVU110
- 564 001c FFF7FEFF 		bl	request_image_capture
- 565              	.LVL40:
- 161:Core/Src/main.c **** 
- 566              		.loc 1 161 3 view .LVU111
- 567 0020 4FF4FA50 		mov	r0, #8000
- 568 0024 FFF7FEFF 		bl	HAL_Delay
- 569              	.LVL41:
- 164:Core/Src/main.c ****   HAL_Delay(200);
- 570              		.loc 1 164 3 view .LVU112
- 571 0028 FFF7FEFF 		bl	request_ssdv_stream
- 572              	.LVL42:
- 165:Core/Src/main.c **** 
- 573              		.loc 1 165 3 view .LVU113
- 574 002c C820     		movs	r0, #200
- 575 002e FFF7FEFF 		bl	HAL_Delay
- 576              	.LVL43:
- 168:Core/Src/main.c ****   /* USER CODE END 2 */
- 577              		.loc 1 168 3 view .LVU114
- 578 0032 FFF7FEFF 		bl	read_ssdv_stream
- 579              	.LVL44:
- 580              	.L41:
- 173:Core/Src/main.c ****   {
- 581              		.loc 1 173 3 discriminator 1 view .LVU115
- 178:Core/Src/main.c ****   /* USER CODE END 3 */
- 582              		.loc 1 178 3 discriminator 1 view .LVU116
- 173:Core/Src/main.c ****   {
- 583              		.loc 1 173 9 discriminator 1 view .LVU117
- 584 0036 FEE7     		b	.L41
- 585              	.L44:
- 586              		.align	2
- 587              	.L43:
- 588 0038 00000000 		.word	.LC10
- 589              		.cfi_endproc
- 590              	.LFE72:
- 592              		.text
- 593              	.Letext0:
- 594              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 595              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 596              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 597              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
- 598              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
- 599              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 600              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
- 601              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 602              		.file 11 "Core/Inc/i2c.h"
- 603              		.file 12 "Core/Inc/usart.h"
-ARM GAS  /tmp/ccQmHoCK.s 			page 20
+ 1041              	.LVL65:
+ 313:Core/Src/main.c ****   MX_I2C2_Init();
+ 1042              		.loc 1 313 3 view .LVU196
+ 1043 000a FFF7FEFF 		bl	MX_GPIO_Init
+ 1044              	.LVL66:
+ 314:Core/Src/main.c ****   MX_USART1_UART_Init();
+ 1045              		.loc 1 314 3 view .LVU197
+ 1046 000e FFF7FEFF 		bl	MX_I2C2_Init
+ 1047              	.LVL67:
+ 315:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 1048              		.loc 1 315 3 view .LVU198
+ 1049 0012 FFF7FEFF 		bl	MX_USART1_UART_Init
+ 1050              	.LVL68:
+ 317:Core/Src/main.c ****   set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
+ 1051              		.loc 1 317 3 view .LVU199
+ 1052 0016 0B48     		ldr	r0, .L79
+ 1053 0018 FFF7FEFF 		bl	puts
+ 1054              	.LVL69:
+ 318:Core/Src/main.c ****   set_effect_(CAM_COLOR_FX_SEPIA );
+ 1055              		.loc 1 318 3 view .LVU200
+ 1056 001c 0720     		movs	r0, #7
+ 1057 001e FFF7FEFF 		bl	set_brightness_
+ 1058              	.LVL70:
+ 319:Core/Src/main.c ****   // set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
+ 1059              		.loc 1 319 3 view .LVU201
+ 1060 0022 0420     		movs	r0, #4
+ 1061 0024 FFF7FEFF 		bl	set_effect_
+ 1062              	.LVL71:
+ 323:Core/Src/main.c ****   HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+ 1063              		.loc 1 323 3 view .LVU202
+ 1064 0028 FFF7FEFF 		bl	request_image_capture
+ 1065              	.LVL72:
+ 324:Core/Src/main.c **** 
+ 1066              		.loc 1 324 3 view .LVU203
+ 1067 002c 4FF4FA50 		mov	r0, #8000
+ 1068 0030 FFF7FEFF 		bl	HAL_Delay
+ 1069              	.LVL73:
+ 327:Core/Src/main.c ****   HAL_Delay(200);
+ 1070              		.loc 1 327 3 view .LVU204
+ 1071 0034 FFF7FEFF 		bl	request_ssdv_stream
+ 1072              	.LVL74:
+ 328:Core/Src/main.c **** 
+ 1073              		.loc 1 328 3 view .LVU205
+ 1074 0038 C820     		movs	r0, #200
+ 1075 003a FFF7FEFF 		bl	HAL_Delay
+ 1076              	.LVL75:
+ 331:Core/Src/main.c ****   /* USER CODE END 2 */
+ 1077              		.loc 1 331 3 view .LVU206
+ 1078 003e FFF7FEFF 		bl	read_ssdv_stream
+ 1079              	.LVL76:
+ 1080              	.L77:
+ 336:Core/Src/main.c ****   {
+ 1081              		.loc 1 336 3 discriminator 1 view .LVU207
+ 341:Core/Src/main.c ****   /* USER CODE END 3 */
+ 1082              		.loc 1 341 3 discriminator 1 view .LVU208
+ 336:Core/Src/main.c ****   {
+ 1083              		.loc 1 336 9 discriminator 1 view .LVU209
+ARM GAS  /tmp/ccghkqoK.s 			page 32
 
 
- 604              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 605              		.file 14 "Core/Inc/gpio.h"
- 606              		.file 15 "<built-in>"
- 607              		.file 16 "/usr/include/newlib/stdio.h"
-ARM GAS  /tmp/ccQmHoCK.s 			page 21
+ 1084 0042 FEE7     		b	.L77
+ 1085              	.L80:
+ 1086              		.align	2
+ 1087              	.L79:
+ 1088 0044 00000000 		.word	.LC22
+ 1089              		.cfi_endproc
+ 1090              	.LFE78:
+ 1092              		.text
+ 1093              	.Letext0:
+ 1094              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 1095              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 1096              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1097              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 1098              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 1099              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1100              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 1101              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 1102              		.file 11 "Core/Inc/i2c.h"
+ 1103              		.file 12 "Core/Inc/usart.h"
+ 1104              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1105              		.file 14 "Core/Inc/gpio.h"
+ 1106              		.file 15 "<built-in>"
+ 1107              		.file 16 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/ccghkqoK.s 			page 33
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/ccQmHoCK.s:16     .text._write:0000000000000000 $t
-     /tmp/ccQmHoCK.s:24     .text._write:0000000000000000 _write
-     /tmp/ccQmHoCK.s:58     .text._write:0000000000000014 $d
-     /tmp/ccQmHoCK.s:63     .rodata.request_image_capture.str1.4:0000000000000000 $d
-     /tmp/ccQmHoCK.s:70     .text.request_image_capture:0000000000000000 $t
-     /tmp/ccQmHoCK.s:77     .text.request_image_capture:0000000000000000 request_image_capture
-     /tmp/ccQmHoCK.s:130    .text.request_image_capture:0000000000000034 $d
-     /tmp/ccQmHoCK.s:137    .rodata.request_ssdv_stream.str1.4:0000000000000000 $d
-     /tmp/ccQmHoCK.s:144    .text.request_ssdv_stream:0000000000000000 $t
-     /tmp/ccQmHoCK.s:151    .text.request_ssdv_stream:0000000000000000 request_ssdv_stream
-     /tmp/ccQmHoCK.s:204    .text.request_ssdv_stream:0000000000000034 $d
-     /tmp/ccQmHoCK.s:211    .rodata.read_ssdv_stream.str1.4:0000000000000000 $d
-     /tmp/ccQmHoCK.s:230    .text.read_ssdv_stream:0000000000000000 $t
-     /tmp/ccQmHoCK.s:237    .text.read_ssdv_stream:0000000000000000 read_ssdv_stream
-     /tmp/ccQmHoCK.s:374    .text.read_ssdv_stream:0000000000000080 $d
-     /tmp/ccQmHoCK.s:385    .text.Error_Handler:0000000000000000 $t
-     /tmp/ccQmHoCK.s:392    .text.Error_Handler:0000000000000000 Error_Handler
-     /tmp/ccQmHoCK.s:424    .text.SystemClock_Config:0000000000000000 $t
-     /tmp/ccQmHoCK.s:431    .text.SystemClock_Config:0000000000000000 SystemClock_Config
-     /tmp/ccQmHoCK.s:521    .rodata.main.str1.4:0000000000000000 $d
-     /tmp/ccQmHoCK.s:525    .text.main:0000000000000000 $t
-     /tmp/ccQmHoCK.s:532    .text.main:0000000000000000 main
-     /tmp/ccQmHoCK.s:588    .text.main:0000000000000038 $d
+     /tmp/ccghkqoK.s:16     .text._write:0000000000000000 $t
+     /tmp/ccghkqoK.s:24     .text._write:0000000000000000 _write
+     /tmp/ccghkqoK.s:58     .text._write:0000000000000014 $d
+     /tmp/ccghkqoK.s:63     .rodata.request_image_capture.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:70     .text.request_image_capture:0000000000000000 $t
+     /tmp/ccghkqoK.s:77     .text.request_image_capture:0000000000000000 request_image_capture
+     /tmp/ccghkqoK.s:130    .text.request_image_capture:0000000000000034 $d
+     /tmp/ccghkqoK.s:137    .rodata.request_ssdv_stream.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:144    .text.request_ssdv_stream:0000000000000000 $t
+     /tmp/ccghkqoK.s:151    .text.request_ssdv_stream:0000000000000000 request_ssdv_stream
+     /tmp/ccghkqoK.s:204    .text.request_ssdv_stream:0000000000000034 $d
+     /tmp/ccghkqoK.s:211    .rodata.read_ssdv_stream.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:230    .text.read_ssdv_stream:0000000000000000 $t
+     /tmp/ccghkqoK.s:237    .text.read_ssdv_stream:0000000000000000 read_ssdv_stream
+     /tmp/ccghkqoK.s:374    .text.read_ssdv_stream:0000000000000080 $d
+     /tmp/ccghkqoK.s:385    .rodata.set_brightness_.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:392    .text.set_brightness_:0000000000000000 $t
+     /tmp/ccghkqoK.s:399    .text.set_brightness_:0000000000000000 set_brightness_
+     /tmp/ccghkqoK.s:460    .text.set_brightness_:0000000000000038 $d
+     /tmp/ccghkqoK.s:467    .rodata.set_sharpness_.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:474    .text.set_sharpness_:0000000000000000 $t
+     /tmp/ccghkqoK.s:481    .text.set_sharpness_:0000000000000000 set_sharpness_
+     /tmp/ccghkqoK.s:542    .text.set_sharpness_:0000000000000038 $d
+     /tmp/ccghkqoK.s:549    .rodata.set_contrast_.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:556    .text.set_contrast_:0000000000000000 $t
+     /tmp/ccghkqoK.s:563    .text.set_contrast_:0000000000000000 set_contrast_
+     /tmp/ccghkqoK.s:624    .text.set_contrast_:0000000000000038 $d
+     /tmp/ccghkqoK.s:631    .rodata.set_exposure_.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:638    .text.set_exposure_:0000000000000000 $t
+     /tmp/ccghkqoK.s:645    .text.set_exposure_:0000000000000000 set_exposure_
+     /tmp/ccghkqoK.s:706    .text.set_exposure_:0000000000000038 $d
+     /tmp/ccghkqoK.s:713    .rodata.set_saturation_.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:720    .text.set_saturation_:0000000000000000 $t
+     /tmp/ccghkqoK.s:727    .text.set_saturation_:0000000000000000 set_saturation_
+     /tmp/ccghkqoK.s:788    .text.set_saturation_:0000000000000038 $d
+     /tmp/ccghkqoK.s:795    .rodata.set_effect_.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:802    .text.set_effect_:0000000000000000 $t
+     /tmp/ccghkqoK.s:809    .text.set_effect_:0000000000000000 set_effect_
+     /tmp/ccghkqoK.s:870    .text.set_effect_:0000000000000038 $d
+     /tmp/ccghkqoK.s:877    .text.Error_Handler:0000000000000000 $t
+     /tmp/ccghkqoK.s:884    .text.Error_Handler:0000000000000000 Error_Handler
+     /tmp/ccghkqoK.s:916    .text.SystemClock_Config:0000000000000000 $t
+     /tmp/ccghkqoK.s:923    .text.SystemClock_Config:0000000000000000 SystemClock_Config
+     /tmp/ccghkqoK.s:1013   .rodata.main.str1.4:0000000000000000 $d
+     /tmp/ccghkqoK.s:1017   .text.main:0000000000000000 $t
+     /tmp/ccghkqoK.s:1024   .text.main:0000000000000000 main
+     /tmp/ccghkqoK.s:1088   .text.main:0000000000000044 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Transmit
@@ -1181,6 +1944,9 @@ HAL_I2C_Master_Transmit
 puts
 hi2c2
 printf
+ARM GAS  /tmp/ccghkqoK.s 			page 34
+
+
 HAL_I2C_Master_Receive
 putchar
 memset

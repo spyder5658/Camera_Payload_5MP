@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "i2c_slave.h"
 
 
 uint8_t image_buffer[MAX_IMAGE_SIZE]={0};
@@ -94,23 +95,33 @@ void arducam_set_jpeg_mode() {
     arducam_write_register(0x21, 0x01);  // Resolution = 320x240
     HAL_Delay(10);
 
-    camersSetBrightness(CAM_BRIGHTNESS_LEVEL_4);
+    camersSetBrightness(lvl);
+    printf("brighness level:%i \n" ,lvl);
     HAL_Delay(10);
 
-    // cameraSetSaturation(CAM_STAURATION_LEVEL_3);
-    // HAL_Delay(10);
+    cameraSetSaturation(saturation_lvl);
+    printf("saturation level:%i \n" ,saturation_lvl);
 
-    // cameraSetEV(CAM_EV_LEVEL_3);
-    // HAL_Delay(10);
+    HAL_Delay(10);
 
-    // cameraSetContrast(CAM_CONTRAST_LEVEL_3);
-    // HAL_Delay(10);
+    cameraSetEV(exposure_lvl);
+    printf("exposure level:%i \n" ,exposure_lvl);
 
-    // cameraSetSharpness(CAM_SHARPNESS_LEVEL_8);
-    // HAL_Delay(10);
+    HAL_Delay(10);
 
-    // cameraSetColorEffect(CAM_COLOR_FX_BW);
-    // HAL_Delay(10);
+    cameraSetContrast(contra_lvl);
+    printf("contrast level:%i \n" ,contra_lvl);
+
+    HAL_Delay(10);
+
+    cameraSetSharpness(shrp_lvl);
+    printf("sharpness level:%i \n" ,shrp_lvl);
+
+    HAL_Delay(10);
+
+    cameraSetColorEffect(effect);
+    printf("effect:%i \n" ,effect);
+    HAL_Delay(10);
 
 }
 

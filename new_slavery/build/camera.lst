@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccwBrY9H.s 			page 1
+ARM GAS  /tmp/cc40a8AS.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -28,77 +28,78 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
   26              	.LFB68:
   27              		.file 1 "Core/Src/camera.c"
    1:Core/Src/camera.c **** #include "camera.h"
-   2:Core/Src/camera.c **** 
+   2:Core/Src/camera.c **** #include "i2c_slave.h"
    3:Core/Src/camera.c **** 
-   4:Core/Src/camera.c **** uint8_t image_buffer[MAX_IMAGE_SIZE]={0};
-   5:Core/Src/camera.c **** 
-   6:Core/Src/camera.c **** #define JPEG_SOI 0xFFD8  // Start Of Image
-   7:Core/Src/camera.c **** #define JPEG_EOI 0xFFD9  // End Of Image
-   8:Core/Src/camera.c **** uint32_t jpeg_size = 0;
-   9:Core/Src/camera.c **** 
+   4:Core/Src/camera.c **** 
+   5:Core/Src/camera.c **** uint8_t image_buffer[MAX_IMAGE_SIZE]={0};
+   6:Core/Src/camera.c **** 
+   7:Core/Src/camera.c **** #define JPEG_SOI 0xFFD8  // Start Of Image
+   8:Core/Src/camera.c **** #define JPEG_EOI 0xFFD9  // End Of Image
+   9:Core/Src/camera.c **** uint32_t jpeg_size = 0;
   10:Core/Src/camera.c **** 
-  11:Core/Src/camera.c **** uint32_t ssdv_packets_in_image = 0;
-  12:Core/Src/camera.c **** uint32_t ssdv_start_addr = 0; 
-  13:Core/Src/camera.c **** 
-  14:Core/Src/camera.c **** /* USER CODE BEGIN PD */
-  15:Core/Src/camera.c **** extern SPI_HandleTypeDef hspi1;
-  16:Core/Src/camera.c **** char ssdv_type = SSDV_TYPE_NORMAL;
-  17:Core/Src/camera.c **** char ssdv_call_sign[7] = "CALSIGN";
-  18:Core/Src/camera.c **** uint8_t ssdv_image_id = 0;
-  19:Core/Src/camera.c **** int8_t ssdv_quality = 4;
-  20:Core/Src/camera.c **** 
-  21:Core/Src/camera.c **** void arducam_write_register(uint8_t reg, uint8_t value) {
-  28              		.loc 1 21 57 view -0
+  11:Core/Src/camera.c **** 
+  12:Core/Src/camera.c **** uint32_t ssdv_packets_in_image = 0;
+  13:Core/Src/camera.c **** uint32_t ssdv_start_addr = 0; 
+  14:Core/Src/camera.c **** 
+  15:Core/Src/camera.c **** /* USER CODE BEGIN PD */
+  16:Core/Src/camera.c **** extern SPI_HandleTypeDef hspi1;
+  17:Core/Src/camera.c **** char ssdv_type = SSDV_TYPE_NORMAL;
+  18:Core/Src/camera.c **** char ssdv_call_sign[7] = "CALSIGN";
+  19:Core/Src/camera.c **** uint8_t ssdv_image_id = 0;
+  20:Core/Src/camera.c **** int8_t ssdv_quality = 4;
+  21:Core/Src/camera.c **** 
+  22:Core/Src/camera.c **** void arducam_write_register(uint8_t reg, uint8_t value) {
+  28              		.loc 1 22 57 view -0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 8
   31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32              		.loc 1 21 57 is_stmt 0 view .LVU1
+  32              		.loc 1 22 57 is_stmt 0 view .LVU1
   33 0000 10B5     		push	{r4, lr}
   34              	.LCFI0:
   35              		.cfi_def_cfa_offset 8
   36              		.cfi_offset 4, -8
+ARM GAS  /tmp/cc40a8AS.s 			page 2
+
+
   37              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccwBrY9H.s 			page 2
-
-
   38 0002 82B0     		sub	sp, sp, #8
   39              	.LCFI1:
   40              		.cfi_def_cfa_offset 16
-  22:Core/Src/camera.c ****     uint8_t tx_buf[2] = {reg | 0x80, value};
-  41              		.loc 1 22 5 is_stmt 1 view .LVU2
-  42              		.loc 1 22 13 is_stmt 0 view .LVU3
+  23:Core/Src/camera.c ****     uint8_t tx_buf[2] = {reg | 0x80, value};
+  41              		.loc 1 23 5 is_stmt 1 view .LVU2
+  42              		.loc 1 23 13 is_stmt 0 view .LVU3
   43 0004 60F07F00 		orn	r0, r0, #127
   44              	.LVL1:
-  45              		.loc 1 22 13 view .LVU4
+  45              		.loc 1 23 13 view .LVU4
   46 0008 8DF80400 		strb	r0, [sp, #4]
   47 000c 8DF80510 		strb	r1, [sp, #5]
-  23:Core/Src/camera.c ****     CS_LOW(); // Assert CS
-  48              		.loc 1 23 5 is_stmt 1 view .LVU5
+  24:Core/Src/camera.c ****     CS_LOW(); // Assert CS
+  48              		.loc 1 24 5 is_stmt 1 view .LVU5
   49 0010 094C     		ldr	r4, .L3
   50 0012 0022     		movs	r2, #0
   51 0014 1021     		movs	r1, #16
   52              	.LVL2:
-  53              		.loc 1 23 5 is_stmt 0 view .LVU6
+  53              		.loc 1 24 5 is_stmt 0 view .LVU6
   54 0016 2046     		mov	r0, r4
   55 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
   56              	.LVL3:
-  24:Core/Src/camera.c ****     HAL_SPI_Transmit(&hspi1, tx_buf, 2, HAL_MAX_DELAY);
-  57              		.loc 1 24 5 is_stmt 1 view .LVU7
+  25:Core/Src/camera.c ****     HAL_SPI_Transmit(&hspi1, tx_buf, 2, HAL_MAX_DELAY);
+  57              		.loc 1 25 5 is_stmt 1 view .LVU7
   58 001c 4FF0FF33 		mov	r3, #-1
   59 0020 0222     		movs	r2, #2
   60 0022 01A9     		add	r1, sp, #4
   61 0024 0548     		ldr	r0, .L3+4
   62 0026 FFF7FEFF 		bl	HAL_SPI_Transmit
   63              	.LVL4:
-  25:Core/Src/camera.c ****     CS_HIGH();
-  64              		.loc 1 25 5 view .LVU8
+  26:Core/Src/camera.c ****     CS_HIGH();
+  64              		.loc 1 26 5 view .LVU8
   65 002a 0122     		movs	r2, #1
   66 002c 1021     		movs	r1, #16
   67 002e 2046     		mov	r0, r4
   68 0030 FFF7FEFF 		bl	HAL_GPIO_WritePin
   69              	.LVL5:
-  26:Core/Src/camera.c **** }
-  70              		.loc 1 26 1 is_stmt 0 view .LVU9
+  27:Core/Src/camera.c **** }
+  70              		.loc 1 27 1 is_stmt 0 view .LVU9
   71 0034 02B0     		add	sp, sp, #8
   72              	.LCFI2:
   73              		.cfi_def_cfa_offset 8
@@ -117,20 +118,20 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
   87              		.syntax unified
   88              		.thumb
   89              		.thumb_func
+ARM GAS  /tmp/cc40a8AS.s 			page 3
+
+
   90              		.fpu softvfp
-ARM GAS  /tmp/ccwBrY9H.s 			page 3
-
-
   92              	arducam_read_register:
   93              	.LVL6:
   94              	.LFB69:
-  27:Core/Src/camera.c **** 
-  28:Core/Src/camera.c **** uint8_t arducam_read_register(uint8_t reg) {
-  95              		.loc 1 28 44 is_stmt 1 view -0
+  28:Core/Src/camera.c **** 
+  29:Core/Src/camera.c **** uint8_t arducam_read_register(uint8_t reg) {
+  95              		.loc 1 29 44 is_stmt 1 view -0
   96              		.cfi_startproc
   97              		@ args = 0, pretend = 0, frame = 8
   98              		@ frame_needed = 0, uses_anonymous_args = 0
-  99              		.loc 1 28 44 is_stmt 0 view .LVU11
+  99              		.loc 1 29 44 is_stmt 0 view .LVU11
  100 0000 10B5     		push	{r4, lr}
  101              	.LCFI3:
  102              		.cfi_def_cfa_offset 8
@@ -139,26 +140,26 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  105 0002 84B0     		sub	sp, sp, #16
  106              	.LCFI4:
  107              		.cfi_def_cfa_offset 24
-  29:Core/Src/camera.c ****     uint8_t tx_buf[2] = {reg & 0x7F, 0x00}; // Second byte is dummy
- 108              		.loc 1 29 5 is_stmt 1 view .LVU12
- 109              		.loc 1 29 30 is_stmt 0 view .LVU13
+  30:Core/Src/camera.c ****     uint8_t tx_buf[2] = {reg & 0x7F, 0x00}; // Second byte is dummy
+ 108              		.loc 1 30 5 is_stmt 1 view .LVU12
+ 109              		.loc 1 30 30 is_stmt 0 view .LVU13
  110 0004 00F07F00 		and	r0, r0, #127
  111              	.LVL7:
- 112              		.loc 1 29 13 view .LVU14
+ 112              		.loc 1 30 13 view .LVU14
  113 0008 8DF80C00 		strb	r0, [sp, #12]
  114 000c 0022     		movs	r2, #0
  115 000e 8DF80D20 		strb	r2, [sp, #13]
-  30:Core/Src/camera.c ****     uint8_t rx_buf[2];
- 116              		.loc 1 30 5 is_stmt 1 view .LVU15
-  31:Core/Src/camera.c ****     CS_LOW(); // Assert CS
- 117              		.loc 1 31 5 view .LVU16
+  31:Core/Src/camera.c ****     uint8_t rx_buf[2];
+ 116              		.loc 1 31 5 is_stmt 1 view .LVU15
+  32:Core/Src/camera.c ****     CS_LOW(); // Assert CS
+ 117              		.loc 1 32 5 view .LVU16
  118 0012 0B4C     		ldr	r4, .L7
  119 0014 1021     		movs	r1, #16
  120 0016 2046     		mov	r0, r4
  121 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
  122              	.LVL8:
-  32:Core/Src/camera.c ****     HAL_SPI_TransmitReceive(&hspi1, tx_buf, rx_buf, 2, HAL_MAX_DELAY);
- 123              		.loc 1 32 5 view .LVU17
+  33:Core/Src/camera.c ****     HAL_SPI_TransmitReceive(&hspi1, tx_buf, rx_buf, 2, HAL_MAX_DELAY);
+ 123              		.loc 1 33 5 view .LVU17
  124 001c 4FF0FF33 		mov	r3, #-1
  125 0020 0093     		str	r3, [sp]
  126 0022 0223     		movs	r3, #2
@@ -167,21 +168,21 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  129 0028 0648     		ldr	r0, .L7+4
  130 002a FFF7FEFF 		bl	HAL_SPI_TransmitReceive
  131              	.LVL9:
-  33:Core/Src/camera.c ****     CS_HIGH(); // Assert CS
- 132              		.loc 1 33 5 view .LVU18
+  34:Core/Src/camera.c ****     CS_HIGH(); // Assert CS
+ 132              		.loc 1 34 5 view .LVU18
  133 002e 0122     		movs	r2, #1
  134 0030 1021     		movs	r1, #16
  135 0032 2046     		mov	r0, r4
  136 0034 FFF7FEFF 		bl	HAL_GPIO_WritePin
  137              	.LVL10:
-  34:Core/Src/camera.c **** 
-  35:Core/Src/camera.c ****     return rx_buf[1]; // Received data
- 138              		.loc 1 35 5 view .LVU19
-  36:Core/Src/camera.c **** }
-ARM GAS  /tmp/ccwBrY9H.s 			page 4
+  35:Core/Src/camera.c **** 
+  36:Core/Src/camera.c ****     return rx_buf[1]; // Received data
+ 138              		.loc 1 36 5 view .LVU19
+ARM GAS  /tmp/cc40a8AS.s 			page 4
 
 
- 139              		.loc 1 36 1 is_stmt 0 view .LVU20
+  37:Core/Src/camera.c **** }
+ 139              		.loc 1 37 1 is_stmt 0 view .LVU20
  140 0038 9DF80900 		ldrb	r0, [sp, #9]	@ zero_extendqisi2
  141 003c 04B0     		add	sp, sp, #16
  142              	.LCFI5:
@@ -205,16 +206,16 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  162              	arducam_burst_read:
  163              	.LVL11:
  164              	.LFB70:
-  37:Core/Src/camera.c **** 
   38:Core/Src/camera.c **** 
   39:Core/Src/camera.c **** 
-  40:Core/Src/camera.c **** // Burst read from FIFO
-  41:Core/Src/camera.c **** uint32_t arducam_burst_read(uint8_t *buf, uint32_t max_len) {
- 165              		.loc 1 41 61 is_stmt 1 view -0
+  40:Core/Src/camera.c **** 
+  41:Core/Src/camera.c **** // Burst read from FIFO
+  42:Core/Src/camera.c **** uint32_t arducam_burst_read(uint8_t *buf, uint32_t max_len) {
+ 165              		.loc 1 42 61 is_stmt 1 view -0
  166              		.cfi_startproc
  167              		@ args = 0, pretend = 0, frame = 8
  168              		@ frame_needed = 0, uses_anonymous_args = 0
- 169              		.loc 1 41 61 is_stmt 0 view .LVU22
+ 169              		.loc 1 42 61 is_stmt 0 view .LVU22
  170 0000 F0B5     		push	{r4, r5, r6, r7, lr}
  171              	.LCFI6:
  172              		.cfi_def_cfa_offset 20
@@ -228,28 +229,28 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  180              		.cfi_def_cfa_offset 32
  181 0004 0646     		mov	r6, r0
  182 0006 0C46     		mov	r4, r1
-  42:Core/Src/camera.c ****     uint8_t burst_cmd = 0x3C; // Burst read register
- 183              		.loc 1 42 5 is_stmt 1 view .LVU23
- 184              		.loc 1 42 13 is_stmt 0 view .LVU24
+  43:Core/Src/camera.c ****     uint8_t burst_cmd = 0x3C; // Burst read register
+ 183              		.loc 1 43 5 is_stmt 1 view .LVU23
+ 184              		.loc 1 43 13 is_stmt 0 view .LVU24
  185 0008 3C23     		movs	r3, #60
  186 000a 8DF80730 		strb	r3, [sp, #7]
-  43:Core/Src/camera.c ****     CS_LOW();
- 187              		.loc 1 43 5 is_stmt 1 view .LVU25
+  44:Core/Src/camera.c ****     CS_LOW();
+ 187              		.loc 1 44 5 is_stmt 1 view .LVU25
  188 000e 144F     		ldr	r7, .L11
  189 0010 0022     		movs	r2, #0
+ARM GAS  /tmp/cc40a8AS.s 			page 5
+
+
  190 0012 1021     		movs	r1, #16
-ARM GAS  /tmp/ccwBrY9H.s 			page 5
-
-
  191              	.LVL12:
- 192              		.loc 1 43 5 is_stmt 0 view .LVU26
+ 192              		.loc 1 44 5 is_stmt 0 view .LVU26
  193 0014 3846     		mov	r0, r7
  194              	.LVL13:
- 195              		.loc 1 43 5 view .LVU27
+ 195              		.loc 1 44 5 view .LVU27
  196 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
  197              	.LVL14:
-  44:Core/Src/camera.c ****     HAL_SPI_Transmit(&hspi1, &burst_cmd, 1, HAL_MAX_DELAY);
- 198              		.loc 1 44 5 is_stmt 1 view .LVU28
+  45:Core/Src/camera.c ****     HAL_SPI_Transmit(&hspi1, &burst_cmd, 1, HAL_MAX_DELAY);
+ 198              		.loc 1 45 5 is_stmt 1 view .LVU28
  199 001a 124D     		ldr	r5, .L11+4
  200 001c 4FF0FF33 		mov	r3, #-1
  201 0020 0122     		movs	r2, #1
@@ -257,39 +258,39 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  203 0026 2846     		mov	r0, r5
  204 0028 FFF7FEFF 		bl	HAL_SPI_Transmit
  205              	.LVL15:
-  45:Core/Src/camera.c ****     uint8_t dummy = 0x00;
- 206              		.loc 1 45 5 view .LVU29
- 207              		.loc 1 45 13 is_stmt 0 view .LVU30
+  46:Core/Src/camera.c ****     uint8_t dummy = 0x00;
+ 206              		.loc 1 46 5 view .LVU29
+ 207              		.loc 1 46 13 is_stmt 0 view .LVU30
  208 002c 0023     		movs	r3, #0
  209 002e 8DF80630 		strb	r3, [sp, #6]
-  46:Core/Src/camera.c ****     HAL_SPI_Transmit(&hspi1, &dummy, 1, HAL_MAX_DELAY); // First dummy byte
- 210              		.loc 1 46 5 is_stmt 1 view .LVU31
+  47:Core/Src/camera.c ****     HAL_SPI_Transmit(&hspi1, &dummy, 1, HAL_MAX_DELAY); // First dummy byte
+ 210              		.loc 1 47 5 is_stmt 1 view .LVU31
  211 0032 4FF0FF33 		mov	r3, #-1
  212 0036 0122     		movs	r2, #1
  213 0038 0DF10601 		add	r1, sp, #6
  214 003c 2846     		mov	r0, r5
  215 003e FFF7FEFF 		bl	HAL_SPI_Transmit
  216              	.LVL16:
-  47:Core/Src/camera.c **** 
-  48:Core/Src/camera.c ****     HAL_SPI_Receive(&hspi1, buf, max_len, HAL_MAX_DELAY);
- 217              		.loc 1 48 5 view .LVU32
+  48:Core/Src/camera.c **** 
+  49:Core/Src/camera.c ****     HAL_SPI_Receive(&hspi1, buf, max_len, HAL_MAX_DELAY);
+ 217              		.loc 1 49 5 view .LVU32
  218 0042 4FF0FF33 		mov	r3, #-1
  219 0046 A2B2     		uxth	r2, r4
  220 0048 3146     		mov	r1, r6
  221 004a 2846     		mov	r0, r5
  222 004c FFF7FEFF 		bl	HAL_SPI_Receive
  223              	.LVL17:
-  49:Core/Src/camera.c ****     CS_HIGH();
- 224              		.loc 1 49 5 view .LVU33
+  50:Core/Src/camera.c ****     CS_HIGH();
+ 224              		.loc 1 50 5 view .LVU33
  225 0050 0122     		movs	r2, #1
  226 0052 1021     		movs	r1, #16
  227 0054 3846     		mov	r0, r7
  228 0056 FFF7FEFF 		bl	HAL_GPIO_WritePin
  229              	.LVL18:
-  50:Core/Src/camera.c ****     return max_len;
- 230              		.loc 1 50 5 view .LVU34
-  51:Core/Src/camera.c **** }
- 231              		.loc 1 51 1 is_stmt 0 view .LVU35
+  51:Core/Src/camera.c ****     return max_len;
+ 230              		.loc 1 51 5 view .LVU34
+  52:Core/Src/camera.c **** }
+ 231              		.loc 1 52 1 is_stmt 0 view .LVU35
  232 005a 2046     		mov	r0, r4
  233 005c 03B0     		add	sp, sp, #12
  234              	.LCFI8:
@@ -297,11 +298,11 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  236              		@ sp needed
  237 005e F0BD     		pop	{r4, r5, r6, r7, pc}
  238              	.LVL19:
+ARM GAS  /tmp/cc40a8AS.s 			page 6
+
+
  239              	.L12:
-ARM GAS  /tmp/ccwBrY9H.s 			page 6
-
-
- 240              		.loc 1 51 1 view .LVU36
+ 240              		.loc 1 52 1 view .LVU36
  241              		.align	2
  242              	.L11:
  243 0060 00080140 		.word	1073809408
@@ -318,30 +319,30 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  256              	camersSetBrightness:
  257              	.LVL20:
  258              	.LFB71:
-  52:Core/Src/camera.c **** 
   53:Core/Src/camera.c **** 
-  54:Core/Src/camera.c **** void camersSetBrightness(CAM_BRIGHTNESS_LEVEL level )
-  55:Core/Src/camera.c **** {
- 259              		.loc 1 55 1 is_stmt 1 view -0
+  54:Core/Src/camera.c **** 
+  55:Core/Src/camera.c **** void camersSetBrightness(CAM_BRIGHTNESS_LEVEL level )
+  56:Core/Src/camera.c **** {
+ 259              		.loc 1 56 1 is_stmt 1 view -0
  260              		.cfi_startproc
  261              		@ args = 0, pretend = 0, frame = 0
  262              		@ frame_needed = 0, uses_anonymous_args = 0
- 263              		.loc 1 55 1 is_stmt 0 view .LVU38
+ 263              		.loc 1 56 1 is_stmt 0 view .LVU38
  264 0000 08B5     		push	{r3, lr}
  265              	.LCFI9:
  266              		.cfi_def_cfa_offset 8
  267              		.cfi_offset 3, -8
  268              		.cfi_offset 14, -4
  269 0002 0146     		mov	r1, r0
-  56:Core/Src/camera.c ****   arducam_write_register(0x22,level);
- 270              		.loc 1 56 3 is_stmt 1 view .LVU39
+  57:Core/Src/camera.c ****   arducam_write_register(0x22,level);
+ 270              		.loc 1 57 3 is_stmt 1 view .LVU39
  271 0004 2220     		movs	r0, #34
  272              	.LVL21:
- 273              		.loc 1 56 3 is_stmt 0 view .LVU40
+ 273              		.loc 1 57 3 is_stmt 0 view .LVU40
  274 0006 FFF7FEFF 		bl	arducam_write_register
  275              	.LVL22:
-  57:Core/Src/camera.c **** }
- 276              		.loc 1 57 1 view .LVU41
+  58:Core/Src/camera.c **** }
+ 276              		.loc 1 58 1 view .LVU41
  277 000a 08BD     		pop	{r3, pc}
  278              		.cfi_endproc
  279              	.LFE71:
@@ -355,33 +356,33 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  289              	cameraSetSharpness:
  290              	.LVL23:
  291              	.LFB72:
-  58:Core/Src/camera.c **** 
-  59:Core/Src/camera.c **** void cameraSetSharpness(CAM_SHARPNESS_LEVEL level)
-  60:Core/Src/camera.c **** {
-ARM GAS  /tmp/ccwBrY9H.s 			page 7
+  59:Core/Src/camera.c **** 
+  60:Core/Src/camera.c **** void cameraSetSharpness(CAM_SHARPNESS_LEVEL level)
+ARM GAS  /tmp/cc40a8AS.s 			page 7
 
 
- 292              		.loc 1 60 1 is_stmt 1 view -0
+  61:Core/Src/camera.c **** {
+ 292              		.loc 1 61 1 is_stmt 1 view -0
  293              		.cfi_startproc
  294              		@ args = 0, pretend = 0, frame = 0
  295              		@ frame_needed = 0, uses_anonymous_args = 0
- 296              		.loc 1 60 1 is_stmt 0 view .LVU43
+ 296              		.loc 1 61 1 is_stmt 0 view .LVU43
  297 0000 08B5     		push	{r3, lr}
  298              	.LCFI10:
  299              		.cfi_def_cfa_offset 8
  300              		.cfi_offset 3, -8
  301              		.cfi_offset 14, -4
  302 0002 0146     		mov	r1, r0
-  61:Core/Src/camera.c ****   arducam_write_register(0x28,level);
- 303              		.loc 1 61 3 is_stmt 1 view .LVU44
+  62:Core/Src/camera.c ****   arducam_write_register(0x28,level);
+ 303              		.loc 1 62 3 is_stmt 1 view .LVU44
  304 0004 2820     		movs	r0, #40
  305              	.LVL24:
- 306              		.loc 1 61 3 is_stmt 0 view .LVU45
+ 306              		.loc 1 62 3 is_stmt 0 view .LVU45
  307 0006 FFF7FEFF 		bl	arducam_write_register
  308              	.LVL25:
-  62:Core/Src/camera.c **** 
-  63:Core/Src/camera.c **** }
- 309              		.loc 1 63 1 view .LVU46
+  63:Core/Src/camera.c **** 
+  64:Core/Src/camera.c **** }
+ 309              		.loc 1 64 1 view .LVU46
  310 000a 08BD     		pop	{r3, pc}
  311              		.cfi_endproc
  312              	.LFE72:
@@ -395,32 +396,32 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  322              	cameraSetContrast:
  323              	.LVL26:
  324              	.LFB73:
-  64:Core/Src/camera.c **** 
-  65:Core/Src/camera.c **** void cameraSetContrast (CAM_CONTRAST_LEVEL level)
-  66:Core/Src/camera.c **** {
- 325              		.loc 1 66 1 is_stmt 1 view -0
+  65:Core/Src/camera.c **** 
+  66:Core/Src/camera.c **** void cameraSetContrast (CAM_CONTRAST_LEVEL level)
+  67:Core/Src/camera.c **** {
+ 325              		.loc 1 67 1 is_stmt 1 view -0
  326              		.cfi_startproc
  327              		@ args = 0, pretend = 0, frame = 0
  328              		@ frame_needed = 0, uses_anonymous_args = 0
- 329              		.loc 1 66 1 is_stmt 0 view .LVU48
+ 329              		.loc 1 67 1 is_stmt 0 view .LVU48
  330 0000 08B5     		push	{r3, lr}
  331              	.LCFI11:
  332              		.cfi_def_cfa_offset 8
  333              		.cfi_offset 3, -8
  334              		.cfi_offset 14, -4
  335 0002 0146     		mov	r1, r0
-  67:Core/Src/camera.c ****   arducam_write_register(0x23,level);
- 336              		.loc 1 67 3 is_stmt 1 view .LVU49
+  68:Core/Src/camera.c ****   arducam_write_register(0x23,level);
+ 336              		.loc 1 68 3 is_stmt 1 view .LVU49
  337 0004 2320     		movs	r0, #35
  338              	.LVL27:
- 339              		.loc 1 67 3 is_stmt 0 view .LVU50
+ 339              		.loc 1 68 3 is_stmt 0 view .LVU50
  340 0006 FFF7FEFF 		bl	arducam_write_register
  341              	.LVL28:
-  68:Core/Src/camera.c **** }
- 342              		.loc 1 68 1 view .LVU51
-ARM GAS  /tmp/ccwBrY9H.s 			page 8
+  69:Core/Src/camera.c **** }
+ARM GAS  /tmp/cc40a8AS.s 			page 8
 
 
+ 342              		.loc 1 69 1 view .LVU51
  343 000a 08BD     		pop	{r3, pc}
  344              		.cfi_endproc
  345              	.LFE73:
@@ -434,30 +435,30 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  355              	cameraSetEV:
  356              	.LVL29:
  357              	.LFB74:
-  69:Core/Src/camera.c **** 
-  70:Core/Src/camera.c **** void cameraSetEV (CAM_EV_LEVEL level)
-  71:Core/Src/camera.c **** {
- 358              		.loc 1 71 1 is_stmt 1 view -0
+  70:Core/Src/camera.c **** 
+  71:Core/Src/camera.c **** void cameraSetEV (CAM_EV_LEVEL level)
+  72:Core/Src/camera.c **** {
+ 358              		.loc 1 72 1 is_stmt 1 view -0
  359              		.cfi_startproc
  360              		@ args = 0, pretend = 0, frame = 0
  361              		@ frame_needed = 0, uses_anonymous_args = 0
- 362              		.loc 1 71 1 is_stmt 0 view .LVU53
+ 362              		.loc 1 72 1 is_stmt 0 view .LVU53
  363 0000 08B5     		push	{r3, lr}
  364              	.LCFI12:
  365              		.cfi_def_cfa_offset 8
  366              		.cfi_offset 3, -8
  367              		.cfi_offset 14, -4
  368 0002 0146     		mov	r1, r0
-  72:Core/Src/camera.c ****   arducam_write_register(0x25,level);
- 369              		.loc 1 72 3 is_stmt 1 view .LVU54
+  73:Core/Src/camera.c ****   arducam_write_register(0x25,level);
+ 369              		.loc 1 73 3 is_stmt 1 view .LVU54
  370 0004 2520     		movs	r0, #37
  371              	.LVL30:
- 372              		.loc 1 72 3 is_stmt 0 view .LVU55
+ 372              		.loc 1 73 3 is_stmt 0 view .LVU55
  373 0006 FFF7FEFF 		bl	arducam_write_register
  374              	.LVL31:
-  73:Core/Src/camera.c **** 
-  74:Core/Src/camera.c **** }
- 375              		.loc 1 74 1 view .LVU56
+  74:Core/Src/camera.c **** 
+  75:Core/Src/camera.c **** }
+ 375              		.loc 1 75 1 view .LVU56
  376 000a 08BD     		pop	{r3, pc}
  377              		.cfi_endproc
  378              	.LFE74:
@@ -471,33 +472,33 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  388              	cameraSetSaturation:
  389              	.LVL32:
  390              	.LFB75:
-  75:Core/Src/camera.c **** 
-  76:Core/Src/camera.c **** void cameraSetSaturation (CAM_STAURATION_LEVEL level)
-  77:Core/Src/camera.c **** {
- 391              		.loc 1 77 1 is_stmt 1 view -0
+  76:Core/Src/camera.c **** 
+  77:Core/Src/camera.c **** void cameraSetSaturation (CAM_STAURATION_LEVEL level)
+  78:Core/Src/camera.c **** {
+ 391              		.loc 1 78 1 is_stmt 1 view -0
  392              		.cfi_startproc
  393              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cc40a8AS.s 			page 9
+
+
  394              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccwBrY9H.s 			page 9
-
-
- 395              		.loc 1 77 1 is_stmt 0 view .LVU58
+ 395              		.loc 1 78 1 is_stmt 0 view .LVU58
  396 0000 08B5     		push	{r3, lr}
  397              	.LCFI13:
  398              		.cfi_def_cfa_offset 8
  399              		.cfi_offset 3, -8
  400              		.cfi_offset 14, -4
  401 0002 0146     		mov	r1, r0
-  78:Core/Src/camera.c ****   arducam_write_register(0x24,level);
- 402              		.loc 1 78 3 is_stmt 1 view .LVU59
+  79:Core/Src/camera.c ****   arducam_write_register(0x24,level);
+ 402              		.loc 1 79 3 is_stmt 1 view .LVU59
  403 0004 2420     		movs	r0, #36
  404              	.LVL33:
- 405              		.loc 1 78 3 is_stmt 0 view .LVU60
+ 405              		.loc 1 79 3 is_stmt 0 view .LVU60
  406 0006 FFF7FEFF 		bl	arducam_write_register
  407              	.LVL34:
-  79:Core/Src/camera.c **** 
-  80:Core/Src/camera.c **** }
- 408              		.loc 1 80 1 view .LVU61
+  80:Core/Src/camera.c **** 
+  81:Core/Src/camera.c **** }
+ 408              		.loc 1 81 1 view .LVU61
  409 000a 08BD     		pop	{r3, pc}
  410              		.cfi_endproc
  411              	.LFE75:
@@ -511,1223 +512,1383 @@ ARM GAS  /tmp/ccwBrY9H.s 			page 1
  421              	cameraSetColorEffect:
  422              	.LVL35:
  423              	.LFB76:
-  81:Core/Src/camera.c **** 
-  82:Core/Src/camera.c **** void cameraSetColorEffect (CAM_COLOR_FX effect)
-  83:Core/Src/camera.c **** {
- 424              		.loc 1 83 1 is_stmt 1 view -0
+  82:Core/Src/camera.c **** 
+  83:Core/Src/camera.c **** void cameraSetColorEffect (CAM_COLOR_FX effect)
+  84:Core/Src/camera.c **** {
+ 424              		.loc 1 84 1 is_stmt 1 view -0
  425              		.cfi_startproc
  426              		@ args = 0, pretend = 0, frame = 0
  427              		@ frame_needed = 0, uses_anonymous_args = 0
- 428              		.loc 1 83 1 is_stmt 0 view .LVU63
+ 428              		.loc 1 84 1 is_stmt 0 view .LVU63
  429 0000 08B5     		push	{r3, lr}
  430              	.LCFI14:
  431              		.cfi_def_cfa_offset 8
  432              		.cfi_offset 3, -8
  433              		.cfi_offset 14, -4
  434 0002 0146     		mov	r1, r0
-  84:Core/Src/camera.c ****   arducam_write_register(0x27,effect);
- 435              		.loc 1 84 3 is_stmt 1 view .LVU64
+  85:Core/Src/camera.c ****   arducam_write_register(0x27,effect);
+ 435              		.loc 1 85 3 is_stmt 1 view .LVU64
  436 0004 2720     		movs	r0, #39
  437              	.LVL36:
- 438              		.loc 1 84 3 is_stmt 0 view .LVU65
+ 438              		.loc 1 85 3 is_stmt 0 view .LVU65
  439 0006 FFF7FEFF 		bl	arducam_write_register
  440              	.LVL37:
-  85:Core/Src/camera.c **** 
-  86:Core/Src/camera.c **** }
- 441              		.loc 1 86 1 view .LVU66
+  86:Core/Src/camera.c **** 
+  87:Core/Src/camera.c **** }
+ 441              		.loc 1 87 1 view .LVU66
  442 000a 08BD     		pop	{r3, pc}
  443              		.cfi_endproc
+ARM GAS  /tmp/cc40a8AS.s 			page 10
+
+
  444              	.LFE76:
-ARM GAS  /tmp/ccwBrY9H.s 			page 10
+ 446              		.section	.rodata.arducam_set_jpeg_mode.str1.4,"aMS",%progbits,1
+ 447              		.align	2
+ 448              	.LC0:
+ 449 0000 62726967 		.ascii	"brighness level:%i \012\000"
+ 449      686E6573 
+ 449      73206C65 
+ 449      76656C3A 
+ 449      2569200A 
+ 450 0015 000000   		.align	2
+ 451              	.LC1:
+ 452 0018 73617475 		.ascii	"saturation level:%i \012\000"
+ 452      72617469 
+ 452      6F6E206C 
+ 452      6576656C 
+ 452      3A256920 
+ 453 002e 0000     		.align	2
+ 454              	.LC2:
+ 455 0030 6578706F 		.ascii	"exposure level:%i \012\000"
+ 455      73757265 
+ 455      206C6576 
+ 455      656C3A25 
+ 455      69200A00 
+ 456              		.align	2
+ 457              	.LC3:
+ 458 0044 636F6E74 		.ascii	"contrast level:%i \012\000"
+ 458      72617374 
+ 458      206C6576 
+ 458      656C3A25 
+ 458      69200A00 
+ 459              		.align	2
+ 460              	.LC4:
+ 461 0058 73686172 		.ascii	"sharpness level:%i \012\000"
+ 461      706E6573 
+ 461      73206C65 
+ 461      76656C3A 
+ 461      2569200A 
+ 462 006d 000000   		.align	2
+ 463              	.LC5:
+ 464 0070 65666665 		.ascii	"effect:%i \012\000"
+ 464      63743A25 
+ 464      69200A00 
+ 465              		.section	.text.arducam_set_jpeg_mode,"ax",%progbits
+ 466              		.align	1
+ 467              		.global	arducam_set_jpeg_mode
+ 468              		.syntax unified
+ 469              		.thumb
+ 470              		.thumb_func
+ 471              		.fpu softvfp
+ 473              	arducam_set_jpeg_mode:
+ 474              	.LFB77:
+  88:Core/Src/camera.c **** 
+  89:Core/Src/camera.c **** void arducam_set_jpeg_mode() {
+ 475              		.loc 1 89 30 is_stmt 1 view -0
+ 476              		.cfi_startproc
+ 477              		@ args = 0, pretend = 0, frame = 0
+ 478              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cc40a8AS.s 			page 11
 
 
- 446              		.section	.text.arducam_set_jpeg_mode,"ax",%progbits
- 447              		.align	1
- 448              		.global	arducam_set_jpeg_mode
- 449              		.syntax unified
- 450              		.thumb
- 451              		.thumb_func
- 452              		.fpu softvfp
- 454              	arducam_set_jpeg_mode:
- 455              	.LFB77:
-  87:Core/Src/camera.c **** 
-  88:Core/Src/camera.c **** void arducam_set_jpeg_mode() {
- 456              		.loc 1 88 30 is_stmt 1 view -0
- 457              		.cfi_startproc
- 458              		@ args = 0, pretend = 0, frame = 0
- 459              		@ frame_needed = 0, uses_anonymous_args = 0
- 460 0000 08B5     		push	{r3, lr}
- 461              	.LCFI15:
- 462              		.cfi_def_cfa_offset 8
- 463              		.cfi_offset 3, -8
- 464              		.cfi_offset 14, -4
-  89:Core/Src/camera.c ****     // Write JPEG basic configuration to register 0x20
-  90:Core/Src/camera.c ****     arducam_write_register(0x20, 0x01);  // JPEG mode
- 465              		.loc 1 90 5 view .LVU68
- 466 0002 0121     		movs	r1, #1
- 467 0004 2020     		movs	r0, #32
- 468 0006 FFF7FEFF 		bl	arducam_write_register
- 469              	.LVL38:
-  91:Core/Src/camera.c ****     HAL_Delay(10);  // Small delay for settings to apply
- 470              		.loc 1 91 5 view .LVU69
- 471 000a 0A20     		movs	r0, #10
- 472 000c FFF7FEFF 		bl	HAL_Delay
- 473              	.LVL39:
-  92:Core/Src/camera.c **** 
-  93:Core/Src/camera.c ****      // 2. Set resolution to 320x240
-  94:Core/Src/camera.c ****     arducam_write_register(0x21, 0x01);  // Resolution = 320x240
- 474              		.loc 1 94 5 view .LVU70
- 475 0010 0121     		movs	r1, #1
- 476 0012 2120     		movs	r0, #33
- 477 0014 FFF7FEFF 		bl	arducam_write_register
- 478              	.LVL40:
-  95:Core/Src/camera.c ****     HAL_Delay(10);
- 479              		.loc 1 95 5 view .LVU71
- 480 0018 0A20     		movs	r0, #10
- 481 001a FFF7FEFF 		bl	HAL_Delay
- 482              	.LVL41:
-  96:Core/Src/camera.c **** 
-  97:Core/Src/camera.c ****     camersSetBrightness(CAM_BRIGHTNESS_LEVEL_4);
- 483              		.loc 1 97 5 view .LVU72
- 484 001e 0720     		movs	r0, #7
- 485 0020 FFF7FEFF 		bl	camersSetBrightness
- 486              	.LVL42:
-  98:Core/Src/camera.c ****     HAL_Delay(10);
- 487              		.loc 1 98 5 view .LVU73
- 488 0024 0A20     		movs	r0, #10
- 489 0026 FFF7FEFF 		bl	HAL_Delay
- 490              	.LVL43:
-  99:Core/Src/camera.c **** 
-ARM GAS  /tmp/ccwBrY9H.s 			page 11
+ 479 0000 10B5     		push	{r4, lr}
+ 480              	.LCFI15:
+ 481              		.cfi_def_cfa_offset 8
+ 482              		.cfi_offset 4, -8
+ 483              		.cfi_offset 14, -4
+  90:Core/Src/camera.c ****     // Write JPEG basic configuration to register 0x20
+  91:Core/Src/camera.c ****     arducam_write_register(0x20, 0x01);  // JPEG mode
+ 484              		.loc 1 91 5 view .LVU68
+ 485 0002 0121     		movs	r1, #1
+ 486 0004 2020     		movs	r0, #32
+ 487 0006 FFF7FEFF 		bl	arducam_write_register
+ 488              	.LVL38:
+  92:Core/Src/camera.c ****     HAL_Delay(10);  // Small delay for settings to apply
+ 489              		.loc 1 92 5 view .LVU69
+ 490 000a 0A20     		movs	r0, #10
+ 491 000c FFF7FEFF 		bl	HAL_Delay
+ 492              	.LVL39:
+  93:Core/Src/camera.c **** 
+  94:Core/Src/camera.c ****      // 2. Set resolution to 320x240
+  95:Core/Src/camera.c ****     arducam_write_register(0x21, 0x01);  // Resolution = 320x240
+ 493              		.loc 1 95 5 view .LVU70
+ 494 0010 0121     		movs	r1, #1
+ 495 0012 2120     		movs	r0, #33
+ 496 0014 FFF7FEFF 		bl	arducam_write_register
+ 497              	.LVL40:
+  96:Core/Src/camera.c ****     HAL_Delay(10);
+ 498              		.loc 1 96 5 view .LVU71
+ 499 0018 0A20     		movs	r0, #10
+ 500 001a FFF7FEFF 		bl	HAL_Delay
+ 501              	.LVL41:
+  97:Core/Src/camera.c **** 
+  98:Core/Src/camera.c ****     camersSetBrightness(lvl);
+ 502              		.loc 1 98 5 view .LVU72
+ 503 001e 214C     		ldr	r4, .L27
+ 504 0020 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 505 0022 FFF7FEFF 		bl	camersSetBrightness
+ 506              	.LVL42:
+  99:Core/Src/camera.c ****     printf("brighness level:%i \n" ,lvl);
+ 507              		.loc 1 99 5 view .LVU73
+ 508 0026 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 509 0028 1F48     		ldr	r0, .L27+4
+ 510 002a FFF7FEFF 		bl	printf
+ 511              	.LVL43:
+ 100:Core/Src/camera.c ****     HAL_Delay(10);
+ 512              		.loc 1 100 5 view .LVU74
+ 513 002e 0A20     		movs	r0, #10
+ 514 0030 FFF7FEFF 		bl	HAL_Delay
+ 515              	.LVL44:
+ 101:Core/Src/camera.c **** 
+ 102:Core/Src/camera.c ****     cameraSetSaturation(saturation_lvl);
+ 516              		.loc 1 102 5 view .LVU75
+ 517 0034 1D4C     		ldr	r4, .L27+8
+ 518 0036 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 519 0038 FFF7FEFF 		bl	cameraSetSaturation
+ 520              	.LVL45:
+ 103:Core/Src/camera.c ****     printf("saturation level:%i \n" ,saturation_lvl);
+ 521              		.loc 1 103 5 view .LVU76
+ARM GAS  /tmp/cc40a8AS.s 			page 12
 
 
- 100:Core/Src/camera.c ****     // cameraSetSaturation(CAM_STAURATION_LEVEL_3);
- 101:Core/Src/camera.c ****     // HAL_Delay(10);
- 102:Core/Src/camera.c **** 
- 103:Core/Src/camera.c ****     // cameraSetEV(CAM_EV_LEVEL_3);
- 104:Core/Src/camera.c ****     // HAL_Delay(10);
- 105:Core/Src/camera.c **** 
- 106:Core/Src/camera.c ****     // cameraSetContrast(CAM_CONTRAST_LEVEL_3);
- 107:Core/Src/camera.c ****     // HAL_Delay(10);
- 108:Core/Src/camera.c **** 
- 109:Core/Src/camera.c ****     // cameraSetSharpness(CAM_SHARPNESS_LEVEL_8);
- 110:Core/Src/camera.c ****     // HAL_Delay(10);
+ 522 003c 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 523 003e 1C48     		ldr	r0, .L27+12
+ 524 0040 FFF7FEFF 		bl	printf
+ 525              	.LVL46:
+ 104:Core/Src/camera.c **** 
+ 105:Core/Src/camera.c ****     HAL_Delay(10);
+ 526              		.loc 1 105 5 view .LVU77
+ 527 0044 0A20     		movs	r0, #10
+ 528 0046 FFF7FEFF 		bl	HAL_Delay
+ 529              	.LVL47:
+ 106:Core/Src/camera.c **** 
+ 107:Core/Src/camera.c ****     cameraSetEV(exposure_lvl);
+ 530              		.loc 1 107 5 view .LVU78
+ 531 004a 1A4C     		ldr	r4, .L27+16
+ 532 004c 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 533 004e FFF7FEFF 		bl	cameraSetEV
+ 534              	.LVL48:
+ 108:Core/Src/camera.c ****     printf("exposure level:%i \n" ,exposure_lvl);
+ 535              		.loc 1 108 5 view .LVU79
+ 536 0052 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 537 0054 1848     		ldr	r0, .L27+20
+ 538 0056 FFF7FEFF 		bl	printf
+ 539              	.LVL49:
+ 109:Core/Src/camera.c **** 
+ 110:Core/Src/camera.c ****     HAL_Delay(10);
+ 540              		.loc 1 110 5 view .LVU80
+ 541 005a 0A20     		movs	r0, #10
+ 542 005c FFF7FEFF 		bl	HAL_Delay
+ 543              	.LVL50:
  111:Core/Src/camera.c **** 
- 112:Core/Src/camera.c ****     // cameraSetColorEffect(CAM_COLOR_FX_BW);
- 113:Core/Src/camera.c ****     // HAL_Delay(10);
+ 112:Core/Src/camera.c ****     cameraSetContrast(contra_lvl);
+ 544              		.loc 1 112 5 view .LVU81
+ 545 0060 164C     		ldr	r4, .L27+24
+ 546 0062 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 547 0064 FFF7FEFF 		bl	cameraSetContrast
+ 548              	.LVL51:
+ 113:Core/Src/camera.c ****     printf("contrast level:%i \n" ,contra_lvl);
+ 549              		.loc 1 113 5 view .LVU82
+ 550 0068 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 551 006a 1548     		ldr	r0, .L27+28
+ 552 006c FFF7FEFF 		bl	printf
+ 553              	.LVL52:
  114:Core/Src/camera.c **** 
- 115:Core/Src/camera.c **** }
- 491              		.loc 1 115 1 is_stmt 0 view .LVU74
- 492 002a 08BD     		pop	{r3, pc}
- 493              		.cfi_endproc
- 494              	.LFE77:
- 496              		.section	.text.arducam_capture_image,"ax",%progbits
- 497              		.align	1
- 498              		.global	arducam_capture_image
- 499              		.syntax unified
- 500              		.thumb
- 501              		.thumb_func
- 502              		.fpu softvfp
- 504              	arducam_capture_image:
- 505              	.LFB78:
+ 115:Core/Src/camera.c ****     HAL_Delay(10);
+ 554              		.loc 1 115 5 view .LVU83
+ 555 0070 0A20     		movs	r0, #10
+ 556 0072 FFF7FEFF 		bl	HAL_Delay
+ 557              	.LVL53:
  116:Core/Src/camera.c **** 
- 117:Core/Src/camera.c **** 
- 118:Core/Src/camera.c **** // Capture image
- 119:Core/Src/camera.c **** void arducam_capture_image() {
- 506              		.loc 1 119 30 is_stmt 1 view -0
- 507              		.cfi_startproc
- 508              		@ args = 0, pretend = 0, frame = 0
- 509              		@ frame_needed = 0, uses_anonymous_args = 0
- 510 0000 08B5     		push	{r3, lr}
- 511              	.LCFI16:
- 512              		.cfi_def_cfa_offset 8
- 513              		.cfi_offset 3, -8
- 514              		.cfi_offset 14, -4
- 120:Core/Src/camera.c ****     // 1. Clear FIFO write done flag
- 121:Core/Src/camera.c ****     arducam_write_register(0x04, 0x01);
- 515              		.loc 1 121 5 view .LVU76
- 516 0002 0121     		movs	r1, #1
- 517 0004 0420     		movs	r0, #4
- 518 0006 FFF7FEFF 		bl	arducam_write_register
- 519              	.LVL44:
- 122:Core/Src/camera.c ****     HAL_Delay(10);
- 520              		.loc 1 122 5 view .LVU77
- 521 000a 0A20     		movs	r0, #10
- 522 000c FFF7FEFF 		bl	HAL_Delay
- 523              	.LVL45:
- 123:Core/Src/camera.c **** 
- 124:Core/Src/camera.c ****     // 2. Start image capture
- 125:Core/Src/camera.c ****     arducam_write_register(0x04, 0x02);
-ARM GAS  /tmp/ccwBrY9H.s 			page 12
+ 117:Core/Src/camera.c ****     cameraSetSharpness(shrp_lvl);
+ 558              		.loc 1 117 5 view .LVU84
+ 559 0076 134C     		ldr	r4, .L27+32
+ 560 0078 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 561 007a FFF7FEFF 		bl	cameraSetSharpness
+ 562              	.LVL54:
+ 118:Core/Src/camera.c ****     printf("sharpness level:%i \n" ,shrp_lvl);
+ 563              		.loc 1 118 5 view .LVU85
+ARM GAS  /tmp/cc40a8AS.s 			page 13
 
 
- 524              		.loc 1 125 5 view .LVU78
- 525 0010 0221     		movs	r1, #2
- 526 0012 0420     		movs	r0, #4
- 527 0014 FFF7FEFF 		bl	arducam_write_register
- 528              	.LVL46:
- 126:Core/Src/camera.c ****     HAL_Delay(200);  // Adjust delay as needed
- 529              		.loc 1 126 5 view .LVU79
- 530 0018 C820     		movs	r0, #200
- 531 001a FFF7FEFF 		bl	HAL_Delay
- 532              	.LVL47:
+ 564 007e 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 565 0080 1148     		ldr	r0, .L27+36
+ 566 0082 FFF7FEFF 		bl	printf
+ 567              	.LVL55:
+ 119:Core/Src/camera.c **** 
+ 120:Core/Src/camera.c ****     HAL_Delay(10);
+ 568              		.loc 1 120 5 view .LVU86
+ 569 0086 0A20     		movs	r0, #10
+ 570 0088 FFF7FEFF 		bl	HAL_Delay
+ 571              	.LVL56:
+ 121:Core/Src/camera.c **** 
+ 122:Core/Src/camera.c ****     cameraSetColorEffect(effect);
+ 572              		.loc 1 122 5 view .LVU87
+ 573 008c 0F4C     		ldr	r4, .L27+40
+ 574 008e 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 575 0090 FFF7FEFF 		bl	cameraSetColorEffect
+ 576              	.LVL57:
+ 123:Core/Src/camera.c ****     printf("effect:%i \n" ,effect);
+ 577              		.loc 1 123 5 view .LVU88
+ 578 0094 2178     		ldrb	r1, [r4]	@ zero_extendqisi2
+ 579 0096 0E48     		ldr	r0, .L27+44
+ 580 0098 FFF7FEFF 		bl	printf
+ 581              	.LVL58:
+ 124:Core/Src/camera.c ****     HAL_Delay(10);
+ 582              		.loc 1 124 5 view .LVU89
+ 583 009c 0A20     		movs	r0, #10
+ 584 009e FFF7FEFF 		bl	HAL_Delay
+ 585              	.LVL59:
+ 125:Core/Src/camera.c **** 
+ 126:Core/Src/camera.c **** }
+ 586              		.loc 1 126 1 is_stmt 0 view .LVU90
+ 587 00a2 10BD     		pop	{r4, pc}
+ 588              	.L28:
+ 589              		.align	2
+ 590              	.L27:
+ 591 00a4 00000000 		.word	lvl
+ 592 00a8 00000000 		.word	.LC0
+ 593 00ac 00000000 		.word	saturation_lvl
+ 594 00b0 18000000 		.word	.LC1
+ 595 00b4 00000000 		.word	exposure_lvl
+ 596 00b8 30000000 		.word	.LC2
+ 597 00bc 00000000 		.word	contra_lvl
+ 598 00c0 44000000 		.word	.LC3
+ 599 00c4 00000000 		.word	shrp_lvl
+ 600 00c8 58000000 		.word	.LC4
+ 601 00cc 00000000 		.word	effect
+ 602 00d0 70000000 		.word	.LC5
+ 603              		.cfi_endproc
+ 604              	.LFE77:
+ 606              		.section	.text.arducam_capture_image,"ax",%progbits
+ 607              		.align	1
+ 608              		.global	arducam_capture_image
+ 609              		.syntax unified
+ 610              		.thumb
+ 611              		.thumb_func
+ 612              		.fpu softvfp
+ 614              	arducam_capture_image:
+ARM GAS  /tmp/cc40a8AS.s 			page 14
+
+
+ 615              	.LFB78:
  127:Core/Src/camera.c **** 
- 128:Core/Src/camera.c ****     // Optional: Wait until FIFO done (polling or timeout)
- 129:Core/Src/camera.c ****     // If camera sets flag in 0x01 (frames written), you could poll here
- 130:Core/Src/camera.c **** }
- 533              		.loc 1 130 1 is_stmt 0 view .LVU80
- 534 001e 08BD     		pop	{r3, pc}
- 535              		.cfi_endproc
- 536              	.LFE78:
- 538              		.section	.rodata.find_jpeg.str1.4,"aMS",%progbits,1
- 539              		.align	2
- 540              	.LC0:
- 541 0000 4A504547 		.ascii	"JPEG found: start=%d, end=%d\012\000"
- 541      20666F75 
- 541      6E643A20 
- 541      73746172 
- 541      743D2564 
- 542              		.section	.text.find_jpeg,"ax",%progbits
- 543              		.align	1
- 544              		.global	find_jpeg
- 545              		.syntax unified
- 546              		.thumb
- 547              		.thumb_func
- 548              		.fpu softvfp
- 550              	find_jpeg:
- 551              	.LVL48:
- 552              	.LFB79:
- 131:Core/Src/camera.c **** 
- 132:Core/Src/camera.c **** 
- 133:Core/Src/camera.c **** uint32_t find_jpeg( uint32_t bytes_read,  uint8_t image_buffer[MAX_IMAGE_SIZE])    
- 134:Core/Src/camera.c **** {
- 553              		.loc 1 134 1 is_stmt 1 view -0
- 554              		.cfi_startproc
- 555              		@ args = 0, pretend = 0, frame = 0
- 556              		@ frame_needed = 0, uses_anonymous_args = 0
- 557              		.loc 1 134 1 is_stmt 0 view .LVU82
- 558 0000 38B5     		push	{r3, r4, r5, lr}
- 559              	.LCFI17:
- 560              		.cfi_def_cfa_offset 16
- 561              		.cfi_offset 3, -16
- 562              		.cfi_offset 4, -12
- 563              		.cfi_offset 5, -8
- 564              		.cfi_offset 14, -4
- 135:Core/Src/camera.c ****     // Find JPEG start (0xFFD8) and end (0xFFD9)
- 136:Core/Src/camera.c ****     uint32_t jpeg_length=0;
- 565              		.loc 1 136 5 is_stmt 1 view .LVU83
- 566              	.LVL49:
- 137:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
-ARM GAS  /tmp/ccwBrY9H.s 			page 13
+ 128:Core/Src/camera.c **** 
+ 129:Core/Src/camera.c **** // Capture image
+ 130:Core/Src/camera.c **** void arducam_capture_image() {
+ 616              		.loc 1 130 30 is_stmt 1 view -0
+ 617              		.cfi_startproc
+ 618              		@ args = 0, pretend = 0, frame = 0
+ 619              		@ frame_needed = 0, uses_anonymous_args = 0
+ 620 0000 08B5     		push	{r3, lr}
+ 621              	.LCFI16:
+ 622              		.cfi_def_cfa_offset 8
+ 623              		.cfi_offset 3, -8
+ 624              		.cfi_offset 14, -4
+ 131:Core/Src/camera.c ****     // 1. Clear FIFO write done flag
+ 132:Core/Src/camera.c ****     arducam_write_register(0x04, 0x01);
+ 625              		.loc 1 132 5 view .LVU92
+ 626 0002 0121     		movs	r1, #1
+ 627 0004 0420     		movs	r0, #4
+ 628 0006 FFF7FEFF 		bl	arducam_write_register
+ 629              	.LVL60:
+ 133:Core/Src/camera.c ****     HAL_Delay(10);
+ 630              		.loc 1 133 5 view .LVU93
+ 631 000a 0A20     		movs	r0, #10
+ 632 000c FFF7FEFF 		bl	HAL_Delay
+ 633              	.LVL61:
+ 134:Core/Src/camera.c **** 
+ 135:Core/Src/camera.c ****     // 2. Start image capture
+ 136:Core/Src/camera.c ****     arducam_write_register(0x04, 0x02);
+ 634              		.loc 1 136 5 view .LVU94
+ 635 0010 0221     		movs	r1, #2
+ 636 0012 0420     		movs	r0, #4
+ 637 0014 FFF7FEFF 		bl	arducam_write_register
+ 638              	.LVL62:
+ 137:Core/Src/camera.c ****     HAL_Delay(200);  // Adjust delay as needed
+ 639              		.loc 1 137 5 view .LVU95
+ 640 0018 C820     		movs	r0, #200
+ 641 001a FFF7FEFF 		bl	HAL_Delay
+ 642              	.LVL63:
+ 138:Core/Src/camera.c **** 
+ 139:Core/Src/camera.c ****     // Optional: Wait until FIFO done (polling or timeout)
+ 140:Core/Src/camera.c ****     // If camera sets flag in 0x01 (frames written), you could poll here
+ 141:Core/Src/camera.c **** }
+ 643              		.loc 1 141 1 is_stmt 0 view .LVU96
+ 644 001e 08BD     		pop	{r3, pc}
+ 645              		.cfi_endproc
+ 646              	.LFE78:
+ 648              		.section	.rodata.find_jpeg.str1.4,"aMS",%progbits,1
+ 649              		.align	2
+ 650              	.LC6:
+ 651 0000 4A504547 		.ascii	"JPEG found: start=%d, end=%d\012\000"
+ 651      20666F75 
+ 651      6E643A20 
+ 651      73746172 
+ 651      743D2564 
+ 652              		.section	.text.find_jpeg,"ax",%progbits
+ 653              		.align	1
+ARM GAS  /tmp/cc40a8AS.s 			page 15
 
 
- 567              		.loc 1 137 5 view .LVU84
- 138:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 568              		.loc 1 138 5 view .LVU85
- 569              	.LBB2:
- 570              		.loc 1 138 10 view .LVU86
- 571              		.loc 1 138 19 is_stmt 0 view .LVU87
- 572 0002 0023     		movs	r3, #0
- 573              	.LBE2:
- 137:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 574              		.loc 1 137 9 view .LVU88
- 575 0004 4FF0FF35 		mov	r5, #-1
- 576              	.LBB3:
- 577              		.loc 1 138 5 view .LVU89
- 578 0008 02E0     		b	.L30
- 579              	.LVL50:
- 580              	.L31:
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 140:Core/Src/camera.c ****             start_index = i;
- 141:Core/Src/camera.c ****         }
- 142:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD9) {
- 581              		.loc 1 142 9 is_stmt 1 view .LVU90
- 582              		.loc 1 142 12 is_stmt 0 view .LVU91
- 583 000a FF2A     		cmp	r2, #255
- 584 000c 0FD0     		beq	.L40
- 585              	.L32:
- 138:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 586              		.loc 1 138 46 is_stmt 1 discriminator 2 view .LVU92
- 138:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 587              		.loc 1 138 47 is_stmt 0 discriminator 2 view .LVU93
- 588 000e 0133     		adds	r3, r3, #1
- 589              	.LVL51:
- 590              	.L30:
- 138:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 591              		.loc 1 138 26 is_stmt 1 discriminator 1 view .LVU94
- 138:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 592              		.loc 1 138 41 is_stmt 0 discriminator 1 view .LVU95
- 593 0010 421E     		subs	r2, r0, #1
- 138:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 594              		.loc 1 138 5 discriminator 1 view .LVU96
- 595 0012 9A42     		cmp	r2, r3
- 596 0014 11D9     		bls	.L41
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 597              		.loc 1 139 9 is_stmt 1 view .LVU97
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 598              		.loc 1 139 25 is_stmt 0 view .LVU98
- 599 0016 CA5C     		ldrb	r2, [r1, r3]	@ zero_extendqisi2
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 600              		.loc 1 139 12 view .LVU99
- 601 0018 FF2A     		cmp	r2, #255
- 602 001a F6D1     		bne	.L31
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 603              		.loc 1 139 52 discriminator 1 view .LVU100
- 604 001c CC18     		adds	r4, r1, r3
- 605 001e 6478     		ldrb	r4, [r4, #1]	@ zero_extendqisi2
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 606              		.loc 1 139 37 discriminator 1 view .LVU101
- 607 0020 D82C     		cmp	r4, #216
-ARM GAS  /tmp/ccwBrY9H.s 			page 14
+ 654              		.global	find_jpeg
+ 655              		.syntax unified
+ 656              		.thumb
+ 657              		.thumb_func
+ 658              		.fpu softvfp
+ 660              	find_jpeg:
+ 661              	.LVL64:
+ 662              	.LFB79:
+ 142:Core/Src/camera.c **** 
+ 143:Core/Src/camera.c **** 
+ 144:Core/Src/camera.c **** uint32_t find_jpeg( uint32_t bytes_read,  uint8_t image_buffer[MAX_IMAGE_SIZE])    
+ 145:Core/Src/camera.c **** {
+ 663              		.loc 1 145 1 is_stmt 1 view -0
+ 664              		.cfi_startproc
+ 665              		@ args = 0, pretend = 0, frame = 0
+ 666              		@ frame_needed = 0, uses_anonymous_args = 0
+ 667              		.loc 1 145 1 is_stmt 0 view .LVU98
+ 668 0000 38B5     		push	{r3, r4, r5, lr}
+ 669              	.LCFI17:
+ 670              		.cfi_def_cfa_offset 16
+ 671              		.cfi_offset 3, -16
+ 672              		.cfi_offset 4, -12
+ 673              		.cfi_offset 5, -8
+ 674              		.cfi_offset 14, -4
+ 146:Core/Src/camera.c ****     // Find JPEG start (0xFFD8) and end (0xFFD9)
+ 147:Core/Src/camera.c ****     uint32_t jpeg_length=0;
+ 675              		.loc 1 147 5 is_stmt 1 view .LVU99
+ 676              	.LVL65:
+ 148:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 677              		.loc 1 148 5 view .LVU100
+ 149:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 678              		.loc 1 149 5 view .LVU101
+ 679              	.LBB2:
+ 680              		.loc 1 149 10 view .LVU102
+ 681              		.loc 1 149 19 is_stmt 0 view .LVU103
+ 682 0002 0023     		movs	r3, #0
+ 683              	.LBE2:
+ 148:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 684              		.loc 1 148 9 view .LVU104
+ 685 0004 4FF0FF35 		mov	r5, #-1
+ 686              	.LBB3:
+ 687              		.loc 1 149 5 view .LVU105
+ 688 0008 02E0     		b	.L32
+ 689              	.LVL66:
+ 690              	.L33:
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 151:Core/Src/camera.c ****             start_index = i;
+ 152:Core/Src/camera.c ****         }
+ 153:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD9) {
+ 691              		.loc 1 153 9 is_stmt 1 view .LVU106
+ 692              		.loc 1 153 12 is_stmt 0 view .LVU107
+ 693 000a FF2A     		cmp	r2, #255
+ 694 000c 0FD0     		beq	.L42
+ 695              	.L34:
+ 149:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 696              		.loc 1 149 46 is_stmt 1 discriminator 2 view .LVU108
+ 149:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ARM GAS  /tmp/cc40a8AS.s 			page 16
 
 
- 608 0022 F2D1     		bne	.L31
- 139:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 609              		.loc 1 139 68 discriminator 2 view .LVU102
- 610 0024 B5F1FF3F 		cmp	r5, #-1
- 611 0028 EFD1     		bne	.L31
- 140:Core/Src/camera.c ****         }
- 612              		.loc 1 140 13 is_stmt 1 view .LVU103
- 140:Core/Src/camera.c ****         }
- 613              		.loc 1 140 25 is_stmt 0 view .LVU104
- 614 002a 1D46     		mov	r5, r3
- 615              	.LVL52:
- 140:Core/Src/camera.c ****         }
- 616              		.loc 1 140 25 view .LVU105
- 617 002c EDE7     		b	.L31
- 618              	.LVL53:
- 619              	.L40:
- 620              		.loc 1 142 52 discriminator 1 view .LVU106
- 621 002e 5A1C     		adds	r2, r3, #1
- 622 0030 8C5C     		ldrb	r4, [r1, r2]	@ zero_extendqisi2
- 623              		.loc 1 142 37 discriminator 1 view .LVU107
- 624 0032 D92C     		cmp	r4, #217
- 625 0034 EBD1     		bne	.L32
- 143:Core/Src/camera.c ****             end_index = i + 1;
- 626              		.loc 1 143 13 is_stmt 1 view .LVU108
- 627              		.loc 1 143 23 is_stmt 0 view .LVU109
- 628 0036 1446     		mov	r4, r2
- 629              	.LVL54:
- 144:Core/Src/camera.c ****             break;
- 630              		.loc 1 144 13 is_stmt 1 view .LVU110
- 631 0038 01E0     		b	.L33
- 632              	.LVL55:
- 633              	.L41:
- 634              		.loc 1 144 13 is_stmt 0 view .LVU111
- 635              	.LBE3:
- 137:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 636              		.loc 1 137 27 view .LVU112
- 637 003a 4FF0FF34 		mov	r4, #-1
- 638              	.LVL56:
- 639              	.L33:
- 145:Core/Src/camera.c ****         }
- 146:Core/Src/camera.c ****     }
- 147:Core/Src/camera.c **** 
- 148:Core/Src/camera.c ****     if (start_index != -1 && end_index != -1 && end_index > start_index) 
- 640              		.loc 1 148 5 is_stmt 1 view .LVU113
- 641              		.loc 1 148 8 is_stmt 0 view .LVU114
- 642 003e B5F1FF3F 		cmp	r5, #-1
- 643 0042 0ED0     		beq	.L36
- 644              		.loc 1 148 27 discriminator 1 view .LVU115
- 645 0044 B4F1FF3F 		cmp	r4, #-1
- 646 0048 0DD0     		beq	.L37
- 647              		.loc 1 148 46 discriminator 2 view .LVU116
- 648 004a A542     		cmp	r5, r4
- 649 004c 01DB     		blt	.L42
- 136:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 650              		.loc 1 136 14 view .LVU117
- 651 004e 0020     		movs	r0, #0
- 652              	.LVL57:
-ARM GAS  /tmp/ccwBrY9H.s 			page 15
+ 697              		.loc 1 149 47 is_stmt 0 discriminator 2 view .LVU109
+ 698 000e 0133     		adds	r3, r3, #1
+ 699              	.LVL67:
+ 700              	.L32:
+ 149:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 701              		.loc 1 149 26 is_stmt 1 discriminator 1 view .LVU110
+ 149:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 702              		.loc 1 149 41 is_stmt 0 discriminator 1 view .LVU111
+ 703 0010 421E     		subs	r2, r0, #1
+ 149:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 704              		.loc 1 149 5 discriminator 1 view .LVU112
+ 705 0012 9A42     		cmp	r2, r3
+ 706 0014 11D9     		bls	.L43
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 707              		.loc 1 150 9 is_stmt 1 view .LVU113
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 708              		.loc 1 150 25 is_stmt 0 view .LVU114
+ 709 0016 CA5C     		ldrb	r2, [r1, r3]	@ zero_extendqisi2
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 710              		.loc 1 150 12 view .LVU115
+ 711 0018 FF2A     		cmp	r2, #255
+ 712 001a F6D1     		bne	.L33
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 713              		.loc 1 150 52 discriminator 1 view .LVU116
+ 714 001c CC18     		adds	r4, r1, r3
+ 715 001e 6478     		ldrb	r4, [r4, #1]	@ zero_extendqisi2
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 716              		.loc 1 150 37 discriminator 1 view .LVU117
+ 717 0020 D82C     		cmp	r4, #216
+ 718 0022 F2D1     		bne	.L33
+ 150:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 719              		.loc 1 150 68 discriminator 2 view .LVU118
+ 720 0024 B5F1FF3F 		cmp	r5, #-1
+ 721 0028 EFD1     		bne	.L33
+ 151:Core/Src/camera.c ****         }
+ 722              		.loc 1 151 13 is_stmt 1 view .LVU119
+ 151:Core/Src/camera.c ****         }
+ 723              		.loc 1 151 25 is_stmt 0 view .LVU120
+ 724 002a 1D46     		mov	r5, r3
+ 725              	.LVL68:
+ 151:Core/Src/camera.c ****         }
+ 726              		.loc 1 151 25 view .LVU121
+ 727 002c EDE7     		b	.L33
+ 728              	.LVL69:
+ 729              	.L42:
+ 730              		.loc 1 153 52 discriminator 1 view .LVU122
+ 731 002e 5A1C     		adds	r2, r3, #1
+ 732 0030 8C5C     		ldrb	r4, [r1, r2]	@ zero_extendqisi2
+ 733              		.loc 1 153 37 discriminator 1 view .LVU123
+ 734 0032 D92C     		cmp	r4, #217
+ 735 0034 EBD1     		bne	.L34
+ 154:Core/Src/camera.c ****             end_index = i + 1;
+ 736              		.loc 1 154 13 is_stmt 1 view .LVU124
+ 737              		.loc 1 154 23 is_stmt 0 view .LVU125
+ 738 0036 1446     		mov	r4, r2
+ 739              	.LVL70:
+ 155:Core/Src/camera.c ****             break;
+ARM GAS  /tmp/cc40a8AS.s 			page 17
 
 
- 149:Core/Src/camera.c ****     {
- 150:Core/Src/camera.c ****         printf("JPEG found: start=%d, end=%d\n", start_index, end_index);
- 151:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
- 152:Core/Src/camera.c ****         //     printf("%02X ", image_buffer[i]);
- 153:Core/Src/camera.c ****         // }
- 154:Core/Src/camera.c ****         // printf("\nJPEG extraction complete (%d bytes).\n", end_index - start_index + 1);
- 155:Core/Src/camera.c ****         jpeg_length=end_index - start_index + 1;
- 156:Core/Src/camera.c ****     } 
- 157:Core/Src/camera.c ****     // uint32_t jpeg_length=end_index - start_index + 1;
- 158:Core/Src/camera.c ****     return jpeg_length;
- 653              		.loc 1 158 5 is_stmt 1 view .LVU118
- 654              		.loc 1 158 12 is_stmt 0 view .LVU119
- 655 0050 08E0     		b	.L29
- 656              	.LVL58:
- 657              	.L42:
- 150:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
- 658              		.loc 1 150 9 is_stmt 1 view .LVU120
- 659 0052 2246     		mov	r2, r4
- 660 0054 2946     		mov	r1, r5
- 661              	.LVL59:
- 150:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
- 662              		.loc 1 150 9 is_stmt 0 view .LVU121
- 663 0056 0548     		ldr	r0, .L43
- 664              	.LVL60:
- 150:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
- 665              		.loc 1 150 9 view .LVU122
- 666 0058 FFF7FEFF 		bl	printf
- 667              	.LVL61:
- 155:Core/Src/camera.c ****     } 
- 668              		.loc 1 155 9 is_stmt 1 view .LVU123
- 155:Core/Src/camera.c ****     } 
- 669              		.loc 1 155 31 is_stmt 0 view .LVU124
- 670 005c 621B     		subs	r2, r4, r5
- 155:Core/Src/camera.c ****     } 
- 671              		.loc 1 155 45 view .LVU125
- 672 005e 501C     		adds	r0, r2, #1
- 673              	.LVL62:
- 155:Core/Src/camera.c ****     } 
- 674              		.loc 1 155 45 view .LVU126
- 675 0060 00E0     		b	.L29
- 676              	.LVL63:
- 677              	.L36:
- 136:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 678              		.loc 1 136 14 view .LVU127
- 679 0062 0020     		movs	r0, #0
- 680              	.LVL64:
- 681              	.L29:
- 159:Core/Src/camera.c **** 
- 160:Core/Src/camera.c **** 
- 161:Core/Src/camera.c ****     // else {
- 162:Core/Src/camera.c ****         // printf("JPEG not found in the image buffer.\n");
- 163:Core/Src/camera.c ****         // return false;
- 164:Core/Src/camera.c **** 
- 165:Core/Src/camera.c ****     // }
- 166:Core/Src/camera.c **** }
- 682              		.loc 1 166 1 view .LVU128
- 683 0064 38BD     		pop	{r3, r4, r5, pc}
-ARM GAS  /tmp/ccwBrY9H.s 			page 16
+ 740              		.loc 1 155 13 is_stmt 1 view .LVU126
+ 741 0038 01E0     		b	.L35
+ 742              	.LVL71:
+ 743              	.L43:
+ 744              		.loc 1 155 13 is_stmt 0 view .LVU127
+ 745              	.LBE3:
+ 148:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 746              		.loc 1 148 27 view .LVU128
+ 747 003a 4FF0FF34 		mov	r4, #-1
+ 748              	.LVL72:
+ 749              	.L35:
+ 156:Core/Src/camera.c ****         }
+ 157:Core/Src/camera.c ****     }
+ 158:Core/Src/camera.c **** 
+ 159:Core/Src/camera.c ****     if (start_index != -1 && end_index != -1 && end_index > start_index) 
+ 750              		.loc 1 159 5 is_stmt 1 view .LVU129
+ 751              		.loc 1 159 8 is_stmt 0 view .LVU130
+ 752 003e B5F1FF3F 		cmp	r5, #-1
+ 753 0042 0ED0     		beq	.L38
+ 754              		.loc 1 159 27 discriminator 1 view .LVU131
+ 755 0044 B4F1FF3F 		cmp	r4, #-1
+ 756 0048 0DD0     		beq	.L39
+ 757              		.loc 1 159 46 discriminator 2 view .LVU132
+ 758 004a A542     		cmp	r5, r4
+ 759 004c 01DB     		blt	.L44
+ 147:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 760              		.loc 1 147 14 view .LVU133
+ 761 004e 0020     		movs	r0, #0
+ 762              	.LVL73:
+ 160:Core/Src/camera.c ****     {
+ 161:Core/Src/camera.c ****         printf("JPEG found: start=%d, end=%d\n", start_index, end_index);
+ 162:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
+ 163:Core/Src/camera.c ****         //     printf("%02X ", image_buffer[i]);
+ 164:Core/Src/camera.c ****         // }
+ 165:Core/Src/camera.c ****         // printf("\nJPEG extraction complete (%d bytes).\n", end_index - start_index + 1);
+ 166:Core/Src/camera.c ****         jpeg_length=end_index - start_index + 1;
+ 167:Core/Src/camera.c ****     } 
+ 168:Core/Src/camera.c ****     // uint32_t jpeg_length=end_index - start_index + 1;
+ 169:Core/Src/camera.c ****     return jpeg_length;
+ 763              		.loc 1 169 5 is_stmt 1 view .LVU134
+ 764              		.loc 1 169 12 is_stmt 0 view .LVU135
+ 765 0050 08E0     		b	.L31
+ 766              	.LVL74:
+ 767              	.L44:
+ 161:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
+ 768              		.loc 1 161 9 is_stmt 1 view .LVU136
+ 769 0052 2246     		mov	r2, r4
+ 770 0054 2946     		mov	r1, r5
+ 771              	.LVL75:
+ 161:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
+ 772              		.loc 1 161 9 is_stmt 0 view .LVU137
+ 773 0056 0548     		ldr	r0, .L45
+ 774              	.LVL76:
+ 161:Core/Src/camera.c ****         // for (int i = start_index; i <= end_index; i++) {
+ 775              		.loc 1 161 9 view .LVU138
+ 776 0058 FFF7FEFF 		bl	printf
+ 777              	.LVL77:
+ARM GAS  /tmp/cc40a8AS.s 			page 18
 
 
- 684              	.LVL65:
- 685              	.L37:
- 136:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 686              		.loc 1 136 14 view .LVU129
- 687 0066 0020     		movs	r0, #0
- 688              	.LVL66:
- 136:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 689              		.loc 1 136 14 view .LVU130
- 690 0068 FCE7     		b	.L29
- 691              	.L44:
- 692 006a 00BF     		.align	2
- 693              	.L43:
- 694 006c 00000000 		.word	.LC0
- 695              		.cfi_endproc
- 696              	.LFE79:
- 698              		.section	.rodata.process_image_capture.str1.4,"aMS",%progbits,1
- 699              		.align	2
- 700              	.LC1:
- 701 0000 53746172 		.ascii	"Starting image capture...\000"
- 701      74696E67 
- 701      20696D61 
- 701      67652063 
- 701      61707475 
- 702 001a 0000     		.align	2
- 703              	.LC2:
- 704 001c 52656164 		.ascii	"Reading image from FIFO...\000"
- 704      696E6720 
- 704      696D6167 
- 704      65206672 
- 704      6F6D2046 
- 705 0037 00       		.align	2
- 706              	.LC3:
- 707 0038 4A504547 		.ascii	"JPEG not found in buffer\000"
- 707      206E6F74 
- 707      20666F75 
- 707      6E642069 
- 707      6E206275 
- 708 0051 000000   		.align	2
- 709              	.LC4:
- 710 0054 4A504547 		.ascii	"JPEG found: start=%d, end=%d, length=%lu\012\000"
- 710      20666F75 
- 710      6E643A20 
- 710      73746172 
- 710      743D2564 
- 711 007e 0000     		.align	2
- 712              	.LC5:
- 713 0080 466C6173 		.ascii	"Flash not found or not matching (ID: 0x%lX)\015\012"
- 713      68206E6F 
- 713      7420666F 
- 713      756E6420 
- 713      6F72206E 
- 714 00ad 00       		.ascii	"\000"
- 715 00ae 0000     		.align	2
- 716              	.LC6:
- 717 00b0 466C6173 		.ascii	"Flash found (ID: 0x%lX)\015\012\000"
- 717      6820666F 
- 717      756E6420 
-ARM GAS  /tmp/ccwBrY9H.s 			page 17
+ 166:Core/Src/camera.c ****     } 
+ 778              		.loc 1 166 9 is_stmt 1 view .LVU139
+ 166:Core/Src/camera.c ****     } 
+ 779              		.loc 1 166 31 is_stmt 0 view .LVU140
+ 780 005c 621B     		subs	r2, r4, r5
+ 166:Core/Src/camera.c ****     } 
+ 781              		.loc 1 166 45 view .LVU141
+ 782 005e 501C     		adds	r0, r2, #1
+ 783              	.LVL78:
+ 166:Core/Src/camera.c ****     } 
+ 784              		.loc 1 166 45 view .LVU142
+ 785 0060 00E0     		b	.L31
+ 786              	.LVL79:
+ 787              	.L38:
+ 147:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 788              		.loc 1 147 14 view .LVU143
+ 789 0062 0020     		movs	r0, #0
+ 790              	.LVL80:
+ 791              	.L31:
+ 170:Core/Src/camera.c **** 
+ 171:Core/Src/camera.c **** 
+ 172:Core/Src/camera.c ****     // else {
+ 173:Core/Src/camera.c ****         // printf("JPEG not found in the image buffer.\n");
+ 174:Core/Src/camera.c ****         // return false;
+ 175:Core/Src/camera.c **** 
+ 176:Core/Src/camera.c ****     // }
+ 177:Core/Src/camera.c **** }
+ 792              		.loc 1 177 1 view .LVU144
+ 793 0064 38BD     		pop	{r3, r4, r5, pc}
+ 794              	.LVL81:
+ 795              	.L39:
+ 147:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 796              		.loc 1 147 14 view .LVU145
+ 797 0066 0020     		movs	r0, #0
+ 798              	.LVL82:
+ 147:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 799              		.loc 1 147 14 view .LVU146
+ 800 0068 FCE7     		b	.L31
+ 801              	.L46:
+ 802 006a 00BF     		.align	2
+ 803              	.L45:
+ 804 006c 00000000 		.word	.LC6
+ 805              		.cfi_endproc
+ 806              	.LFE79:
+ 808              		.section	.rodata.process_image_capture.str1.4,"aMS",%progbits,1
+ 809              		.align	2
+ 810              	.LC7:
+ 811 0000 53746172 		.ascii	"Starting image capture...\000"
+ 811      74696E67 
+ 811      20696D61 
+ 811      67652063 
+ 811      61707475 
+ 812 001a 0000     		.align	2
+ 813              	.LC8:
+ 814 001c 52656164 		.ascii	"Reading image from FIFO...\000"
+ 814      696E6720 
+ 814      696D6167 
+ARM GAS  /tmp/cc40a8AS.s 			page 19
 
 
- 717      2849443A 
- 717      20307825 
- 718 00ca 0000     		.align	2
- 719              	.LC7:
- 720 00cc 454F4920 		.ascii	"EOI Packet.\000"
- 720      5061636B 
- 720      65742E00 
- 721              		.align	2
- 722              	.LC8:
- 723 00d8 57726974 		.ascii	"Writing SSDV packet to flash...\000"
- 723      696E6720 
- 723      53534456 
- 723      20706163 
- 723      6B657420 
- 724              		.align	2
- 725              	.LC9:
- 726 00f8 7C205353 		.ascii	"| SSDV packet %02lu stored at address 0x%06lX |\012"
- 726      44562070 
- 726      61636B65 
- 726      74202530 
- 726      326C7520 
- 727 0128 00       		.ascii	"\000"
- 728 0129 000000   		.align	2
- 729              	.LC10:
- 730 012c 5B535344 		.ascii	"[SSDV] Error or unexpected result.\000"
- 730      565D2045 
- 730      72726F72 
- 730      206F7220 
- 730      756E6578 
- 731 014f 00       		.align	2
- 732              	.LC11:
- 733 0150 5B464C41 		.ascii	"[FLASH READ COMPLETE]\015\000"
- 733      53482052 
- 733      45414420 
- 733      434F4D50 
- 733      4C455445 
- 734              		.section	.text.process_image_capture,"ax",%progbits
- 735              		.align	1
- 736              		.global	process_image_capture
- 737              		.syntax unified
- 738              		.thumb
- 739              		.thumb_func
- 740              		.fpu softvfp
- 742              	process_image_capture:
- 743              	.LFB80:
- 167:Core/Src/camera.c **** 
- 168:Core/Src/camera.c **** 
- 169:Core/Src/camera.c **** //5th iteration
- 170:Core/Src/camera.c **** void process_image_capture()
- 171:Core/Src/camera.c **** {
- 744              		.loc 1 171 1 is_stmt 1 view -0
- 745              		.cfi_startproc
- 746              		@ args = 0, pretend = 0, frame = 1520
- 747              		@ frame_needed = 0, uses_anonymous_args = 0
- 748 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 749              	.LCFI18:
- 750              		.cfi_def_cfa_offset 20
-ARM GAS  /tmp/ccwBrY9H.s 			page 18
+ 814      65206672 
+ 814      6F6D2046 
+ 815 0037 00       		.align	2
+ 816              	.LC9:
+ 817 0038 4A504547 		.ascii	"JPEG not found in buffer\000"
+ 817      206E6F74 
+ 817      20666F75 
+ 817      6E642069 
+ 817      6E206275 
+ 818 0051 000000   		.align	2
+ 819              	.LC10:
+ 820 0054 4A504547 		.ascii	"JPEG found: start=%d, end=%d, length=%lu\012\000"
+ 820      20666F75 
+ 820      6E643A20 
+ 820      73746172 
+ 820      743D2564 
+ 821 007e 0000     		.align	2
+ 822              	.LC11:
+ 823 0080 466C6173 		.ascii	"Flash not found or not matching (ID: 0x%lX)\015\012"
+ 823      68206E6F 
+ 823      7420666F 
+ 823      756E6420 
+ 823      6F72206E 
+ 824 00ad 00       		.ascii	"\000"
+ 825 00ae 0000     		.align	2
+ 826              	.LC12:
+ 827 00b0 466C6173 		.ascii	"Flash found (ID: 0x%lX)\015\012\000"
+ 827      6820666F 
+ 827      756E6420 
+ 827      2849443A 
+ 827      20307825 
+ 828 00ca 0000     		.align	2
+ 829              	.LC13:
+ 830 00cc 454F4920 		.ascii	"EOI Packet.\000"
+ 830      5061636B 
+ 830      65742E00 
+ 831              		.align	2
+ 832              	.LC14:
+ 833 00d8 57726974 		.ascii	"Writing SSDV packet to flash...\000"
+ 833      696E6720 
+ 833      53534456 
+ 833      20706163 
+ 833      6B657420 
+ 834              		.align	2
+ 835              	.LC15:
+ 836 00f8 7C205353 		.ascii	"| SSDV packet %02lu stored at address 0x%06lX |\012"
+ 836      44562070 
+ 836      61636B65 
+ 836      74202530 
+ 836      326C7520 
+ 837 0128 00       		.ascii	"\000"
+ 838 0129 000000   		.align	2
+ 839              	.LC16:
+ 840 012c 5B535344 		.ascii	"[SSDV] Error or unexpected result.\000"
+ 840      565D2045 
+ 840      72726F72 
+ 840      206F7220 
+ARM GAS  /tmp/cc40a8AS.s 			page 20
 
 
- 751              		.cfi_offset 4, -20
- 752              		.cfi_offset 5, -16
- 753              		.cfi_offset 6, -12
- 754              		.cfi_offset 7, -8
- 755              		.cfi_offset 14, -4
- 756 0002 ADF2FC5D 		subw	sp, sp, #1532
- 757              	.LCFI19:
- 758              		.cfi_def_cfa_offset 1552
- 172:Core/Src/camera.c **** 
- 173:Core/Src/camera.c ****     // printf("setttinggggg.....camera\r\n");
- 174:Core/Src/camera.c ****     arducam_set_jpeg_mode();
- 759              		.loc 1 174 5 view .LVU132
- 760 0006 FFF7FEFF 		bl	arducam_set_jpeg_mode
- 761              	.LVL67:
- 175:Core/Src/camera.c ****     // HAL_Delay(10);   
- 176:Core/Src/camera.c ****     printf("Starting image capture...\n");
- 762              		.loc 1 176 5 view .LVU133
- 763 000a 5448     		ldr	r0, .L70
- 764 000c FFF7FEFF 		bl	puts
- 765              	.LVL68:
- 177:Core/Src/camera.c ****     arducam_capture_image();
- 766              		.loc 1 177 5 view .LVU134
- 767 0010 FFF7FEFF 		bl	arducam_capture_image
- 768              	.LVL69:
+ 840      756E6578 
+ 841 014f 00       		.align	2
+ 842              	.LC17:
+ 843 0150 5B464C41 		.ascii	"[FLASH READ COMPLETE]\015\000"
+ 843      53482052 
+ 843      45414420 
+ 843      434F4D50 
+ 843      4C455445 
+ 844              		.section	.text.process_image_capture,"ax",%progbits
+ 845              		.align	1
+ 846              		.global	process_image_capture
+ 847              		.syntax unified
+ 848              		.thumb
+ 849              		.thumb_func
+ 850              		.fpu softvfp
+ 852              	process_image_capture:
+ 853              	.LFB80:
  178:Core/Src/camera.c **** 
- 179:Core/Src/camera.c ****     printf("Reading image from FIFO...\n");
- 769              		.loc 1 179 5 view .LVU135
- 770 0014 5248     		ldr	r0, .L70+4
- 771 0016 FFF7FEFF 		bl	puts
- 772              	.LVL70:
- 180:Core/Src/camera.c ****     uint32_t bytes_read = arducam_burst_read(image_buffer, MAX_IMAGE_SIZE);
- 773              		.loc 1 180 5 view .LVU136
- 774              		.loc 1 180 27 is_stmt 0 view .LVU137
- 775 001a 42F6E061 		movw	r1, #12000
- 776 001e 5148     		ldr	r0, .L70+8
- 777 0020 FFF7FEFF 		bl	arducam_burst_read
- 778              	.LVL71:
- 181:Core/Src/camera.c ****     uint32_t jpeg_length = 0;
- 779              		.loc 1 181 5 is_stmt 1 view .LVU138
- 182:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 780              		.loc 1 182 5 view .LVU139
+ 179:Core/Src/camera.c **** 
+ 180:Core/Src/camera.c **** //5th iteration
+ 181:Core/Src/camera.c **** void process_image_capture()
+ 182:Core/Src/camera.c **** {
+ 854              		.loc 1 182 1 is_stmt 1 view -0
+ 855              		.cfi_startproc
+ 856              		@ args = 0, pretend = 0, frame = 1520
+ 857              		@ frame_needed = 0, uses_anonymous_args = 0
+ 858 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 859              	.LCFI18:
+ 860              		.cfi_def_cfa_offset 20
+ 861              		.cfi_offset 4, -20
+ 862              		.cfi_offset 5, -16
+ 863              		.cfi_offset 6, -12
+ 864              		.cfi_offset 7, -8
+ 865              		.cfi_offset 14, -4
+ 866 0002 ADF2FC5D 		subw	sp, sp, #1532
+ 867              	.LCFI19:
+ 868              		.cfi_def_cfa_offset 1552
  183:Core/Src/camera.c **** 
- 184:Core/Src/camera.c ****     // Find JPEG SOI and EOI markers
- 185:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
- 781              		.loc 1 185 5 view .LVU140
- 782              	.LBB4:
- 783              		.loc 1 185 10 view .LVU141
- 784              		.loc 1 185 19 is_stmt 0 view .LVU142
- 785 0024 0023     		movs	r3, #0
- 786              	.LBE4:
- 182:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
- 787              		.loc 1 182 9 view .LVU143
- 788 0026 4FF0FF34 		mov	r4, #-1
- 789              	.LBB5:
- 790              		.loc 1 185 5 view .LVU144
- 791 002a 0AE0     		b	.L46
- 792              	.LVL72:
-ARM GAS  /tmp/ccwBrY9H.s 			page 19
+ 184:Core/Src/camera.c ****     // printf("setttinggggg.....camera\r\n");
+ 185:Core/Src/camera.c ****     arducam_set_jpeg_mode();
+ 869              		.loc 1 185 5 view .LVU148
+ 870 0006 FFF7FEFF 		bl	arducam_set_jpeg_mode
+ 871              	.LVL83:
+ 186:Core/Src/camera.c ****     // HAL_Delay(10);   
+ 187:Core/Src/camera.c ****     printf("Starting image capture...\n");
+ 872              		.loc 1 187 5 view .LVU149
+ 873 000a 5448     		ldr	r0, .L72
+ 874 000c FFF7FEFF 		bl	puts
+ 875              	.LVL84:
+ 188:Core/Src/camera.c ****     arducam_capture_image();
+ 876              		.loc 1 188 5 view .LVU150
+ 877 0010 FFF7FEFF 		bl	arducam_capture_image
+ 878              	.LVL85:
+ 189:Core/Src/camera.c **** 
+ 190:Core/Src/camera.c ****     printf("Reading image from FIFO...\n");
+ 879              		.loc 1 190 5 view .LVU151
+ 880 0014 5248     		ldr	r0, .L72+4
+ARM GAS  /tmp/cc40a8AS.s 			page 21
 
 
- 793              	.L67:
- 186:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 794              		.loc 1 186 55 discriminator 1 view .LVU145
- 795 002c 591C     		adds	r1, r3, #1
- 796              		.loc 1 186 52 discriminator 1 view .LVU146
- 797 002e 4D4D     		ldr	r5, .L70+8
- 798 0030 695C     		ldrb	r1, [r5, r1]	@ zero_extendqisi2
- 799              		.loc 1 186 37 discriminator 1 view .LVU147
- 800 0032 D829     		cmp	r1, #216
- 801 0034 0CD1     		bne	.L47
- 802              		.loc 1 186 68 discriminator 2 view .LVU148
- 803 0036 B4F1FF3F 		cmp	r4, #-1
- 804 003a 09D1     		bne	.L47
- 187:Core/Src/camera.c ****             start_index = i;
- 805              		.loc 1 187 13 is_stmt 1 view .LVU149
- 806              		.loc 1 187 25 is_stmt 0 view .LVU150
- 807 003c 1C46     		mov	r4, r3
- 808              	.LVL73:
- 809              		.loc 1 187 25 view .LVU151
- 810 003e 07E0     		b	.L47
- 811              	.LVL74:
- 812              	.L48:
- 185:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 813              		.loc 1 185 46 is_stmt 1 discriminator 2 view .LVU152
- 185:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 814              		.loc 1 185 47 is_stmt 0 discriminator 2 view .LVU153
- 815 0040 0133     		adds	r3, r3, #1
- 816              	.LVL75:
- 817              	.L46:
- 185:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 818              		.loc 1 185 26 is_stmt 1 discriminator 1 view .LVU154
- 185:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 819              		.loc 1 185 41 is_stmt 0 discriminator 1 view .LVU155
- 820 0042 421E     		subs	r2, r0, #1
- 185:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 821              		.loc 1 185 5 discriminator 1 view .LVU156
- 822 0044 9A42     		cmp	r2, r3
- 823 0046 0BD9     		bls	.L66
- 186:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 824              		.loc 1 186 9 is_stmt 1 view .LVU157
- 186:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 825              		.loc 1 186 25 is_stmt 0 view .LVU158
- 826 0048 464A     		ldr	r2, .L70+8
- 827 004a D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
- 186:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
- 828              		.loc 1 186 12 view .LVU159
- 829 004c FF2A     		cmp	r2, #255
- 830 004e EDD0     		beq	.L67
- 831              	.L47:
- 188:Core/Src/camera.c ****         }
- 189:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD9) {
- 832              		.loc 1 189 9 is_stmt 1 view .LVU160
- 833              		.loc 1 189 12 is_stmt 0 view .LVU161
- 834 0050 FF2A     		cmp	r2, #255
- 835 0052 F5D1     		bne	.L48
- 836              		.loc 1 189 55 discriminator 1 view .LVU162
- 837 0054 5A1C     		adds	r2, r3, #1
-ARM GAS  /tmp/ccwBrY9H.s 			page 20
-
-
- 838              		.loc 1 189 52 discriminator 1 view .LVU163
- 839 0056 4349     		ldr	r1, .L70+8
- 840 0058 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
- 841              		.loc 1 189 37 discriminator 1 view .LVU164
- 842 005a D929     		cmp	r1, #217
- 843 005c F0D1     		bne	.L48
- 844 005e 01E0     		b	.L49
- 845              	.L66:
- 846              		.loc 1 189 37 discriminator 1 view .LVU165
- 847              	.LBE5:
- 182:Core/Src/camera.c **** 
- 848              		.loc 1 182 27 view .LVU166
- 849 0060 4FF0FF32 		mov	r2, #-1
- 850              	.L49:
- 851              	.LVL76:
- 190:Core/Src/camera.c ****             end_index = i + 1;
- 191:Core/Src/camera.c ****             break;
- 192:Core/Src/camera.c ****         }
- 193:Core/Src/camera.c ****     }
+ 881 0016 FFF7FEFF 		bl	puts
+ 882              	.LVL86:
+ 191:Core/Src/camera.c ****     uint32_t bytes_read = arducam_burst_read(image_buffer, MAX_IMAGE_SIZE);
+ 883              		.loc 1 191 5 view .LVU152
+ 884              		.loc 1 191 27 is_stmt 0 view .LVU153
+ 885 001a 43F69821 		movw	r1, #15000
+ 886 001e 5148     		ldr	r0, .L72+8
+ 887 0020 FFF7FEFF 		bl	arducam_burst_read
+ 888              	.LVL87:
+ 192:Core/Src/camera.c ****     uint32_t jpeg_length = 0;
+ 889              		.loc 1 192 5 is_stmt 1 view .LVU154
+ 193:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 890              		.loc 1 193 5 view .LVU155
  194:Core/Src/camera.c **** 
- 195:Core/Src/camera.c ****     if (start_index == -1 || end_index == -1 || end_index <= start_index) {
- 852              		.loc 1 195 5 is_stmt 1 view .LVU167
- 853              		.loc 1 195 8 is_stmt 0 view .LVU168
- 854 0064 B4F1FF3F 		cmp	r4, #-1
- 855 0068 04D0     		beq	.L51
- 856              		.loc 1 195 27 discriminator 1 view .LVU169
- 857 006a B2F1FF3F 		cmp	r2, #-1
- 858 006e 01D0     		beq	.L51
- 859              		.loc 1 195 46 discriminator 2 view .LVU170
- 860 0070 9442     		cmp	r4, r2
- 861 0072 05DB     		blt	.L52
- 862              	.L51:
- 196:Core/Src/camera.c ****         printf("JPEG not found in buffer\n");
- 863              		.loc 1 196 9 is_stmt 1 view .LVU171
- 864 0074 3C48     		ldr	r0, .L70+12
- 865              	.LVL77:
- 866              		.loc 1 196 9 is_stmt 0 view .LVU172
- 867 0076 FFF7FEFF 		bl	puts
- 868              	.LVL78:
- 197:Core/Src/camera.c ****         return;
- 869              		.loc 1 197 9 is_stmt 1 view .LVU173
- 870              	.L45:
- 198:Core/Src/camera.c ****     }
- 199:Core/Src/camera.c **** 
- 200:Core/Src/camera.c ****     jpeg_length = end_index - start_index + 1;
- 201:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
- 202:Core/Src/camera.c **** 
- 203:Core/Src/camera.c ****     /*------ SSDV ENCODING --------*/
- 204:Core/Src/camera.c ****     ssdv_t ssdv;
- 205:Core/Src/camera.c ****     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
- 206:Core/Src/camera.c **** 
- 207:Core/Src/camera.c ****     ssdv_enc_init(&ssdv, ssdv_type, ssdv_call_sign, ssdv_image_id++, ssdv_quality);
- 208:Core/Src/camera.c ****     ssdv_enc_set_buffer(&ssdv, ssdv_pkt);
- 209:Core/Src/camera.c **** 
- 210:Core/Src/camera.c ****     // size_t ssdv_packets_in_image = 0;
- 211:Core/Src/camera.c **** 
- 212:Core/Src/camera.c ****     // Flash initialization
-ARM GAS  /tmp/ccwBrY9H.s 			page 21
+ 195:Core/Src/camera.c ****     // Find JPEG SOI and EOI markers
+ 196:Core/Src/camera.c ****     for (uint32_t i = 0; i < bytes_read - 1; i++) {
+ 891              		.loc 1 196 5 view .LVU156
+ 892              	.LBB4:
+ 893              		.loc 1 196 10 view .LVU157
+ 894              		.loc 1 196 19 is_stmt 0 view .LVU158
+ 895 0024 0023     		movs	r3, #0
+ 896              	.LBE4:
+ 193:Core/Src/camera.c ****     int start_index = -1, end_index = -1;
+ 897              		.loc 1 193 9 view .LVU159
+ 898 0026 4FF0FF34 		mov	r4, #-1
+ 899              	.LBB5:
+ 900              		.loc 1 196 5 view .LVU160
+ 901 002a 0AE0     		b	.L48
+ 902              	.LVL88:
+ 903              	.L69:
+ 197:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 904              		.loc 1 197 55 discriminator 1 view .LVU161
+ 905 002c 591C     		adds	r1, r3, #1
+ 906              		.loc 1 197 52 discriminator 1 view .LVU162
+ 907 002e 4D4D     		ldr	r5, .L72+8
+ 908 0030 695C     		ldrb	r1, [r5, r1]	@ zero_extendqisi2
+ 909              		.loc 1 197 37 discriminator 1 view .LVU163
+ 910 0032 D829     		cmp	r1, #216
+ 911 0034 0CD1     		bne	.L49
+ 912              		.loc 1 197 68 discriminator 2 view .LVU164
+ 913 0036 B4F1FF3F 		cmp	r4, #-1
+ 914 003a 09D1     		bne	.L49
+ 198:Core/Src/camera.c ****             start_index = i;
+ 915              		.loc 1 198 13 is_stmt 1 view .LVU165
+ 916              		.loc 1 198 25 is_stmt 0 view .LVU166
+ 917 003c 1C46     		mov	r4, r3
+ 918              	.LVL89:
+ 919              		.loc 1 198 25 view .LVU167
+ 920 003e 07E0     		b	.L49
+ 921              	.LVL90:
+ 922              	.L50:
+ 196:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 923              		.loc 1 196 46 is_stmt 1 discriminator 2 view .LVU168
+ 196:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 924              		.loc 1 196 47 is_stmt 0 discriminator 2 view .LVU169
+ 925 0040 0133     		adds	r3, r3, #1
+ 926              	.LVL91:
+ARM GAS  /tmp/cc40a8AS.s 			page 22
 
 
- 213:Core/Src/camera.c ****     flash_init();
- 214:Core/Src/camera.c **** 
- 215:Core/Src/camera.c ****     uint32_t flash_id = flash_read_id();
- 216:Core/Src/camera.c ****     if (flash_id != FLASH_ID_512) {
- 217:Core/Src/camera.c ****         printf("Flash not found or not matching (ID: 0x%lX)\r\n", flash_id);
- 218:Core/Src/camera.c ****         while (1);
- 219:Core/Src/camera.c ****     } else {
- 220:Core/Src/camera.c ****         printf("Flash found (ID: 0x%lX)\r\n", flash_id);
- 221:Core/Src/camera.c ****     }
- 222:Core/Src/camera.c **** 
- 223:Core/Src/camera.c ****     // Address for current image
- 224:Core/Src/camera.c ****     uint32_t image_index = 0;  // Replace with a persistent value for multi-image storage
- 225:Core/Src/camera.c ****     uint32_t ssdv_start_addr = image_index * (SSDV_PKT_SIZE * MAX_SSDV_PACKETS);
- 226:Core/Src/camera.c **** 
- 227:Core/Src/camera.c ****     // Erase necessary sectors
- 228:Core/Src/camera.c ****     for (uint32_t addr = ssdv_start_addr; addr < (ssdv_start_addr + (SSDV_PKT_SIZE * MAX_SSDV_PACKE
- 229:Core/Src/camera.c ****         flash_erase_sector(addr);
- 230:Core/Src/camera.c ****     }
- 231:Core/Src/camera.c **** 
- 232:Core/Src/camera.c ****     // SSDV encoding and flash writing
- 233:Core/Src/camera.c ****     uint32_t bi = 0;
- 234:Core/Src/camera.c ****     int c;
- 235:Core/Src/camera.c ****     while (1) {
- 236:Core/Src/camera.c ****         while ((c = ssdv_enc_get_packet(&ssdv)) == SSDV_FEED_ME) {
- 237:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
- 238:Core/Src/camera.c ****             if (chunk_size == 0) break;
- 239:Core/Src/camera.c ****             ssdv_enc_feed(&ssdv, &image_buffer[start_index + bi], chunk_size);
- 240:Core/Src/camera.c ****             bi += chunk_size;
- 241:Core/Src/camera.c ****         }
- 242:Core/Src/camera.c **** 
- 243:Core/Src/camera.c ****         if (c == SSDV_EOI) {
- 244:Core/Src/camera.c ****             printf("EOI Packet.\n");
- 245:Core/Src/camera.c ****             break;
- 246:Core/Src/camera.c ****         } else if (c == SSDV_OK) {
- 247:Core/Src/camera.c ****             printf("Writing SSDV packet to flash...\n");
- 248:Core/Src/camera.c ****             flash_write_buffer(ssdv_pkt, ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE, S
- 249:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
- 250:Core/Src/camera.c ****                    (unsigned long)(ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE));
- 251:Core/Src/camera.c ****             ssdv_packets_in_image++;
- 252:Core/Src/camera.c ****         } else {
- 253:Core/Src/camera.c ****             printf("[SSDV] Error or unexpected result.\n");
- 254:Core/Src/camera.c ****             break;
- 255:Core/Src/camera.c ****         }
- 256:Core/Src/camera.c ****     }
- 257:Core/Src/camera.c **** 
- 258:Core/Src/camera.c ****     /*------ READ BACK SSDV PACKETS --------*/
- 259:Core/Src/camera.c ****     // printf("\n[READING BACK %lu SSDV PACKETS FROM FLASH]\n", ssdv_packets_in_image);
- 260:Core/Src/camera.c ****     // for (uint32_t i = 0; i < ssdv_packets_in_image; i++) {
- 261:Core/Src/camera.c ****     //     uint8_t buffer[SSDV_PKT_SIZE] = {0};
- 262:Core/Src/camera.c ****     //     flash_read_buffer(buffer, ssdv_start_addr + i * SSDV_PKT_SIZE, SSDV_PKT_SIZE);
- 263:Core/Src/camera.c ****     //     HAL_Delay(10);
- 264:Core/Src/camera.c **** 
- 265:Core/Src/camera.c ****     //     printf("Packet %02lu: ", i + 1);
- 266:Core/Src/camera.c ****     //     for (uint16_t j = 0; j < SSDV_PKT_SIZE; j++) {
- 267:Core/Src/camera.c ****     //         printf("0x%02X, ", buffer[j]);
- 268:Core/Src/camera.c ****     //         if ((j + 1) % 16 == 0) printf("\n");
- 269:Core/Src/camera.c ****     //     }
-ARM GAS  /tmp/ccwBrY9H.s 			page 22
-
-
- 270:Core/Src/camera.c ****     //     printf("\n-----------------------------\n");
- 271:Core/Src/camera.c ****     // }
- 272:Core/Src/camera.c **** 
- 273:Core/Src/camera.c ****     printf("[FLASH READ COMPLETE]\r\n");
- 274:Core/Src/camera.c **** }
- 871              		.loc 1 274 1 is_stmt 0 view .LVU174
- 872 007a 0DF2FC5D 		addw	sp, sp, #1532
- 873              	.LCFI20:
- 874              		.cfi_remember_state
- 875              		.cfi_def_cfa_offset 20
- 876              		@ sp needed
- 877 007e F0BD     		pop	{r4, r5, r6, r7, pc}
- 878              	.LVL79:
- 879              	.L52:
- 880              	.LCFI21:
- 881              		.cfi_restore_state
- 200:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
- 882              		.loc 1 200 5 is_stmt 1 view .LVU175
- 200:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
- 883              		.loc 1 200 29 is_stmt 0 view .LVU176
- 884 0080 161B     		subs	r6, r2, r4
- 200:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
- 885              		.loc 1 200 43 view .LVU177
- 886 0082 0136     		adds	r6, r6, #1
- 887              	.LVL80:
- 201:Core/Src/camera.c **** 
- 888              		.loc 1 201 5 is_stmt 1 view .LVU178
- 889 0084 3346     		mov	r3, r6
- 890              	.LVL81:
- 201:Core/Src/camera.c **** 
- 891              		.loc 1 201 5 is_stmt 0 view .LVU179
- 892 0086 2146     		mov	r1, r4
- 893 0088 3848     		ldr	r0, .L70+16
- 894              	.LVL82:
- 201:Core/Src/camera.c **** 
- 895              		.loc 1 201 5 view .LVU180
- 896 008a FFF7FEFF 		bl	printf
- 897              	.LVL83:
- 204:Core/Src/camera.c ****     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
- 898              		.loc 1 204 5 is_stmt 1 view .LVU181
+ 927              	.L48:
+ 196:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 928              		.loc 1 196 26 is_stmt 1 discriminator 1 view .LVU170
+ 196:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 929              		.loc 1 196 41 is_stmt 0 discriminator 1 view .LVU171
+ 930 0042 421E     		subs	r2, r0, #1
+ 196:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 931              		.loc 1 196 5 discriminator 1 view .LVU172
+ 932 0044 9A42     		cmp	r2, r3
+ 933 0046 0BD9     		bls	.L68
+ 197:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 934              		.loc 1 197 9 is_stmt 1 view .LVU173
+ 197:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 935              		.loc 1 197 25 is_stmt 0 view .LVU174
+ 936 0048 464A     		ldr	r2, .L72+8
+ 937 004a D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 197:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD8 && start_index == -1) {
+ 938              		.loc 1 197 12 view .LVU175
+ 939 004c FF2A     		cmp	r2, #255
+ 940 004e EDD0     		beq	.L69
+ 941              	.L49:
+ 199:Core/Src/camera.c ****         }
+ 200:Core/Src/camera.c ****         if (image_buffer[i] == 0xFF && image_buffer[i + 1] == 0xD9) {
+ 942              		.loc 1 200 9 is_stmt 1 view .LVU176
+ 943              		.loc 1 200 12 is_stmt 0 view .LVU177
+ 944 0050 FF2A     		cmp	r2, #255
+ 945 0052 F5D1     		bne	.L50
+ 946              		.loc 1 200 55 discriminator 1 view .LVU178
+ 947 0054 5A1C     		adds	r2, r3, #1
+ 948              		.loc 1 200 52 discriminator 1 view .LVU179
+ 949 0056 4349     		ldr	r1, .L72+8
+ 950 0058 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 951              		.loc 1 200 37 discriminator 1 view .LVU180
+ 952 005a D929     		cmp	r1, #217
+ 953 005c F0D1     		bne	.L50
+ 954 005e 01E0     		b	.L51
+ 955              	.L68:
+ 956              		.loc 1 200 37 discriminator 1 view .LVU181
+ 957              	.LBE5:
+ 193:Core/Src/camera.c **** 
+ 958              		.loc 1 193 27 view .LVU182
+ 959 0060 4FF0FF32 		mov	r2, #-1
+ 960              	.L51:
+ 961              	.LVL92:
+ 201:Core/Src/camera.c ****             end_index = i + 1;
+ 202:Core/Src/camera.c ****             break;
+ 203:Core/Src/camera.c ****         }
+ 204:Core/Src/camera.c ****     }
  205:Core/Src/camera.c **** 
- 899              		.loc 1 205 5 view .LVU182
- 207:Core/Src/camera.c ****     ssdv_enc_set_buffer(&ssdv, ssdv_pkt);
- 900              		.loc 1 207 5 view .LVU183
- 901 008e 384A     		ldr	r2, .L70+20
- 902 0090 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
- 903 0092 591C     		adds	r1, r3, #1
- 904 0094 1170     		strb	r1, [r2]
- 905 0096 374A     		ldr	r2, .L70+24
- 906 0098 92F90020 		ldrsb	r2, [r2]
- 907 009c 0092     		str	r2, [sp]
- 908 009e 364A     		ldr	r2, .L70+28
- 909 00a0 3649     		ldr	r1, .L70+32
- 910 00a2 0978     		ldrb	r1, [r1]	@ zero_extendqisi2
- 911 00a4 3AA8     		add	r0, sp, #232
- 912 00a6 FFF7FEFF 		bl	ssdv_enc_init
- 913              	.LVL84:
-ARM GAS  /tmp/ccwBrY9H.s 			page 23
+ 206:Core/Src/camera.c ****     if (start_index == -1 || end_index == -1 || end_index <= start_index) {
+ 962              		.loc 1 206 5 is_stmt 1 view .LVU183
+ 963              		.loc 1 206 8 is_stmt 0 view .LVU184
+ 964 0064 B4F1FF3F 		cmp	r4, #-1
+ 965 0068 04D0     		beq	.L53
+ 966              		.loc 1 206 27 discriminator 1 view .LVU185
+ 967 006a B2F1FF3F 		cmp	r2, #-1
+ 968 006e 01D0     		beq	.L53
+ARM GAS  /tmp/cc40a8AS.s 			page 23
 
 
- 208:Core/Src/camera.c **** 
- 914              		.loc 1 208 5 view .LVU184
- 915 00aa 02A9     		add	r1, sp, #8
- 916 00ac 3AA8     		add	r0, sp, #232
- 917 00ae FFF7FEFF 		bl	ssdv_enc_set_buffer
- 918              	.LVL85:
+ 969              		.loc 1 206 46 discriminator 2 view .LVU186
+ 970 0070 9442     		cmp	r4, r2
+ 971 0072 05DB     		blt	.L54
+ 972              	.L53:
+ 207:Core/Src/camera.c ****         printf("JPEG not found in buffer\n");
+ 973              		.loc 1 207 9 is_stmt 1 view .LVU187
+ 974 0074 3C48     		ldr	r0, .L72+12
+ 975              	.LVL93:
+ 976              		.loc 1 207 9 is_stmt 0 view .LVU188
+ 977 0076 FFF7FEFF 		bl	puts
+ 978              	.LVL94:
+ 208:Core/Src/camera.c ****         return;
+ 979              		.loc 1 208 9 is_stmt 1 view .LVU189
+ 980              	.L47:
+ 209:Core/Src/camera.c ****     }
+ 210:Core/Src/camera.c **** 
+ 211:Core/Src/camera.c ****     jpeg_length = end_index - start_index + 1;
+ 212:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
  213:Core/Src/camera.c **** 
- 919              		.loc 1 213 5 view .LVU185
- 920 00b2 FFF7FEFF 		bl	flash_init
- 921              	.LVL86:
- 215:Core/Src/camera.c ****     if (flash_id != FLASH_ID_512) {
- 922              		.loc 1 215 5 view .LVU186
- 215:Core/Src/camera.c ****     if (flash_id != FLASH_ID_512) {
- 923              		.loc 1 215 25 is_stmt 0 view .LVU187
- 924 00b6 FFF7FEFF 		bl	flash_read_id
- 925              	.LVL87:
- 926 00ba 0146     		mov	r1, r0
- 927              	.LVL88:
- 216:Core/Src/camera.c ****         printf("Flash not found or not matching (ID: 0x%lX)\r\n", flash_id);
- 928              		.loc 1 216 5 is_stmt 1 view .LVU188
- 216:Core/Src/camera.c ****         printf("Flash not found or not matching (ID: 0x%lX)\r\n", flash_id);
- 929              		.loc 1 216 8 is_stmt 0 view .LVU189
- 930 00bc 304B     		ldr	r3, .L70+36
- 931 00be 9842     		cmp	r0, r3
- 932 00c0 03D0     		beq	.L54
- 217:Core/Src/camera.c ****         while (1);
- 933              		.loc 1 217 9 is_stmt 1 view .LVU190
- 934 00c2 3048     		ldr	r0, .L70+40
- 935              	.LVL89:
- 217:Core/Src/camera.c ****         while (1);
- 936              		.loc 1 217 9 is_stmt 0 view .LVU191
- 937 00c4 FFF7FEFF 		bl	printf
- 938              	.LVL90:
- 939              	.L55:
- 218:Core/Src/camera.c ****     } else {
- 940              		.loc 1 218 9 is_stmt 1 discriminator 1 view .LVU192
- 218:Core/Src/camera.c ****     } else {
- 941              		.loc 1 218 18 discriminator 1 view .LVU193
- 218:Core/Src/camera.c ****     } else {
- 942              		.loc 1 218 15 discriminator 1 view .LVU194
- 943 00c8 FEE7     		b	.L55
- 944              	.LVL91:
- 945              	.L54:
- 220:Core/Src/camera.c ****     }
- 946              		.loc 1 220 9 view .LVU195
- 947 00ca 2F48     		ldr	r0, .L70+44
- 948              	.LVL92:
- 220:Core/Src/camera.c ****     }
- 949              		.loc 1 220 9 is_stmt 0 view .LVU196
- 950 00cc FFF7FEFF 		bl	printf
- 951              	.LVL93:
- 224:Core/Src/camera.c ****     uint32_t ssdv_start_addr = image_index * (SSDV_PKT_SIZE * MAX_SSDV_PACKETS);
- 952              		.loc 1 224 5 is_stmt 1 view .LVU197
+ 214:Core/Src/camera.c ****     /*------ SSDV ENCODING --------*/
+ 215:Core/Src/camera.c ****     ssdv_t ssdv;
+ 216:Core/Src/camera.c ****     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
+ 217:Core/Src/camera.c **** 
+ 218:Core/Src/camera.c ****     ssdv_enc_init(&ssdv, ssdv_type, ssdv_call_sign, ssdv_image_id++, ssdv_quality);
+ 219:Core/Src/camera.c ****     ssdv_enc_set_buffer(&ssdv, ssdv_pkt);
+ 220:Core/Src/camera.c **** 
+ 221:Core/Src/camera.c ****     // size_t ssdv_packets_in_image = 0;
+ 222:Core/Src/camera.c **** 
+ 223:Core/Src/camera.c ****     // Flash initialization
+ 224:Core/Src/camera.c ****     flash_init();
  225:Core/Src/camera.c **** 
- 953              		.loc 1 225 5 view .LVU198
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 954              		.loc 1 228 5 view .LVU199
-ARM GAS  /tmp/ccwBrY9H.s 			page 24
+ 226:Core/Src/camera.c ****     uint32_t flash_id = flash_read_id();
+ 227:Core/Src/camera.c ****     if (flash_id != FLASH_ID_512) {
+ 228:Core/Src/camera.c ****         printf("Flash not found or not matching (ID: 0x%lX)\r\n", flash_id);
+ 229:Core/Src/camera.c ****         while (1);
+ 230:Core/Src/camera.c ****     } else {
+ 231:Core/Src/camera.c ****         printf("Flash found (ID: 0x%lX)\r\n", flash_id);
+ 232:Core/Src/camera.c ****     }
+ 233:Core/Src/camera.c **** 
+ 234:Core/Src/camera.c ****     // Address for current image
+ 235:Core/Src/camera.c ****     uint32_t image_index = 0;  // Replace with a persistent value for multi-image storage
+ 236:Core/Src/camera.c ****     uint32_t ssdv_start_addr = image_index * (SSDV_PKT_SIZE * MAX_SSDV_PACKETS);
+ 237:Core/Src/camera.c **** 
+ 238:Core/Src/camera.c ****     // Erase necessary sectors
+ 239:Core/Src/camera.c ****     for (uint32_t addr = ssdv_start_addr; addr < (ssdv_start_addr + (SSDV_PKT_SIZE * MAX_SSDV_PACKE
+ 240:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 241:Core/Src/camera.c ****     }
+ 242:Core/Src/camera.c **** 
+ 243:Core/Src/camera.c ****     // SSDV encoding and flash writing
+ 244:Core/Src/camera.c ****     uint32_t bi = 0;
+ 245:Core/Src/camera.c ****     int c;
+ 246:Core/Src/camera.c ****     while (1) {
+ 247:Core/Src/camera.c ****         while ((c = ssdv_enc_get_packet(&ssdv)) == SSDV_FEED_ME) {
+ 248:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
+ 249:Core/Src/camera.c ****             if (chunk_size == 0) break;
+ 250:Core/Src/camera.c ****             ssdv_enc_feed(&ssdv, &image_buffer[start_index + bi], chunk_size);
+ 251:Core/Src/camera.c ****             bi += chunk_size;
+ARM GAS  /tmp/cc40a8AS.s 			page 24
 
 
- 955              	.LBB6:
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 956              		.loc 1 228 10 view .LVU200
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 957              		.loc 1 228 19 is_stmt 0 view .LVU201
- 958 00d0 0025     		movs	r5, #0
- 959              	.LVL94:
- 960              	.L56:
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 961              		.loc 1 228 43 is_stmt 1 discriminator 1 view .LVU202
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 962              		.loc 1 228 5 is_stmt 0 discriminator 1 view .LVU203
- 963 00d2 42F25F73 		movw	r3, #10079
- 964 00d6 9D42     		cmp	r5, r3
- 965 00d8 05D8     		bhi	.L68
- 229:Core/Src/camera.c ****     }
- 966              		.loc 1 229 9 is_stmt 1 discriminator 3 view .LVU204
- 967 00da 2846     		mov	r0, r5
- 968 00dc FFF7FEFF 		bl	flash_erase_sector
- 969              	.LVL95:
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 970              		.loc 1 228 106 discriminator 3 view .LVU205
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 971              		.loc 1 228 111 is_stmt 0 discriminator 3 view .LVU206
- 972 00e0 05F58055 		add	r5, r5, #4096
- 973              	.LVL96:
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 974              		.loc 1 228 111 discriminator 3 view .LVU207
- 975 00e4 F5E7     		b	.L56
- 976              	.L68:
- 228:Core/Src/camera.c ****         flash_erase_sector(addr);
- 977              		.loc 1 228 111 discriminator 3 view .LVU208
- 978              	.LBE6:
- 233:Core/Src/camera.c ****     int c;
- 979              		.loc 1 233 14 view .LVU209
- 980 00e6 0027     		movs	r7, #0
- 981 00e8 19E0     		b	.L58
- 982              	.LVL97:
- 983              	.L59:
- 243:Core/Src/camera.c ****             printf("EOI Packet.\n");
- 984              		.loc 1 243 9 is_stmt 1 view .LVU210
- 243:Core/Src/camera.c ****             printf("EOI Packet.\n");
- 985              		.loc 1 243 12 is_stmt 0 view .LVU211
- 986 00ea 0428     		cmp	r0, #4
- 987 00ec 2BD0     		beq	.L69
- 246:Core/Src/camera.c ****             printf("Writing SSDV packet to flash...\n");
- 988              		.loc 1 246 16 is_stmt 1 view .LVU212
- 246:Core/Src/camera.c ****             printf("Writing SSDV packet to flash...\n");
- 989              		.loc 1 246 19 is_stmt 0 view .LVU213
- 990 00ee 88BB     		cbnz	r0, .L63
- 247:Core/Src/camera.c ****             flash_write_buffer(ssdv_pkt, ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE, S
- 991              		.loc 1 247 13 is_stmt 1 view .LVU214
- 992 00f0 2648     		ldr	r0, .L70+48
- 993              	.LVL98:
- 247:Core/Src/camera.c ****             flash_write_buffer(ssdv_pkt, ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE, S
- 994              		.loc 1 247 13 is_stmt 0 view .LVU215
- 995 00f2 FFF7FEFF 		bl	puts
-ARM GAS  /tmp/ccwBrY9H.s 			page 25
+ 252:Core/Src/camera.c ****         }
+ 253:Core/Src/camera.c **** 
+ 254:Core/Src/camera.c ****         if (c == SSDV_EOI) {
+ 255:Core/Src/camera.c ****             printf("EOI Packet.\n");
+ 256:Core/Src/camera.c ****             break;
+ 257:Core/Src/camera.c ****         } else if (c == SSDV_OK) {
+ 258:Core/Src/camera.c ****             printf("Writing SSDV packet to flash...\n");
+ 259:Core/Src/camera.c ****             flash_write_buffer(ssdv_pkt, ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE, S
+ 260:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
+ 261:Core/Src/camera.c ****                    (unsigned long)(ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE));
+ 262:Core/Src/camera.c ****             ssdv_packets_in_image++;
+ 263:Core/Src/camera.c ****         } else {
+ 264:Core/Src/camera.c ****             printf("[SSDV] Error or unexpected result.\n");
+ 265:Core/Src/camera.c ****             break;
+ 266:Core/Src/camera.c ****         }
+ 267:Core/Src/camera.c ****     }
+ 268:Core/Src/camera.c **** 
+ 269:Core/Src/camera.c ****     /*------ READ BACK SSDV PACKETS --------*/
+ 270:Core/Src/camera.c ****     // printf("\n[READING BACK %lu SSDV PACKETS FROM FLASH]\n", ssdv_packets_in_image);
+ 271:Core/Src/camera.c ****     // for (uint32_t i = 0; i < ssdv_packets_in_image; i++) {
+ 272:Core/Src/camera.c ****     //     uint8_t buffer[SSDV_PKT_SIZE] = {0};
+ 273:Core/Src/camera.c ****     //     flash_read_buffer(buffer, ssdv_start_addr + i * SSDV_PKT_SIZE, SSDV_PKT_SIZE);
+ 274:Core/Src/camera.c ****     //     HAL_Delay(10);
+ 275:Core/Src/camera.c **** 
+ 276:Core/Src/camera.c ****     //     printf("Packet %02lu: ", i + 1);
+ 277:Core/Src/camera.c ****     //     for (uint16_t j = 0; j < SSDV_PKT_SIZE; j++) {
+ 278:Core/Src/camera.c ****     //         printf("0x%02X, ", buffer[j]);
+ 279:Core/Src/camera.c ****     //         if ((j + 1) % 16 == 0) printf("\n");
+ 280:Core/Src/camera.c ****     //     }
+ 281:Core/Src/camera.c ****     //     printf("\n-----------------------------\n");
+ 282:Core/Src/camera.c ****     // }
+ 283:Core/Src/camera.c **** 
+ 284:Core/Src/camera.c ****     printf("[FLASH READ COMPLETE]\r\n");
+ 285:Core/Src/camera.c **** }
+ 981              		.loc 1 285 1 is_stmt 0 view .LVU190
+ 982 007a 0DF2FC5D 		addw	sp, sp, #1532
+ 983              	.LCFI20:
+ 984              		.cfi_remember_state
+ 985              		.cfi_def_cfa_offset 20
+ 986              		@ sp needed
+ 987 007e F0BD     		pop	{r4, r5, r6, r7, pc}
+ 988              	.LVL95:
+ 989              	.L54:
+ 990              	.LCFI21:
+ 991              		.cfi_restore_state
+ 211:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
+ 992              		.loc 1 211 5 is_stmt 1 view .LVU191
+ 211:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
+ 993              		.loc 1 211 29 is_stmt 0 view .LVU192
+ 994 0080 161B     		subs	r6, r2, r4
+ 211:Core/Src/camera.c ****     printf("JPEG found: start=%d, end=%d, length=%lu\n", start_index, end_index, jpeg_length);
+ 995              		.loc 1 211 43 view .LVU193
+ 996 0082 0136     		adds	r6, r6, #1
+ 997              	.LVL96:
+ 212:Core/Src/camera.c **** 
+ 998              		.loc 1 212 5 is_stmt 1 view .LVU194
+ 999 0084 3346     		mov	r3, r6
+ARM GAS  /tmp/cc40a8AS.s 			page 25
 
 
- 996              	.LVL99:
- 248:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
- 997              		.loc 1 248 13 is_stmt 1 view .LVU216
- 248:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
- 998              		.loc 1 248 82 is_stmt 0 view .LVU217
- 999 00f6 264D     		ldr	r5, .L70+52
- 1000 00f8 2968     		ldr	r1, [r5]
- 1001 00fa C1EBC101 		rsb	r1, r1, r1, lsl #3
- 248:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
- 1002              		.loc 1 248 13 view .LVU218
- 1003 00fe E022     		movs	r2, #224
- 1004 0100 4901     		lsls	r1, r1, #5
- 1005 0102 02A8     		add	r0, sp, #8
- 1006 0104 FFF7FEFF 		bl	flash_write_buffer
- 1007              	.LVL100:
- 249:Core/Src/camera.c ****                    (unsigned long)(ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE));
- 1008              		.loc 1 249 13 is_stmt 1 view .LVU219
- 1009 0108 2968     		ldr	r1, [r5]
- 250:Core/Src/camera.c ****             ssdv_packets_in_image++;
- 1010              		.loc 1 250 76 is_stmt 0 view .LVU220
- 1011 010a C1EBC102 		rsb	r2, r1, r1, lsl #3
- 249:Core/Src/camera.c ****                    (unsigned long)(ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE));
- 1012              		.loc 1 249 13 view .LVU221
- 1013 010e 5201     		lsls	r2, r2, #5
- 1014 0110 0131     		adds	r1, r1, #1
- 1015 0112 2048     		ldr	r0, .L70+56
- 1016 0114 FFF7FEFF 		bl	printf
- 1017              	.LVL101:
- 251:Core/Src/camera.c ****         } else {
- 1018              		.loc 1 251 13 is_stmt 1 view .LVU222
- 251:Core/Src/camera.c ****         } else {
- 1019              		.loc 1 251 34 is_stmt 0 view .LVU223
- 1020 0118 2B68     		ldr	r3, [r5]
- 1021 011a 0133     		adds	r3, r3, #1
- 1022 011c 2B60     		str	r3, [r5]
- 235:Core/Src/camera.c ****         while ((c = ssdv_enc_get_packet(&ssdv)) == SSDV_FEED_ME) {
- 1023              		.loc 1 235 11 is_stmt 1 view .LVU224
- 1024              	.LVL102:
- 1025              	.L58:
- 236:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
- 1026              		.loc 1 236 15 view .LVU225
- 236:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
- 1027              		.loc 1 236 21 is_stmt 0 view .LVU226
- 1028 011e 3AA8     		add	r0, sp, #232
- 1029 0120 FFF7FEFF 		bl	ssdv_enc_get_packet
- 1030              	.LVL103:
- 236:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
- 1031              		.loc 1 236 15 view .LVU227
- 1032 0124 0128     		cmp	r0, #1
- 1033 0126 E0D1     		bne	.L59
- 1034              	.LBB7:
- 237:Core/Src/camera.c ****             if (chunk_size == 0) break;
- 1035              		.loc 1 237 13 is_stmt 1 view .LVU228
- 237:Core/Src/camera.c ****             if (chunk_size == 0) break;
- 1036              		.loc 1 237 49 is_stmt 0 view .LVU229
- 1037 0128 F21B     		subs	r2, r6, r7
- 237:Core/Src/camera.c ****             if (chunk_size == 0) break;
-ARM GAS  /tmp/ccwBrY9H.s 			page 26
+ 1000              	.LVL97:
+ 212:Core/Src/camera.c **** 
+ 1001              		.loc 1 212 5 is_stmt 0 view .LVU195
+ 1002 0086 2146     		mov	r1, r4
+ 1003 0088 3848     		ldr	r0, .L72+16
+ 1004              	.LVL98:
+ 212:Core/Src/camera.c **** 
+ 1005              		.loc 1 212 5 view .LVU196
+ 1006 008a FFF7FEFF 		bl	printf
+ 1007              	.LVL99:
+ 215:Core/Src/camera.c ****     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
+ 1008              		.loc 1 215 5 is_stmt 1 view .LVU197
+ 216:Core/Src/camera.c **** 
+ 1009              		.loc 1 216 5 view .LVU198
+ 218:Core/Src/camera.c ****     ssdv_enc_set_buffer(&ssdv, ssdv_pkt);
+ 1010              		.loc 1 218 5 view .LVU199
+ 1011 008e 384A     		ldr	r2, .L72+20
+ 1012 0090 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1013 0092 591C     		adds	r1, r3, #1
+ 1014 0094 1170     		strb	r1, [r2]
+ 1015 0096 374A     		ldr	r2, .L72+24
+ 1016 0098 92F90020 		ldrsb	r2, [r2]
+ 1017 009c 0092     		str	r2, [sp]
+ 1018 009e 364A     		ldr	r2, .L72+28
+ 1019 00a0 3649     		ldr	r1, .L72+32
+ 1020 00a2 0978     		ldrb	r1, [r1]	@ zero_extendqisi2
+ 1021 00a4 3AA8     		add	r0, sp, #232
+ 1022 00a6 FFF7FEFF 		bl	ssdv_enc_init
+ 1023              	.LVL100:
+ 219:Core/Src/camera.c **** 
+ 1024              		.loc 1 219 5 view .LVU200
+ 1025 00aa 02A9     		add	r1, sp, #8
+ 1026 00ac 3AA8     		add	r0, sp, #232
+ 1027 00ae FFF7FEFF 		bl	ssdv_enc_set_buffer
+ 1028              	.LVL101:
+ 224:Core/Src/camera.c **** 
+ 1029              		.loc 1 224 5 view .LVU201
+ 1030 00b2 FFF7FEFF 		bl	flash_init
+ 1031              	.LVL102:
+ 226:Core/Src/camera.c ****     if (flash_id != FLASH_ID_512) {
+ 1032              		.loc 1 226 5 view .LVU202
+ 226:Core/Src/camera.c ****     if (flash_id != FLASH_ID_512) {
+ 1033              		.loc 1 226 25 is_stmt 0 view .LVU203
+ 1034 00b6 FFF7FEFF 		bl	flash_read_id
+ 1035              	.LVL103:
+ 1036 00ba 0146     		mov	r1, r0
+ 1037              	.LVL104:
+ 227:Core/Src/camera.c ****         printf("Flash not found or not matching (ID: 0x%lX)\r\n", flash_id);
+ 1038              		.loc 1 227 5 is_stmt 1 view .LVU204
+ 227:Core/Src/camera.c ****         printf("Flash not found or not matching (ID: 0x%lX)\r\n", flash_id);
+ 1039              		.loc 1 227 8 is_stmt 0 view .LVU205
+ 1040 00bc 304B     		ldr	r3, .L72+36
+ 1041 00be 9842     		cmp	r0, r3
+ 1042 00c0 03D0     		beq	.L56
+ 228:Core/Src/camera.c ****         while (1);
+ 1043              		.loc 1 228 9 is_stmt 1 view .LVU206
+ 1044 00c2 3048     		ldr	r0, .L72+40
+ARM GAS  /tmp/cc40a8AS.s 			page 26
 
 
- 1038              		.loc 1 237 22 view .LVU230
- 1039 012a 802A     		cmp	r2, #128
- 1040 012c 28BF     		it	cs
- 1041 012e 8022     		movcs	r2, #128
- 1042 0130 1546     		mov	r5, r2
- 1043              	.LVL104:
- 238:Core/Src/camera.c ****             ssdv_enc_feed(&ssdv, &image_buffer[start_index + bi], chunk_size);
- 1044              		.loc 1 238 13 is_stmt 1 view .LVU231
- 238:Core/Src/camera.c ****             ssdv_enc_feed(&ssdv, &image_buffer[start_index + bi], chunk_size);
- 1045              		.loc 1 238 16 is_stmt 0 view .LVU232
- 1046 0132 B742     		cmp	r7, r6
- 1047 0134 D9D0     		beq	.L59
- 239:Core/Src/camera.c ****             bi += chunk_size;
- 1048              		.loc 1 239 13 is_stmt 1 view .LVU233
- 239:Core/Src/camera.c ****             bi += chunk_size;
- 1049              		.loc 1 239 60 is_stmt 0 view .LVU234
- 1050 0136 E319     		adds	r3, r4, r7
- 239:Core/Src/camera.c ****             bi += chunk_size;
- 1051              		.loc 1 239 13 view .LVU235
- 1052 0138 0A49     		ldr	r1, .L70+8
- 1053 013a 1944     		add	r1, r1, r3
- 1054 013c 3AA8     		add	r0, sp, #232
- 1055              	.LVL105:
- 239:Core/Src/camera.c ****             bi += chunk_size;
- 1056              		.loc 1 239 13 view .LVU236
- 1057 013e FFF7FEFF 		bl	ssdv_enc_feed
- 1058              	.LVL106:
- 240:Core/Src/camera.c ****         }
- 1059              		.loc 1 240 13 is_stmt 1 view .LVU237
- 240:Core/Src/camera.c ****         }
- 1060              		.loc 1 240 16 is_stmt 0 view .LVU238
- 1061 0142 2F44     		add	r7, r7, r5
- 1062              	.LVL107:
- 240:Core/Src/camera.c ****         }
- 1063              		.loc 1 240 16 view .LVU239
- 1064 0144 EBE7     		b	.L58
- 1065              	.LVL108:
- 1066              	.L69:
- 240:Core/Src/camera.c ****         }
- 1067              		.loc 1 240 16 view .LVU240
- 1068              	.LBE7:
- 244:Core/Src/camera.c ****             break;
- 1069              		.loc 1 244 13 is_stmt 1 view .LVU241
- 1070 0146 1448     		ldr	r0, .L70+60
- 1071              	.LVL109:
- 244:Core/Src/camera.c ****             break;
- 1072              		.loc 1 244 13 is_stmt 0 view .LVU242
- 1073 0148 FFF7FEFF 		bl	puts
- 1074              	.LVL110:
- 245:Core/Src/camera.c ****         } else if (c == SSDV_OK) {
- 1075              		.loc 1 245 13 is_stmt 1 view .LVU243
- 1076              	.L62:
- 273:Core/Src/camera.c **** }
- 1077              		.loc 1 273 5 view .LVU244
- 1078 014c 1348     		ldr	r0, .L70+64
- 1079 014e FFF7FEFF 		bl	puts
- 1080              	.LVL111:
-ARM GAS  /tmp/ccwBrY9H.s 			page 27
+ 1045              	.LVL105:
+ 228:Core/Src/camera.c ****         while (1);
+ 1046              		.loc 1 228 9 is_stmt 0 view .LVU207
+ 1047 00c4 FFF7FEFF 		bl	printf
+ 1048              	.LVL106:
+ 1049              	.L57:
+ 229:Core/Src/camera.c ****     } else {
+ 1050              		.loc 1 229 9 is_stmt 1 discriminator 1 view .LVU208
+ 229:Core/Src/camera.c ****     } else {
+ 1051              		.loc 1 229 18 discriminator 1 view .LVU209
+ 229:Core/Src/camera.c ****     } else {
+ 1052              		.loc 1 229 15 discriminator 1 view .LVU210
+ 1053 00c8 FEE7     		b	.L57
+ 1054              	.LVL107:
+ 1055              	.L56:
+ 231:Core/Src/camera.c ****     }
+ 1056              		.loc 1 231 9 view .LVU211
+ 1057 00ca 2F48     		ldr	r0, .L72+44
+ 1058              	.LVL108:
+ 231:Core/Src/camera.c ****     }
+ 1059              		.loc 1 231 9 is_stmt 0 view .LVU212
+ 1060 00cc FFF7FEFF 		bl	printf
+ 1061              	.LVL109:
+ 235:Core/Src/camera.c ****     uint32_t ssdv_start_addr = image_index * (SSDV_PKT_SIZE * MAX_SSDV_PACKETS);
+ 1062              		.loc 1 235 5 is_stmt 1 view .LVU213
+ 236:Core/Src/camera.c **** 
+ 1063              		.loc 1 236 5 view .LVU214
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1064              		.loc 1 239 5 view .LVU215
+ 1065              	.LBB6:
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1066              		.loc 1 239 10 view .LVU216
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1067              		.loc 1 239 19 is_stmt 0 view .LVU217
+ 1068 00d0 0025     		movs	r5, #0
+ 1069              	.LVL110:
+ 1070              	.L58:
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1071              		.loc 1 239 43 is_stmt 1 discriminator 1 view .LVU218
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1072              		.loc 1 239 5 is_stmt 0 discriminator 1 view .LVU219
+ 1073 00d2 42F25F73 		movw	r3, #10079
+ 1074 00d6 9D42     		cmp	r5, r3
+ 1075 00d8 05D8     		bhi	.L70
+ 240:Core/Src/camera.c ****     }
+ 1076              		.loc 1 240 9 is_stmt 1 discriminator 3 view .LVU220
+ 1077 00da 2846     		mov	r0, r5
+ 1078 00dc FFF7FEFF 		bl	flash_erase_sector
+ 1079              	.LVL111:
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1080              		.loc 1 239 106 discriminator 3 view .LVU221
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1081              		.loc 1 239 111 is_stmt 0 discriminator 3 view .LVU222
+ 1082 00e0 05F58055 		add	r5, r5, #4096
+ 1083              	.LVL112:
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1084              		.loc 1 239 111 discriminator 3 view .LVU223
+ARM GAS  /tmp/cc40a8AS.s 			page 27
 
 
- 1081 0152 92E7     		b	.L45
- 1082              	.LVL112:
- 1083              	.L63:
- 253:Core/Src/camera.c ****             break;
- 1084              		.loc 1 253 13 view .LVU245
- 1085 0154 1248     		ldr	r0, .L70+68
- 1086              	.LVL113:
- 253:Core/Src/camera.c ****             break;
- 1087              		.loc 1 253 13 is_stmt 0 view .LVU246
- 1088 0156 FFF7FEFF 		bl	puts
- 1089              	.LVL114:
- 254:Core/Src/camera.c ****         }
- 1090              		.loc 1 254 13 is_stmt 1 view .LVU247
- 1091 015a F7E7     		b	.L62
- 1092              	.L71:
- 1093              		.align	2
- 1094              	.L70:
- 1095 015c 00000000 		.word	.LC1
- 1096 0160 1C000000 		.word	.LC2
- 1097 0164 00000000 		.word	image_buffer
- 1098 0168 38000000 		.word	.LC3
- 1099 016c 54000000 		.word	.LC4
- 1100 0170 00000000 		.word	.LANCHOR1
- 1101 0174 00000000 		.word	.LANCHOR3
- 1102 0178 00000000 		.word	.LANCHOR2
- 1103 017c 00000000 		.word	.LANCHOR0
- 1104 0180 2040EF00 		.word	15679520
- 1105 0184 80000000 		.word	.LC5
- 1106 0188 B0000000 		.word	.LC6
- 1107 018c D8000000 		.word	.LC8
- 1108 0190 00000000 		.word	.LANCHOR4
- 1109 0194 F8000000 		.word	.LC9
- 1110 0198 CC000000 		.word	.LC7
- 1111 019c 50010000 		.word	.LC11
- 1112 01a0 2C010000 		.word	.LC10
- 1113              		.cfi_endproc
- 1114              	.LFE80:
- 1116              		.global	ssdv_quality
- 1117              		.global	ssdv_image_id
- 1118              		.global	ssdv_call_sign
- 1119              		.global	ssdv_type
- 1120              		.global	ssdv_start_addr
- 1121              		.global	ssdv_packets_in_image
- 1122              		.global	jpeg_size
- 1123              		.global	image_buffer
- 1124              		.section	.bss.image_buffer,"aw",%nobits
- 1125              		.align	2
- 1128              	image_buffer:
- 1129 0000 00000000 		.space	12000
- 1129      00000000 
- 1129      00000000 
- 1129      00000000 
- 1129      00000000 
- 1130              		.section	.bss.jpeg_size,"aw",%nobits
- 1131              		.align	2
- 1134              	jpeg_size:
- 1135 0000 00000000 		.space	4
-ARM GAS  /tmp/ccwBrY9H.s 			page 28
+ 1085 00e4 F5E7     		b	.L58
+ 1086              	.L70:
+ 239:Core/Src/camera.c ****         flash_erase_sector(addr);
+ 1087              		.loc 1 239 111 discriminator 3 view .LVU224
+ 1088              	.LBE6:
+ 244:Core/Src/camera.c ****     int c;
+ 1089              		.loc 1 244 14 view .LVU225
+ 1090 00e6 0027     		movs	r7, #0
+ 1091 00e8 19E0     		b	.L60
+ 1092              	.LVL113:
+ 1093              	.L61:
+ 254:Core/Src/camera.c ****             printf("EOI Packet.\n");
+ 1094              		.loc 1 254 9 is_stmt 1 view .LVU226
+ 254:Core/Src/camera.c ****             printf("EOI Packet.\n");
+ 1095              		.loc 1 254 12 is_stmt 0 view .LVU227
+ 1096 00ea 0428     		cmp	r0, #4
+ 1097 00ec 2BD0     		beq	.L71
+ 257:Core/Src/camera.c ****             printf("Writing SSDV packet to flash...\n");
+ 1098              		.loc 1 257 16 is_stmt 1 view .LVU228
+ 257:Core/Src/camera.c ****             printf("Writing SSDV packet to flash...\n");
+ 1099              		.loc 1 257 19 is_stmt 0 view .LVU229
+ 1100 00ee 88BB     		cbnz	r0, .L65
+ 258:Core/Src/camera.c ****             flash_write_buffer(ssdv_pkt, ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE, S
+ 1101              		.loc 1 258 13 is_stmt 1 view .LVU230
+ 1102 00f0 2648     		ldr	r0, .L72+48
+ 1103              	.LVL114:
+ 258:Core/Src/camera.c ****             flash_write_buffer(ssdv_pkt, ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE, S
+ 1104              		.loc 1 258 13 is_stmt 0 view .LVU231
+ 1105 00f2 FFF7FEFF 		bl	puts
+ 1106              	.LVL115:
+ 259:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
+ 1107              		.loc 1 259 13 is_stmt 1 view .LVU232
+ 259:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
+ 1108              		.loc 1 259 82 is_stmt 0 view .LVU233
+ 1109 00f6 264D     		ldr	r5, .L72+52
+ 1110 00f8 2968     		ldr	r1, [r5]
+ 1111 00fa C1EBC101 		rsb	r1, r1, r1, lsl #3
+ 259:Core/Src/camera.c ****             printf("| SSDV packet %02lu stored at address 0x%06lX |\n", ssdv_packets_in_image + 1,
+ 1112              		.loc 1 259 13 view .LVU234
+ 1113 00fe E022     		movs	r2, #224
+ 1114 0100 4901     		lsls	r1, r1, #5
+ 1115 0102 02A8     		add	r0, sp, #8
+ 1116 0104 FFF7FEFF 		bl	flash_write_buffer
+ 1117              	.LVL116:
+ 260:Core/Src/camera.c ****                    (unsigned long)(ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE));
+ 1118              		.loc 1 260 13 is_stmt 1 view .LVU235
+ 1119 0108 2968     		ldr	r1, [r5]
+ 261:Core/Src/camera.c ****             ssdv_packets_in_image++;
+ 1120              		.loc 1 261 76 is_stmt 0 view .LVU236
+ 1121 010a C1EBC102 		rsb	r2, r1, r1, lsl #3
+ 260:Core/Src/camera.c ****                    (unsigned long)(ssdv_start_addr + ssdv_packets_in_image * SSDV_PKT_SIZE));
+ 1122              		.loc 1 260 13 view .LVU237
+ 1123 010e 5201     		lsls	r2, r2, #5
+ 1124 0110 0131     		adds	r1, r1, #1
+ 1125 0112 2048     		ldr	r0, .L72+56
+ 1126 0114 FFF7FEFF 		bl	printf
+ 1127              	.LVL117:
+ARM GAS  /tmp/cc40a8AS.s 			page 28
 
 
- 1136              		.section	.bss.ssdv_image_id,"aw",%nobits
- 1137              		.set	.LANCHOR1,. + 0
- 1140              	ssdv_image_id:
- 1141 0000 00       		.space	1
- 1142              		.section	.bss.ssdv_packets_in_image,"aw",%nobits
- 1143              		.align	2
- 1144              		.set	.LANCHOR4,. + 0
- 1147              	ssdv_packets_in_image:
- 1148 0000 00000000 		.space	4
- 1149              		.section	.bss.ssdv_start_addr,"aw",%nobits
- 1150              		.align	2
- 1153              	ssdv_start_addr:
- 1154 0000 00000000 		.space	4
- 1155              		.section	.bss.ssdv_type,"aw",%nobits
- 1156              		.set	.LANCHOR0,. + 0
- 1159              	ssdv_type:
- 1160 0000 00       		.space	1
- 1161              		.section	.data.ssdv_call_sign,"aw"
- 1162              		.align	2
- 1163              		.set	.LANCHOR2,. + 0
- 1166              	ssdv_call_sign:
- 1167 0000 43414C53 		.ascii	"CALSIGN"
- 1167      49474E
- 1168              		.section	.data.ssdv_quality,"aw"
- 1169              		.set	.LANCHOR3,. + 0
- 1172              	ssdv_quality:
- 1173 0000 04       		.byte	4
- 1174              		.text
- 1175              	.Letext0:
- 1176              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 1177              		.file 3 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 1178              		.file 4 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stddef.h"
- 1179              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 1180              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
- 1181              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 1182              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
- 1183              		.file 9 "libs/ssdv/ssdv.h"
- 1184              		.file 10 "Core/Inc/camera.h"
- 1185              		.file 11 "libs/flash/flash.h"
- 1186              		.file 12 "/usr/include/newlib/stdio.h"
- 1187              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 1188              		.file 14 "<built-in>"
-ARM GAS  /tmp/ccwBrY9H.s 			page 29
+ 262:Core/Src/camera.c ****         } else {
+ 1128              		.loc 1 262 13 is_stmt 1 view .LVU238
+ 262:Core/Src/camera.c ****         } else {
+ 1129              		.loc 1 262 34 is_stmt 0 view .LVU239
+ 1130 0118 2B68     		ldr	r3, [r5]
+ 1131 011a 0133     		adds	r3, r3, #1
+ 1132 011c 2B60     		str	r3, [r5]
+ 246:Core/Src/camera.c ****         while ((c = ssdv_enc_get_packet(&ssdv)) == SSDV_FEED_ME) {
+ 1133              		.loc 1 246 11 is_stmt 1 view .LVU240
+ 1134              	.LVL118:
+ 1135              	.L60:
+ 247:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
+ 1136              		.loc 1 247 15 view .LVU241
+ 247:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
+ 1137              		.loc 1 247 21 is_stmt 0 view .LVU242
+ 1138 011e 3AA8     		add	r0, sp, #232
+ 1139 0120 FFF7FEFF 		bl	ssdv_enc_get_packet
+ 1140              	.LVL119:
+ 247:Core/Src/camera.c ****             uint32_t chunk_size = ((jpeg_length - bi) >= 128) ? 128 : (jpeg_length - bi);
+ 1141              		.loc 1 247 15 view .LVU243
+ 1142 0124 0128     		cmp	r0, #1
+ 1143 0126 E0D1     		bne	.L61
+ 1144              	.LBB7:
+ 248:Core/Src/camera.c ****             if (chunk_size == 0) break;
+ 1145              		.loc 1 248 13 is_stmt 1 view .LVU244
+ 248:Core/Src/camera.c ****             if (chunk_size == 0) break;
+ 1146              		.loc 1 248 49 is_stmt 0 view .LVU245
+ 1147 0128 F21B     		subs	r2, r6, r7
+ 248:Core/Src/camera.c ****             if (chunk_size == 0) break;
+ 1148              		.loc 1 248 22 view .LVU246
+ 1149 012a 802A     		cmp	r2, #128
+ 1150 012c 28BF     		it	cs
+ 1151 012e 8022     		movcs	r2, #128
+ 1152 0130 1546     		mov	r5, r2
+ 1153              	.LVL120:
+ 249:Core/Src/camera.c ****             ssdv_enc_feed(&ssdv, &image_buffer[start_index + bi], chunk_size);
+ 1154              		.loc 1 249 13 is_stmt 1 view .LVU247
+ 249:Core/Src/camera.c ****             ssdv_enc_feed(&ssdv, &image_buffer[start_index + bi], chunk_size);
+ 1155              		.loc 1 249 16 is_stmt 0 view .LVU248
+ 1156 0132 B742     		cmp	r7, r6
+ 1157 0134 D9D0     		beq	.L61
+ 250:Core/Src/camera.c ****             bi += chunk_size;
+ 1158              		.loc 1 250 13 is_stmt 1 view .LVU249
+ 250:Core/Src/camera.c ****             bi += chunk_size;
+ 1159              		.loc 1 250 60 is_stmt 0 view .LVU250
+ 1160 0136 E319     		adds	r3, r4, r7
+ 250:Core/Src/camera.c ****             bi += chunk_size;
+ 1161              		.loc 1 250 13 view .LVU251
+ 1162 0138 0A49     		ldr	r1, .L72+8
+ 1163 013a 1944     		add	r1, r1, r3
+ 1164 013c 3AA8     		add	r0, sp, #232
+ 1165              	.LVL121:
+ 250:Core/Src/camera.c ****             bi += chunk_size;
+ 1166              		.loc 1 250 13 view .LVU252
+ 1167 013e FFF7FEFF 		bl	ssdv_enc_feed
+ 1168              	.LVL122:
+ 251:Core/Src/camera.c ****         }
+ARM GAS  /tmp/cc40a8AS.s 			page 29
+
+
+ 1169              		.loc 1 251 13 is_stmt 1 view .LVU253
+ 251:Core/Src/camera.c ****         }
+ 1170              		.loc 1 251 16 is_stmt 0 view .LVU254
+ 1171 0142 2F44     		add	r7, r7, r5
+ 1172              	.LVL123:
+ 251:Core/Src/camera.c ****         }
+ 1173              		.loc 1 251 16 view .LVU255
+ 1174 0144 EBE7     		b	.L60
+ 1175              	.LVL124:
+ 1176              	.L71:
+ 251:Core/Src/camera.c ****         }
+ 1177              		.loc 1 251 16 view .LVU256
+ 1178              	.LBE7:
+ 255:Core/Src/camera.c ****             break;
+ 1179              		.loc 1 255 13 is_stmt 1 view .LVU257
+ 1180 0146 1448     		ldr	r0, .L72+60
+ 1181              	.LVL125:
+ 255:Core/Src/camera.c ****             break;
+ 1182              		.loc 1 255 13 is_stmt 0 view .LVU258
+ 1183 0148 FFF7FEFF 		bl	puts
+ 1184              	.LVL126:
+ 256:Core/Src/camera.c ****         } else if (c == SSDV_OK) {
+ 1185              		.loc 1 256 13 is_stmt 1 view .LVU259
+ 1186              	.L64:
+ 284:Core/Src/camera.c **** }
+ 1187              		.loc 1 284 5 view .LVU260
+ 1188 014c 1348     		ldr	r0, .L72+64
+ 1189 014e FFF7FEFF 		bl	puts
+ 1190              	.LVL127:
+ 1191 0152 92E7     		b	.L47
+ 1192              	.LVL128:
+ 1193              	.L65:
+ 264:Core/Src/camera.c ****             break;
+ 1194              		.loc 1 264 13 view .LVU261
+ 1195 0154 1248     		ldr	r0, .L72+68
+ 1196              	.LVL129:
+ 264:Core/Src/camera.c ****             break;
+ 1197              		.loc 1 264 13 is_stmt 0 view .LVU262
+ 1198 0156 FFF7FEFF 		bl	puts
+ 1199              	.LVL130:
+ 265:Core/Src/camera.c ****         }
+ 1200              		.loc 1 265 13 is_stmt 1 view .LVU263
+ 1201 015a F7E7     		b	.L64
+ 1202              	.L73:
+ 1203              		.align	2
+ 1204              	.L72:
+ 1205 015c 00000000 		.word	.LC7
+ 1206 0160 1C000000 		.word	.LC8
+ 1207 0164 00000000 		.word	image_buffer
+ 1208 0168 38000000 		.word	.LC9
+ 1209 016c 54000000 		.word	.LC10
+ 1210 0170 00000000 		.word	.LANCHOR1
+ 1211 0174 00000000 		.word	.LANCHOR3
+ 1212 0178 00000000 		.word	.LANCHOR2
+ 1213 017c 00000000 		.word	.LANCHOR0
+ 1214 0180 2040EF00 		.word	15679520
+ 1215 0184 80000000 		.word	.LC11
+ARM GAS  /tmp/cc40a8AS.s 			page 30
+
+
+ 1216 0188 B0000000 		.word	.LC12
+ 1217 018c D8000000 		.word	.LC14
+ 1218 0190 00000000 		.word	.LANCHOR4
+ 1219 0194 F8000000 		.word	.LC15
+ 1220 0198 CC000000 		.word	.LC13
+ 1221 019c 50010000 		.word	.LC17
+ 1222 01a0 2C010000 		.word	.LC16
+ 1223              		.cfi_endproc
+ 1224              	.LFE80:
+ 1226              		.global	ssdv_quality
+ 1227              		.global	ssdv_image_id
+ 1228              		.global	ssdv_call_sign
+ 1229              		.global	ssdv_type
+ 1230              		.global	ssdv_start_addr
+ 1231              		.global	ssdv_packets_in_image
+ 1232              		.global	jpeg_size
+ 1233              		.global	image_buffer
+ 1234              		.section	.bss.image_buffer,"aw",%nobits
+ 1235              		.align	2
+ 1238              	image_buffer:
+ 1239 0000 00000000 		.space	15000
+ 1239      00000000 
+ 1239      00000000 
+ 1239      00000000 
+ 1239      00000000 
+ 1240              		.section	.bss.jpeg_size,"aw",%nobits
+ 1241              		.align	2
+ 1244              	jpeg_size:
+ 1245 0000 00000000 		.space	4
+ 1246              		.section	.bss.ssdv_image_id,"aw",%nobits
+ 1247              		.set	.LANCHOR1,. + 0
+ 1250              	ssdv_image_id:
+ 1251 0000 00       		.space	1
+ 1252              		.section	.bss.ssdv_packets_in_image,"aw",%nobits
+ 1253              		.align	2
+ 1254              		.set	.LANCHOR4,. + 0
+ 1257              	ssdv_packets_in_image:
+ 1258 0000 00000000 		.space	4
+ 1259              		.section	.bss.ssdv_start_addr,"aw",%nobits
+ 1260              		.align	2
+ 1263              	ssdv_start_addr:
+ 1264 0000 00000000 		.space	4
+ 1265              		.section	.bss.ssdv_type,"aw",%nobits
+ 1266              		.set	.LANCHOR0,. + 0
+ 1269              	ssdv_type:
+ 1270 0000 00       		.space	1
+ 1271              		.section	.data.ssdv_call_sign,"aw"
+ 1272              		.align	2
+ 1273              		.set	.LANCHOR2,. + 0
+ 1276              	ssdv_call_sign:
+ 1277 0000 43414C53 		.ascii	"CALSIGN"
+ 1277      49474E
+ 1278              		.section	.data.ssdv_quality,"aw"
+ 1279              		.set	.LANCHOR3,. + 0
+ 1282              	ssdv_quality:
+ 1283 0000 04       		.byte	4
+ 1284              		.text
+ARM GAS  /tmp/cc40a8AS.s 			page 31
+
+
+ 1285              	.Letext0:
+ 1286              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 1287              		.file 3 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 1288              		.file 4 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stddef.h"
+ 1289              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1290              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1291              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1292              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+ 1293              		.file 9 "libs/ssdv/ssdv.h"
+ 1294              		.file 10 "Core/Inc/camera.h"
+ 1295              		.file 11 "Core/Inc/i2c_slave.h"
+ 1296              		.file 12 "libs/flash/flash.h"
+ 1297              		.file 13 "/usr/include/newlib/stdio.h"
+ 1298              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1299              		.file 15 "<built-in>"
+ARM GAS  /tmp/cc40a8AS.s 			page 32
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 camera.c
-     /tmp/ccwBrY9H.s:16     .text.arducam_write_register:0000000000000000 $t
-     /tmp/ccwBrY9H.s:24     .text.arducam_write_register:0000000000000000 arducam_write_register
-     /tmp/ccwBrY9H.s:79     .text.arducam_write_register:0000000000000038 $d
-     /tmp/ccwBrY9H.s:85     .text.arducam_read_register:0000000000000000 $t
-     /tmp/ccwBrY9H.s:92     .text.arducam_read_register:0000000000000000 arducam_read_register
-     /tmp/ccwBrY9H.s:149    .text.arducam_read_register:0000000000000040 $d
-     /tmp/ccwBrY9H.s:155    .text.arducam_burst_read:0000000000000000 $t
-     /tmp/ccwBrY9H.s:162    .text.arducam_burst_read:0000000000000000 arducam_burst_read
-     /tmp/ccwBrY9H.s:243    .text.arducam_burst_read:0000000000000060 $d
-     /tmp/ccwBrY9H.s:249    .text.camersSetBrightness:0000000000000000 $t
-     /tmp/ccwBrY9H.s:256    .text.camersSetBrightness:0000000000000000 camersSetBrightness
-     /tmp/ccwBrY9H.s:282    .text.cameraSetSharpness:0000000000000000 $t
-     /tmp/ccwBrY9H.s:289    .text.cameraSetSharpness:0000000000000000 cameraSetSharpness
-     /tmp/ccwBrY9H.s:315    .text.cameraSetContrast:0000000000000000 $t
-     /tmp/ccwBrY9H.s:322    .text.cameraSetContrast:0000000000000000 cameraSetContrast
-     /tmp/ccwBrY9H.s:348    .text.cameraSetEV:0000000000000000 $t
-     /tmp/ccwBrY9H.s:355    .text.cameraSetEV:0000000000000000 cameraSetEV
-     /tmp/ccwBrY9H.s:381    .text.cameraSetSaturation:0000000000000000 $t
-     /tmp/ccwBrY9H.s:388    .text.cameraSetSaturation:0000000000000000 cameraSetSaturation
-     /tmp/ccwBrY9H.s:414    .text.cameraSetColorEffect:0000000000000000 $t
-     /tmp/ccwBrY9H.s:421    .text.cameraSetColorEffect:0000000000000000 cameraSetColorEffect
-     /tmp/ccwBrY9H.s:447    .text.arducam_set_jpeg_mode:0000000000000000 $t
-     /tmp/ccwBrY9H.s:454    .text.arducam_set_jpeg_mode:0000000000000000 arducam_set_jpeg_mode
-     /tmp/ccwBrY9H.s:497    .text.arducam_capture_image:0000000000000000 $t
-     /tmp/ccwBrY9H.s:504    .text.arducam_capture_image:0000000000000000 arducam_capture_image
-     /tmp/ccwBrY9H.s:539    .rodata.find_jpeg.str1.4:0000000000000000 $d
-     /tmp/ccwBrY9H.s:543    .text.find_jpeg:0000000000000000 $t
-     /tmp/ccwBrY9H.s:550    .text.find_jpeg:0000000000000000 find_jpeg
-     /tmp/ccwBrY9H.s:694    .text.find_jpeg:000000000000006c $d
-     /tmp/ccwBrY9H.s:699    .rodata.process_image_capture.str1.4:0000000000000000 $d
-     /tmp/ccwBrY9H.s:735    .text.process_image_capture:0000000000000000 $t
-     /tmp/ccwBrY9H.s:742    .text.process_image_capture:0000000000000000 process_image_capture
-     /tmp/ccwBrY9H.s:1095   .text.process_image_capture:000000000000015c $d
-     /tmp/ccwBrY9H.s:1128   .bss.image_buffer:0000000000000000 image_buffer
-     /tmp/ccwBrY9H.s:1172   .data.ssdv_quality:0000000000000000 ssdv_quality
-     /tmp/ccwBrY9H.s:1140   .bss.ssdv_image_id:0000000000000000 ssdv_image_id
-     /tmp/ccwBrY9H.s:1166   .data.ssdv_call_sign:0000000000000000 ssdv_call_sign
-     /tmp/ccwBrY9H.s:1159   .bss.ssdv_type:0000000000000000 ssdv_type
-     /tmp/ccwBrY9H.s:1153   .bss.ssdv_start_addr:0000000000000000 ssdv_start_addr
-     /tmp/ccwBrY9H.s:1147   .bss.ssdv_packets_in_image:0000000000000000 ssdv_packets_in_image
-     /tmp/ccwBrY9H.s:1134   .bss.jpeg_size:0000000000000000 jpeg_size
-     /tmp/ccwBrY9H.s:1125   .bss.image_buffer:0000000000000000 $d
-     /tmp/ccwBrY9H.s:1131   .bss.jpeg_size:0000000000000000 $d
-     /tmp/ccwBrY9H.s:1141   .bss.ssdv_image_id:0000000000000000 $d
-     /tmp/ccwBrY9H.s:1143   .bss.ssdv_packets_in_image:0000000000000000 $d
-     /tmp/ccwBrY9H.s:1150   .bss.ssdv_start_addr:0000000000000000 $d
-     /tmp/ccwBrY9H.s:1160   .bss.ssdv_type:0000000000000000 $d
-     /tmp/ccwBrY9H.s:1162   .data.ssdv_call_sign:0000000000000000 $d
+     /tmp/cc40a8AS.s:16     .text.arducam_write_register:0000000000000000 $t
+     /tmp/cc40a8AS.s:24     .text.arducam_write_register:0000000000000000 arducam_write_register
+     /tmp/cc40a8AS.s:79     .text.arducam_write_register:0000000000000038 $d
+     /tmp/cc40a8AS.s:85     .text.arducam_read_register:0000000000000000 $t
+     /tmp/cc40a8AS.s:92     .text.arducam_read_register:0000000000000000 arducam_read_register
+     /tmp/cc40a8AS.s:149    .text.arducam_read_register:0000000000000040 $d
+     /tmp/cc40a8AS.s:155    .text.arducam_burst_read:0000000000000000 $t
+     /tmp/cc40a8AS.s:162    .text.arducam_burst_read:0000000000000000 arducam_burst_read
+     /tmp/cc40a8AS.s:243    .text.arducam_burst_read:0000000000000060 $d
+     /tmp/cc40a8AS.s:249    .text.camersSetBrightness:0000000000000000 $t
+     /tmp/cc40a8AS.s:256    .text.camersSetBrightness:0000000000000000 camersSetBrightness
+     /tmp/cc40a8AS.s:282    .text.cameraSetSharpness:0000000000000000 $t
+     /tmp/cc40a8AS.s:289    .text.cameraSetSharpness:0000000000000000 cameraSetSharpness
+     /tmp/cc40a8AS.s:315    .text.cameraSetContrast:0000000000000000 $t
+     /tmp/cc40a8AS.s:322    .text.cameraSetContrast:0000000000000000 cameraSetContrast
+     /tmp/cc40a8AS.s:348    .text.cameraSetEV:0000000000000000 $t
+     /tmp/cc40a8AS.s:355    .text.cameraSetEV:0000000000000000 cameraSetEV
+     /tmp/cc40a8AS.s:381    .text.cameraSetSaturation:0000000000000000 $t
+     /tmp/cc40a8AS.s:388    .text.cameraSetSaturation:0000000000000000 cameraSetSaturation
+     /tmp/cc40a8AS.s:414    .text.cameraSetColorEffect:0000000000000000 $t
+     /tmp/cc40a8AS.s:421    .text.cameraSetColorEffect:0000000000000000 cameraSetColorEffect
+     /tmp/cc40a8AS.s:447    .rodata.arducam_set_jpeg_mode.str1.4:0000000000000000 $d
+     /tmp/cc40a8AS.s:466    .text.arducam_set_jpeg_mode:0000000000000000 $t
+     /tmp/cc40a8AS.s:473    .text.arducam_set_jpeg_mode:0000000000000000 arducam_set_jpeg_mode
+     /tmp/cc40a8AS.s:591    .text.arducam_set_jpeg_mode:00000000000000a4 $d
+     /tmp/cc40a8AS.s:607    .text.arducam_capture_image:0000000000000000 $t
+     /tmp/cc40a8AS.s:614    .text.arducam_capture_image:0000000000000000 arducam_capture_image
+     /tmp/cc40a8AS.s:649    .rodata.find_jpeg.str1.4:0000000000000000 $d
+     /tmp/cc40a8AS.s:653    .text.find_jpeg:0000000000000000 $t
+     /tmp/cc40a8AS.s:660    .text.find_jpeg:0000000000000000 find_jpeg
+     /tmp/cc40a8AS.s:804    .text.find_jpeg:000000000000006c $d
+     /tmp/cc40a8AS.s:809    .rodata.process_image_capture.str1.4:0000000000000000 $d
+     /tmp/cc40a8AS.s:845    .text.process_image_capture:0000000000000000 $t
+     /tmp/cc40a8AS.s:852    .text.process_image_capture:0000000000000000 process_image_capture
+     /tmp/cc40a8AS.s:1205   .text.process_image_capture:000000000000015c $d
+     /tmp/cc40a8AS.s:1238   .bss.image_buffer:0000000000000000 image_buffer
+     /tmp/cc40a8AS.s:1282   .data.ssdv_quality:0000000000000000 ssdv_quality
+     /tmp/cc40a8AS.s:1250   .bss.ssdv_image_id:0000000000000000 ssdv_image_id
+     /tmp/cc40a8AS.s:1276   .data.ssdv_call_sign:0000000000000000 ssdv_call_sign
+     /tmp/cc40a8AS.s:1269   .bss.ssdv_type:0000000000000000 ssdv_type
+     /tmp/cc40a8AS.s:1263   .bss.ssdv_start_addr:0000000000000000 ssdv_start_addr
+     /tmp/cc40a8AS.s:1257   .bss.ssdv_packets_in_image:0000000000000000 ssdv_packets_in_image
+     /tmp/cc40a8AS.s:1244   .bss.jpeg_size:0000000000000000 jpeg_size
+     /tmp/cc40a8AS.s:1235   .bss.image_buffer:0000000000000000 $d
+     /tmp/cc40a8AS.s:1241   .bss.jpeg_size:0000000000000000 $d
+     /tmp/cc40a8AS.s:1251   .bss.ssdv_image_id:0000000000000000 $d
+     /tmp/cc40a8AS.s:1253   .bss.ssdv_packets_in_image:0000000000000000 $d
+     /tmp/cc40a8AS.s:1260   .bss.ssdv_start_addr:0000000000000000 $d
+     /tmp/cc40a8AS.s:1270   .bss.ssdv_type:0000000000000000 $d
+     /tmp/cc40a8AS.s:1272   .data.ssdv_call_sign:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin
 HAL_SPI_Transmit
 hspi1
+ARM GAS  /tmp/cc40a8AS.s 			page 33
+
+
 HAL_SPI_TransmitReceive
 HAL_SPI_Receive
-ARM GAS  /tmp/ccwBrY9H.s 			page 30
-
-
 HAL_Delay
 printf
+lvl
+saturation_lvl
+exposure_lvl
+contra_lvl
+shrp_lvl
+effect
 puts
 ssdv_enc_init
 ssdv_enc_set_buffer

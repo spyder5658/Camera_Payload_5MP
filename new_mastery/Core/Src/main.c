@@ -47,8 +47,8 @@ int _write(int file, char *data, int len) {
 #define SSDV_MAX_PACKETS    255
 
 void request_image_capture() {
-    uint8_t cmd = 0x10;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY) == HAL_OK) {
+    uint8_t cmd[2] = {0x10,0};
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
         printf("Image capture command sent.\r\n");
     } else {
         printf("Failed to send image capture command.\r\n");
@@ -56,8 +56,8 @@ void request_image_capture() {
 }
 
 void request_ssdv_stream() {
-    uint8_t cmd = 0x40;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY) == HAL_OK) {
+    uint8_t cmd[2] = {0x20,0};
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
         printf("SSDV stream command sent.\r\n");
     } else {
         printf("Failed to send SSDV stream command.\r\n");
@@ -95,6 +95,164 @@ void read_ssdv_stream() {
         }
     }
 }
+
+#define CAM_BRIGHTNESS_LEVEL_CMD  0x30
+#define CAM_SHARPNESS_LEVEL_CMD   0x40
+#define CAM_CONTRAST_LEVEL_CMD    0x50
+#define CAM_EV_LEVEL_CMD          0x60
+#define CAM_STAURATION_LEVEL_CMD  0x70
+#define CAM_COLOR_FX_CMD          0x80
+
+
+typedef enum {
+    CAM_BRIGHTNESS_LEVEL_MINUS_4 = 8, /**<Level -4 */
+    CAM_BRIGHTNESS_LEVEL_MINUS_3 = 6, /**<Level -3 */
+    CAM_BRIGHTNESS_LEVEL_MINUS_2 = 4, /**<Level -2 */
+    CAM_BRIGHTNESS_LEVEL_MINUS_1 = 2, /**<Level -1 */
+    CAM_BRIGHTNESS_LEVEL_DEFAULT = 0, /**<Level Default*/
+    CAM_BRIGHTNESS_LEVEL_1       = 1, /**<Level +1 */
+    CAM_BRIGHTNESS_LEVEL_2       = 3, /**<Level +2 */
+    CAM_BRIGHTNESS_LEVEL_3       = 5, /**<Level +3 */
+    CAM_BRIGHTNESS_LEVEL_4       = 7, /**<Level +4 */
+} CAM_BRIGHTNESS_LEVEL;
+
+typedef enum {
+    CAM_SHARPNESS_LEVEL_AUTO = 0, /**<Sharpness Auto */
+    CAM_SHARPNESS_LEVEL_1,        /**<Sharpness Level 1 */
+    CAM_SHARPNESS_LEVEL_2,        /**<Sharpness Level 2 */
+    CAM_SHARPNESS_LEVEL_3,        /**<Sharpness Level 3 */
+    CAM_SHARPNESS_LEVEL_4,        /**<Sharpness Level 4 */
+    CAM_SHARPNESS_LEVEL_5,        /**<Sharpness Level 5 */
+    CAM_SHARPNESS_LEVEL_6,        /**<Sharpness Level 6 */
+    CAM_SHARPNESS_LEVEL_7,        /**<Sharpness Level 7 */
+    CAM_SHARPNESS_LEVEL_8,        /**<Sharpness Level 8 */
+} CAM_SHARPNESS_LEVEL;
+
+
+typedef enum {
+    CAM_CONTRAST_LEVEL_MINUS_3 = 6, /**<Level -3 */
+    CAM_CONTRAST_LEVEL_MINUS_2 = 4, /**<Level -2 */
+    CAM_CONTRAST_LEVEL_MINUS_1 = 2, /**<Level -1 */
+    CAM_CONTRAST_LEVEL_DEFAULT = 0, /**<Level Default*/
+    CAM_CONTRAST_LEVEL_1       = 1, /**<Level +1 */
+    CAM_CONTRAST_LEVEL_2       = 3, /**<Level +2 */
+    CAM_CONTRAST_LEVEL_3       = 5, /**<Level +3 */
+} CAM_CONTRAST_LEVEL;
+
+
+typedef enum {
+    CAM_EV_LEVEL_MINUS_3 = 6, /**<Level -3 */
+    CAM_EV_LEVEL_MINUS_2 = 4, /**<Level -2 */
+    CAM_EV_LEVEL_MINUS_1 = 2, /**<Level -1 */
+    CAM_EV_LEVEL_DEFAULT = 0, /**<Level Default*/
+    CAM_EV_LEVEL_1       = 1, /**<Level +1 */
+    CAM_EV_LEVEL_2       = 3, /**<Level +2 */
+    CAM_EV_LEVEL_3       = 5, /**<Level +3 */
+} CAM_EV_LEVEL;
+
+
+typedef enum {
+    CAM_STAURATION_LEVEL_MINUS_3 = 6, /**<Level -3 */
+    CAM_STAURATION_LEVEL_MINUS_2 = 4, /**<Level -2 */
+    CAM_STAURATION_LEVEL_MINUS_1 = 2, /**<Level -1 */
+    CAM_STAURATION_LEVEL_DEFAULT = 0, /**<Level Default*/
+    CAM_STAURATION_LEVEL_1       = 1, /**<Level +1 */
+    CAM_STAURATION_LEVEL_2       = 3, /**<Level +2 */
+    CAM_STAURATION_LEVEL_3       = 5, /**<Level +3 */
+} CAM_STAURATION_LEVEL;
+
+
+typedef enum {
+    CAM_COLOR_FX_NONE = 0,      /**< no effect   */
+    CAM_COLOR_FX_BLUEISH,       /**< cool light   */
+    CAM_COLOR_FX_REDISH,        /**< warm   */
+    CAM_COLOR_FX_BW,            /**< Black/white   */
+    CAM_COLOR_FX_SEPIA,         /**<Sepia   */
+    CAM_COLOR_FX_NEGATIVE,      /**<positive/negative inversion  */
+    CAM_COLOR_FX_GRASS_GREEN,   /**<Grass green */
+    CAM_COLOR_FX_OVER_EXPOSURE, /**<Over exposure*/ //redish
+    CAM_COLOR_FX_SOLARIZE,      /**< Solarize   */
+} CAM_COLOR_FX;
+
+
+
+void set_brightness_(CAM_BRIGHTNESS_LEVEL level )
+ {
+    uint8_t cmd[2];
+    cmd[0] = CAM_BRIGHTNESS_LEVEL_CMD;
+    cmd [1] = level ;
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("brightness set.\r\n");
+    } else {
+        printf("Failed to set brigtness.\r\n");
+    }
+}
+
+void set_sharpness_(CAM_SHARPNESS_LEVEL level )
+ {
+    uint8_t cmd[2];
+    cmd[0] = CAM_SHARPNESS_LEVEL_CMD;
+    cmd [1] = level ;
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("sharpness set.\r\n");
+    } else {
+        printf("Failed to set sharpness.\r\n");
+
+    }
+}
+
+void set_contrast_(CAM_CONTRAST_LEVEL level )
+ {
+    uint8_t cmd[2];
+    cmd[0] = CAM_CONTRAST_LEVEL_CMD;
+    cmd [1] = level ;
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("contrast set.\r\n");
+    } else {
+        printf("Failed to set contrast.\r\n");
+
+    }
+}
+
+void set_exposure_(CAM_EV_LEVEL level )
+ {
+    uint8_t cmd[2];
+    cmd[0] = CAM_EV_LEVEL_CMD;
+    cmd [1] = level ;
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("expsoure set.\r\n");
+    } else {
+        printf("Failed to set expsoure.\r\n");
+
+    }
+}
+
+void set_saturation_(CAM_STAURATION_LEVEL level )
+ {
+    uint8_t cmd[2];
+    cmd[0] = CAM_STAURATION_LEVEL_CMD;
+    cmd [1] = level ;
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("saturation set.\r\n");
+    } else {
+        printf("Failed to set saturation.\r\n");
+
+    }
+}
+
+void set_effect_(CAM_COLOR_FX effect )
+ {
+    uint8_t cmd[2];
+    cmd[0] = CAM_COLOR_FX_CMD;
+    cmd [1] = effect ;
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("effect set.\r\n");
+    } else {
+        printf("Failed to set effect.\r\n");
+
+    }
+}
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -157,6 +315,9 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("Master starting...\r\n");
+  set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
+  set_effect_(CAM_COLOR_FX_SEPIA );
+  // set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
 
   // Step 1: Request Image Capture
   request_image_capture();

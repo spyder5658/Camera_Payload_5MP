@@ -4,13 +4,13 @@
 #include "flash.h"
 #include "ssdv.h"
 #include "main.h"
-
+// #include "i2c_slave.h"
 
 
 #define CS_LOW()  HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET) // Assert CS (Active Low)
 #define CS_HIGH() HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET)   // Deassert CS (Inactive High)
 
-#define MAX_IMAGE_SIZE 12000
+#define MAX_IMAGE_SIZE 15000
 
 
 typedef enum {
