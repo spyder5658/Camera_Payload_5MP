@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cccxKl3a.s 			page 1
+ARM GAS  /tmp/ccnsP8lh.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -24,7 +24,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   21              		.thumb_func
   22              		.fpu softvfp
   24              	flash_cs_low:
-  25              	.LFB68:
+  25              	.LFB65:
   26              		.file 1 "libs/flash/flash.c"
    1:libs/flash/flash.c **** #include "flash.h"
    2:libs/flash/flash.c **** #include "main.h"
@@ -57,8 +57,8 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   46              	.L3:
   47 0010 00080140 		.word	1073809408
   48              		.cfi_endproc
-  49              	.LFE68:
-ARM GAS  /tmp/cccxKl3a.s 			page 2
+  49              	.LFE65:
+ARM GAS  /tmp/ccnsP8lh.s 			page 2
 
 
   51              		.section	.text.flash_cs_high,"ax",%progbits
@@ -69,7 +69,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   56              		.thumb_func
   57              		.fpu softvfp
   59              	flash_cs_high:
-  60              	.LFB69:
+  60              	.LFB66:
   10:libs/flash/flash.c **** 
   11:libs/flash/flash.c **** void flash_cs_high(void) {
   61              		.loc 1 11 26 is_stmt 1 view -0
@@ -96,7 +96,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   80              	.L7:
   81 0010 00080140 		.word	1073809408
   82              		.cfi_endproc
-  83              	.LFE69:
+  83              	.LFE66:
   85              		.section	.text.flash_init,"ax",%progbits
   86              		.align	1
   87              		.global	flash_init
@@ -105,7 +105,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   90              		.thumb_func
   91              		.fpu softvfp
   93              	flash_init:
-  94              	.LFB70:
+  94              	.LFB67:
   14:libs/flash/flash.c **** 
   15:libs/flash/flash.c **** void flash_init(void) {
   95              		.loc 1 15 23 is_stmt 1 view -0
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  102              		.cfi_offset 14, -4
  103 0002 87B0     		sub	sp, sp, #28
  104              	.LCFI3:
-ARM GAS  /tmp/cccxKl3a.s 			page 3
+ARM GAS  /tmp/ccnsP8lh.s 			page 3
 
 
  105              		.cfi_def_cfa_offset 32
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  148 003c FFF7FEFF 		bl	flash_cs_high
  149              	.LVL3:
   27:libs/flash/flash.c **** 
-ARM GAS  /tmp/cccxKl3a.s 			page 4
+ARM GAS  /tmp/ccnsP8lh.s 			page 4
 
 
   28:libs/flash/flash.c **** }
@@ -193,7 +193,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  158              	.L11:
  159 0048 00080140 		.word	1073809408
  160              		.cfi_endproc
- 161              	.LFE70:
+ 161              	.LFE67:
  163              		.section	.text.flash_deinit,"ax",%progbits
  164              		.align	1
  165              		.global	flash_deinit
@@ -202,7 +202,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  168              		.thumb_func
  169              		.fpu softvfp
  171              	flash_deinit:
- 172              	.LFB71:
+ 172              	.LFB68:
   29:libs/flash/flash.c **** 
   30:libs/flash/flash.c **** void flash_deinit(void) {
  173              		.loc 1 30 25 is_stmt 1 view -0
@@ -227,7 +227,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  190              	.L15:
  191 000c 00000000 		.word	hspi1
  192              		.cfi_endproc
- 193              	.LFE71:
+ 193              	.LFE68:
  195              		.section	.text.flash_send_byte,"ax",%progbits
  196              		.align	1
  197              		.global	flash_send_byte
@@ -237,8 +237,8 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  201              		.fpu softvfp
  203              	flash_send_byte:
  204              	.LVL5:
- 205              	.LFB72:
-ARM GAS  /tmp/cccxKl3a.s 			page 5
+ 205              	.LFB69:
+ARM GAS  /tmp/ccnsP8lh.s 			page 5
 
 
   33:libs/flash/flash.c **** 
@@ -288,7 +288,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  244              	.L19:
  245 0030 00000000 		.word	hspi1
  246              		.cfi_endproc
- 247              	.LFE72:
+ 247              	.LFE69:
  249              		.section	.text.FLASH_SendHalfWord,"ax",%progbits
  250              		.align	1
  251              		.global	FLASH_SendHalfWord
@@ -298,10 +298,10 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  255              		.fpu softvfp
  257              	FLASH_SendHalfWord:
  258              	.LVL8:
-ARM GAS  /tmp/cccxKl3a.s 			page 6
+ARM GAS  /tmp/ccnsP8lh.s 			page 6
 
 
- 259              	.LFB73:
+ 259              	.LFB70:
   39:libs/flash/flash.c **** 
   40:libs/flash/flash.c **** uint16_t FLASH_SendHalfWord(uint16_t HalfWord) {
  260              		.loc 1 40 48 is_stmt 1 view -0
@@ -349,7 +349,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  298              	.L23:
  299 0030 00000000 		.word	hspi1
  300              		.cfi_endproc
- 301              	.LFE73:
+ 301              	.LFE70:
  303              		.section	.text.flash_write_enable,"ax",%progbits
  304              		.align	1
  305              		.global	flash_write_enable
@@ -358,10 +358,10 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  308              		.thumb_func
  309              		.fpu softvfp
  311              	flash_write_enable:
-ARM GAS  /tmp/cccxKl3a.s 			page 7
+ARM GAS  /tmp/ccnsP8lh.s 			page 7
 
 
- 312              	.LFB74:
+ 312              	.LFB71:
   45:libs/flash/flash.c **** 
   46:libs/flash/flash.c **** void flash_write_enable(void) {
  313              		.loc 1 46 31 is_stmt 1 view -0
@@ -390,7 +390,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  332              		.loc 1 50 1 is_stmt 0 view .LVU47
  333 0010 08BD     		pop	{r3, pc}
  334              		.cfi_endproc
- 335              	.LFE74:
+ 335              	.LFE71:
  337              		.section	.text.flash_wait_for_write_end,"ax",%progbits
  338              		.align	1
  339              		.global	flash_wait_for_write_end
@@ -399,7 +399,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  342              		.thumb_func
  343              		.fpu softvfp
  345              	flash_wait_for_write_end:
- 346              	.LFB75:
+ 346              	.LFB72:
   51:libs/flash/flash.c **** 
   52:libs/flash/flash.c **** void flash_wait_for_write_end(void) {
  347              		.loc 1 52 37 is_stmt 1 view -0
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   55:libs/flash/flash.c ****     flash_cs_low();
  358              		.loc 1 55 5 view .LVU50
  359 0002 FFF7FEFF 		bl	flash_cs_low
-ARM GAS  /tmp/cccxKl3a.s 			page 8
+ARM GAS  /tmp/ccnsP8lh.s 			page 8
 
 
  360              	.LVL15:
@@ -451,7 +451,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  379              		.loc 1 63 1 is_stmt 0 view .LVU58
  380 001c 08BD     		pop	{r3, pc}
  381              		.cfi_endproc
- 382              	.LFE75:
+ 382              	.LFE72:
  384              		.section	.text.flash_erase_sector,"ax",%progbits
  385              		.align	1
  386              		.global	flash_erase_sector
@@ -461,7 +461,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  390              		.fpu softvfp
  392              	flash_erase_sector:
  393              	.LVL19:
- 394              	.LFB76:
+ 394              	.LFB73:
   64:libs/flash/flash.c **** 
   65:libs/flash/flash.c **** void flash_erase_sector(uint32_t SectorAddr) {
  395              		.loc 1 65 46 is_stmt 1 view -0
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   66:libs/flash/flash.c ****     flash_write_enable();
  406              		.loc 1 66 5 is_stmt 1 view .LVU61
  407 0004 FFF7FEFF 		bl	flash_write_enable
-ARM GAS  /tmp/cccxKl3a.s 			page 9
+ARM GAS  /tmp/ccnsP8lh.s 			page 9
 
 
  408              	.LVL20:
@@ -519,7 +519,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  435 0030 10BD     		pop	{r4, pc}
  436              		.loc 1 74 1 view .LVU70
  437              		.cfi_endproc
- 438              	.LFE76:
+ 438              	.LFE73:
  440              		.section	.text.flash_erase_block,"ax",%progbits
  441              		.align	1
  442              		.global	flash_erase_block
@@ -528,7 +528,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  445              		.thumb_func
  446              		.fpu softvfp
  448              	flash_erase_block:
- 449              	.LFB77:
+ 449              	.LFB74:
   75:libs/flash/flash.c **** 
   76:libs/flash/flash.c **** void flash_erase_block(void) {
  450              		.loc 1 76 30 is_stmt 1 view -0
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  454 0000 08B5     		push	{r3, lr}
  455              	.LCFI15:
  456              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/cccxKl3a.s 			page 10
+ARM GAS  /tmp/ccnsP8lh.s 			page 10
 
 
  457              		.cfi_offset 3, -8
@@ -568,7 +568,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  475              		.loc 1 82 1 is_stmt 0 view .LVU77
  476 0018 08BD     		pop	{r3, pc}
  477              		.cfi_endproc
- 478              	.LFE77:
+ 478              	.LFE74:
  480              		.section	.text.flash_write_page,"ax",%progbits
  481              		.align	1
  482              		.global	flash_write_page
@@ -578,7 +578,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  486              		.fpu softvfp
  488              	flash_write_page:
  489              	.LVL33:
- 490              	.LFB78:
+ 490              	.LFB75:
   83:libs/flash/flash.c **** 
   84:libs/flash/flash.c **** void flash_write_page(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite) {
  491              		.loc 1 84 86 is_stmt 1 view -0
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  505 0006 1546     		mov	r5, r2
   85:libs/flash/flash.c ****     flash_write_enable();
  506              		.loc 1 85 5 is_stmt 1 view .LVU80
-ARM GAS  /tmp/cccxKl3a.s 			page 11
+ARM GAS  /tmp/ccnsP8lh.s 			page 11
 
 
  507 0008 FFF7FEFF 		bl	flash_write_enable
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
   92:libs/flash/flash.c ****         flash_send_byte(pBuffer[i]);
  550              		.loc 1 92 26 is_stmt 1 discriminator 1 view .LVU94
   92:libs/flash/flash.c ****         flash_send_byte(pBuffer[i]);
-ARM GAS  /tmp/cccxKl3a.s 			page 12
+ARM GAS  /tmp/ccnsP8lh.s 			page 12
 
 
  551              		.loc 1 92 5 is_stmt 0 discriminator 1 view .LVU95
@@ -680,7 +680,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  562 0046 70BD     		pop	{r4, r5, r6, pc}
  563              		.loc 1 98 1 view .LVU99
  564              		.cfi_endproc
- 565              	.LFE78:
+ 565              	.LFE75:
  567              		.section	.text.flash_write_buffer,"ax",%progbits
  568              		.align	1
  569              		.global	flash_write_buffer
@@ -690,7 +690,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  573              		.fpu softvfp
  575              	flash_write_buffer:
  576              	.LVL47:
- 577              	.LFB79:
+ 577              	.LFB76:
   99:libs/flash/flash.c **** 
  100:libs/flash/flash.c **** void flash_write_buffer(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite) {
  578              		.loc 1 100 88 is_stmt 1 view -0
@@ -718,7 +718,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  102:libs/flash/flash.c **** 
  103:libs/flash/flash.c ****     Addr = WriteAddr % FLASH_SPI_PAGESIZE;
  599              		.loc 1 103 5 view .LVU103
-ARM GAS  /tmp/cccxKl3a.s 			page 13
+ARM GAS  /tmp/ccnsP8lh.s 			page 13
 
 
  600              		.loc 1 103 10 is_stmt 0 view .LVU104
@@ -778,7 +778,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  641              	.LVL57:
  642              	.L40:
  112:libs/flash/flash.c ****                 flash_write_page(pBuffer, WriteAddr, FLASH_SPI_PAGESIZE);
-ARM GAS  /tmp/cccxKl3a.s 			page 14
+ARM GAS  /tmp/ccnsP8lh.s 			page 14
 
 
  643              		.loc 1 112 19 is_stmt 1 view .LVU122
@@ -838,7 +838,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  660              	.LVL60:
  661              	.L39:
  662              		.loc 1 150 1 view .LVU127
-ARM GAS  /tmp/cccxKl3a.s 			page 15
+ARM GAS  /tmp/ccnsP8lh.s 			page 15
 
 
  663 0046 C3F10008 		rsb	r8, r3, #0
@@ -898,7 +898,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  701              		.loc 1 126 17 view .LVU143
  702 0070 E7E7     		b	.L38
  703              	.LVL69:
-ARM GAS  /tmp/cccxKl3a.s 			page 16
+ARM GAS  /tmp/ccnsP8lh.s 			page 16
 
 
  704              	.L44:
@@ -958,7 +958,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  742              		.loc 1 139 19 is_stmt 0 view .LVU159
  743 0094 0AE0     		b	.L45
  744              	.LVL79:
-ARM GAS  /tmp/cccxKl3a.s 			page 17
+ARM GAS  /tmp/ccnsP8lh.s 			page 17
 
 
  745              	.L46:
@@ -1013,12 +1013,12 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  782              		.loc 1 150 1 is_stmt 0 view .LVU172
  783 00c6 BCE7     		b	.L38
  784              		.cfi_endproc
- 785              	.LFE79:
+ 785              	.LFE76:
  787              		.section	.text.flash_read_buffer,"ax",%progbits
  788              		.align	1
  789              		.global	flash_read_buffer
  790              		.syntax unified
-ARM GAS  /tmp/cccxKl3a.s 			page 18
+ARM GAS  /tmp/ccnsP8lh.s 			page 18
 
 
  791              		.thumb
@@ -1026,7 +1026,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  793              		.fpu softvfp
  795              	flash_read_buffer:
  796              	.LVL86:
- 797              	.LFB80:
+ 797              	.LFB77:
  151:libs/flash/flash.c **** 
  152:libs/flash/flash.c **** void flash_read_buffer(uint8_t *pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead) {
  798              		.loc 1 152 85 is_stmt 1 view -0
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  837              	.LVL92:
  838              		.loc 1 159 5 view .LVU183
  839 002a 05E0     		b	.L49
-ARM GAS  /tmp/cccxKl3a.s 			page 19
+ARM GAS  /tmp/ccnsP8lh.s 			page 19
 
 
  840              	.LVL93:
@@ -1120,7 +1120,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  866 0040 70BD     		pop	{r4, r5, r6, pc}
  867              		.loc 1 164 1 view .LVU194
  868              		.cfi_endproc
- 869              	.LFE80:
+ 869              	.LFE77:
  871              		.section	.text.flash_read_id,"ax",%progbits
  872              		.align	1
  873              		.global	flash_read_id
@@ -1129,7 +1129,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  876              		.thumb_func
  877              		.fpu softvfp
  879              	flash_read_id:
- 880              	.LFB81:
+ 880              	.LFB78:
  165:libs/flash/flash.c **** 
  166:libs/flash/flash.c **** uint32_t flash_read_id(void) {
  881              		.loc 1 166 30 is_stmt 1 view -0
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  884              		@ frame_needed = 0, uses_anonymous_args = 0
  885 0000 70B5     		push	{r4, r5, r6, lr}
  886              	.LCFI19:
-ARM GAS  /tmp/cccxKl3a.s 			page 20
+ARM GAS  /tmp/ccnsP8lh.s 			page 20
 
 
  887              		.cfi_def_cfa_offset 16
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  930              		.loc 1 177 26 view .LVU209
  931 002a 44EA0644 		orr	r4, r4, r6, lsl #16
  932              	.LVL109:
-ARM GAS  /tmp/cccxKl3a.s 			page 21
+ARM GAS  /tmp/ccnsP8lh.s 			page 21
 
 
  178:libs/flash/flash.c ****     return Temp;
@@ -1211,7 +1211,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  938 0032 70BD     		pop	{r4, r5, r6, pc}
  939              		.loc 1 179 1 view .LVU213
  940              		.cfi_endproc
- 941              	.LFE81:
+ 941              	.LFE78:
  943              		.section	.text.flash_start_read_sequence,"ax",%progbits
  944              		.align	1
  945              		.global	flash_start_read_sequence
@@ -1221,7 +1221,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  949              		.fpu softvfp
  951              	flash_start_read_sequence:
  952              	.LVL111:
- 953              	.LFB82:
+ 953              	.LFB79:
  180:libs/flash/flash.c **** 
  181:libs/flash/flash.c **** void flash_start_read_sequence(uint32_t ReadAddr) {
  954              		.loc 1 181 51 is_stmt 1 view -0
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  980              		.loc 1 186 5 view .LVU220
  981 001e E0B2     		uxtb	r0, r4
  982 0020 FFF7FEFF 		bl	flash_send_byte
-ARM GAS  /tmp/cccxKl3a.s 			page 22
+ARM GAS  /tmp/ccnsP8lh.s 			page 22
 
 
  983              	.LVL116:
@@ -1267,7 +1267,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  985 0024 10BD     		pop	{r4, pc}
  986              		.loc 1 187 1 view .LVU222
  987              		.cfi_endproc
- 988              	.LFE82:
+ 988              	.LFE79:
  990              		.section	.text.flash_read_byte,"ax",%progbits
  991              		.align	1
  992              		.global	flash_read_byte
@@ -1276,7 +1276,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  995              		.thumb_func
  996              		.fpu softvfp
  998              	flash_read_byte:
- 999              	.LFB83:
+ 999              	.LFB80:
  188:libs/flash/flash.c **** 
  189:libs/flash/flash.c **** uint8_t flash_read_byte(void) {
  1000              		.loc 1 189 31 is_stmt 1 view -0
@@ -1298,7 +1298,7 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  1014              		.loc 1 191 1 view .LVU226
  1015 0008 08BD     		pop	{r3, pc}
  1016              		.cfi_endproc
- 1017              	.LFE83:
+ 1017              	.LFE80:
  1019              		.text
  1020              	.Letext0:
  1021              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
@@ -1309,49 +1309,49 @@ ARM GAS  /tmp/cccxKl3a.s 			page 1
  1026              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  1027              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
  1028              		.file 9 "Core/Inc/spi.h"
-ARM GAS  /tmp/cccxKl3a.s 			page 23
+ARM GAS  /tmp/ccnsP8lh.s 			page 23
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 flash.c
-     /tmp/cccxKl3a.s:16     .text.flash_cs_low:0000000000000000 $t
-     /tmp/cccxKl3a.s:24     .text.flash_cs_low:0000000000000000 flash_cs_low
-     /tmp/cccxKl3a.s:47     .text.flash_cs_low:0000000000000010 $d
-     /tmp/cccxKl3a.s:52     .text.flash_cs_high:0000000000000000 $t
-     /tmp/cccxKl3a.s:59     .text.flash_cs_high:0000000000000000 flash_cs_high
-     /tmp/cccxKl3a.s:81     .text.flash_cs_high:0000000000000010 $d
-     /tmp/cccxKl3a.s:86     .text.flash_init:0000000000000000 $t
-     /tmp/cccxKl3a.s:93     .text.flash_init:0000000000000000 flash_init
-     /tmp/cccxKl3a.s:159    .text.flash_init:0000000000000048 $d
-     /tmp/cccxKl3a.s:164    .text.flash_deinit:0000000000000000 $t
-     /tmp/cccxKl3a.s:171    .text.flash_deinit:0000000000000000 flash_deinit
-     /tmp/cccxKl3a.s:191    .text.flash_deinit:000000000000000c $d
-     /tmp/cccxKl3a.s:196    .text.flash_send_byte:0000000000000000 $t
-     /tmp/cccxKl3a.s:203    .text.flash_send_byte:0000000000000000 flash_send_byte
-     /tmp/cccxKl3a.s:245    .text.flash_send_byte:0000000000000030 $d
-     /tmp/cccxKl3a.s:250    .text.FLASH_SendHalfWord:0000000000000000 $t
-     /tmp/cccxKl3a.s:257    .text.FLASH_SendHalfWord:0000000000000000 FLASH_SendHalfWord
-     /tmp/cccxKl3a.s:299    .text.FLASH_SendHalfWord:0000000000000030 $d
-     /tmp/cccxKl3a.s:304    .text.flash_write_enable:0000000000000000 $t
-     /tmp/cccxKl3a.s:311    .text.flash_write_enable:0000000000000000 flash_write_enable
-     /tmp/cccxKl3a.s:338    .text.flash_wait_for_write_end:0000000000000000 $t
-     /tmp/cccxKl3a.s:345    .text.flash_wait_for_write_end:0000000000000000 flash_wait_for_write_end
-     /tmp/cccxKl3a.s:385    .text.flash_erase_sector:0000000000000000 $t
-     /tmp/cccxKl3a.s:392    .text.flash_erase_sector:0000000000000000 flash_erase_sector
-     /tmp/cccxKl3a.s:441    .text.flash_erase_block:0000000000000000 $t
-     /tmp/cccxKl3a.s:448    .text.flash_erase_block:0000000000000000 flash_erase_block
-     /tmp/cccxKl3a.s:481    .text.flash_write_page:0000000000000000 $t
-     /tmp/cccxKl3a.s:488    .text.flash_write_page:0000000000000000 flash_write_page
-     /tmp/cccxKl3a.s:568    .text.flash_write_buffer:0000000000000000 $t
-     /tmp/cccxKl3a.s:575    .text.flash_write_buffer:0000000000000000 flash_write_buffer
-     /tmp/cccxKl3a.s:788    .text.flash_read_buffer:0000000000000000 $t
-     /tmp/cccxKl3a.s:795    .text.flash_read_buffer:0000000000000000 flash_read_buffer
-     /tmp/cccxKl3a.s:872    .text.flash_read_id:0000000000000000 $t
-     /tmp/cccxKl3a.s:879    .text.flash_read_id:0000000000000000 flash_read_id
-     /tmp/cccxKl3a.s:944    .text.flash_start_read_sequence:0000000000000000 $t
-     /tmp/cccxKl3a.s:951    .text.flash_start_read_sequence:0000000000000000 flash_start_read_sequence
-     /tmp/cccxKl3a.s:991    .text.flash_read_byte:0000000000000000 $t
-     /tmp/cccxKl3a.s:998    .text.flash_read_byte:0000000000000000 flash_read_byte
+     /tmp/ccnsP8lh.s:16     .text.flash_cs_low:0000000000000000 $t
+     /tmp/ccnsP8lh.s:24     .text.flash_cs_low:0000000000000000 flash_cs_low
+     /tmp/ccnsP8lh.s:47     .text.flash_cs_low:0000000000000010 $d
+     /tmp/ccnsP8lh.s:52     .text.flash_cs_high:0000000000000000 $t
+     /tmp/ccnsP8lh.s:59     .text.flash_cs_high:0000000000000000 flash_cs_high
+     /tmp/ccnsP8lh.s:81     .text.flash_cs_high:0000000000000010 $d
+     /tmp/ccnsP8lh.s:86     .text.flash_init:0000000000000000 $t
+     /tmp/ccnsP8lh.s:93     .text.flash_init:0000000000000000 flash_init
+     /tmp/ccnsP8lh.s:159    .text.flash_init:0000000000000048 $d
+     /tmp/ccnsP8lh.s:164    .text.flash_deinit:0000000000000000 $t
+     /tmp/ccnsP8lh.s:171    .text.flash_deinit:0000000000000000 flash_deinit
+     /tmp/ccnsP8lh.s:191    .text.flash_deinit:000000000000000c $d
+     /tmp/ccnsP8lh.s:196    .text.flash_send_byte:0000000000000000 $t
+     /tmp/ccnsP8lh.s:203    .text.flash_send_byte:0000000000000000 flash_send_byte
+     /tmp/ccnsP8lh.s:245    .text.flash_send_byte:0000000000000030 $d
+     /tmp/ccnsP8lh.s:250    .text.FLASH_SendHalfWord:0000000000000000 $t
+     /tmp/ccnsP8lh.s:257    .text.FLASH_SendHalfWord:0000000000000000 FLASH_SendHalfWord
+     /tmp/ccnsP8lh.s:299    .text.FLASH_SendHalfWord:0000000000000030 $d
+     /tmp/ccnsP8lh.s:304    .text.flash_write_enable:0000000000000000 $t
+     /tmp/ccnsP8lh.s:311    .text.flash_write_enable:0000000000000000 flash_write_enable
+     /tmp/ccnsP8lh.s:338    .text.flash_wait_for_write_end:0000000000000000 $t
+     /tmp/ccnsP8lh.s:345    .text.flash_wait_for_write_end:0000000000000000 flash_wait_for_write_end
+     /tmp/ccnsP8lh.s:385    .text.flash_erase_sector:0000000000000000 $t
+     /tmp/ccnsP8lh.s:392    .text.flash_erase_sector:0000000000000000 flash_erase_sector
+     /tmp/ccnsP8lh.s:441    .text.flash_erase_block:0000000000000000 $t
+     /tmp/ccnsP8lh.s:448    .text.flash_erase_block:0000000000000000 flash_erase_block
+     /tmp/ccnsP8lh.s:481    .text.flash_write_page:0000000000000000 $t
+     /tmp/ccnsP8lh.s:488    .text.flash_write_page:0000000000000000 flash_write_page
+     /tmp/ccnsP8lh.s:568    .text.flash_write_buffer:0000000000000000 $t
+     /tmp/ccnsP8lh.s:575    .text.flash_write_buffer:0000000000000000 flash_write_buffer
+     /tmp/ccnsP8lh.s:788    .text.flash_read_buffer:0000000000000000 $t
+     /tmp/ccnsP8lh.s:795    .text.flash_read_buffer:0000000000000000 flash_read_buffer
+     /tmp/ccnsP8lh.s:872    .text.flash_read_id:0000000000000000 $t
+     /tmp/ccnsP8lh.s:879    .text.flash_read_id:0000000000000000 flash_read_id
+     /tmp/ccnsP8lh.s:944    .text.flash_start_read_sequence:0000000000000000 $t
+     /tmp/ccnsP8lh.s:951    .text.flash_start_read_sequence:0000000000000000 flash_start_read_sequence
+     /tmp/ccnsP8lh.s:991    .text.flash_read_byte:0000000000000000 $t
+     /tmp/ccnsP8lh.s:998    .text.flash_read_byte:0000000000000000 flash_read_byte
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin

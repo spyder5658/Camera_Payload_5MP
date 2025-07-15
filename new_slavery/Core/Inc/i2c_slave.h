@@ -15,6 +15,7 @@ extern volatile CAM_EV_LEVEL exposure_lvl;
 extern volatile CAM_STAURATION_LEVEL saturation_lvl;
 extern volatile CAM_COLOR_FX effect;
 
+extern volatile uint8_t prestore_image_requested;
 
 
 

@@ -46,12 +46,26 @@ int _write(int file, char *data, int len) {
 #define SSDV_PKT_SIZE       224
 #define SSDV_MAX_PACKETS    255
 
+uint32_t last_i2c_activity = 0; // ⬅️ Added for timeout tracking
+
+
 void request_image_capture() {
+     last_i2c_activity = HAL_GetTick();
     uint8_t cmd[2] = {0x10,0};
     if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
         printf("Image capture command sent.\r\n");
     } else {
         printf("Failed to send image capture command.\r\n");
+    }
+}
+
+void request_prestored() {
+     last_i2c_activity = HAL_GetTick();
+    uint8_t cmd[2] = {0x90,0};
+    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
+        printf("prestored command sent.\r\n");
+    } else {
+        printf("Failed to send prestored command.\r\n");
     }
 }
 
@@ -65,6 +79,7 @@ void request_ssdv_stream() {
 }
 
 void read_ssdv_stream() {
+     last_i2c_activity = HAL_GetTick();
     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
     uint16_t packet_index = 0;
 
@@ -95,6 +110,87 @@ void read_ssdv_stream() {
         }
     }
 }
+// #define I2C_MAX_RETRIES 3
+// #define I2C_TIMEOUT_MS 100
+
+// // Retry wrapper for transmit
+// HAL_StatusTypeDef i2c_master_transmit(uint8_t *data, uint16_t size) {
+//     HAL_StatusTypeDef res;
+//     for (int i = 0; i < I2C_MAX_RETRIES; ++i) {
+//         res = HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, data, size, I2C_TIMEOUT_MS);
+//         if (res == HAL_OK) return HAL_OK;
+//         HAL_Delay(10);
+//     }
+//     return res;
+// }
+
+// // Retry wrapper for receive
+// HAL_StatusTypeDef i2c_master_receive(uint8_t *data, uint16_t size) {
+//     HAL_StatusTypeDef res;
+//     for (int i = 0; i < I2C_MAX_RETRIES; ++i) {
+//         res = HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, data, size, I2C_TIMEOUT_MS);
+//         if (res == HAL_OK) return HAL_OK;
+//         HAL_Delay(10);
+//     }
+//     return res;
+// }
+
+
+// void request_image_capture() {
+//     uint8_t cmd[2] = {0x10, 0};
+//     if (i2c_master_transmit(cmd, 2) == HAL_OK)
+//         printf("Image capture command sent.\r\n");
+//     else
+//         printf("Failed to send image capture command.\r\n");
+// }
+
+// void request_ssdv_stream() {
+//     uint8_t cmd[2] = {0x20, 0};
+//     if (i2c_master_transmit(cmd, 2) == HAL_OK)
+//         printf("SSDV stream command sent.\r\n");
+//     else
+//         printf("Failed to send SSDV stream command.\r\n");
+// }
+
+// void request_prestored() {
+//     uint8_t cmd[2] = {0x90, 0};
+//     if (i2c_master_transmit(cmd, 2) == HAL_OK)
+//         printf("Prestored command sent.\r\n");
+//     else
+//         printf("Failed to send prestored command.\r\n");
+// }
+
+// void read_ssdv_stream() {
+//     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
+//     uint16_t packet_index = 0;
+
+//     while (1) {
+//         if (i2c_master_receive(ssdv_pkt, SSDV_PKT_SIZE) != HAL_OK) {
+//             printf("Error receiving packet %d\r\n", packet_index);
+//             break;
+//         }
+
+//         if (ssdv_pkt[0] == 0xFF) {
+//             printf("End of SSDV stream reached.\r\n");
+//             break;
+//         }
+
+//         printf("Packet %d received:\n", packet_index);
+//         for (int i = 0; i < SSDV_PKT_SIZE; i++) {
+//             printf("0x%02X, ", ssdv_pkt[i]);
+//             if ((i + 1) % 16 == 0) printf("\n");
+//         }
+//         printf("\n-----------------------------\n");
+
+//         if (++packet_index >= SSDV_MAX_PACKETS) {
+//             printf("Max SSDV packet limit reached.\r\n");
+//             break;
+//         }
+//     }
+// }
+
+
+
 
 #define CAM_BRIGHTNESS_LEVEL_CMD  0x30
 #define CAM_SHARPNESS_LEVEL_CMD   0x40
@@ -253,6 +349,129 @@ void set_effect_(CAM_COLOR_FX effect )
     }
 }
 
+
+
+
+#define SSDV_PKT_SIZE     224           // or 256 depending on your config
+#define MAX_PKT_COUNT     100           // maximum packets you expect
+
+uint8_t ssdv_packet[SSDV_PKT_SIZE];
+
+void request_prestored_image(void)
+{
+     last_i2c_activity = HAL_GetTick();
+    HAL_StatusTypeDef res;
+
+    // Step 1: Send 0x90 command to request prestored image
+    uint8_t cmd[2] = {0x90, 0x00}; // second byte is ignored
+    res = HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY);
+    if (res != HAL_OK) {
+        printf("Failed to send prestored command\n");
+        return;
+    }
+
+    read_ssdv_stream();
+}
+
+
+void camera_on()
+{
+    HAL_GPIO_WritePin(Payload_switch_GPIO_Port,Payload_switch_Pin,SET);
+}
+
+void camera_off()
+{
+    HAL_GPIO_WritePin(Payload_switch_GPIO_Port,Payload_switch_Pin,RESET);
+
+
+}
+
+void i2c_bus_recovery(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+
+    GPIO_InitStruct.Pin = GPIO_PIN_10 | GPIO_PIN_11;  // SDA/SCL for I2C2
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    for (int i = 0; i < 9; i++) {
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);
+        HAL_Delay(1);
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_RESET);
+        HAL_Delay(1);
+    }
+
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_SET);
+    HAL_Delay(5);
+}
+
+
+void example_i2c_transaction(void)
+{
+    uint8_t cmd[2] = {0x10, 0x00}; // Image capture command
+    HAL_StatusTypeDef status;
+
+    // Send image capture command (with retries)
+    status = i2c_master_transmit(cmd, 2);
+    if (status == HAL_OK) {
+        printf("Image capture command sent successfully.\r\n");
+    } else {
+        printf("Failed to send image capture command after retries.\r\n");
+        return;
+    }
+
+    // Wait for slave to capture and encode
+    HAL_Delay(8000);
+
+    // Start reading SSDV packets
+    uint8_t ssdv_pkt[SSDV_PKT_SIZE];
+    for (int i = 0; i < SSDV_MAX_PACKETS; ++i) {
+        status = i2c_master_receive(ssdv_pkt, SSDV_PKT_SIZE);
+
+        if (status != HAL_OK) {
+            printf("Failed to receive packet %d\r\n", i);
+            break;
+        }
+
+        if (ssdv_pkt[0] == 0xFF) {
+            printf("End of stream reached.\r\n");
+            break;
+        }
+
+        printf("Packet %d received:\n", i);
+        for (int j = 0; j < SSDV_PKT_SIZE; ++j) {
+            printf("0x%02X ", ssdv_pkt[j]);
+            if ((j + 1) % 16 == 0) printf("\n");
+        }
+        printf("\n-----------------------------\n");
+    }
+}
+
+
+
+
+
+void check_i2c_timeout()
+{
+    if (HAL_GetTick() - last_i2c_activity > 3000) // 3 seconds no I2C activity
+    {
+        if (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY))
+        {
+            printf("I2C bus stuck, resetting...\r\n");
+            __HAL_RCC_I2C2_FORCE_RESET();
+            HAL_Delay(1);
+            __HAL_RCC_I2C2_RELEASE_RESET();
+            MX_I2C2_Init();  // Your re-init function
+            HAL_I2C_EnableListen_IT(&hi2c2);
+
+        }
+        last_i2c_activity = HAL_GetTick(); // Prevent repeated reset
+    }
+}
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -311,30 +530,145 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+
   MX_I2C2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   printf("Master starting...\r\n");
-  set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
-  set_effect_(CAM_COLOR_FX_SEPIA );
-  // set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
+  HAL_Delay(500);
+//   set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
+//   set_effect_(CAM_COLOR_FX_SEPIA );
+//   set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
 
   // Step 1: Request Image Capture
-  request_image_capture();
-  HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
 
-  // Step 2: Request SSDV Stream
-  request_ssdv_stream();
-  HAL_Delay(200);
+//   request_image_capture();
+//   HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
 
-  // Step 3: Read All SSDV Packets
-  read_ssdv_stream();
+// //   // Step 2: Request SSDV Stream
+//   request_ssdv_stream();
+//   HAL_Delay(200);
+
+//   // Step 3: Read All SSDV Packets
+//   read_ssdv_stream();
+//     HAL_Delay(8000);
+    // request_prestored();
+//   HAL_Delay(200);
+//   read_ssdv_stream();
+    // request_prestored_image();
+    // camera_on();
+    // HAL_Delay(1000);
+    // request_image_capture();
+    // HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+
+    //   // Step 2: Request SSDV Stream
+    // request_ssdv_stream();
+    // HAL_Delay(200);
+
+    // Step 3: Read All SSDV Packets
+    // read_ssdv_stream();
+    // HAL_Delay(1000);
+    // camera_off();
+
+
+    // camera_on();
+    // request_image_capture();
+    // HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+
+    // //   // Step 2: Request SSDV Stream
+    // request_ssdv_stream();
+    // HAL_Delay(200);
+
+    // // Step 3: Read All SSDV Packets
+    // read_ssdv_stream();
+    // camera_off();
+    // // HAL_Delay(1500);
+    // // printf("capturing prestored image now!!\n");
+
+
+    // camera_on();
+    // request_prestored_image();
+    // HAL_Delay(1000);
+    // camera_off();
+
+  uint32_t last_i2c_check_time = 0;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    camera_on();
+    // HAL_Delay(3000);
+    /* === Periodic I2C bus health check === */
+    if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
+    {
+      last_i2c_check_time = HAL_GetTick();
+
+      // Timeout: if no I2C activity in 3s, and BUSY flag still set
+      if ((HAL_GetTick() - last_i2c_activity > 3000) &&
+          (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
+      {
+        printf("I2C timeout detected! Resetting I2C2...\r\n");
+
+        // Reset I2C2 peripheral safely
+        __HAL_RCC_I2C2_FORCE_RESET();
+        HAL_Delay(2);
+        __HAL_RCC_I2C2_RELEASE_RESET();
+        MX_I2C2_Init();  // Reinitialize I2C2
+       
+
+      }
+    }
+    HAL_Delay(1000);
+    request_image_capture();
+    HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+
+    //   // Step 2: Request SSDV Stream
+    request_ssdv_stream();
+    HAL_Delay(200);
+
+    // Step 3: Read All SSDV Packets
+    read_ssdv_stream();
+    // camera_off();
+    HAL_Delay(5000);
+    // printf("capturing prestored image now!!\n");
+    if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
+    {
+      last_i2c_check_time = HAL_GetTick();
+
+      // Timeout: if no I2C activity in 3s, and BUSY flag still set
+      if ((HAL_GetTick() - last_i2c_activity > 3000) &&
+          (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
+      {
+        printf("I2C timeout detected! Resetting I2C2...\r\n");
+
+        // Reset I2C2 peripheral safely
+        __HAL_RCC_I2C2_FORCE_RESET();
+        HAL_Delay(2);
+        __HAL_RCC_I2C2_RELEASE_RESET();
+        MX_I2C2_Init();  // Reinitialize I2C2
+       
+
+      }
+    }
+
+
+    // camera_on();
+    // HAL_Delay(1000);
+    printf("running prestored image\r\n");
+    request_prestored_image();
+    HAL_Delay(9000);
+    // printf("i2c recovery going on....\r\n");
+    camera_off();
+    // HAL_Delay(3000);
+
+
+
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

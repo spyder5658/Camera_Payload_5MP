@@ -28,8 +28,6 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
-#include <stdio.h>
-
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -63,6 +61,14 @@ void Error_Handler(void);
 #define FLASH_CS_GPIO_Port GPIOA
 #define CS_Pin GPIO_PIN_4
 #define CS_GPIO_Port GPIOA
+#define SET0_Pin GPIO_PIN_12
+#define SET0_GPIO_Port GPIOB
+#define SET2_Pin GPIO_PIN_13
+#define SET2_GPIO_Port GPIOB
+#define SET1_Pin GPIO_PIN_14
+#define SET1_GPIO_Port GPIOB
+#define WDToggle_Pin GPIO_PIN_8
+#define WDToggle_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

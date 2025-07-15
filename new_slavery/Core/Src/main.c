@@ -31,6 +31,7 @@
 #include <inttypes.h>
 #include "camera.h"
 #include "i2c_slave.h"
+#include "watchdog.h"
 int _write(int file, char *data, int len) {
     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
     return len;
@@ -102,32 +103,78 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  uint32_t last_i2c_check_time = 0;
+  extern uint32_t last_i2c_activity;  // Ensure declared in .c file
+
+  printf("slave got started..........\r\n");
   if(HAL_I2C_EnableListen_IT(&hi2c2)!=HAL_OK)
   {
     Error_Handler();
   }
-  // else
-  // {
-  //   process_image_capture();
-  // }
-
+  watchdog_init();
+          // process_image_capture();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    if (capture_requested)
-        {
-            capture_requested = 0;
-            process_image_capture();
-        }
+  // while (1)
+  // {
+  //   if (capture_requested)
+  //     {
+  //         process_image_capture();
+  //         capture_requested = 0;
+  //     }
+  //   // else if (prestore_image_requested)
+  //   //   {
+  //   //     prestore_image_requested = 0;
+  //   //     read_prestored_image();
+
+  //   //   }
      
 
-    /* USER CODE END WHILE */
+  //   /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+  //   /* USER CODE BEGIN 3 */
+  // }
+
+  while (1)
+  {
+    /* === Image capture trigger === */
+    if (capture_requested)
+    {
+      process_image_capture();
+      capture_requested = 0;
+    }
+
+    /* === Periodic I2C bus health check === */
+    if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
+    {
+      last_i2c_check_time = HAL_GetTick();
+
+      // Timeout: if no I2C activity in 3s, and BUSY flag still set
+      if ((HAL_GetTick() - last_i2c_activity > 3000) &&
+          (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
+      {
+        printf("I2C timeout detected! Resetting I2C2...\r\n");
+
+        // Reset I2C2 peripheral safely
+        __HAL_RCC_I2C2_FORCE_RESET();
+        HAL_Delay(2);
+        __HAL_RCC_I2C2_RELEASE_RESET();
+        MX_I2C2_Init();  // Reinitialize I2C2
+        HAL_I2C_EnableListen_IT(&hi2c2);
+
+        // Optional: reset control flags
+        capture_requested = 0;
+        prestore_image_requested = 0;
+        send_all_packets = 0;
+        current_packet_index = 0;
+
+        // Reset watchdog period after bus recovery
+        watchdog_set_time_period(WD_DELAY_1_S);
+      }
+    }
   }
   /* USER CODE END 3 */
 }

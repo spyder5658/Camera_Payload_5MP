@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccJytOtm.s 			page 1
+ARM GAS  /tmp/ccBGJWY0.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -24,7 +24,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
   21              		.thumb_func
   22              		.fpu softvfp
   24              	MX_SPI1_Init:
-  25              	.LFB68:
+  25              	.LFB65:
   26              		.file 1 "Core/Src/spi.c"
    1:Core/Src/spi.c **** /* USER CODE BEGIN Header */
    2:Core/Src/spi.c **** /**
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
   30:Core/Src/spi.c **** void MX_SPI1_Init(void)
   31:Core/Src/spi.c **** {
   27              		.loc 1 31 1 view -0
-ARM GAS  /tmp/ccJytOtm.s 			page 2
+ARM GAS  /tmp/ccBGJWY0.s 			page 2
 
 
   28              		.cfi_startproc
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
   65              		.loc 1 48 3 is_stmt 1 view .LVU17
   66              		.loc 1 48 23 is_stmt 0 view .LVU18
   67 0020 0362     		str	r3, [r0, #32]
-ARM GAS  /tmp/ccJytOtm.s 			page 3
+ARM GAS  /tmp/ccBGJWY0.s 			page 3
 
 
   49:Core/Src/spi.c ****   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
@@ -165,7 +165,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
   96 0038 00000000 		.word	.LANCHOR0
   97 003c 00300140 		.word	1073819648
   98              		.cfi_endproc
-  99              	.LFE68:
+  99              	.LFE65:
  101              		.section	.text.HAL_SPI_MspInit,"ax",%progbits
  102              		.align	1
  103              		.global	HAL_SPI_MspInit
@@ -175,10 +175,10 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  107              		.fpu softvfp
  109              	HAL_SPI_MspInit:
  110              	.LVL2:
- 111              	.LFB69:
+ 111              	.LFB66:
   61:Core/Src/spi.c **** 
   62:Core/Src/spi.c **** void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
-ARM GAS  /tmp/ccJytOtm.s 			page 4
+ARM GAS  /tmp/ccBGJWY0.s 			page 4
 
 
   63:Core/Src/spi.c **** {
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
   88:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
   89:Core/Src/spi.c **** 
   90:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_MspInit 1 */
-ARM GAS  /tmp/ccJytOtm.s 			page 5
+ARM GAS  /tmp/ccBGJWY0.s 			page 5
 
 
   91:Core/Src/spi.c **** 
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  180 0040 019B     		ldr	r3, [sp, #4]
  181              	.LBE3:
   74:Core/Src/spi.c ****     /**SPI1 GPIO Configuration
-ARM GAS  /tmp/ccJytOtm.s 			page 6
+ARM GAS  /tmp/ccBGJWY0.s 			page 6
 
 
  182              		.loc 1 74 5 view .LVU50
@@ -358,13 +358,13 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  221              	.L12:
  222              		.align	2
  223              	.L11:
-ARM GAS  /tmp/ccJytOtm.s 			page 7
+ARM GAS  /tmp/ccBGJWY0.s 			page 7
 
 
  224 006c 00300140 		.word	1073819648
  225 0070 00080140 		.word	1073809408
  226              		.cfi_endproc
- 227              	.LFE69:
+ 227              	.LFE66:
  229              		.section	.text.HAL_SPI_MspDeInit,"ax",%progbits
  230              		.align	1
  231              		.global	HAL_SPI_MspDeInit
@@ -374,7 +374,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  235              		.fpu softvfp
  237              	HAL_SPI_MspDeInit:
  238              	.LVL8:
- 239              	.LFB70:
+ 239              	.LFB67:
   95:Core/Src/spi.c **** 
   96:Core/Src/spi.c **** void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
   97:Core/Src/spi.c **** {
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  116:Core/Src/spi.c ****   /* USER CODE END SPI1_MspDeInit 1 */
  117:Core/Src/spi.c ****   }
  118:Core/Src/spi.c **** }
-ARM GAS  /tmp/ccJytOtm.s 			page 8
+ARM GAS  /tmp/ccBGJWY0.s 			page 8
 
 
  259              		.loc 1 118 1 view .LVU72
@@ -449,7 +449,7 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  281 0024 00100240 		.word	1073876992
  282 0028 00080140 		.word	1073809408
  283              		.cfi_endproc
- 284              	.LFE70:
+ 284              	.LFE67:
  286              		.global	hspi1
  287              		.section	.bss.hspi1,"aw",%nobits
  288              		.align	2
@@ -470,22 +470,22 @@ ARM GAS  /tmp/ccJytOtm.s 			page 1
  301              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
  302              		.file 8 "Core/Inc/main.h"
  303              		.file 9 "Core/Inc/spi.h"
-ARM GAS  /tmp/ccJytOtm.s 			page 9
+ARM GAS  /tmp/ccBGJWY0.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 spi.c
-     /tmp/ccJytOtm.s:16     .text.MX_SPI1_Init:0000000000000000 $t
-     /tmp/ccJytOtm.s:24     .text.MX_SPI1_Init:0000000000000000 MX_SPI1_Init
-     /tmp/ccJytOtm.s:96     .text.MX_SPI1_Init:0000000000000038 $d
-     /tmp/ccJytOtm.s:102    .text.HAL_SPI_MspInit:0000000000000000 $t
-     /tmp/ccJytOtm.s:109    .text.HAL_SPI_MspInit:0000000000000000 HAL_SPI_MspInit
-     /tmp/ccJytOtm.s:224    .text.HAL_SPI_MspInit:000000000000006c $d
-     /tmp/ccJytOtm.s:230    .text.HAL_SPI_MspDeInit:0000000000000000 $t
-     /tmp/ccJytOtm.s:237    .text.HAL_SPI_MspDeInit:0000000000000000 HAL_SPI_MspDeInit
-     /tmp/ccJytOtm.s:280    .text.HAL_SPI_MspDeInit:0000000000000020 $d
-     /tmp/ccJytOtm.s:292    .bss.hspi1:0000000000000000 hspi1
-     /tmp/ccJytOtm.s:288    .bss.hspi1:0000000000000000 $d
+     /tmp/ccBGJWY0.s:16     .text.MX_SPI1_Init:0000000000000000 $t
+     /tmp/ccBGJWY0.s:24     .text.MX_SPI1_Init:0000000000000000 MX_SPI1_Init
+     /tmp/ccBGJWY0.s:96     .text.MX_SPI1_Init:0000000000000038 $d
+     /tmp/ccBGJWY0.s:102    .text.HAL_SPI_MspInit:0000000000000000 $t
+     /tmp/ccBGJWY0.s:109    .text.HAL_SPI_MspInit:0000000000000000 HAL_SPI_MspInit
+     /tmp/ccBGJWY0.s:224    .text.HAL_SPI_MspInit:000000000000006c $d
+     /tmp/ccBGJWY0.s:230    .text.HAL_SPI_MspDeInit:0000000000000000 $t
+     /tmp/ccBGJWY0.s:237    .text.HAL_SPI_MspDeInit:0000000000000000 HAL_SPI_MspDeInit
+     /tmp/ccBGJWY0.s:280    .text.HAL_SPI_MspDeInit:0000000000000020 $d
+     /tmp/ccBGJWY0.s:292    .bss.hspi1:0000000000000000 hspi1
+     /tmp/ccBGJWY0.s:288    .bss.hspi1:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_SPI_Init

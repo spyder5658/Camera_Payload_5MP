@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Payload_switch_Pin GPIO_PIN_6
+#define Payload_switch_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

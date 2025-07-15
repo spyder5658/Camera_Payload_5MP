@@ -4,13 +4,13 @@
 #include "flash.h"
 #include "ssdv.h"
 #include "main.h"
-// #include "i2c_slave.h"
 
 
 #define CS_LOW()  HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET) // Assert CS (Active Low)
 #define CS_HIGH() HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET)   // Deassert CS (Inactive High)
 
 #define MAX_IMAGE_SIZE 15000
+
 
 
 typedef enum {
@@ -109,6 +109,7 @@ void arducam_set_jpeg_mode() ;
 void arducam_capture_image() ;
 uint32_t find_jpeg( uint32_t bytes_read,  uint8_t image_buffer[MAX_IMAGE_SIZE]) ;
 void process_image_capture() ;
-
+// void prestore_image();
+// void read_prestored_image();
 
 #endif
