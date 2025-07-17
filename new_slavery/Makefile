@@ -66,8 +66,8 @@ Core/Src/i2c_slave.c \
 libs/flash/flash.c \
 libs/ssdv/rs8.c \
 libs/ssdv/ssdv.c \
-Core/Src/camera.c \
-Core/Src/watchdog.c
+libs/camera/camera.c \
+libs/watchdog/watchdog.c \
 
 
 # ASM sources
@@ -134,7 +134,9 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
 -IDrivers/CMSIS/Include \
 -Ilibs/flash \
--Ilibs/ssdv
+-Ilibs/ssdv \
+-Ilibs/camera \
+-Ilibs/watchdog \
 
 
 # compile gcc flags

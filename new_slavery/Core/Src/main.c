@@ -112,60 +112,35 @@ int main(void)
     Error_Handler();
   }
   watchdog_init();
-          // process_image_capture();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  // while (1)
-  // {
-  //   if (capture_requested)
-  //     {
-  //         process_image_capture();
-  //         capture_requested = 0;
-  //     }
-  //   // else if (prestore_image_requested)
-  //   //   {
-  //   //     prestore_image_requested = 0;
-  //   //     read_prestored_image();
-
-  //   //   }
-     
-
-  //   /* USER CODE END WHILE */
-
-  //   /* USER CODE BEGIN 3 */
-  // }
-
-  while (1)
+   while (1)
   {
-    /* === Image capture trigger === */
+
     if (capture_requested)
     {
       process_image_capture();
       capture_requested = 0;
     }
 
-    /* === Periodic I2C bus health check === */
     if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
     {
       last_i2c_check_time = HAL_GetTick();
 
-      // Timeout: if no I2C activity in 3s, and BUSY flag still set
       if ((HAL_GetTick() - last_i2c_activity > 3000) &&
           (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
       {
         printf("I2C timeout detected! Resetting I2C2...\r\n");
 
-        // Reset I2C2 peripheral safely
         __HAL_RCC_I2C2_FORCE_RESET();
         HAL_Delay(2);
         __HAL_RCC_I2C2_RELEASE_RESET();
-        MX_I2C2_Init();  // Reinitialize I2C2
+        MX_I2C2_Init();  
         HAL_I2C_EnableListen_IT(&hi2c2);
 
-        // Optional: reset control flags
         capture_requested = 0;
         prestore_image_requested = 0;
         send_all_packets = 0;
@@ -176,6 +151,15 @@ int main(void)
       }
     }
   }
+
+ 
+     
+
+  //   /* USER CODE END WHILE */
+
+  //   /* USER CODE BEGIN 3 */
+
+ 
   /* USER CODE END 3 */
 }
 

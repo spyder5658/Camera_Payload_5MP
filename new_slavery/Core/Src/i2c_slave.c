@@ -45,29 +45,28 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
     HAL_I2C_EnableListen_IT(hi2c);
 }
 
-//  periodically call function from main() or timer to check last i2c timeout activity
-void check_i2c_timeout()
-{
-    if (HAL_GetTick() - last_i2c_activity > 3000) // 3 seconds no I2C activity
-    {
-        if (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY))
-        {
-            printf("I2C bus stuck, resetting...\r\n");
-            __HAL_RCC_I2C2_FORCE_RESET();
-            HAL_Delay(1);
-            __HAL_RCC_I2C2_RELEASE_RESET();
-            MX_I2C2_Init();  // Your re-init function
-            HAL_I2C_EnableListen_IT(&hi2c2);
+// void check_i2c_timeout()
+// {
+//     if (HAL_GetTick() - last_i2c_activity > 3000) // 3 seconds no I2C activity
+//     {
+//         if (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY))
+//         {
+//             printf("I2C bus stuck, resetting...\r\n");
+//             __HAL_RCC_I2C2_FORCE_RESET();
+//             HAL_Delay(1);
+//             __HAL_RCC_I2C2_RELEASE_RESET();
+//             MX_I2C2_Init();  // Your re-init function
+//             HAL_I2C_EnableListen_IT(&hi2c2);
 
-            // Optional: clear flags
-            capture_requested = 0;
-            send_all_packets = 0;
-            prestore_image_requested = 0;
-            current_packet_index = 0;
-        }
-        last_i2c_activity = HAL_GetTick(); // Prevent repeated reset
-    }
-}
+//             // Optional: clear flags
+//             capture_requested = 0;
+//             send_all_packets = 0;
+//             prestore_image_requested = 0;
+//             current_packet_index = 0;
+//         }
+//         last_i2c_activity = HAL_GetTick(); // Prevent repeated reset
+//     }
+// }
 
 
 void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCode)

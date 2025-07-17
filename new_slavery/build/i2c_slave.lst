@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccJcvQVT.s 			page 1
+ARM GAS  /tmp/ccGKOTr9.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccJcvQVT.s 			page 1
   29:Core/Src/i2c_slave.c **** 
   30:Core/Src/i2c_slave.c **** extern I2C_HandleTypeDef hi2c2;
   31:Core/Src/i2c_slave.c **** #define RxSize 2
-ARM GAS  /tmp/ccJcvQVT.s 			page 2
+ARM GAS  /tmp/ccGKOTr9.s 			page 2
 
 
   32:Core/Src/i2c_slave.c **** uint8_t RxData[RxSize];
@@ -118,1657 +118,1510 @@ ARM GAS  /tmp/ccJcvQVT.s 			page 1
   46:Core/Src/i2c_slave.c **** }
   70              		.loc 1 46 1 is_stmt 0 view .LVU7
   71 0006 08BD     		pop	{r3, pc}
-ARM GAS  /tmp/ccJcvQVT.s 			page 3
+ARM GAS  /tmp/ccGKOTr9.s 			page 3
 
 
   72              		.cfi_endproc
   73              	.LFE69:
-  75              		.section	.rodata.check_i2c_timeout.str1.4,"aMS",%progbits,1
+  75              		.section	.rodata.HAL_I2C_AddrCallback.str1.4,"aMS",%progbits,1
   76              		.align	2
   77              	.LC0:
-  78 0000 49324320 		.ascii	"I2C bus stuck, resetting...\015\000"
-  78      62757320 
-  78      73747563 
-  78      6B2C2072 
-  78      65736574 
-  79              		.section	.text.check_i2c_timeout,"ax",%progbits
-  80              		.align	1
-  81              		.global	check_i2c_timeout
-  82              		.syntax unified
-  83              		.thumb
-  84              		.thumb_func
-  85              		.fpu softvfp
-  87              	check_i2c_timeout:
-  88              	.LFB70:
+  78 0000 53656E74 		.ascii	"Sent test SSDV packet %d\012\000"
+  78      20746573 
+  78      74205353 
+  78      44562070 
+  78      61636B65 
+  79 001a 0000     		.align	2
+  80              	.LC1:
+  81 001c 53656E74 		.ascii	"Sent flash SSDV packet %d\012\000"
+  81      20666C61 
+  81      73682053 
+  81      53445620 
+  81      7061636B 
+  82              		.section	.text.HAL_I2C_AddrCallback,"ax",%progbits
+  83              		.align	1
+  84              		.global	HAL_I2C_AddrCallback
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  88              		.fpu softvfp
+  90              	HAL_I2C_AddrCallback:
+  91              	.LVL4:
+  92              	.LFB70:
   47:Core/Src/i2c_slave.c **** 
-  48:Core/Src/i2c_slave.c **** //  periodically call function from main() or timer to check last i2c timeout activity
-  49:Core/Src/i2c_slave.c **** void check_i2c_timeout()
-  50:Core/Src/i2c_slave.c **** {
-  89              		.loc 1 50 1 is_stmt 1 view -0
-  90              		.cfi_startproc
-  91              		@ args = 0, pretend = 0, frame = 0
-  92              		@ frame_needed = 0, uses_anonymous_args = 0
-  93 0000 10B5     		push	{r4, lr}
-  94              	.LCFI2:
-  95              		.cfi_def_cfa_offset 8
-  96              		.cfi_offset 4, -8
-  97              		.cfi_offset 14, -4
-  51:Core/Src/i2c_slave.c ****     if (HAL_GetTick() - last_i2c_activity > 3000) // 3 seconds no I2C activity
-  98              		.loc 1 51 5 view .LVU9
-  99              		.loc 1 51 9 is_stmt 0 view .LVU10
- 100 0002 FFF7FEFF 		bl	HAL_GetTick
- 101              	.LVL4:
- 102              		.loc 1 51 23 view .LVU11
- 103 0006 184B     		ldr	r3, .L10
- 104 0008 1B68     		ldr	r3, [r3]
- 105 000a C01A     		subs	r0, r0, r3
- 106              		.loc 1 51 8 view .LVU12
- 107 000c 40F6B833 		movw	r3, #3000
- 108 0010 9842     		cmp	r0, r3
- 109 0012 09D9     		bls	.L5
-  52:Core/Src/i2c_slave.c ****     {
-  53:Core/Src/i2c_slave.c ****         if (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY))
- 110              		.loc 1 53 9 is_stmt 1 view .LVU13
- 111              		.loc 1 53 13 is_stmt 0 view .LVU14
- 112 0014 154B     		ldr	r3, .L10+4
- 113 0016 1B68     		ldr	r3, [r3]
- 114 0018 9B69     		ldr	r3, [r3, #24]
- 115              		.loc 1 53 12 view .LVU15
- 116 001a 13F0020F 		tst	r3, #2
- 117 001e 04D1     		bne	.L9
- 118              	.L7:
-  54:Core/Src/i2c_slave.c ****         {
-ARM GAS  /tmp/ccJcvQVT.s 			page 4
-
-
-  55:Core/Src/i2c_slave.c ****             printf("I2C bus stuck, resetting...\r\n");
-  56:Core/Src/i2c_slave.c ****             __HAL_RCC_I2C2_FORCE_RESET();
-  57:Core/Src/i2c_slave.c ****             HAL_Delay(1);
-  58:Core/Src/i2c_slave.c ****             __HAL_RCC_I2C2_RELEASE_RESET();
-  59:Core/Src/i2c_slave.c ****             MX_I2C2_Init();  // Your re-init function
-  60:Core/Src/i2c_slave.c ****             HAL_I2C_EnableListen_IT(&hi2c2);
-  61:Core/Src/i2c_slave.c **** 
-  62:Core/Src/i2c_slave.c ****             // Optional: clear flags
-  63:Core/Src/i2c_slave.c ****             capture_requested = 0;
-  64:Core/Src/i2c_slave.c ****             send_all_packets = 0;
-  65:Core/Src/i2c_slave.c ****             prestore_image_requested = 0;
-  66:Core/Src/i2c_slave.c ****             current_packet_index = 0;
-  67:Core/Src/i2c_slave.c ****         }
-  68:Core/Src/i2c_slave.c ****         last_i2c_activity = HAL_GetTick(); // Prevent repeated reset
- 119              		.loc 1 68 9 is_stmt 1 view .LVU16
- 120              		.loc 1 68 29 is_stmt 0 view .LVU17
- 121 0020 FFF7FEFF 		bl	HAL_GetTick
- 122              	.LVL5:
- 123              		.loc 1 68 27 view .LVU18
- 124 0024 104B     		ldr	r3, .L10
- 125 0026 1860     		str	r0, [r3]
- 126              	.L5:
-  69:Core/Src/i2c_slave.c ****     }
-  70:Core/Src/i2c_slave.c **** }
- 127              		.loc 1 70 1 view .LVU19
- 128 0028 10BD     		pop	{r4, pc}
- 129              	.L9:
- 130              	.LBB2:
-  55:Core/Src/i2c_slave.c ****             __HAL_RCC_I2C2_FORCE_RESET();
- 131              		.loc 1 55 13 is_stmt 1 view .LVU20
- 132 002a 1148     		ldr	r0, .L10+8
- 133 002c FFF7FEFF 		bl	puts
- 134              	.LVL6:
-  56:Core/Src/i2c_slave.c ****             HAL_Delay(1);
- 135              		.loc 1 56 13 view .LVU21
- 136 0030 104C     		ldr	r4, .L10+12
- 137 0032 2369     		ldr	r3, [r4, #16]
- 138 0034 43F48003 		orr	r3, r3, #4194304
- 139 0038 2361     		str	r3, [r4, #16]
-  57:Core/Src/i2c_slave.c ****             __HAL_RCC_I2C2_RELEASE_RESET();
- 140              		.loc 1 57 13 view .LVU22
- 141 003a 0120     		movs	r0, #1
- 142 003c FFF7FEFF 		bl	HAL_Delay
- 143              	.LVL7:
-  58:Core/Src/i2c_slave.c ****             MX_I2C2_Init();  // Your re-init function
- 144              		.loc 1 58 13 view .LVU23
- 145 0040 2369     		ldr	r3, [r4, #16]
- 146 0042 23F48003 		bic	r3, r3, #4194304
- 147 0046 2361     		str	r3, [r4, #16]
-  59:Core/Src/i2c_slave.c ****             HAL_I2C_EnableListen_IT(&hi2c2);
- 148              		.loc 1 59 13 view .LVU24
- 149 0048 FFF7FEFF 		bl	MX_I2C2_Init
- 150              	.LVL8:
+  48:Core/Src/i2c_slave.c **** // void check_i2c_timeout()
+  49:Core/Src/i2c_slave.c **** // {
+  50:Core/Src/i2c_slave.c **** //     if (HAL_GetTick() - last_i2c_activity > 3000) // 3 seconds no I2C activity
+  51:Core/Src/i2c_slave.c **** //     {
+  52:Core/Src/i2c_slave.c **** //         if (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY))
+  53:Core/Src/i2c_slave.c **** //         {
+  54:Core/Src/i2c_slave.c **** //             printf("I2C bus stuck, resetting...\r\n");
+  55:Core/Src/i2c_slave.c **** //             __HAL_RCC_I2C2_FORCE_RESET();
+  56:Core/Src/i2c_slave.c **** //             HAL_Delay(1);
+  57:Core/Src/i2c_slave.c **** //             __HAL_RCC_I2C2_RELEASE_RESET();
+  58:Core/Src/i2c_slave.c **** //             MX_I2C2_Init();  // Your re-init function
+  59:Core/Src/i2c_slave.c **** //             HAL_I2C_EnableListen_IT(&hi2c2);
   60:Core/Src/i2c_slave.c **** 
- 151              		.loc 1 60 13 view .LVU25
- 152 004c 0748     		ldr	r0, .L10+4
- 153 004e FFF7FEFF 		bl	HAL_I2C_EnableListen_IT
-ARM GAS  /tmp/ccJcvQVT.s 			page 5
-
-
- 154              	.LVL9:
-  63:Core/Src/i2c_slave.c ****             send_all_packets = 0;
- 155              		.loc 1 63 13 view .LVU26
-  63:Core/Src/i2c_slave.c ****             send_all_packets = 0;
- 156              		.loc 1 63 31 is_stmt 0 view .LVU27
- 157 0052 0023     		movs	r3, #0
- 158 0054 084A     		ldr	r2, .L10+16
- 159 0056 1370     		strb	r3, [r2]
-  64:Core/Src/i2c_slave.c ****             prestore_image_requested = 0;
- 160              		.loc 1 64 13 is_stmt 1 view .LVU28
-  64:Core/Src/i2c_slave.c ****             prestore_image_requested = 0;
- 161              		.loc 1 64 30 is_stmt 0 view .LVU29
- 162 0058 084A     		ldr	r2, .L10+20
- 163 005a 1370     		strb	r3, [r2]
-  65:Core/Src/i2c_slave.c ****             current_packet_index = 0;
- 164              		.loc 1 65 13 is_stmt 1 view .LVU30
-  65:Core/Src/i2c_slave.c ****             current_packet_index = 0;
- 165              		.loc 1 65 38 is_stmt 0 view .LVU31
- 166 005c 084A     		ldr	r2, .L10+24
- 167 005e 1370     		strb	r3, [r2]
-  66:Core/Src/i2c_slave.c ****         }
- 168              		.loc 1 66 13 is_stmt 1 view .LVU32
-  66:Core/Src/i2c_slave.c ****         }
- 169              		.loc 1 66 34 is_stmt 0 view .LVU33
- 170 0060 084A     		ldr	r2, .L10+28
- 171 0062 1380     		strh	r3, [r2]	@ movhi
- 172 0064 DCE7     		b	.L7
- 173              	.L11:
- 174 0066 00BF     		.align	2
- 175              	.L10:
- 176 0068 00000000 		.word	.LANCHOR0
- 177 006c 00000000 		.word	hi2c2
- 178 0070 00000000 		.word	.LC0
- 179 0074 00100240 		.word	1073876992
- 180 0078 00000000 		.word	.LANCHOR1
- 181 007c 00000000 		.word	.LANCHOR2
- 182 0080 00000000 		.word	.LANCHOR3
- 183 0084 00000000 		.word	.LANCHOR4
- 184              	.LBE2:
- 185              		.cfi_endproc
- 186              	.LFE70:
- 188              		.section	.rodata.HAL_I2C_AddrCallback.str1.4,"aMS",%progbits,1
- 189              		.align	2
- 190              	.LC1:
- 191 0000 53656E74 		.ascii	"Sent test SSDV packet %d\012\000"
- 191      20746573 
- 191      74205353 
- 191      44562070 
- 191      61636B65 
- 192 001a 0000     		.align	2
- 193              	.LC2:
- 194 001c 53656E74 		.ascii	"Sent flash SSDV packet %d\012\000"
- 194      20666C61 
- 194      73682053 
- 194      53445620 
- 194      7061636B 
- 195              		.section	.text.HAL_I2C_AddrCallback,"ax",%progbits
-ARM GAS  /tmp/ccJcvQVT.s 			page 6
-
-
- 196              		.align	1
- 197              		.global	HAL_I2C_AddrCallback
- 198              		.syntax unified
- 199              		.thumb
- 200              		.thumb_func
- 201              		.fpu softvfp
- 203              	HAL_I2C_AddrCallback:
- 204              	.LVL10:
- 205              	.LFB71:
+  61:Core/Src/i2c_slave.c **** //             // Optional: clear flags
+  62:Core/Src/i2c_slave.c **** //             capture_requested = 0;
+  63:Core/Src/i2c_slave.c **** //             send_all_packets = 0;
+  64:Core/Src/i2c_slave.c **** //             prestore_image_requested = 0;
+  65:Core/Src/i2c_slave.c **** //             current_packet_index = 0;
+  66:Core/Src/i2c_slave.c **** //         }
+  67:Core/Src/i2c_slave.c **** //         last_i2c_activity = HAL_GetTick(); // Prevent repeated reset
+  68:Core/Src/i2c_slave.c **** //     }
+  69:Core/Src/i2c_slave.c **** // }
+  70:Core/Src/i2c_slave.c **** 
   71:Core/Src/i2c_slave.c **** 
-  72:Core/Src/i2c_slave.c **** 
-  73:Core/Src/i2c_slave.c **** void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCod
-  74:Core/Src/i2c_slave.c **** {
- 206              		.loc 1 74 1 is_stmt 1 view -0
- 207              		.cfi_startproc
- 208              		@ args = 0, pretend = 0, frame = 224
- 209              		@ frame_needed = 0, uses_anonymous_args = 0
- 210              		.loc 1 74 1 is_stmt 0 view .LVU35
- 211 0000 30B5     		push	{r4, r5, lr}
- 212              	.LCFI3:
- 213              		.cfi_def_cfa_offset 12
- 214              		.cfi_offset 4, -12
- 215              		.cfi_offset 5, -8
- 216              		.cfi_offset 14, -4
- 217 0002 B9B0     		sub	sp, sp, #228
- 218              	.LCFI4:
- 219              		.cfi_def_cfa_offset 240
- 220 0004 0546     		mov	r5, r0
- 221 0006 0C46     		mov	r4, r1
-  75:Core/Src/i2c_slave.c ****     last_i2c_activity = HAL_GetTick(); // ⬅️ Activity timestamp
- 222              		.loc 1 75 5 is_stmt 1 view .LVU36
- 223              		.loc 1 75 25 is_stmt 0 view .LVU37
- 224 0008 FFF7FEFF 		bl	HAL_GetTick
- 225              	.LVL11:
- 226              		.loc 1 75 23 view .LVU38
- 227 000c 3F4B     		ldr	r3, .L23
- 228 000e 1860     		str	r0, [r3]
-  76:Core/Src/i2c_slave.c **** 
-  77:Core/Src/i2c_slave.c ****     if (TransferDirection == I2C_DIRECTION_TRANSMIT)
- 229              		.loc 1 77 5 is_stmt 1 view .LVU39
- 230              		.loc 1 77 8 is_stmt 0 view .LVU40
- 231 0010 012C     		cmp	r4, #1
- 232 0012 21D0     		beq	.L21
-  78:Core/Src/i2c_slave.c ****     {
-  79:Core/Src/i2c_slave.c ****         HAL_I2C_Slave_Seq_Receive_IT(hi2c, RxData, RxSize, I2C_FIRST_AND_LAST_FRAME);
-  80:Core/Src/i2c_slave.c ****     }
-  81:Core/Src/i2c_slave.c ****     else if (TransferDirection == I2C_DIRECTION_RECEIVE)
- 233              		.loc 1 81 10 is_stmt 1 view .LVU41
- 234              		.loc 1 81 13 is_stmt 0 view .LVU42
- 235 0014 34BB     		cbnz	r4, .L12
-  82:Core/Src/i2c_slave.c ****     {
-  83:Core/Src/i2c_slave.c ****         if (prestore_image_requested)
- 236              		.loc 1 83 9 is_stmt 1 view .LVU43
- 237              		.loc 1 83 13 is_stmt 0 view .LVU44
- 238 0016 3E4B     		ldr	r3, .L23+4
- 239 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 240              		.loc 1 83 12 view .LVU45
-ARM GAS  /tmp/ccJcvQVT.s 			page 7
+  72:Core/Src/i2c_slave.c **** void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCod
+  73:Core/Src/i2c_slave.c **** {
+  93              		.loc 1 73 1 is_stmt 1 view -0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 224
+ARM GAS  /tmp/ccGKOTr9.s 			page 4
 
 
- 241 001a 002B     		cmp	r3, #0
- 242 001c 36D0     		beq	.L15
-  84:Core/Src/i2c_slave.c ****         {
-  85:Core/Src/i2c_slave.c ****             if (current_packet_index < 8)
- 243              		.loc 1 85 13 is_stmt 1 view .LVU46
- 244              		.loc 1 85 38 is_stmt 0 view .LVU47
- 245 001e 3D4B     		ldr	r3, .L23+8
- 246 0020 1B88     		ldrh	r3, [r3]
- 247 0022 9BB2     		uxth	r3, r3
- 248              		.loc 1 85 16 view .LVU48
- 249 0024 072B     		cmp	r3, #7
- 250 0026 1FD8     		bhi	.L16
-  86:Core/Src/i2c_slave.c ****             {
-  87:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c,
- 251              		.loc 1 87 17 is_stmt 1 view .LVU49
-  88:Core/Src/i2c_slave.c ****                     &test_card_ssdv_buffer[current_packet_index * SSDV_PKT_SIZE],
- 252              		.loc 1 88 65 is_stmt 0 view .LVU50
- 253 0028 3A4C     		ldr	r4, .L23+8
- 254 002a 2188     		ldrh	r1, [r4]
- 255 002c 89B2     		uxth	r1, r1
- 256 002e C1EBC101 		rsb	r1, r1, r1, lsl #3
-  87:Core/Src/i2c_slave.c ****                     &test_card_ssdv_buffer[current_packet_index * SSDV_PKT_SIZE],
- 257              		.loc 1 87 17 view .LVU51
- 258 0032 0823     		movs	r3, #8
- 259 0034 E022     		movs	r2, #224
- 260 0036 3848     		ldr	r0, .L23+12
- 261 0038 00EB4111 		add	r1, r0, r1, lsl #5
- 262 003c 2846     		mov	r0, r5
- 263 003e FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
- 264              	.LVL12:
-  89:Core/Src/i2c_slave.c ****                     SSDV_PKT_SIZE,
-  90:Core/Src/i2c_slave.c ****                     I2C_FIRST_AND_LAST_FRAME);
-  91:Core/Src/i2c_slave.c ****                 printf("Sent test SSDV packet %d\n", current_packet_index);
- 265              		.loc 1 91 17 is_stmt 1 view .LVU52
- 266 0042 2188     		ldrh	r1, [r4]
- 267 0044 89B2     		uxth	r1, r1
- 268 0046 3548     		ldr	r0, .L23+16
- 269 0048 FFF7FEFF 		bl	printf
- 270              	.LVL13:
-  92:Core/Src/i2c_slave.c ****                 current_packet_index++;
- 271              		.loc 1 92 17 view .LVU53
- 272              		.loc 1 92 37 is_stmt 0 view .LVU54
- 273 004c 2388     		ldrh	r3, [r4]
- 274 004e 9BB2     		uxth	r3, r3
- 275 0050 0133     		adds	r3, r3, #1
- 276 0052 9BB2     		uxth	r3, r3
- 277 0054 2380     		strh	r3, [r4]	@ movhi
- 278 0056 05E0     		b	.L12
- 279              	.L21:
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		.loc 1 73 1 is_stmt 0 view .LVU9
+  98 0000 30B5     		push	{r4, r5, lr}
+  99              	.LCFI2:
+ 100              		.cfi_def_cfa_offset 12
+ 101              		.cfi_offset 4, -12
+ 102              		.cfi_offset 5, -8
+ 103              		.cfi_offset 14, -4
+ 104 0002 B9B0     		sub	sp, sp, #228
+ 105              	.LCFI3:
+ 106              		.cfi_def_cfa_offset 240
+ 107 0004 0546     		mov	r5, r0
+ 108 0006 0C46     		mov	r4, r1
+  74:Core/Src/i2c_slave.c ****     last_i2c_activity = HAL_GetTick(); // ⬅️ Activity timestamp
+ 109              		.loc 1 74 5 is_stmt 1 view .LVU10
+ 110              		.loc 1 74 25 is_stmt 0 view .LVU11
+ 111 0008 FFF7FEFF 		bl	HAL_GetTick
+ 112              	.LVL5:
+ 113              		.loc 1 74 23 view .LVU12
+ 114 000c 3F4B     		ldr	r3, .L16
+ 115 000e 1860     		str	r0, [r3]
+  75:Core/Src/i2c_slave.c **** 
+  76:Core/Src/i2c_slave.c ****     if (TransferDirection == I2C_DIRECTION_TRANSMIT)
+ 116              		.loc 1 76 5 is_stmt 1 view .LVU13
+ 117              		.loc 1 76 8 is_stmt 0 view .LVU14
+ 118 0010 012C     		cmp	r4, #1
+ 119 0012 21D0     		beq	.L14
+  77:Core/Src/i2c_slave.c ****     {
+  78:Core/Src/i2c_slave.c ****         HAL_I2C_Slave_Seq_Receive_IT(hi2c, RxData, RxSize, I2C_FIRST_AND_LAST_FRAME);
   79:Core/Src/i2c_slave.c ****     }
- 280              		.loc 1 79 9 is_stmt 1 view .LVU55
- 281 0058 0823     		movs	r3, #8
- 282 005a 0222     		movs	r2, #2
- 283 005c 3049     		ldr	r1, .L23+20
- 284 005e 2846     		mov	r0, r5
- 285 0060 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Receive_IT
- 286              	.LVL14:
-ARM GAS  /tmp/ccJcvQVT.s 			page 8
+  80:Core/Src/i2c_slave.c ****     else if (TransferDirection == I2C_DIRECTION_RECEIVE)
+ 120              		.loc 1 80 10 is_stmt 1 view .LVU15
+ 121              		.loc 1 80 13 is_stmt 0 view .LVU16
+ 122 0014 34BB     		cbnz	r4, .L5
+  81:Core/Src/i2c_slave.c ****     {
+  82:Core/Src/i2c_slave.c ****         if (prestore_image_requested)
+ 123              		.loc 1 82 9 is_stmt 1 view .LVU17
+ 124              		.loc 1 82 13 is_stmt 0 view .LVU18
+ 125 0016 3E4B     		ldr	r3, .L16+4
+ 126 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 127              		.loc 1 82 12 view .LVU19
+ 128 001a 002B     		cmp	r3, #0
+ 129 001c 36D0     		beq	.L8
+  83:Core/Src/i2c_slave.c ****         {
+  84:Core/Src/i2c_slave.c ****             if (current_packet_index < 8)
+ 130              		.loc 1 84 13 is_stmt 1 view .LVU20
+ 131              		.loc 1 84 38 is_stmt 0 view .LVU21
+ 132 001e 3D4B     		ldr	r3, .L16+8
+ 133 0020 1B88     		ldrh	r3, [r3]
+ 134 0022 9BB2     		uxth	r3, r3
+ 135              		.loc 1 84 16 view .LVU22
+ 136 0024 072B     		cmp	r3, #7
+ 137 0026 1FD8     		bhi	.L9
+  85:Core/Src/i2c_slave.c ****             {
+  86:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c,
+ 138              		.loc 1 86 17 is_stmt 1 view .LVU23
+  87:Core/Src/i2c_slave.c ****                     &test_card_ssdv_buffer[current_packet_index * SSDV_PKT_SIZE],
+ARM GAS  /tmp/ccGKOTr9.s 			page 5
 
 
- 287              	.L12:
-  93:Core/Src/i2c_slave.c ****             }
-  94:Core/Src/i2c_slave.c ****             else
-  95:Core/Src/i2c_slave.c ****             {
-  96:Core/Src/i2c_slave.c ****                 uint8_t dummy[1] = {0xFF};
-  97:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
-  98:Core/Src/i2c_slave.c ****                 prestore_image_requested = 0;
-  99:Core/Src/i2c_slave.c ****                 current_packet_index = 0;
- 100:Core/Src/i2c_slave.c ****                 watchdog_set_time_period(WD_DELAY_1_S);
- 101:Core/Src/i2c_slave.c ****                 while (1); // ❗ Consider removing this in production
- 102:Core/Src/i2c_slave.c ****             }
- 103:Core/Src/i2c_slave.c ****         }
- 104:Core/Src/i2c_slave.c ****         else if (send_all_packets && current_packet_index < ssdv_packets_in_image)
- 105:Core/Src/i2c_slave.c ****         {
- 106:Core/Src/i2c_slave.c ****             uint8_t ssdv_pkt[SSDV_PKT_SIZE] = {0};
- 107:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
- 108:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
- 109:Core/Src/i2c_slave.c ****                 SSDV_PKT_SIZE);
- 110:Core/Src/i2c_slave.c **** 
- 111:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, ssdv_pkt, SSDV_PKT_SIZE, I2C_FIRST_AND_LAST_FRAME);
- 112:Core/Src/i2c_slave.c ****             printf("Sent flash SSDV packet %d\n", current_packet_index);
- 113:Core/Src/i2c_slave.c ****             current_packet_index++;
- 114:Core/Src/i2c_slave.c ****         }
- 115:Core/Src/i2c_slave.c ****         else
- 116:Core/Src/i2c_slave.c ****         {
- 117:Core/Src/i2c_slave.c ****             uint8_t dummy[1] = {0xFF};
- 118:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
- 119:Core/Src/i2c_slave.c ****             send_all_packets = 0;
- 120:Core/Src/i2c_slave.c ****             current_packet_index = 0;
- 121:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
- 122:Core/Src/i2c_slave.c ****             while (1); // ❗ Consider replacing with safe flag instead
- 123:Core/Src/i2c_slave.c ****         }
- 124:Core/Src/i2c_slave.c ****     }
- 125:Core/Src/i2c_slave.c **** }
- 288              		.loc 1 125 1 is_stmt 0 view .LVU56
- 289 0064 39B0     		add	sp, sp, #228
- 290              	.LCFI5:
- 291              		.cfi_remember_state
- 292              		.cfi_def_cfa_offset 12
- 293              		@ sp needed
- 294 0066 30BD     		pop	{r4, r5, pc}
- 295              	.LVL15:
- 296              	.L16:
- 297              	.LCFI6:
- 298              		.cfi_restore_state
- 299              	.LBB3:
+ 139              		.loc 1 87 65 is_stmt 0 view .LVU24
+ 140 0028 3A4C     		ldr	r4, .L16+8
+ 141 002a 2188     		ldrh	r1, [r4]
+ 142 002c 89B2     		uxth	r1, r1
+ 143 002e C1EBC101 		rsb	r1, r1, r1, lsl #3
+  86:Core/Src/i2c_slave.c ****                     &test_card_ssdv_buffer[current_packet_index * SSDV_PKT_SIZE],
+ 144              		.loc 1 86 17 view .LVU25
+ 145 0032 0823     		movs	r3, #8
+ 146 0034 E022     		movs	r2, #224
+ 147 0036 3848     		ldr	r0, .L16+12
+ 148 0038 00EB4111 		add	r1, r0, r1, lsl #5
+ 149 003c 2846     		mov	r0, r5
+ 150 003e FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
+ 151              	.LVL6:
+  88:Core/Src/i2c_slave.c ****                     SSDV_PKT_SIZE,
+  89:Core/Src/i2c_slave.c ****                     I2C_FIRST_AND_LAST_FRAME);
+  90:Core/Src/i2c_slave.c ****                 printf("Sent test SSDV packet %d\n", current_packet_index);
+ 152              		.loc 1 90 17 is_stmt 1 view .LVU26
+ 153 0042 2188     		ldrh	r1, [r4]
+ 154 0044 89B2     		uxth	r1, r1
+ 155 0046 3548     		ldr	r0, .L16+16
+ 156 0048 FFF7FEFF 		bl	printf
+ 157              	.LVL7:
+  91:Core/Src/i2c_slave.c ****                 current_packet_index++;
+ 158              		.loc 1 91 17 view .LVU27
+ 159              		.loc 1 91 37 is_stmt 0 view .LVU28
+ 160 004c 2388     		ldrh	r3, [r4]
+ 161 004e 9BB2     		uxth	r3, r3
+ 162 0050 0133     		adds	r3, r3, #1
+ 163 0052 9BB2     		uxth	r3, r3
+ 164 0054 2380     		strh	r3, [r4]	@ movhi
+ 165 0056 05E0     		b	.L5
+ 166              	.L14:
+  78:Core/Src/i2c_slave.c ****     }
+ 167              		.loc 1 78 9 is_stmt 1 view .LVU29
+ 168 0058 0823     		movs	r3, #8
+ 169 005a 0222     		movs	r2, #2
+ 170 005c 3049     		ldr	r1, .L16+20
+ 171 005e 2846     		mov	r0, r5
+ 172 0060 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Receive_IT
+ 173              	.LVL8:
+ 174              	.L5:
+  92:Core/Src/i2c_slave.c ****             }
+  93:Core/Src/i2c_slave.c ****             else
+  94:Core/Src/i2c_slave.c ****             {
+  95:Core/Src/i2c_slave.c ****                 uint8_t dummy[1] = {0xFF};
   96:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
- 300              		.loc 1 96 17 is_stmt 1 view .LVU57
-  96:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
- 301              		.loc 1 96 25 is_stmt 0 view .LVU58
- 302 0068 FF23     		movs	r3, #255
- 303 006a 8DF80030 		strb	r3, [sp]
   97:Core/Src/i2c_slave.c ****                 prestore_image_requested = 0;
- 304              		.loc 1 97 17 is_stmt 1 view .LVU59
- 305 006e 0823     		movs	r3, #8
- 306 0070 0122     		movs	r2, #1
- 307 0072 6946     		mov	r1, sp
-ARM GAS  /tmp/ccJcvQVT.s 			page 9
-
-
- 308 0074 2846     		mov	r0, r5
- 309 0076 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
- 310              	.LVL16:
   98:Core/Src/i2c_slave.c ****                 current_packet_index = 0;
- 311              		.loc 1 98 17 view .LVU60
-  98:Core/Src/i2c_slave.c ****                 current_packet_index = 0;
- 312              		.loc 1 98 42 is_stmt 0 view .LVU61
- 313 007a 0023     		movs	r3, #0
- 314 007c 244A     		ldr	r2, .L23+4
- 315 007e 1370     		strb	r3, [r2]
   99:Core/Src/i2c_slave.c ****                 watchdog_set_time_period(WD_DELAY_1_S);
- 316              		.loc 1 99 17 is_stmt 1 view .LVU62
-  99:Core/Src/i2c_slave.c ****                 watchdog_set_time_period(WD_DELAY_1_S);
- 317              		.loc 1 99 38 is_stmt 0 view .LVU63
- 318 0080 244A     		ldr	r2, .L23+8
- 319 0082 1380     		strh	r3, [r2]	@ movhi
  100:Core/Src/i2c_slave.c ****                 while (1); // ❗ Consider removing this in production
- 320              		.loc 1 100 17 is_stmt 1 view .LVU64
- 321 0084 0420     		movs	r0, #4
- 322 0086 FFF7FEFF 		bl	watchdog_set_time_period
- 323              	.LVL17:
- 324              	.L17:
  101:Core/Src/i2c_slave.c ****             }
- 325              		.loc 1 101 17 discriminator 1 view .LVU65
- 101:Core/Src/i2c_slave.c ****             }
- 326              		.loc 1 101 26 discriminator 1 view .LVU66
- 101:Core/Src/i2c_slave.c ****             }
- 327              		.loc 1 101 23 discriminator 1 view .LVU67
- 328 008a FEE7     		b	.L17
- 329              	.L15:
- 101:Core/Src/i2c_slave.c ****             }
- 330              		.loc 1 101 23 is_stmt 0 discriminator 1 view .LVU68
- 331              	.LBE3:
+ 102:Core/Src/i2c_slave.c ****         }
+ 103:Core/Src/i2c_slave.c ****         else if (send_all_packets && current_packet_index < ssdv_packets_in_image)
  104:Core/Src/i2c_slave.c ****         {
- 332              		.loc 1 104 14 is_stmt 1 view .LVU69
- 104:Core/Src/i2c_slave.c ****         {
- 333              		.loc 1 104 18 is_stmt 0 view .LVU70
- 334 008c 254B     		ldr	r3, .L23+24
- 335 008e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 104:Core/Src/i2c_slave.c ****         {
- 336              		.loc 1 104 17 view .LVU71
- 337 0090 33B1     		cbz	r3, .L18
- 104:Core/Src/i2c_slave.c ****         {
- 338              		.loc 1 104 59 discriminator 1 view .LVU72
- 339 0092 204B     		ldr	r3, .L23+8
- 340 0094 1B88     		ldrh	r3, [r3]
- 341 0096 9BB2     		uxth	r3, r3
- 342 0098 234A     		ldr	r2, .L23+28
- 343 009a 1268     		ldr	r2, [r2]
- 104:Core/Src/i2c_slave.c ****         {
- 344              		.loc 1 104 35 discriminator 1 view .LVU73
- 345 009c 9342     		cmp	r3, r2
- 346 009e 11D3     		bcc	.L22
- 347              	.L18:
- 348              	.LBB4:
- 117:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
- 349              		.loc 1 117 13 is_stmt 1 view .LVU74
-ARM GAS  /tmp/ccJcvQVT.s 			page 10
-
-
- 117:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
- 350              		.loc 1 117 21 is_stmt 0 view .LVU75
- 351 00a0 FF23     		movs	r3, #255
- 352 00a2 8DF80030 		strb	r3, [sp]
- 118:Core/Src/i2c_slave.c ****             send_all_packets = 0;
- 353              		.loc 1 118 13 is_stmt 1 view .LVU76
- 354 00a6 0823     		movs	r3, #8
- 355 00a8 0122     		movs	r2, #1
- 356 00aa 6946     		mov	r1, sp
- 357 00ac 2846     		mov	r0, r5
- 358 00ae FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
- 359              	.LVL18:
- 119:Core/Src/i2c_slave.c ****             current_packet_index = 0;
- 360              		.loc 1 119 13 view .LVU77
- 119:Core/Src/i2c_slave.c ****             current_packet_index = 0;
- 361              		.loc 1 119 30 is_stmt 0 view .LVU78
- 362 00b2 0023     		movs	r3, #0
- 363 00b4 1B4A     		ldr	r2, .L23+24
- 364 00b6 1370     		strb	r3, [r2]
- 120:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
- 365              		.loc 1 120 13 is_stmt 1 view .LVU79
- 120:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
- 366              		.loc 1 120 34 is_stmt 0 view .LVU80
- 367 00b8 164A     		ldr	r2, .L23+8
- 368 00ba 1380     		strh	r3, [r2]	@ movhi
- 121:Core/Src/i2c_slave.c ****             while (1); // ❗ Consider replacing with safe flag instead
- 369              		.loc 1 121 13 is_stmt 1 view .LVU81
- 370 00bc 0420     		movs	r0, #4
- 371 00be FFF7FEFF 		bl	watchdog_set_time_period
- 372              	.LVL19:
- 373              	.L19:
- 122:Core/Src/i2c_slave.c ****         }
- 374              		.loc 1 122 13 discriminator 2 view .LVU82
- 122:Core/Src/i2c_slave.c ****         }
- 375              		.loc 1 122 22 discriminator 2 view .LVU83
- 122:Core/Src/i2c_slave.c ****         }
- 376              		.loc 1 122 19 discriminator 2 view .LVU84
- 377 00c2 FEE7     		b	.L19
- 378              	.L22:
- 122:Core/Src/i2c_slave.c ****         }
- 379              		.loc 1 122 19 is_stmt 0 discriminator 2 view .LVU85
- 380              	.LBE4:
- 381              	.LBB5:
- 106:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
- 382              		.loc 1 106 13 is_stmt 1 view .LVU86
- 106:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
- 383              		.loc 1 106 21 is_stmt 0 view .LVU87
- 384 00c4 0021     		movs	r1, #0
- 385 00c6 0091     		str	r1, [sp]
- 386 00c8 DC22     		movs	r2, #220
- 387 00ca 01A8     		add	r0, sp, #4
- 388 00cc FFF7FEFF 		bl	memset
- 389              	.LVL20:
- 107:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
- 390              		.loc 1 107 13 is_stmt 1 view .LVU88
- 108:Core/Src/i2c_slave.c ****                 SSDV_PKT_SIZE);
- 391              		.loc 1 108 56 is_stmt 0 view .LVU89
-ARM GAS  /tmp/ccJcvQVT.s 			page 11
-
-
- 392 00d0 104C     		ldr	r4, .L23+8
- 393 00d2 2188     		ldrh	r1, [r4]
- 394 00d4 89B2     		uxth	r1, r1
- 395 00d6 C1EBC101 		rsb	r1, r1, r1, lsl #3
- 107:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
- 396              		.loc 1 107 13 view .LVU90
- 397 00da 144B     		ldr	r3, .L23+32
- 398 00dc 1B68     		ldr	r3, [r3]
- 399 00de E022     		movs	r2, #224
- 400 00e0 03EB4111 		add	r1, r3, r1, lsl #5
- 401 00e4 6846     		mov	r0, sp
- 402 00e6 FFF7FEFF 		bl	flash_read_buffer
- 403              	.LVL21:
- 111:Core/Src/i2c_slave.c ****             printf("Sent flash SSDV packet %d\n", current_packet_index);
- 404              		.loc 1 111 13 is_stmt 1 view .LVU91
- 405 00ea 0823     		movs	r3, #8
- 406 00ec E022     		movs	r2, #224
- 407 00ee 6946     		mov	r1, sp
- 408 00f0 2846     		mov	r0, r5
- 409 00f2 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
- 410              	.LVL22:
- 112:Core/Src/i2c_slave.c ****             current_packet_index++;
- 411              		.loc 1 112 13 view .LVU92
- 412 00f6 2188     		ldrh	r1, [r4]
- 413 00f8 89B2     		uxth	r1, r1
- 414 00fa 0D48     		ldr	r0, .L23+36
- 415 00fc FFF7FEFF 		bl	printf
- 416              	.LVL23:
- 113:Core/Src/i2c_slave.c ****         }
- 417              		.loc 1 113 13 view .LVU93
- 113:Core/Src/i2c_slave.c ****         }
- 418              		.loc 1 113 33 is_stmt 0 view .LVU94
- 419 0100 2388     		ldrh	r3, [r4]
- 420 0102 9BB2     		uxth	r3, r3
- 421 0104 0133     		adds	r3, r3, #1
- 422 0106 9BB2     		uxth	r3, r3
- 423 0108 2380     		strh	r3, [r4]	@ movhi
- 424              	.LBE5:
  105:Core/Src/i2c_slave.c ****             uint8_t ssdv_pkt[SSDV_PKT_SIZE] = {0};
- 425              		.loc 1 105 9 view .LVU95
- 426 010a ABE7     		b	.L12
- 427              	.L24:
- 428              		.align	2
- 429              	.L23:
- 430 010c 00000000 		.word	.LANCHOR0
- 431 0110 00000000 		.word	.LANCHOR3
- 432 0114 00000000 		.word	.LANCHOR4
- 433 0118 00000000 		.word	.LANCHOR6
- 434 011c 00000000 		.word	.LC1
- 435 0120 00000000 		.word	.LANCHOR5
- 436 0124 00000000 		.word	.LANCHOR2
- 437 0128 00000000 		.word	ssdv_packets_in_image
- 438 012c 00000000 		.word	ssdv_start_addr
- 439 0130 1C000000 		.word	.LC2
- 440              		.cfi_endproc
- 441              	.LFE71:
- 443              		.section	.rodata.HAL_I2C_SlaveRxCpltCallback.str1.4,"aMS",%progbits,1
-ARM GAS  /tmp/ccJcvQVT.s 			page 12
+ 106:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
+ARM GAS  /tmp/ccGKOTr9.s 			page 6
 
 
- 444              		.align	2
- 445              	.LC3:
- 446 0000 43617074 		.ascii	"Capture command received\015\000"
- 446      75726520 
- 446      636F6D6D 
- 446      616E6420 
- 446      72656365 
- 447 001a 0000     		.align	2
- 448              	.LC4:
- 449 001c 53534456 		.ascii	"SSDV stream requested\015\000"
- 449      20737472 
- 449      65616D20 
- 449      72657175 
- 449      65737465 
- 450 0033 00       		.align	2
- 451              	.LC5:
- 452 0034 50726573 		.ascii	"Prestored command received\015\000"
- 452      746F7265 
- 452      6420636F 
- 452      6D6D616E 
- 452      64207265 
- 453              		.align	2
- 454              	.LC6:
- 455 0050 42726967 		.ascii	"Brightness level: %i\012\000"
- 455      68746E65 
- 455      7373206C 
- 455      6576656C 
- 455      3A202569 
- 456 0066 0000     		.align	2
- 457              	.LC7:
- 458 0068 53686172 		.ascii	"Sharpness level: %i\012\000"
- 458      706E6573 
- 458      73206C65 
- 458      76656C3A 
- 458      2025690A 
- 459 007d 000000   		.align	2
- 460              	.LC8:
- 461 0080 436F6E74 		.ascii	"Contrast level: %i\012\000"
- 461      72617374 
- 461      206C6576 
- 461      656C3A20 
- 461      25690A00 
- 462              		.align	2
- 463              	.LC9:
- 464 0094 4578706F 		.ascii	"Exposure level: %i\012\000"
- 464      73757265 
- 464      206C6576 
- 464      656C3A20 
- 464      25690A00 
- 465              		.align	2
- 466              	.LC10:
- 467 00a8 53617475 		.ascii	"Saturation level: %i\012\000"
- 467      72617469 
- 467      6F6E206C 
- 467      6576656C 
- 467      3A202569 
- 468 00be 0000     		.align	2
-ARM GAS  /tmp/ccJcvQVT.s 			page 13
+ 107:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
+ 108:Core/Src/i2c_slave.c ****                 SSDV_PKT_SIZE);
+ 109:Core/Src/i2c_slave.c **** 
+ 110:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, ssdv_pkt, SSDV_PKT_SIZE, I2C_FIRST_AND_LAST_FRAME);
+ 111:Core/Src/i2c_slave.c ****             printf("Sent flash SSDV packet %d\n", current_packet_index);
+ 112:Core/Src/i2c_slave.c ****             current_packet_index++;
+ 113:Core/Src/i2c_slave.c ****         }
+ 114:Core/Src/i2c_slave.c ****         else
+ 115:Core/Src/i2c_slave.c ****         {
+ 116:Core/Src/i2c_slave.c ****             uint8_t dummy[1] = {0xFF};
+ 117:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
+ 118:Core/Src/i2c_slave.c ****             send_all_packets = 0;
+ 119:Core/Src/i2c_slave.c ****             current_packet_index = 0;
+ 120:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
+ 121:Core/Src/i2c_slave.c ****             while (1); // ❗ Consider replacing with safe flag instead
+ 122:Core/Src/i2c_slave.c ****         }
+ 123:Core/Src/i2c_slave.c ****     }
+ 124:Core/Src/i2c_slave.c **** }
+ 175              		.loc 1 124 1 is_stmt 0 view .LVU30
+ 176 0064 39B0     		add	sp, sp, #228
+ 177              	.LCFI4:
+ 178              		.cfi_remember_state
+ 179              		.cfi_def_cfa_offset 12
+ 180              		@ sp needed
+ 181 0066 30BD     		pop	{r4, r5, pc}
+ 182              	.LVL9:
+ 183              	.L9:
+ 184              	.LCFI5:
+ 185              		.cfi_restore_state
+ 186              	.LBB2:
+  95:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
+ 187              		.loc 1 95 17 is_stmt 1 view .LVU31
+  95:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
+ 188              		.loc 1 95 25 is_stmt 0 view .LVU32
+ 189 0068 FF23     		movs	r3, #255
+ 190 006a 8DF80030 		strb	r3, [sp]
+  96:Core/Src/i2c_slave.c ****                 prestore_image_requested = 0;
+ 191              		.loc 1 96 17 is_stmt 1 view .LVU33
+ 192 006e 0823     		movs	r3, #8
+ 193 0070 0122     		movs	r2, #1
+ 194 0072 6946     		mov	r1, sp
+ 195 0074 2846     		mov	r0, r5
+ 196 0076 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
+ 197              	.LVL10:
+  97:Core/Src/i2c_slave.c ****                 current_packet_index = 0;
+ 198              		.loc 1 97 17 view .LVU34
+  97:Core/Src/i2c_slave.c ****                 current_packet_index = 0;
+ 199              		.loc 1 97 42 is_stmt 0 view .LVU35
+ 200 007a 0023     		movs	r3, #0
+ 201 007c 244A     		ldr	r2, .L16+4
+ 202 007e 1370     		strb	r3, [r2]
+  98:Core/Src/i2c_slave.c ****                 watchdog_set_time_period(WD_DELAY_1_S);
+ 203              		.loc 1 98 17 is_stmt 1 view .LVU36
+  98:Core/Src/i2c_slave.c ****                 watchdog_set_time_period(WD_DELAY_1_S);
+ 204              		.loc 1 98 38 is_stmt 0 view .LVU37
+ 205 0080 244A     		ldr	r2, .L16+8
+ 206 0082 1380     		strh	r3, [r2]	@ movhi
+ARM GAS  /tmp/ccGKOTr9.s 			page 7
 
 
- 469              	.LC11:
- 470 00c0 45666665 		.ascii	"Effect: %i\012\000"
- 470      63743A20 
- 470      25690A00 
- 471              		.section	.text.HAL_I2C_SlaveRxCpltCallback,"ax",%progbits
- 472              		.align	1
- 473              		.global	HAL_I2C_SlaveRxCpltCallback
- 474              		.syntax unified
- 475              		.thumb
- 476              		.thumb_func
- 477              		.fpu softvfp
- 479              	HAL_I2C_SlaveRxCpltCallback:
- 480              	.LVL24:
- 481              	.LFB72:
- 126:Core/Src/i2c_slave.c **** 
- 127:Core/Src/i2c_slave.c **** // ✅ Process master-to-slave command
- 128:Core/Src/i2c_slave.c **** void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
- 129:Core/Src/i2c_slave.c **** {
- 482              		.loc 1 129 1 is_stmt 1 view -0
- 483              		.cfi_startproc
- 484              		@ args = 0, pretend = 0, frame = 0
- 485              		@ frame_needed = 0, uses_anonymous_args = 0
- 486              		.loc 1 129 1 is_stmt 0 view .LVU97
- 487 0000 08B5     		push	{r3, lr}
- 488              	.LCFI7:
- 489              		.cfi_def_cfa_offset 8
- 490              		.cfi_offset 3, -8
- 491              		.cfi_offset 14, -4
- 130:Core/Src/i2c_slave.c ****     last_i2c_activity = HAL_GetTick(); // ⬅️ Activity timestamp
- 492              		.loc 1 130 5 is_stmt 1 view .LVU98
- 493              		.loc 1 130 25 is_stmt 0 view .LVU99
- 494 0002 FFF7FEFF 		bl	HAL_GetTick
- 495              	.LVL25:
- 496              		.loc 1 130 23 view .LVU100
- 497 0006 384B     		ldr	r3, .L44
- 498 0008 1860     		str	r0, [r3]
- 131:Core/Src/i2c_slave.c **** 
- 132:Core/Src/i2c_slave.c ****     uint8_t cmd = RxData[0];
- 499              		.loc 1 132 5 is_stmt 1 view .LVU101
- 500              		.loc 1 132 13 is_stmt 0 view .LVU102
- 501 000a 384B     		ldr	r3, .L44+4
- 502 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 503              	.LVL26:
- 133:Core/Src/i2c_slave.c **** 
- 134:Core/Src/i2c_slave.c ****     if (cmd == 0x10) // Capture
- 504              		.loc 1 134 5 is_stmt 1 view .LVU103
- 505              		.loc 1 134 8 is_stmt 0 view .LVU104
- 506 000e 102B     		cmp	r3, #16
- 507 0010 18D0     		beq	.L36
- 135:Core/Src/i2c_slave.c ****     {
- 136:Core/Src/i2c_slave.c ****         printf("Capture command received\r\n");
- 137:Core/Src/i2c_slave.c ****         capture_requested = 1;
- 138:Core/Src/i2c_slave.c ****         send_all_packets = 0;
- 139:Core/Src/i2c_slave.c ****         prestore_image_requested = 0;
- 140:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 141:Core/Src/i2c_slave.c ****     }
- 142:Core/Src/i2c_slave.c ****     else if (cmd == 0x20) // Stream SSDV
-ARM GAS  /tmp/ccJcvQVT.s 			page 14
+  99:Core/Src/i2c_slave.c ****                 while (1); // ❗ Consider removing this in production
+ 207              		.loc 1 99 17 is_stmt 1 view .LVU38
+ 208 0084 0420     		movs	r0, #4
+ 209 0086 FFF7FEFF 		bl	watchdog_set_time_period
+ 210              	.LVL11:
+ 211              	.L10:
+ 100:Core/Src/i2c_slave.c ****             }
+ 212              		.loc 1 100 17 discriminator 1 view .LVU39
+ 100:Core/Src/i2c_slave.c ****             }
+ 213              		.loc 1 100 26 discriminator 1 view .LVU40
+ 100:Core/Src/i2c_slave.c ****             }
+ 214              		.loc 1 100 23 discriminator 1 view .LVU41
+ 215 008a FEE7     		b	.L10
+ 216              	.L8:
+ 100:Core/Src/i2c_slave.c ****             }
+ 217              		.loc 1 100 23 is_stmt 0 discriminator 1 view .LVU42
+ 218              	.LBE2:
+ 103:Core/Src/i2c_slave.c ****         {
+ 219              		.loc 1 103 14 is_stmt 1 view .LVU43
+ 103:Core/Src/i2c_slave.c ****         {
+ 220              		.loc 1 103 18 is_stmt 0 view .LVU44
+ 221 008c 254B     		ldr	r3, .L16+24
+ 222 008e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 103:Core/Src/i2c_slave.c ****         {
+ 223              		.loc 1 103 17 view .LVU45
+ 224 0090 33B1     		cbz	r3, .L11
+ 103:Core/Src/i2c_slave.c ****         {
+ 225              		.loc 1 103 59 discriminator 1 view .LVU46
+ 226 0092 204B     		ldr	r3, .L16+8
+ 227 0094 1B88     		ldrh	r3, [r3]
+ 228 0096 9BB2     		uxth	r3, r3
+ 229 0098 234A     		ldr	r2, .L16+28
+ 230 009a 1268     		ldr	r2, [r2]
+ 103:Core/Src/i2c_slave.c ****         {
+ 231              		.loc 1 103 35 discriminator 1 view .LVU47
+ 232 009c 9342     		cmp	r3, r2
+ 233 009e 11D3     		bcc	.L15
+ 234              	.L11:
+ 235              	.LBB3:
+ 116:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
+ 236              		.loc 1 116 13 is_stmt 1 view .LVU48
+ 116:Core/Src/i2c_slave.c ****             HAL_I2C_Slave_Seq_Transmit_IT(hi2c, dummy, 1, I2C_FIRST_AND_LAST_FRAME);
+ 237              		.loc 1 116 21 is_stmt 0 view .LVU49
+ 238 00a0 FF23     		movs	r3, #255
+ 239 00a2 8DF80030 		strb	r3, [sp]
+ 117:Core/Src/i2c_slave.c ****             send_all_packets = 0;
+ 240              		.loc 1 117 13 is_stmt 1 view .LVU50
+ 241 00a6 0823     		movs	r3, #8
+ 242 00a8 0122     		movs	r2, #1
+ 243 00aa 6946     		mov	r1, sp
+ 244 00ac 2846     		mov	r0, r5
+ 245 00ae FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
+ 246              	.LVL12:
+ 118:Core/Src/i2c_slave.c ****             current_packet_index = 0;
+ 247              		.loc 1 118 13 view .LVU51
+ 118:Core/Src/i2c_slave.c ****             current_packet_index = 0;
+ 248              		.loc 1 118 30 is_stmt 0 view .LVU52
+ARM GAS  /tmp/ccGKOTr9.s 			page 8
 
 
- 508              		.loc 1 142 10 is_stmt 1 view .LVU105
- 509              		.loc 1 142 13 is_stmt 0 view .LVU106
- 510 0012 202B     		cmp	r3, #32
- 511 0014 24D0     		beq	.L37
- 143:Core/Src/i2c_slave.c ****     {
- 144:Core/Src/i2c_slave.c ****         printf("SSDV stream requested\r\n");
- 145:Core/Src/i2c_slave.c ****         send_all_packets = 1;
- 146:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 147:Core/Src/i2c_slave.c ****     }
- 148:Core/Src/i2c_slave.c ****     else if (cmd == 0x90) // Prestored
- 512              		.loc 1 148 10 is_stmt 1 view .LVU107
- 513              		.loc 1 148 13 is_stmt 0 view .LVU108
- 514 0016 902B     		cmp	r3, #144
- 515 0018 2CD0     		beq	.L38
- 149:Core/Src/i2c_slave.c ****     {
- 150:Core/Src/i2c_slave.c ****         printf("Prestored command received\r\n");
- 151:Core/Src/i2c_slave.c ****         prestore_image_requested = 1;
- 152:Core/Src/i2c_slave.c ****         send_all_packets = 1;
- 153:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 154:Core/Src/i2c_slave.c ****     }
- 155:Core/Src/i2c_slave.c ****     else if (cmd == CAM_BRIGHTNESS_LEVEL_CMD)
- 516              		.loc 1 155 10 is_stmt 1 view .LVU109
- 517              		.loc 1 155 13 is_stmt 0 view .LVU110
- 518 001a 302B     		cmp	r3, #48
- 519 001c 36D0     		beq	.L39
- 156:Core/Src/i2c_slave.c ****     {
- 157:Core/Src/i2c_slave.c ****         lvl = RxData[1];
- 158:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
- 159:Core/Src/i2c_slave.c ****     }
- 160:Core/Src/i2c_slave.c ****     else if (cmd == CAM_SHARPNESS_LEVEL_CMD)
- 520              		.loc 1 160 10 is_stmt 1 view .LVU111
- 521              		.loc 1 160 13 is_stmt 0 view .LVU112
- 522 001e 402B     		cmp	r3, #64
- 523 0020 3DD0     		beq	.L40
- 161:Core/Src/i2c_slave.c ****     {
- 162:Core/Src/i2c_slave.c ****         shrp_lvl = RxData[1];
- 163:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
- 164:Core/Src/i2c_slave.c ****     }
- 165:Core/Src/i2c_slave.c ****     else if (cmd == CAM_CONTRAST_LEVEL_CMD)
- 524              		.loc 1 165 10 is_stmt 1 view .LVU113
- 525              		.loc 1 165 13 is_stmt 0 view .LVU114
- 526 0022 502B     		cmp	r3, #80
- 527 0024 44D0     		beq	.L41
- 166:Core/Src/i2c_slave.c ****     {
- 167:Core/Src/i2c_slave.c ****         contra_lvl = RxData[1];
- 168:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
- 169:Core/Src/i2c_slave.c ****     }
- 170:Core/Src/i2c_slave.c ****     else if (cmd == CAM_EV_LEVEL_CMD)
- 528              		.loc 1 170 10 is_stmt 1 view .LVU115
- 529              		.loc 1 170 13 is_stmt 0 view .LVU116
- 530 0026 602B     		cmp	r3, #96
- 531 0028 4BD0     		beq	.L42
- 171:Core/Src/i2c_slave.c ****     {
- 172:Core/Src/i2c_slave.c ****         exposure_lvl = RxData[1];
- 173:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
- 174:Core/Src/i2c_slave.c ****     }
- 175:Core/Src/i2c_slave.c ****     else if (cmd == CAM_STAURATION_LEVEL_CMD)
-ARM GAS  /tmp/ccJcvQVT.s 			page 15
+ 249 00b2 0023     		movs	r3, #0
+ 250 00b4 1B4A     		ldr	r2, .L16+24
+ 251 00b6 1370     		strb	r3, [r2]
+ 119:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
+ 252              		.loc 1 119 13 is_stmt 1 view .LVU53
+ 119:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
+ 253              		.loc 1 119 34 is_stmt 0 view .LVU54
+ 254 00b8 164A     		ldr	r2, .L16+8
+ 255 00ba 1380     		strh	r3, [r2]	@ movhi
+ 120:Core/Src/i2c_slave.c ****             while (1); // ❗ Consider replacing with safe flag instead
+ 256              		.loc 1 120 13 is_stmt 1 view .LVU55
+ 257 00bc 0420     		movs	r0, #4
+ 258 00be FFF7FEFF 		bl	watchdog_set_time_period
+ 259              	.LVL13:
+ 260              	.L12:
+ 121:Core/Src/i2c_slave.c ****         }
+ 261              		.loc 1 121 13 discriminator 2 view .LVU56
+ 121:Core/Src/i2c_slave.c ****         }
+ 262              		.loc 1 121 22 discriminator 2 view .LVU57
+ 121:Core/Src/i2c_slave.c ****         }
+ 263              		.loc 1 121 19 discriminator 2 view .LVU58
+ 264 00c2 FEE7     		b	.L12
+ 265              	.L15:
+ 121:Core/Src/i2c_slave.c ****         }
+ 266              		.loc 1 121 19 is_stmt 0 discriminator 2 view .LVU59
+ 267              	.LBE3:
+ 268              	.LBB4:
+ 105:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
+ 269              		.loc 1 105 13 is_stmt 1 view .LVU60
+ 105:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
+ 270              		.loc 1 105 21 is_stmt 0 view .LVU61
+ 271 00c4 0021     		movs	r1, #0
+ 272 00c6 0091     		str	r1, [sp]
+ 273 00c8 DC22     		movs	r2, #220
+ 274 00ca 01A8     		add	r0, sp, #4
+ 275 00cc FFF7FEFF 		bl	memset
+ 276              	.LVL14:
+ 106:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
+ 277              		.loc 1 106 13 is_stmt 1 view .LVU62
+ 107:Core/Src/i2c_slave.c ****                 SSDV_PKT_SIZE);
+ 278              		.loc 1 107 56 is_stmt 0 view .LVU63
+ 279 00d0 104C     		ldr	r4, .L16+8
+ 280 00d2 2188     		ldrh	r1, [r4]
+ 281 00d4 89B2     		uxth	r1, r1
+ 282 00d6 C1EBC101 		rsb	r1, r1, r1, lsl #3
+ 106:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
+ 283              		.loc 1 106 13 view .LVU64
+ 284 00da 144B     		ldr	r3, .L16+32
+ 285 00dc 1B68     		ldr	r3, [r3]
+ 286 00de E022     		movs	r2, #224
+ 287 00e0 03EB4111 		add	r1, r3, r1, lsl #5
+ 288 00e4 6846     		mov	r0, sp
+ 289 00e6 FFF7FEFF 		bl	flash_read_buffer
+ 290              	.LVL15:
+ 110:Core/Src/i2c_slave.c ****             printf("Sent flash SSDV packet %d\n", current_packet_index);
+ 291              		.loc 1 110 13 is_stmt 1 view .LVU65
+ 292 00ea 0823     		movs	r3, #8
+ARM GAS  /tmp/ccGKOTr9.s 			page 9
 
 
- 532              		.loc 1 175 10 is_stmt 1 view .LVU117
- 533              		.loc 1 175 13 is_stmt 0 view .LVU118
- 534 002a 702B     		cmp	r3, #112
- 535 002c 52D0     		beq	.L43
- 176:Core/Src/i2c_slave.c ****     {
- 177:Core/Src/i2c_slave.c ****         saturation_lvl = RxData[1];
- 178:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
- 179:Core/Src/i2c_slave.c ****     }
- 180:Core/Src/i2c_slave.c ****     else if (cmd == CAM_COLOR_FX_CMD)
- 536              		.loc 1 180 10 is_stmt 1 view .LVU119
- 537              		.loc 1 180 13 is_stmt 0 view .LVU120
- 538 002e 802B     		cmp	r3, #128
- 539 0030 15D1     		bne	.L25
- 181:Core/Src/i2c_slave.c ****     {
- 182:Core/Src/i2c_slave.c ****         effect = RxData[1];
- 540              		.loc 1 182 9 is_stmt 1 view .LVU121
- 541              		.loc 1 182 24 is_stmt 0 view .LVU122
- 542 0032 2E4B     		ldr	r3, .L44+4
- 543              	.LVL27:
- 544              		.loc 1 182 24 view .LVU123
- 545 0034 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
- 546              		.loc 1 182 16 view .LVU124
- 547 0036 2E4B     		ldr	r3, .L44+8
- 548 0038 1A70     		strb	r2, [r3]
- 183:Core/Src/i2c_slave.c ****         printf("Effect: %i\n", effect);
- 549              		.loc 1 183 9 is_stmt 1 view .LVU125
- 550 003a 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
- 551 003c 2D48     		ldr	r0, .L44+12
- 552 003e FFF7FEFF 		bl	printf
- 553              	.LVL28:
- 184:Core/Src/i2c_slave.c ****     }
- 185:Core/Src/i2c_slave.c **** }
- 554              		.loc 1 185 1 is_stmt 0 view .LVU126
- 555 0042 0CE0     		b	.L25
- 556              	.LVL29:
- 557              	.L36:
+ 293 00ec E022     		movs	r2, #224
+ 294 00ee 6946     		mov	r1, sp
+ 295 00f0 2846     		mov	r0, r5
+ 296 00f2 FFF7FEFF 		bl	HAL_I2C_Slave_Seq_Transmit_IT
+ 297              	.LVL16:
+ 111:Core/Src/i2c_slave.c ****             current_packet_index++;
+ 298              		.loc 1 111 13 view .LVU66
+ 299 00f6 2188     		ldrh	r1, [r4]
+ 300 00f8 89B2     		uxth	r1, r1
+ 301 00fa 0D48     		ldr	r0, .L16+36
+ 302 00fc FFF7FEFF 		bl	printf
+ 303              	.LVL17:
+ 112:Core/Src/i2c_slave.c ****         }
+ 304              		.loc 1 112 13 view .LVU67
+ 112:Core/Src/i2c_slave.c ****         }
+ 305              		.loc 1 112 33 is_stmt 0 view .LVU68
+ 306 0100 2388     		ldrh	r3, [r4]
+ 307 0102 9BB2     		uxth	r3, r3
+ 308 0104 0133     		adds	r3, r3, #1
+ 309 0106 9BB2     		uxth	r3, r3
+ 310 0108 2380     		strh	r3, [r4]	@ movhi
+ 311              	.LBE4:
+ 104:Core/Src/i2c_slave.c ****             uint8_t ssdv_pkt[SSDV_PKT_SIZE] = {0};
+ 312              		.loc 1 104 9 view .LVU69
+ 313 010a ABE7     		b	.L5
+ 314              	.L17:
+ 315              		.align	2
+ 316              	.L16:
+ 317 010c 00000000 		.word	.LANCHOR0
+ 318 0110 00000000 		.word	.LANCHOR2
+ 319 0114 00000000 		.word	.LANCHOR3
+ 320 0118 00000000 		.word	.LANCHOR4
+ 321 011c 00000000 		.word	.LC0
+ 322 0120 00000000 		.word	.LANCHOR1
+ 323 0124 00000000 		.word	.LANCHOR5
+ 324 0128 00000000 		.word	ssdv_packets_in_image
+ 325 012c 00000000 		.word	ssdv_start_addr
+ 326 0130 1C000000 		.word	.LC1
+ 327              		.cfi_endproc
+ 328              	.LFE70:
+ 330              		.section	.rodata.HAL_I2C_SlaveRxCpltCallback.str1.4,"aMS",%progbits,1
+ 331              		.align	2
+ 332              	.LC2:
+ 333 0000 43617074 		.ascii	"Capture command received\015\000"
+ 333      75726520 
+ 333      636F6D6D 
+ 333      616E6420 
+ 333      72656365 
+ 334 001a 0000     		.align	2
+ 335              	.LC3:
+ 336 001c 53534456 		.ascii	"SSDV stream requested\015\000"
+ 336      20737472 
+ 336      65616D20 
+ 336      72657175 
+ 336      65737465 
+ 337 0033 00       		.align	2
+ 338              	.LC4:
+ARM GAS  /tmp/ccGKOTr9.s 			page 10
+
+
+ 339 0034 50726573 		.ascii	"Prestored command received\015\000"
+ 339      746F7265 
+ 339      6420636F 
+ 339      6D6D616E 
+ 339      64207265 
+ 340              		.align	2
+ 341              	.LC5:
+ 342 0050 42726967 		.ascii	"Brightness level: %i\012\000"
+ 342      68746E65 
+ 342      7373206C 
+ 342      6576656C 
+ 342      3A202569 
+ 343 0066 0000     		.align	2
+ 344              	.LC6:
+ 345 0068 53686172 		.ascii	"Sharpness level: %i\012\000"
+ 345      706E6573 
+ 345      73206C65 
+ 345      76656C3A 
+ 345      2025690A 
+ 346 007d 000000   		.align	2
+ 347              	.LC7:
+ 348 0080 436F6E74 		.ascii	"Contrast level: %i\012\000"
+ 348      72617374 
+ 348      206C6576 
+ 348      656C3A20 
+ 348      25690A00 
+ 349              		.align	2
+ 350              	.LC8:
+ 351 0094 4578706F 		.ascii	"Exposure level: %i\012\000"
+ 351      73757265 
+ 351      206C6576 
+ 351      656C3A20 
+ 351      25690A00 
+ 352              		.align	2
+ 353              	.LC9:
+ 354 00a8 53617475 		.ascii	"Saturation level: %i\012\000"
+ 354      72617469 
+ 354      6F6E206C 
+ 354      6576656C 
+ 354      3A202569 
+ 355 00be 0000     		.align	2
+ 356              	.LC10:
+ 357 00c0 45666665 		.ascii	"Effect: %i\012\000"
+ 357      63743A20 
+ 357      25690A00 
+ 358              		.section	.text.HAL_I2C_SlaveRxCpltCallback,"ax",%progbits
+ 359              		.align	1
+ 360              		.global	HAL_I2C_SlaveRxCpltCallback
+ 361              		.syntax unified
+ 362              		.thumb
+ 363              		.thumb_func
+ 364              		.fpu softvfp
+ 366              	HAL_I2C_SlaveRxCpltCallback:
+ 367              	.LVL18:
+ 368              	.LFB71:
+ 125:Core/Src/i2c_slave.c **** 
+ 126:Core/Src/i2c_slave.c **** // ✅ Process master-to-slave command
+ARM GAS  /tmp/ccGKOTr9.s 			page 11
+
+
+ 127:Core/Src/i2c_slave.c **** void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
+ 128:Core/Src/i2c_slave.c **** {
+ 369              		.loc 1 128 1 is_stmt 1 view -0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		.loc 1 128 1 is_stmt 0 view .LVU71
+ 374 0000 08B5     		push	{r3, lr}
+ 375              	.LCFI6:
+ 376              		.cfi_def_cfa_offset 8
+ 377              		.cfi_offset 3, -8
+ 378              		.cfi_offset 14, -4
+ 129:Core/Src/i2c_slave.c ****     last_i2c_activity = HAL_GetTick(); // ⬅️ Activity timestamp
+ 379              		.loc 1 129 5 is_stmt 1 view .LVU72
+ 380              		.loc 1 129 25 is_stmt 0 view .LVU73
+ 381 0002 FFF7FEFF 		bl	HAL_GetTick
+ 382              	.LVL19:
+ 383              		.loc 1 129 23 view .LVU74
+ 384 0006 384B     		ldr	r3, .L37
+ 385 0008 1860     		str	r0, [r3]
+ 130:Core/Src/i2c_slave.c **** 
+ 131:Core/Src/i2c_slave.c ****     uint8_t cmd = RxData[0];
+ 386              		.loc 1 131 5 is_stmt 1 view .LVU75
+ 387              		.loc 1 131 13 is_stmt 0 view .LVU76
+ 388 000a 384B     		ldr	r3, .L37+4
+ 389 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 390              	.LVL20:
+ 132:Core/Src/i2c_slave.c **** 
+ 133:Core/Src/i2c_slave.c ****     if (cmd == 0x10) // Capture
+ 391              		.loc 1 133 5 is_stmt 1 view .LVU77
+ 392              		.loc 1 133 8 is_stmt 0 view .LVU78
+ 393 000e 102B     		cmp	r3, #16
+ 394 0010 18D0     		beq	.L29
+ 134:Core/Src/i2c_slave.c ****     {
+ 135:Core/Src/i2c_slave.c ****         printf("Capture command received\r\n");
  136:Core/Src/i2c_slave.c ****         capture_requested = 1;
- 558              		.loc 1 136 9 is_stmt 1 view .LVU127
- 559 0044 2C48     		ldr	r0, .L44+16
- 560 0046 FFF7FEFF 		bl	puts
- 561              	.LVL30:
  137:Core/Src/i2c_slave.c ****         send_all_packets = 0;
- 562              		.loc 1 137 9 view .LVU128
- 137:Core/Src/i2c_slave.c ****         send_all_packets = 0;
- 563              		.loc 1 137 27 is_stmt 0 view .LVU129
- 564 004a 2C4B     		ldr	r3, .L44+20
- 565 004c 0122     		movs	r2, #1
- 566 004e 1A70     		strb	r2, [r3]
  138:Core/Src/i2c_slave.c ****         prestore_image_requested = 0;
- 567              		.loc 1 138 9 is_stmt 1 view .LVU130
- 138:Core/Src/i2c_slave.c ****         prestore_image_requested = 0;
- 568              		.loc 1 138 26 is_stmt 0 view .LVU131
- 569 0050 0023     		movs	r3, #0
- 570 0052 2B4A     		ldr	r2, .L44+24
- 571 0054 1370     		strb	r3, [r2]
  139:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 572              		.loc 1 139 9 is_stmt 1 view .LVU132
-ARM GAS  /tmp/ccJcvQVT.s 			page 16
-
-
- 139:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 573              		.loc 1 139 34 is_stmt 0 view .LVU133
- 574 0056 2B4A     		ldr	r2, .L44+28
- 575 0058 1370     		strb	r3, [r2]
  140:Core/Src/i2c_slave.c ****     }
- 576              		.loc 1 140 9 is_stmt 1 view .LVU134
- 140:Core/Src/i2c_slave.c ****     }
- 577              		.loc 1 140 30 is_stmt 0 view .LVU135
- 578 005a 2B4A     		ldr	r2, .L44+32
- 579 005c 1380     		strh	r3, [r2]	@ movhi
- 580              	.L25:
- 581              		.loc 1 185 1 view .LVU136
- 582 005e 08BD     		pop	{r3, pc}
- 583              	.LVL31:
- 584              	.L37:
+ 141:Core/Src/i2c_slave.c ****     else if (cmd == 0x20) // Stream SSDV
+ 395              		.loc 1 141 10 is_stmt 1 view .LVU79
+ 396              		.loc 1 141 13 is_stmt 0 view .LVU80
+ 397 0012 202B     		cmp	r3, #32
+ 398 0014 24D0     		beq	.L30
+ 142:Core/Src/i2c_slave.c ****     {
+ 143:Core/Src/i2c_slave.c ****         printf("SSDV stream requested\r\n");
  144:Core/Src/i2c_slave.c ****         send_all_packets = 1;
- 585              		.loc 1 144 9 is_stmt 1 view .LVU137
- 586 0060 2A48     		ldr	r0, .L44+36
- 587 0062 FFF7FEFF 		bl	puts
- 588              	.LVL32:
  145:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 589              		.loc 1 145 9 view .LVU138
- 145:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 590              		.loc 1 145 26 is_stmt 0 view .LVU139
- 591 0066 264B     		ldr	r3, .L44+24
- 592 0068 0122     		movs	r2, #1
- 593 006a 1A70     		strb	r2, [r3]
  146:Core/Src/i2c_slave.c ****     }
- 594              		.loc 1 146 9 is_stmt 1 view .LVU140
- 146:Core/Src/i2c_slave.c ****     }
- 595              		.loc 1 146 30 is_stmt 0 view .LVU141
- 596 006c 264B     		ldr	r3, .L44+32
- 597 006e 0022     		movs	r2, #0
- 598 0070 1A80     		strh	r2, [r3]	@ movhi
- 599 0072 F4E7     		b	.L25
- 600              	.LVL33:
- 601              	.L38:
+ 147:Core/Src/i2c_slave.c ****     else if (cmd == 0x90) // Prestored
+ 399              		.loc 1 147 10 is_stmt 1 view .LVU81
+ 400              		.loc 1 147 13 is_stmt 0 view .LVU82
+ 401 0016 902B     		cmp	r3, #144
+ 402 0018 2CD0     		beq	.L31
+ 148:Core/Src/i2c_slave.c ****     {
+ 149:Core/Src/i2c_slave.c ****         printf("Prestored command received\r\n");
+ARM GAS  /tmp/ccGKOTr9.s 			page 12
+
+
  150:Core/Src/i2c_slave.c ****         prestore_image_requested = 1;
- 602              		.loc 1 150 9 is_stmt 1 view .LVU142
- 603 0074 2648     		ldr	r0, .L44+40
- 604 0076 FFF7FEFF 		bl	puts
- 605              	.LVL34:
  151:Core/Src/i2c_slave.c ****         send_all_packets = 1;
- 606              		.loc 1 151 9 view .LVU143
- 151:Core/Src/i2c_slave.c ****         send_all_packets = 1;
- 607              		.loc 1 151 34 is_stmt 0 view .LVU144
- 608 007a 0123     		movs	r3, #1
- 609 007c 214A     		ldr	r2, .L44+28
- 610 007e 1370     		strb	r3, [r2]
  152:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 611              		.loc 1 152 9 is_stmt 1 view .LVU145
- 152:Core/Src/i2c_slave.c ****         current_packet_index = 0;
- 612              		.loc 1 152 26 is_stmt 0 view .LVU146
- 613 0080 1F4A     		ldr	r2, .L44+24
- 614 0082 1370     		strb	r3, [r2]
  153:Core/Src/i2c_slave.c ****     }
- 615              		.loc 1 153 9 is_stmt 1 view .LVU147
-ARM GAS  /tmp/ccJcvQVT.s 			page 17
-
-
- 153:Core/Src/i2c_slave.c ****     }
- 616              		.loc 1 153 30 is_stmt 0 view .LVU148
- 617 0084 204B     		ldr	r3, .L44+32
- 618 0086 0022     		movs	r2, #0
- 619 0088 1A80     		strh	r2, [r3]	@ movhi
- 620 008a E8E7     		b	.L25
- 621              	.LVL35:
- 622              	.L39:
+ 154:Core/Src/i2c_slave.c ****     else if (cmd == CAM_BRIGHTNESS_LEVEL_CMD)
+ 403              		.loc 1 154 10 is_stmt 1 view .LVU83
+ 404              		.loc 1 154 13 is_stmt 0 view .LVU84
+ 405 001a 302B     		cmp	r3, #48
+ 406 001c 36D0     		beq	.L32
+ 155:Core/Src/i2c_slave.c ****     {
+ 156:Core/Src/i2c_slave.c ****         lvl = RxData[1];
  157:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
- 623              		.loc 1 157 9 is_stmt 1 view .LVU149
- 157:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
- 624              		.loc 1 157 21 is_stmt 0 view .LVU150
- 625 008c 174B     		ldr	r3, .L44+4
- 626              	.LVL36:
- 157:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
- 627              		.loc 1 157 21 view .LVU151
- 628 008e 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
- 157:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
- 629              		.loc 1 157 13 view .LVU152
- 630 0090 204B     		ldr	r3, .L44+44
- 631 0092 1A70     		strb	r2, [r3]
  158:Core/Src/i2c_slave.c ****     }
- 632              		.loc 1 158 9 is_stmt 1 view .LVU153
- 633 0094 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
- 634 0096 2048     		ldr	r0, .L44+48
- 635 0098 FFF7FEFF 		bl	printf
- 636              	.LVL37:
- 158:Core/Src/i2c_slave.c ****     }
- 637              		.loc 1 158 9 is_stmt 0 view .LVU154
- 638 009c DFE7     		b	.L25
- 639              	.LVL38:
- 640              	.L40:
+ 159:Core/Src/i2c_slave.c ****     else if (cmd == CAM_SHARPNESS_LEVEL_CMD)
+ 407              		.loc 1 159 10 is_stmt 1 view .LVU85
+ 408              		.loc 1 159 13 is_stmt 0 view .LVU86
+ 409 001e 402B     		cmp	r3, #64
+ 410 0020 3DD0     		beq	.L33
+ 160:Core/Src/i2c_slave.c ****     {
+ 161:Core/Src/i2c_slave.c ****         shrp_lvl = RxData[1];
  162:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
- 641              		.loc 1 162 9 is_stmt 1 view .LVU155
- 162:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
- 642              		.loc 1 162 26 is_stmt 0 view .LVU156
- 643 009e 134B     		ldr	r3, .L44+4
- 644              	.LVL39:
- 162:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
- 645              		.loc 1 162 26 view .LVU157
- 646 00a0 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
- 162:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
- 647              		.loc 1 162 18 view .LVU158
- 648 00a2 1E4B     		ldr	r3, .L44+52
- 649 00a4 1A70     		strb	r2, [r3]
  163:Core/Src/i2c_slave.c ****     }
- 650              		.loc 1 163 9 is_stmt 1 view .LVU159
- 651 00a6 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
- 652 00a8 1D48     		ldr	r0, .L44+56
- 653 00aa FFF7FEFF 		bl	printf
- 654              	.LVL40:
- 163:Core/Src/i2c_slave.c ****     }
- 655              		.loc 1 163 9 is_stmt 0 view .LVU160
- 656 00ae D6E7     		b	.L25
- 657              	.LVL41:
- 658              	.L41:
+ 164:Core/Src/i2c_slave.c ****     else if (cmd == CAM_CONTRAST_LEVEL_CMD)
+ 411              		.loc 1 164 10 is_stmt 1 view .LVU87
+ 412              		.loc 1 164 13 is_stmt 0 view .LVU88
+ 413 0022 502B     		cmp	r3, #80
+ 414 0024 44D0     		beq	.L34
+ 165:Core/Src/i2c_slave.c ****     {
+ 166:Core/Src/i2c_slave.c ****         contra_lvl = RxData[1];
  167:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
-ARM GAS  /tmp/ccJcvQVT.s 			page 18
-
-
- 659              		.loc 1 167 9 is_stmt 1 view .LVU161
- 167:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
- 660              		.loc 1 167 28 is_stmt 0 view .LVU162
- 661 00b0 0E4B     		ldr	r3, .L44+4
- 662              	.LVL42:
- 167:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
- 663              		.loc 1 167 28 view .LVU163
- 664 00b2 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
- 167:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
- 665              		.loc 1 167 20 view .LVU164
- 666 00b4 1B4B     		ldr	r3, .L44+60
- 667 00b6 1A70     		strb	r2, [r3]
  168:Core/Src/i2c_slave.c ****     }
- 668              		.loc 1 168 9 is_stmt 1 view .LVU165
- 669 00b8 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
- 670 00ba 1B48     		ldr	r0, .L44+64
- 671 00bc FFF7FEFF 		bl	printf
- 672              	.LVL43:
- 168:Core/Src/i2c_slave.c ****     }
- 673              		.loc 1 168 9 is_stmt 0 view .LVU166
- 674 00c0 CDE7     		b	.L25
- 675              	.LVL44:
- 676              	.L42:
+ 169:Core/Src/i2c_slave.c ****     else if (cmd == CAM_EV_LEVEL_CMD)
+ 415              		.loc 1 169 10 is_stmt 1 view .LVU89
+ 416              		.loc 1 169 13 is_stmt 0 view .LVU90
+ 417 0026 602B     		cmp	r3, #96
+ 418 0028 4BD0     		beq	.L35
+ 170:Core/Src/i2c_slave.c ****     {
+ 171:Core/Src/i2c_slave.c ****         exposure_lvl = RxData[1];
  172:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
- 677              		.loc 1 172 9 is_stmt 1 view .LVU167
- 172:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
- 678              		.loc 1 172 30 is_stmt 0 view .LVU168
- 679 00c2 0A4B     		ldr	r3, .L44+4
- 680              	.LVL45:
- 172:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
- 681              		.loc 1 172 30 view .LVU169
- 682 00c4 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
- 172:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
- 683              		.loc 1 172 22 view .LVU170
- 684 00c6 194B     		ldr	r3, .L44+68
- 685 00c8 1A70     		strb	r2, [r3]
  173:Core/Src/i2c_slave.c ****     }
- 686              		.loc 1 173 9 is_stmt 1 view .LVU171
- 687 00ca 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
- 688 00cc 1848     		ldr	r0, .L44+72
- 689 00ce FFF7FEFF 		bl	printf
- 690              	.LVL46:
- 173:Core/Src/i2c_slave.c ****     }
- 691              		.loc 1 173 9 is_stmt 0 view .LVU172
- 692 00d2 C4E7     		b	.L25
- 693              	.LVL47:
- 694              	.L43:
+ 174:Core/Src/i2c_slave.c ****     else if (cmd == CAM_STAURATION_LEVEL_CMD)
+ 419              		.loc 1 174 10 is_stmt 1 view .LVU91
+ 420              		.loc 1 174 13 is_stmt 0 view .LVU92
+ 421 002a 702B     		cmp	r3, #112
+ 422 002c 52D0     		beq	.L36
+ 175:Core/Src/i2c_slave.c ****     {
+ 176:Core/Src/i2c_slave.c ****         saturation_lvl = RxData[1];
  177:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
- 695              		.loc 1 177 9 is_stmt 1 view .LVU173
- 177:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
- 696              		.loc 1 177 32 is_stmt 0 view .LVU174
- 697 00d4 054B     		ldr	r3, .L44+4
- 698              	.LVL48:
- 177:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
- 699              		.loc 1 177 32 view .LVU175
- 700 00d6 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
- 177:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
-ARM GAS  /tmp/ccJcvQVT.s 			page 19
-
-
- 701              		.loc 1 177 24 view .LVU176
- 702 00d8 164B     		ldr	r3, .L44+76
- 703 00da 1A70     		strb	r2, [r3]
  178:Core/Src/i2c_slave.c ****     }
- 704              		.loc 1 178 9 is_stmt 1 view .LVU177
- 705 00dc 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
- 706 00de 1648     		ldr	r0, .L44+80
- 707 00e0 FFF7FEFF 		bl	printf
- 708              	.LVL49:
- 178:Core/Src/i2c_slave.c ****     }
- 709              		.loc 1 178 9 is_stmt 0 view .LVU178
- 710 00e4 BBE7     		b	.L25
- 711              	.L45:
- 712 00e6 00BF     		.align	2
- 713              	.L44:
- 714 00e8 00000000 		.word	.LANCHOR0
- 715 00ec 00000000 		.word	.LANCHOR5
- 716 00f0 00000000 		.word	.LANCHOR12
- 717 00f4 C0000000 		.word	.LC11
- 718 00f8 00000000 		.word	.LC3
- 719 00fc 00000000 		.word	.LANCHOR1
- 720 0100 00000000 		.word	.LANCHOR2
- 721 0104 00000000 		.word	.LANCHOR3
- 722 0108 00000000 		.word	.LANCHOR4
- 723 010c 1C000000 		.word	.LC4
- 724 0110 34000000 		.word	.LC5
- 725 0114 00000000 		.word	.LANCHOR7
- 726 0118 50000000 		.word	.LC6
- 727 011c 00000000 		.word	.LANCHOR8
- 728 0120 68000000 		.word	.LC7
- 729 0124 00000000 		.word	.LANCHOR9
- 730 0128 80000000 		.word	.LC8
- 731 012c 00000000 		.word	.LANCHOR10
- 732 0130 94000000 		.word	.LC9
- 733 0134 00000000 		.word	.LANCHOR11
- 734 0138 A8000000 		.word	.LC10
- 735              		.cfi_endproc
- 736              	.LFE72:
- 738              		.global	last_i2c_activity
- 739              		.global	RxData
- 740              		.global	current_packet_index
- 741              		.global	send_all_packets
- 742              		.global	prestore_image_requested
- 743              		.global	capture_requested
- 744              		.global	effect
- 745              		.global	saturation_lvl
- 746              		.global	exposure_lvl
- 747              		.global	contra_lvl
- 748              		.global	shrp_lvl
- 749              		.global	lvl
- 750              		.global	test_card_ssdv_buffer
- 751              		.section	.bss.RxData,"aw",%nobits
- 752              		.align	2
- 753              		.set	.LANCHOR5,. + 0
- 756              	RxData:
- 757 0000 0000     		.space	2
- 758              		.section	.bss.capture_requested,"aw",%nobits
-ARM GAS  /tmp/ccJcvQVT.s 			page 20
+ 179:Core/Src/i2c_slave.c ****     else if (cmd == CAM_COLOR_FX_CMD)
+ 423              		.loc 1 179 10 is_stmt 1 view .LVU93
+ 424              		.loc 1 179 13 is_stmt 0 view .LVU94
+ 425 002e 802B     		cmp	r3, #128
+ 426 0030 15D1     		bne	.L18
+ 180:Core/Src/i2c_slave.c ****     {
+ 181:Core/Src/i2c_slave.c ****         effect = RxData[1];
+ 427              		.loc 1 181 9 is_stmt 1 view .LVU95
+ARM GAS  /tmp/ccGKOTr9.s 			page 13
 
 
- 759              		.set	.LANCHOR1,. + 0
- 762              	capture_requested:
- 763 0000 00       		.space	1
- 764              		.section	.bss.contra_lvl,"aw",%nobits
- 765              		.set	.LANCHOR9,. + 0
- 768              	contra_lvl:
- 769 0000 00       		.space	1
- 770              		.section	.bss.current_packet_index,"aw",%nobits
- 771              		.align	1
- 772              		.set	.LANCHOR4,. + 0
- 775              	current_packet_index:
- 776 0000 0000     		.space	2
- 777              		.section	.bss.effect,"aw",%nobits
- 778              		.set	.LANCHOR12,. + 0
- 781              	effect:
- 782 0000 00       		.space	1
- 783              		.section	.bss.exposure_lvl,"aw",%nobits
- 784              		.set	.LANCHOR10,. + 0
- 787              	exposure_lvl:
- 788 0000 00       		.space	1
- 789              		.section	.bss.last_i2c_activity,"aw",%nobits
- 790              		.align	2
- 791              		.set	.LANCHOR0,. + 0
- 794              	last_i2c_activity:
- 795 0000 00000000 		.space	4
- 796              		.section	.bss.lvl,"aw",%nobits
- 797              		.set	.LANCHOR7,. + 0
- 800              	lvl:
- 801 0000 00       		.space	1
- 802              		.section	.bss.prestore_image_requested,"aw",%nobits
- 803              		.set	.LANCHOR3,. + 0
- 806              	prestore_image_requested:
- 807 0000 00       		.space	1
- 808              		.section	.bss.saturation_lvl,"aw",%nobits
- 809              		.set	.LANCHOR11,. + 0
- 812              	saturation_lvl:
- 813 0000 00       		.space	1
- 814              		.section	.bss.send_all_packets,"aw",%nobits
- 815              		.set	.LANCHOR2,. + 0
- 818              	send_all_packets:
- 819 0000 00       		.space	1
- 820              		.section	.bss.shrp_lvl,"aw",%nobits
- 821              		.set	.LANCHOR8,. + 0
- 824              	shrp_lvl:
- 825 0000 00       		.space	1
- 826              		.section	.data.test_card_ssdv_buffer,"aw"
- 827              		.align	2
- 828              		.set	.LANCHOR6,. + 0
- 831              	test_card_ssdv_buffer:
- 832 0000 55660093 		.ascii	"Uf\000\2235\202\000\000\000\005\005\000\000\000\000"
- 832      35820000 
- 832      00050500 
- 832      000000
- 833 000f E5AC6CED 		.ascii	"\345\254l\355\245\265\215\312\011di1 2\354\362\327\326"
- 833      A5B58DCA 
- 833      09646931 
- 833      2032ECF2 
-ARM GAS  /tmp/ccJcvQVT.s 			page 21
+ 428              		.loc 1 181 24 is_stmt 0 view .LVU96
+ 429 0032 2E4B     		ldr	r3, .L37+4
+ 430              	.LVL21:
+ 431              		.loc 1 181 24 view .LVU97
+ 432 0034 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 433              		.loc 1 181 16 view .LVU98
+ 434 0036 2E4B     		ldr	r3, .L37+8
+ 435 0038 1A70     		strb	r2, [r3]
+ 182:Core/Src/i2c_slave.c ****         printf("Effect: %i\n", effect);
+ 436              		.loc 1 182 9 is_stmt 1 view .LVU99
+ 437 003a 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 438 003c 2D48     		ldr	r0, .L37+12
+ 439 003e FFF7FEFF 		bl	printf
+ 440              	.LVL22:
+ 183:Core/Src/i2c_slave.c ****     }
+ 184:Core/Src/i2c_slave.c **** }
+ 441              		.loc 1 184 1 is_stmt 0 view .LVU100
+ 442 0042 0CE0     		b	.L18
+ 443              	.LVL23:
+ 444              	.L29:
+ 135:Core/Src/i2c_slave.c ****         capture_requested = 1;
+ 445              		.loc 1 135 9 is_stmt 1 view .LVU101
+ 446 0044 2C48     		ldr	r0, .L37+16
+ 447 0046 FFF7FEFF 		bl	puts
+ 448              	.LVL24:
+ 136:Core/Src/i2c_slave.c ****         send_all_packets = 0;
+ 449              		.loc 1 136 9 view .LVU102
+ 136:Core/Src/i2c_slave.c ****         send_all_packets = 0;
+ 450              		.loc 1 136 27 is_stmt 0 view .LVU103
+ 451 004a 2C4B     		ldr	r3, .L37+20
+ 452 004c 0122     		movs	r2, #1
+ 453 004e 1A70     		strb	r2, [r3]
+ 137:Core/Src/i2c_slave.c ****         prestore_image_requested = 0;
+ 454              		.loc 1 137 9 is_stmt 1 view .LVU104
+ 137:Core/Src/i2c_slave.c ****         prestore_image_requested = 0;
+ 455              		.loc 1 137 26 is_stmt 0 view .LVU105
+ 456 0050 0023     		movs	r3, #0
+ 457 0052 2B4A     		ldr	r2, .L37+24
+ 458 0054 1370     		strb	r3, [r2]
+ 138:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 459              		.loc 1 138 9 is_stmt 1 view .LVU106
+ 138:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 460              		.loc 1 138 34 is_stmt 0 view .LVU107
+ 461 0056 2B4A     		ldr	r2, .L37+28
+ 462 0058 1370     		strb	r3, [r2]
+ 139:Core/Src/i2c_slave.c ****     }
+ 463              		.loc 1 139 9 is_stmt 1 view .LVU108
+ 139:Core/Src/i2c_slave.c ****     }
+ 464              		.loc 1 139 30 is_stmt 0 view .LVU109
+ 465 005a 2B4A     		ldr	r2, .L37+32
+ 466 005c 1380     		strh	r3, [r2]	@ movhi
+ 467              	.L18:
+ 468              		.loc 1 184 1 view .LVU110
+ 469 005e 08BD     		pop	{r3, pc}
+ 470              	.LVL25:
+ 471              	.L30:
+ 143:Core/Src/i2c_slave.c ****         send_all_packets = 1;
+ARM GAS  /tmp/ccGKOTr9.s 			page 14
 
 
- 833      D7D6
- 834 0021 A64B2D34 		.ascii	"\246K-4,y\221\033|\314\201\232B2\240\361\323\372\325"
- 834      2C79911B 
- 834      7CCC819A 
- 834      4232A0F1 
- 834      D3FAD5
- 835 0034 0B7D3A59 		.ascii	"\013}:YJ3\256\"a\235\312\312p:g\255!\323nC\272\252\243"
- 835      4A33AE22 
- 835      619DCACA 
- 835      703A67AD 
- 835      21D36E43 
- 836 004b 6C241224 		.ascii	"l$\022$^\337\215\000_]>\303ta\233\000\313\"\234\310"
- 836      5EDF8D00 
- 836      5F5D3EC3 
- 836      74619B00 
- 836      CB229CC8 
- 837 005f 0671F747 		.ascii	"\006q\367G\267\326\225,,\214\221y\250\"b\256^!6q\216"
- 837      B7D6952C 
- 837      2C8C9179 
- 837      A82262AE 
- 837      5E213671 
- 838 0074 8735422D 		.ascii	"\2075B-2\342F\\\252\204'\005\303\251\300\357\336\242"
- 838      32E2465C 
- 838      AA842705 
- 838      C3A9C0EF 
- 838      DEA2
- 839 0086 96D596F1 		.ascii	"\226\325\226\361\340\217\031S\201\271\200\376\270\240"
- 839      E08F1953 
- 839      81B980FE 
- 839      B8A0
- 840 0094 0B573696 		.ascii	"\013W6\226\261\351\336|N\031\236_\227\346\344.:\021"
- 840      B1E9DE7C 
- 840      4E199E5F 
- 840      97E6E42E 
- 840      3A11
- 841 00a6 EA0D5C97 		.ascii	"\352\015\\\227O\260\020\306\311\205\313\240\313K\313"
- 841      4FB010C6 
- 841      C985CBA0 
- 841      CB4BCB
- 842 00b5 03D7DAA9 		.ascii	"\003\327\332\251\256\226\026cp\360\367\303W\246\232"
- 842      AE961663 
- 842      70F0F7C3 
- 842      57A69A
- 843 00c4 25FB26A1 		.ascii	"%\373&\241\343W\302\016\007x\251\3545\264~\353\243\216"
- 843      E357C20E 
- 843      0778A9EC 
- 843      35B47EEB 
- 843      A38E
- 844 00d6 BB08355C 		.ascii	"\273\0105\\&7&\272\304\011Uf\000\2235\202\000\000\001"
- 844      263726BA 
- 844      C4095566 
- 844      00933582 
- 844      000001
- 845 00e9 0505001C 		.ascii	"\005\005\000\034\000\003%3\271\215\331\231O+\205\307"
- 845      00032533 
- 845      B98DD999 
- 845      4F2B85C7 
-ARM GAS  /tmp/ccJcvQVT.s 			page 22
+ 472              		.loc 1 143 9 is_stmt 1 view .LVU111
+ 473 0060 2A48     		ldr	r0, .L37+36
+ 474 0062 FFF7FEFF 		bl	puts
+ 475              	.LVL26:
+ 144:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 476              		.loc 1 144 9 view .LVU112
+ 144:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 477              		.loc 1 144 26 is_stmt 0 view .LVU113
+ 478 0066 264B     		ldr	r3, .L37+24
+ 479 0068 0122     		movs	r2, #1
+ 480 006a 1A70     		strb	r2, [r3]
+ 145:Core/Src/i2c_slave.c ****     }
+ 481              		.loc 1 145 9 is_stmt 1 view .LVU114
+ 145:Core/Src/i2c_slave.c ****     }
+ 482              		.loc 1 145 30 is_stmt 0 view .LVU115
+ 483 006c 264B     		ldr	r3, .L37+32
+ 484 006e 0022     		movs	r2, #0
+ 485 0070 1A80     		strh	r2, [r3]	@ movhi
+ 486 0072 F4E7     		b	.L18
+ 487              	.LVL27:
+ 488              	.L31:
+ 149:Core/Src/i2c_slave.c ****         prestore_image_requested = 1;
+ 489              		.loc 1 149 9 is_stmt 1 view .LVU116
+ 490 0074 2648     		ldr	r0, .L37+40
+ 491 0076 FFF7FEFF 		bl	puts
+ 492              	.LVL28:
+ 150:Core/Src/i2c_slave.c ****         send_all_packets = 1;
+ 493              		.loc 1 150 9 view .LVU117
+ 150:Core/Src/i2c_slave.c ****         send_all_packets = 1;
+ 494              		.loc 1 150 34 is_stmt 0 view .LVU118
+ 495 007a 0123     		movs	r3, #1
+ 496 007c 214A     		ldr	r2, .L37+28
+ 497 007e 1370     		strb	r3, [r2]
+ 151:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 498              		.loc 1 151 9 is_stmt 1 view .LVU119
+ 151:Core/Src/i2c_slave.c ****         current_packet_index = 0;
+ 499              		.loc 1 151 26 is_stmt 0 view .LVU120
+ 500 0080 1F4A     		ldr	r2, .L37+24
+ 501 0082 1370     		strb	r3, [r2]
+ 152:Core/Src/i2c_slave.c ****     }
+ 502              		.loc 1 152 9 is_stmt 1 view .LVU121
+ 152:Core/Src/i2c_slave.c ****     }
+ 503              		.loc 1 152 30 is_stmt 0 view .LVU122
+ 504 0084 204B     		ldr	r3, .L37+32
+ 505 0086 0022     		movs	r2, #0
+ 506 0088 1A80     		strh	r2, [r3]	@ movhi
+ 507 008a E8E7     		b	.L18
+ 508              	.LVL29:
+ 509              	.L32:
+ 156:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
+ 510              		.loc 1 156 9 is_stmt 1 view .LVU123
+ 156:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
+ 511              		.loc 1 156 21 is_stmt 0 view .LVU124
+ 512 008c 174B     		ldr	r3, .L37+4
+ 513              	.LVL30:
+ 156:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
+ 514              		.loc 1 156 21 view .LVU125
+ARM GAS  /tmp/ccGKOTr9.s 			page 15
 
 
- 846 00f9 AF350369 		.ascii	"\2575\003i\267*\356\273P\354\344\221\"\364\365\353@"
- 846      B72AEEBB 
- 846      50ECE491 
- 846      22F4F5EB 
- 846      40
- 847 010a 1FE5AEED 		.ascii	"\037\345\256\355\354\001\226\030\010\363\374\315\261"
- 847      EC019618 
- 847      08F3FCCD 
- 847      B1
- 848 0117 8562475E 		.ascii	"\205bG^\344\361Ks\247\332\013r!\235\014\261c\314!\363"
- 848      E4F14B73 
- 848      A7DA0B72 
- 848      219D0CB1 
- 848      63CC21F3 
- 849 012b B877207B 		.ascii	"\270w {VsZ\314\267\006\002\240H:\202\300\177Z\224\351"
- 849      56735ACC 
- 849      B70602A0 
- 849      483A82C0 
- 849      7F5A94E9 
- 850 013f B7601263 		.ascii	"\267`\022c\\\014\347\367\213\306:\367\240\013\3276V"
- 850      5C0CE7F7 
- 850      8BC63AF7 
- 850      A00BD736 
- 850      56
- 851 0150 D186F2E2 		.ascii	"\321\206\362\342S\030+\266o\264\003\277\327\212n\251"
- 851      53182BB6 
- 851      6FB403BF 
- 851      D78A6EA9 
- 852 0160 676F6F1B 		.ascii	"goo\033\233x\306\320\300o\337\236?:\254\232l\236L\257"
- 852      9B78C6D0 
- 852      C06FDF9E 
- 852      3F3AAC9A 
- 852      6C9E4CAF 
- 853 0174 282A5541 		.ascii	"(*UAQ\221\316N99\250\244\260\270\2157\262 ^\307z\363"
- 853      5191CE4E 
- 853      3939A8A4 
- 853      B0B88D37 
- 853      B2205EC7 
- 854 018a FAD00392 		.ascii	"\372\320\003\222\371\326 \214\201\202\240E\307\030\001"
- 854      F9D6208C 
- 854      8182A045 
- 854      C71801
- 855 0199 B754CB33 		.ascii	"\267T\3133\207%\\4>\357`\340\265\240\360\014\006\362"
- 855      87255C34 
- 855      3EEF60E0 
- 855      B5A0F00C 
- 855      06F2
- 856 01ab 51E0C721 		.ascii	"Q\340\307!8/u\373\247\024Z^\203\343_\035O,\371\363\226"
- 856      382F75FB 
- 856      A7145A5E 
- 856      83E35F1D 
- 856      4F2CF9F3 
- 857 01c0 55660093 		.ascii	"Uf\000\2235\202\000\000\002\005\005\000/\000\006\252"
- 857      35820000 
- 857      02050500 
- 857      2F0006AA 
- 858 01d0 C8A65C44 		.ascii	"\310\246\\D\243qr\244\034\025-\374\351\332u\364v\361"
-ARM GAS  /tmp/ccJcvQVT.s 			page 23
+ 515 008e 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 156:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
+ 516              		.loc 1 156 13 view .LVU126
+ 517 0090 204B     		ldr	r3, .L37+44
+ 518 0092 1A70     		strb	r2, [r3]
+ 157:Core/Src/i2c_slave.c ****     }
+ 519              		.loc 1 157 9 is_stmt 1 view .LVU127
+ 520 0094 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 521 0096 2048     		ldr	r0, .L37+48
+ 522 0098 FFF7FEFF 		bl	printf
+ 523              	.LVL31:
+ 157:Core/Src/i2c_slave.c ****     }
+ 524              		.loc 1 157 9 is_stmt 0 view .LVU128
+ 525 009c DFE7     		b	.L18
+ 526              	.LVL32:
+ 527              	.L33:
+ 161:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
+ 528              		.loc 1 161 9 is_stmt 1 view .LVU129
+ 161:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
+ 529              		.loc 1 161 26 is_stmt 0 view .LVU130
+ 530 009e 134B     		ldr	r3, .L37+4
+ 531              	.LVL33:
+ 161:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
+ 532              		.loc 1 161 26 view .LVU131
+ 533 00a0 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 161:Core/Src/i2c_slave.c ****         printf("Sharpness level: %i\n", shrp_lvl);
+ 534              		.loc 1 161 18 view .LVU132
+ 535 00a2 1E4B     		ldr	r3, .L37+52
+ 536 00a4 1A70     		strb	r2, [r3]
+ 162:Core/Src/i2c_slave.c ****     }
+ 537              		.loc 1 162 9 is_stmt 1 view .LVU133
+ 538 00a6 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 539 00a8 1D48     		ldr	r0, .L37+56
+ 540 00aa FFF7FEFF 		bl	printf
+ 541              	.LVL34:
+ 162:Core/Src/i2c_slave.c ****     }
+ 542              		.loc 1 162 9 is_stmt 0 view .LVU134
+ 543 00ae D6E7     		b	.L18
+ 544              	.LVL35:
+ 545              	.L34:
+ 166:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
+ 546              		.loc 1 166 9 is_stmt 1 view .LVU135
+ 166:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
+ 547              		.loc 1 166 28 is_stmt 0 view .LVU136
+ 548 00b0 0E4B     		ldr	r3, .L37+4
+ 549              	.LVL36:
+ 166:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
+ 550              		.loc 1 166 28 view .LVU137
+ 551 00b2 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 166:Core/Src/i2c_slave.c ****         printf("Contrast level: %i\n", contra_lvl);
+ 552              		.loc 1 166 20 view .LVU138
+ 553 00b4 1B4B     		ldr	r3, .L37+60
+ 554 00b6 1A70     		strb	r2, [r3]
+ 167:Core/Src/i2c_slave.c ****     }
+ 555              		.loc 1 167 9 is_stmt 1 view .LVU139
+ 556 00b8 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 557 00ba 1B48     		ldr	r0, .L37+64
+ARM GAS  /tmp/ccGKOTr9.s 			page 16
 
 
- 858      A37172A4 
- 858      1C152DFC 
- 858      E9DA75F4 
- 858      76F1
- 859 01e2 14959C7D 		.ascii	"\024\225\234}\355\270\310\307\025au(\241\273pdv\205"
- 859      EDB8C8C7 
- 859      15617528 
- 859      A1BB7064 
- 859      7685
- 860 01f4 F6152ADB 		.ascii	"\366\025*\333\266\343\250\346\200?\343N\243!/\373\270"
- 860      B6E3A8E6 
- 860      803FE34E 
- 860      A3212FFB 
- 860      B8
- 861 0205 C2BB16C0 		.ascii	"\302\273\026\300\037w8\310\037\\\012-\345\226MI\256"
- 861      1F7738C8 
- 861      1F5C0A2D 
- 861      E5964D49 
- 861      AE
- 862 0216 22540DB9 		.ascii	"\"T\015\271\244!\317\000w\315Z\203S\211e\"m\314\004"
- 862      A421CF00 
- 862      77CD5A83 
- 862      53896522 
- 862      6DCC04
- 863 0229 FBD1C718 		.ascii	"\373\321\307\030\031>\325V\326\353\312\271\236C!R\350"
- 863      193ED556 
- 863      D6EBCAB9 
- 863      9E432152 
- 863      E8
- 864 023a E01F527A 		.ascii	"\340\037RzP\004\322\315<Qo\211P\250g%\303\0111\273\035"
- 864      5004D2CD 
- 864      3C516F89 
- 864      50A86725 
- 864      C30931BB 
- 865 024f 78EBC75A 		.ascii	"x\353\307ZW\277\235#\222m\250c\237\003\202\016\326P"
- 865      57BF9D23 
- 865      926DA863 
- 865      9F03820E 
- 865      D650
- 866 0261 073C7E95 		.ascii	"\007<~\225)\324\342\026\362\252I wF\301l\222:`u\372"
- 866      29D4E216 
- 866      F2AA4920 
- 866      7746C16C 
- 866      923A6075 
- 867 0276 F3449A94 		.ascii	"\363D\232\224B006\324X\245;I\261\020\307{2\327\036\032"
- 867      42303036 
- 867      D458A53B 
- 867      49B110C7 
- 867      7B32D71E 
- 868 028b 4C40A767 		.ascii	"L@\247g'.\343%\263\244d\2435v\354\376m\0242\027\337"
- 868      272EE325 
- 868      B3A464A3 
- 868      3576ECFE 
- 868      6D143217 
- 869 02a0 55660093 		.ascii	"Uf\000\2235\202\000\000\003\005\005\000\017\000\010"
- 869      35820000 
- 869      03050500 
-ARM GAS  /tmp/ccJcvQVT.s 			page 24
+ 558 00bc FFF7FEFF 		bl	printf
+ 559              	.LVL37:
+ 167:Core/Src/i2c_slave.c ****     }
+ 560              		.loc 1 167 9 is_stmt 0 view .LVU140
+ 561 00c0 CDE7     		b	.L18
+ 562              	.LVL38:
+ 563              	.L35:
+ 171:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
+ 564              		.loc 1 171 9 is_stmt 1 view .LVU141
+ 171:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
+ 565              		.loc 1 171 30 is_stmt 0 view .LVU142
+ 566 00c2 0A4B     		ldr	r3, .L37+4
+ 567              	.LVL39:
+ 171:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
+ 568              		.loc 1 171 30 view .LVU143
+ 569 00c4 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 171:Core/Src/i2c_slave.c ****         printf("Exposure level: %i\n", exposure_lvl);
+ 570              		.loc 1 171 22 view .LVU144
+ 571 00c6 194B     		ldr	r3, .L37+68
+ 572 00c8 1A70     		strb	r2, [r3]
+ 172:Core/Src/i2c_slave.c ****     }
+ 573              		.loc 1 172 9 is_stmt 1 view .LVU145
+ 574 00ca 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 575 00cc 1848     		ldr	r0, .L37+72
+ 576 00ce FFF7FEFF 		bl	printf
+ 577              	.LVL40:
+ 172:Core/Src/i2c_slave.c ****     }
+ 578              		.loc 1 172 9 is_stmt 0 view .LVU146
+ 579 00d2 C4E7     		b	.L18
+ 580              	.LVL41:
+ 581              	.L36:
+ 176:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
+ 582              		.loc 1 176 9 is_stmt 1 view .LVU147
+ 176:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
+ 583              		.loc 1 176 32 is_stmt 0 view .LVU148
+ 584 00d4 054B     		ldr	r3, .L37+4
+ 585              	.LVL42:
+ 176:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
+ 586              		.loc 1 176 32 view .LVU149
+ 587 00d6 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 176:Core/Src/i2c_slave.c ****         printf("Saturation level: %i\n", saturation_lvl);
+ 588              		.loc 1 176 24 view .LVU150
+ 589 00d8 164B     		ldr	r3, .L37+76
+ 590 00da 1A70     		strb	r2, [r3]
+ 177:Core/Src/i2c_slave.c ****     }
+ 591              		.loc 1 177 9 is_stmt 1 view .LVU151
+ 592 00dc 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 593 00de 1648     		ldr	r0, .L37+80
+ 594 00e0 FFF7FEFF 		bl	printf
+ 595              	.LVL43:
+ 177:Core/Src/i2c_slave.c ****     }
+ 596              		.loc 1 177 9 is_stmt 0 view .LVU152
+ 597 00e4 BBE7     		b	.L18
+ 598              	.L38:
+ 599 00e6 00BF     		.align	2
+ 600              	.L37:
+ 601 00e8 00000000 		.word	.LANCHOR0
+ARM GAS  /tmp/ccGKOTr9.s 			page 17
 
 
- 869      0F0008
- 870 02af 11E56512 		.ascii	"\021\345e\022+\020\034\206+\216y\355\315\000\177\342"
- 870      2B101C86 
- 870      2B8E79ED 
- 870      CD007FE2 
- 871 02bf 5AF1FFB4 		.ascii	"Z\361\377\264\015\332(\015\277pS\310\253iy-\354\236"
- 871      0DDA280D 
- 871      BF7053C8 
- 871      AB69792D 
- 871      EC9E
- 872 02d1 5A440B6D 		.ascii	"ZD\013m\223\031`>\360\003\323\237\353P_]\013\203nT\237"
- 872      9319603E 
- 872      F003D39F 
- 872      EB505F5D 
- 872      0B836E54 
- 873 02e6 91390493 		.ascii	"\2219\004\223\203\223\337\362\253\347U\204\201\265\344"
- 873      8393DFF2 
- 873      ABE75584 
- 873      81B5E4
- 874 02f5 43B53AB1 		.ascii	"C\265:\2618\303|\337\247\177J\000\240u\011\015\271\205"
- 874      38C37CDF 
- 874      A77F4A00 
- 874      A075090D 
- 874      B985
- 875 0307 E242C115 		.ascii	"\342B\301\025\003c\220\003\003\375)\363j\2174-\033D"
- 875      03639003 
- 875      03FD29F3 
- 875      6A8F342D 
- 875      1B44
- 876 0319 A376EDDC 		.ascii	"\243v\355\334\347\223\216y\372T\223j9\201\304r7\231"
- 876      E7938E79 
- 876      FA54936A 
- 876      3981C472 
- 876      3799
- 877 032b E76EF9B9 		.ascii	"\347n\371\271\014\271\310\307\245%\345\3747\026\256"
- 877      0CB9C8C7 
- 877      A525E5FC 
- 877      3716AE
- 878 033a B1874669 		.ascii	"\261\207Fi\025\212\223\234\374\270'\363\240\014\366"
- 878      158A939C 
- 878      FCB827F3 
- 878      A00CF6
- 879 0349 8CAE0807 		.ascii	"\214\256\010\007\007\245^\323ma\271V\017\031v\016\243"
- 879      07A55ED3 
- 879      6D61B956 
- 879      0F19760E 
- 879      A3
- 880 035a 3BF68620 		.ascii	";\366\206 \324tK\345\335`u\212Yj+\362dO\213\276\256"
- 880      D4744BE5 
- 880      DD60758A 
- 880      596A2BF2 
- 880      644F8BBE 
- 881 036f F86EB736 		.ascii	"\370n\2676~\231\3441\267\200\375\341\371\205\036>\260"
- 881      7E99E431 
- 881      B780FDE1 
- 881      F9851E3E 
- 881      B0
-ARM GAS  /tmp/ccJcvQVT.s 			page 25
+ 602 00ec 00000000 		.word	.LANCHOR1
+ 603 00f0 00000000 		.word	.LANCHOR12
+ 604 00f4 C0000000 		.word	.LC10
+ 605 00f8 00000000 		.word	.LC2
+ 606 00fc 00000000 		.word	.LANCHOR6
+ 607 0100 00000000 		.word	.LANCHOR5
+ 608 0104 00000000 		.word	.LANCHOR2
+ 609 0108 00000000 		.word	.LANCHOR3
+ 610 010c 1C000000 		.word	.LC3
+ 611 0110 34000000 		.word	.LC4
+ 612 0114 00000000 		.word	.LANCHOR7
+ 613 0118 50000000 		.word	.LC5
+ 614 011c 00000000 		.word	.LANCHOR8
+ 615 0120 68000000 		.word	.LC6
+ 616 0124 00000000 		.word	.LANCHOR9
+ 617 0128 80000000 		.word	.LC7
+ 618 012c 00000000 		.word	.LANCHOR10
+ 619 0130 94000000 		.word	.LC8
+ 620 0134 00000000 		.word	.LANCHOR11
+ 621 0138 A8000000 		.word	.LC9
+ 622              		.cfi_endproc
+ 623              	.LFE71:
+ 625              		.global	last_i2c_activity
+ 626              		.global	RxData
+ 627              		.global	current_packet_index
+ 628              		.global	send_all_packets
+ 629              		.global	prestore_image_requested
+ 630              		.global	capture_requested
+ 631              		.global	effect
+ 632              		.global	saturation_lvl
+ 633              		.global	exposure_lvl
+ 634              		.global	contra_lvl
+ 635              		.global	shrp_lvl
+ 636              		.global	lvl
+ 637              		.global	test_card_ssdv_buffer
+ 638              		.section	.bss.RxData,"aw",%nobits
+ 639              		.align	2
+ 640              		.set	.LANCHOR1,. + 0
+ 643              	RxData:
+ 644 0000 0000     		.space	2
+ 645              		.section	.bss.capture_requested,"aw",%nobits
+ 646              		.set	.LANCHOR6,. + 0
+ 649              	capture_requested:
+ 650 0000 00       		.space	1
+ 651              		.section	.bss.contra_lvl,"aw",%nobits
+ 652              		.set	.LANCHOR9,. + 0
+ 655              	contra_lvl:
+ 656 0000 00       		.space	1
+ 657              		.section	.bss.current_packet_index,"aw",%nobits
+ 658              		.align	1
+ 659              		.set	.LANCHOR3,. + 0
+ 662              	current_packet_index:
+ 663 0000 0000     		.space	2
+ 664              		.section	.bss.effect,"aw",%nobits
+ 665              		.set	.LANCHOR12,. + 0
+ 668              	effect:
+ 669 0000 00       		.space	1
+ARM GAS  /tmp/ccGKOTr9.s 			page 18
 
 
- 882 0380 55660093 		.ascii	"Uf\000\2235\202\000\000\004\005\005\000\026\000\013"
- 882      35820000 
- 882      04050500 
- 882      16000B
- 883 038f E14F069D 		.ascii	"\341O\006\235\012\206\267P\303\"\241\226\325\227&2q"
- 883      0A86B750 
- 883      C322A196 
- 883      D5972632 
- 883      71
- 884 03a0 9CE075A0 		.ascii	"\234\340u\240\017\346`\261\264\221T\224l\231\212\020"
- 884      0FE660B1 
- 884      B4915494 
- 884      6C998A10 
- 885 03b0 24CE3AF5 		.ascii	"$\316:\365\364\351Q\230,\306\322Q\0231+\341\345#9\364"
- 885      F4E95198 
- 885      2CC6D251 
- 885      13312BE1 
- 885      E52339F4 
- 886 03c4 E2B332CA 		.ascii	"\342\2632\312z\220s\324\032\261ijn\367\346R\201\027"
- 886      7A9073D4 
- 886      1AB1696A 
- 886      6EF7E652 
- 886      8117
- 887 03d6 24952401 		.ascii	"$\225$\001\375(\002\305\375\254\020[\202\210D\202R\214"
- 887      FD2802C5 
- 887      FDAC105B 
- 887      82884482 
- 887      528C
- 888 03e8 43120606 		.ascii	"C\022\006\006{\377:\233Ma\3665^T\264\304\026\017\214"
- 888      7BFF3A9B 
- 888      4D61F635 
- 888      5E54B4C4 
- 888      160F8C
- 889 03fb FCB9C7BD 		.ascii	"\374\271\307\275$\032r4\3069%\022)\0123\264\214\026"
- 889      241A7234 
- 889      C6392512 
- 889      290A33B4 
- 889      8C16
- 890 040d 1C63DEA0 		.ascii	"\034c\336\240\032k\023$bll]\3042\021\353\375\005\000"
- 890      1A6B1324 
- 890      626C6C5D 
- 890      C43211EB 
- 890      FD0500
- 891 0420 5B96D2D5 		.ascii	"[\226\322\325\356&\314~Y\021\007\302\277|d\340R\033"
- 891      EE26CC7E 
- 891      591107C2 
- 891      BF7C64E0 
- 891      521B
- 892 0432 2B52CAAB 		.ascii	"+R\312\253\011\004\270Nd?\030\033A\353\215QRd%c\335"
- 892      0904B84E 
- 892      643F181B 
- 892      41EB8D51 
- 892      52642563 
- 893 0447 257DA997 		.ascii	"%}\251\227\020\331\305\376\204\230\217\267\011\322\343"
- 893      10D9C5FE 
- 893      84988FB7 
- 893      09D2E3
-ARM GAS  /tmp/ccJcvQVT.s 			page 26
+ 670              		.section	.bss.exposure_lvl,"aw",%nobits
+ 671              		.set	.LANCHOR10,. + 0
+ 674              	exposure_lvl:
+ 675 0000 00       		.space	1
+ 676              		.section	.bss.last_i2c_activity,"aw",%nobits
+ 677              		.align	2
+ 678              		.set	.LANCHOR0,. + 0
+ 681              	last_i2c_activity:
+ 682 0000 00000000 		.space	4
+ 683              		.section	.bss.lvl,"aw",%nobits
+ 684              		.set	.LANCHOR7,. + 0
+ 687              	lvl:
+ 688 0000 00       		.space	1
+ 689              		.section	.bss.prestore_image_requested,"aw",%nobits
+ 690              		.set	.LANCHOR2,. + 0
+ 693              	prestore_image_requested:
+ 694 0000 00       		.space	1
+ 695              		.section	.bss.saturation_lvl,"aw",%nobits
+ 696              		.set	.LANCHOR11,. + 0
+ 699              	saturation_lvl:
+ 700 0000 00       		.space	1
+ 701              		.section	.bss.send_all_packets,"aw",%nobits
+ 702              		.set	.LANCHOR5,. + 0
+ 705              	send_all_packets:
+ 706 0000 00       		.space	1
+ 707              		.section	.bss.shrp_lvl,"aw",%nobits
+ 708              		.set	.LANCHOR8,. + 0
+ 711              	shrp_lvl:
+ 712 0000 00       		.space	1
+ 713              		.section	.data.test_card_ssdv_buffer,"aw"
+ 714              		.align	2
+ 715              		.set	.LANCHOR4,. + 0
+ 718              	test_card_ssdv_buffer:
+ 719 0000 55660093 		.ascii	"Uf\000\2235\202\000\000\000\005\005\000\000\000\000"
+ 719      35820000 
+ 719      00050500 
+ 719      000000
+ 720 000f E5AC6CED 		.ascii	"\345\254l\355\245\265\215\312\011di1 2\354\362\327\326"
+ 720      A5B58DCA 
+ 720      09646931 
+ 720      2032ECF2 
+ 720      D7D6
+ 721 0021 A64B2D34 		.ascii	"\246K-4,y\221\033|\314\201\232B2\240\361\323\372\325"
+ 721      2C79911B 
+ 721      7CCC819A 
+ 721      4232A0F1 
+ 721      D3FAD5
+ 722 0034 0B7D3A59 		.ascii	"\013}:YJ3\256\"a\235\312\312p:g\255!\323nC\272\252\243"
+ 722      4A33AE22 
+ 722      619DCACA 
+ 722      703A67AD 
+ 722      21D36E43 
+ 723 004b 6C241224 		.ascii	"l$\022$^\337\215\000_]>\303ta\233\000\313\"\234\310"
+ 723      5EDF8D00 
+ 723      5F5D3EC3 
+ 723      74619B00 
+ 723      CB229CC8 
+ARM GAS  /tmp/ccGKOTr9.s 			page 19
 
 
- 894 0456 A92A7B46 		.ascii	"\251*{F\277\016\316\"\260\377Uf\000\2235\202\000\000"
- 894      BF0ECE22 
- 894      B0FF5566 
- 894      00933582 
- 894      0000
- 895 0468 05050500 		.ascii	"\005\005\005\000\031\000\016\334\335\351Y\227P\233k"
- 895      19000EDC 
- 895      DDE95997 
- 895      509B6B
- 896 0477 831F99BC 		.ascii	"\203\037\231\274\250\034\200Gj\207s\037\342n\276\264"
- 896      A81C8047 
- 896      6A87731F 
- 896      E26EBEB4 
- 897 0487 01E3EFE0 		.ascii	"\001\343\357\340\267\212\336'\204r\354\300\220I\034"
- 897      B78ADE27 
- 897      8472ECC0 
- 897      90491C
- 898 0496 638E7EB5 		.ascii	"c\216~\265\237Nm\330\033\263\216\2434\332\000\277\272"
- 898      9F4E6DD8 
- 898      1BB38EA3 
- 898      34DA00BF 
- 898      BA
- 899 04a7 44B50506 		.ascii	"D\265\005\006z\364\355\315\026\2573p\300\355\317\336"
- 899      7AF4EDCD 
- 899      16AF3370 
- 899      C0EDCFDE 
- 900 04b7 352C2C16 		.ascii	"5,,\026\335I8\031\353L\220\011\306\350\233,\007L\365"
- 900      DD493819 
- 900      EB4C9009 
- 900      C6E89B2C 
- 900      074CF5
- 901 04ca A007CB6E 		.ascii	"\240\007\313n\262\202q\206\365\365\252\243\316\265v"
- 901      B2827186 
- 901      F5F5AAA3 
- 901      CEB576
- 902 04d9 DBD19482 		.ascii	"\333\321\224\202\010\310a\375j\026wS\202O\347Hdc\301"
- 902      08C861FD 
- 902      6A167753 
- 902      824FE748 
- 902      6463C1
- 903 04ec E6802C26 		.ascii	"\346\200,&\243s\034\276b\311\203\362\344c\203\201\201"
- 903      A3731CBE 
- 903      62C983F2 
- 903      E4638381 
- 903      81
- 904 04fd 4C17B38C 		.ascii	"L\027\263\214\2170\355d\330W\261^\225\0036\343\223\212"
- 904      8F30ED64 
- 904      D857B15E 
- 904      950336E3 
- 904      938A
- 905 050f 4A009DDD 		.ascii	"J\000\235\335\356diX\215\307\251\351\355\253\027\276"
- 905      EE646958 
- 905      8DC7A9E9 
- 905      EDAB17BE 
- 906 051f A9064F4E 		.ascii	"\251\006ON\260;\374\355\245Yk\317\327J:\214\314\263"
- 906      B03BFCED 
- 906      A5596BCF 
-ARM GAS  /tmp/ccJcvQVT.s 			page 27
+ 724 005f 0671F747 		.ascii	"\006q\367G\267\326\225,,\214\221y\250\"b\256^!6q\216"
+ 724      B7D6952C 
+ 724      2C8C9179 
+ 724      A82262AE 
+ 724      5E213671 
+ 725 0074 8735422D 		.ascii	"\2075B-2\342F\\\252\204'\005\303\251\300\357\336\242"
+ 725      32E2465C 
+ 725      AA842705 
+ 725      C3A9C0EF 
+ 725      DEA2
+ 726 0086 96D596F1 		.ascii	"\226\325\226\361\340\217\031S\201\271\200\376\270\240"
+ 726      E08F1953 
+ 726      81B980FE 
+ 726      B8A0
+ 727 0094 0B573696 		.ascii	"\013W6\226\261\351\336|N\031\236_\227\346\344.:\021"
+ 727      B1E9DE7C 
+ 727      4E199E5F 
+ 727      97E6E42E 
+ 727      3A11
+ 728 00a6 EA0D5C97 		.ascii	"\352\015\\\227O\260\020\306\311\205\313\240\313K\313"
+ 728      4FB010C6 
+ 728      C985CBA0 
+ 728      CB4BCB
+ 729 00b5 03D7DAA9 		.ascii	"\003\327\332\251\256\226\026cp\360\367\303W\246\232"
+ 729      AE961663 
+ 729      70F0F7C3 
+ 729      57A69A
+ 730 00c4 25FB26A1 		.ascii	"%\373&\241\343W\302\016\007x\251\3545\264~\353\243\216"
+ 730      E357C20E 
+ 730      0778A9EC 
+ 730      35B47EEB 
+ 730      A38E
+ 731 00d6 BB08355C 		.ascii	"\273\0105\\&7&\272\304\011Uf\000\2235\202\000\000\001"
+ 731      263726BA 
+ 731      C4095566 
+ 731      00933582 
+ 731      000001
+ 732 00e9 0505001C 		.ascii	"\005\005\000\034\000\003%3\271\215\331\231O+\205\307"
+ 732      00032533 
+ 732      B98DD999 
+ 732      4F2B85C7 
+ 733 00f9 AF350369 		.ascii	"\2575\003i\267*\356\273P\354\344\221\"\364\365\353@"
+ 733      B72AEEBB 
+ 733      50ECE491 
+ 733      22F4F5EB 
+ 733      40
+ 734 010a 1FE5AEED 		.ascii	"\037\345\256\355\354\001\226\030\010\363\374\315\261"
+ 734      EC019618 
+ 734      08F3FCCD 
+ 734      B1
+ 735 0117 8562475E 		.ascii	"\205bG^\344\361Ks\247\332\013r!\235\014\261c\314!\363"
+ 735      E4F14B73 
+ 735      A7DA0B72 
+ 735      219D0CB1 
+ 735      63CC21F3 
+ 736 012b B877207B 		.ascii	"\270w {VsZ\314\267\006\002\240H:\202\300\177Z\224\351"
+ 736      56735ACC 
+ARM GAS  /tmp/ccGKOTr9.s 			page 20
 
 
- 906      D74A3A8C 
- 906      CCB3
- 907 0531 F13D83C2 		.ascii	"\361=\203\302qv\255\332\367\332\207\310\376\034[Uf\000"
- 907      7176ADDA 
- 907      F7DA87C8 
- 907      FE1C5B55 
- 907      6600
- 908 0543 93358200 		.ascii	"\2235\202\000\000\006\005\005\000\016\000\023L\330}"
- 908      00060505 
- 908      000E0013 
- 908      4CD87D
- 909 0552 6A4B5FE2 		.ascii	"jK_\342\372U\220\240z\320#\341\014lW\327\332\242\255"
- 909      FA5590A0 
- 909      7AD023E1 
- 909      0C6C57D7 
- 909      DAA2AD
- 910 0565 02808350 		.ascii	"\002\200\203P\311\032\354b\000\004\017J\005qeVkT d\002"
- 910      C91AEC62 
- 910      00040F4A 
- 910      05716556 
- 910      6B542064 
- 911 057a 73C5259A 		.ascii	"s\305%\2327\233\234\034c\322\246\212\3424\214+\036A"
- 911      379B9C1C 
- 911      63D2A68A 
- 911      E2348C2B 
- 911      1E41
- 912 058c F4A78B98 		.ascii	"\364\247\213\230@\340\221\370P1\2676\341\301u\034\367"
- 912      40E091F8 
- 912      5031B736 
- 912      E1C1751C 
- 912      F7
- 913 059d 1EB59E46 		.ascii	"\036\265\236F\016+K\355Qz\237\312\253O\345Hr\204\203"
- 913      0E2B4BED 
- 913      517A9FCA 
- 913      AB4FE548 
- 913      728483
- 914 05b0 9E462802 		.ascii	"\236F(\002\255\024\021\203\212\267oo\034\261\356l\347"
- 914      AD141183 
- 914      8AB76F6F 
- 914      1CB1EE6C 
- 914      E7
- 915 05c1 3D8D0047 		.ascii	"=\215\000Go\237\233\037\215L\3620\340g>\2652\333\307"
- 915      6F9F9B1F 
- 915      8D4CF230 
- 915      E0673EB5 
- 915      32DBC7
- 916 05d4 183B41E7 		.ascii	"\030;A\347\2574\2061\301Prx\"\201\020&\342y$\217\255"
- 916      AF348631 
- 916      C1507278 
- 916      22811026 
- 916      E279248F 
- 917 05e9 39CEC0DB 		.ascii	"9\316\300\333\224\034\016\2252\306\243\034\023\236\364"
- 917      941C0E95 
- 917      32C6A31C 
- 917      139EF4
- 918 05f8 AD1A3921 		.ascii	"\255\0329!l\314H\361\220\001pH\246\0156\324\266/P5\004"
- 918      6CCC48F1 
-ARM GAS  /tmp/ccJcvQVT.s 			page 28
+ 736      B70602A0 
+ 736      483A82C0 
+ 736      7F5A94E9 
+ 737 013f B7601263 		.ascii	"\267`\022c\\\014\347\367\213\306:\367\240\013\3276V"
+ 737      5C0CE7F7 
+ 737      8BC63AF7 
+ 737      A00BD736 
+ 737      56
+ 738 0150 D186F2E2 		.ascii	"\321\206\362\342S\030+\266o\264\003\277\327\212n\251"
+ 738      53182BB6 
+ 738      6FB403BF 
+ 738      D78A6EA9 
+ 739 0160 676F6F1B 		.ascii	"goo\033\233x\306\320\300o\337\236?:\254\232l\236L\257"
+ 739      9B78C6D0 
+ 739      C06FDF9E 
+ 739      3F3AAC9A 
+ 739      6C9E4CAF 
+ 740 0174 282A5541 		.ascii	"(*UAQ\221\316N99\250\244\260\270\2157\262 ^\307z\363"
+ 740      5191CE4E 
+ 740      3939A8A4 
+ 740      B0B88D37 
+ 740      B2205EC7 
+ 741 018a FAD00392 		.ascii	"\372\320\003\222\371\326 \214\201\202\240E\307\030\001"
+ 741      F9D6208C 
+ 741      8182A045 
+ 741      C71801
+ 742 0199 B754CB33 		.ascii	"\267T\3133\207%\\4>\357`\340\265\240\360\014\006\362"
+ 742      87255C34 
+ 742      3EEF60E0 
+ 742      B5A0F00C 
+ 742      06F2
+ 743 01ab 51E0C721 		.ascii	"Q\340\307!8/u\373\247\024Z^\203\343_\035O,\371\363\226"
+ 743      382F75FB 
+ 743      A7145A5E 
+ 743      83E35F1D 
+ 743      4F2CF9F3 
+ 744 01c0 55660093 		.ascii	"Uf\000\2235\202\000\000\002\005\005\000/\000\006\252"
+ 744      35820000 
+ 744      02050500 
+ 744      2F0006AA 
+ 745 01d0 C8A65C44 		.ascii	"\310\246\\D\243qr\244\034\025-\374\351\332u\364v\361"
+ 745      A37172A4 
+ 745      1C152DFC 
+ 745      E9DA75F4 
+ 745      76F1
+ 746 01e2 14959C7D 		.ascii	"\024\225\234}\355\270\310\307\025au(\241\273pdv\205"
+ 746      EDB8C8C7 
+ 746      15617528 
+ 746      A1BB7064 
+ 746      7685
+ 747 01f4 F6152ADB 		.ascii	"\366\025*\333\266\343\250\346\200?\343N\243!/\373\270"
+ 747      B6E3A8E6 
+ 747      803FE34E 
+ 747      A3212FFB 
+ 747      B8
+ 748 0205 C2BB16C0 		.ascii	"\302\273\026\300\037w8\310\037\\\012-\345\226MI\256"
+ 748      1F7738C8 
+ARM GAS  /tmp/ccGKOTr9.s 			page 21
 
 
- 918      90017048 
- 918      A60D36D4 
- 918      B62F5035 
- 919 060d FDAEFB3F 		.ascii	"\375\256\373?:\376\237\035\315#\272:N\350e\343\325 "
- 919      3AFE9F1D 
- 919      CD23BA3A 
- 919      4EE865E3 
- 919      D520
- 920 061f 88556600 		.ascii	"\210Uf\000\2235\202\000\000\007\005\005\004\377\377"
- 920      93358200 
- 920      00070505 
- 920      04FFFF
- 921 062e FF978C75 		.ascii	"\377\227\214u\240,\177->\203\214)j\237Xe\326\373d\341"
- 921      A02C7F2D 
- 921      3E838C29 
- 921      6A9F5865 
- 921      D6FB64E1 
- 922 0642 8297B09D 		.ascii	"\202\227\260\235ns<\231\232\217\010\325\006\353\024"
- 922      6E733C99 
- 922      9A8F08D5 
- 922      06EB14
- 923 0651 51B28760 		.ascii	"Q\262\207`\015\236c\354\011\312\177\270E6\333\304\301"
- 923      0D9E63EC 
- 923      09CA7FB8 
- 923      4536DBC4 
- 923      C1
- 924 0662 E277107D 		.ascii	"\342w\020}\316S\234y\372oh\265f\313t1\022g\300\355\376"
- 924      CE539C79 
- 924      FA6F68B5 
- 924      66CB7431 
- 924      1267C0ED 
- 925 0677 434CE92A 		.ascii	"CL\351*_\030%\226\273$\241BWp].3\374YZO\310\225\306"
- 925      5F182596 
- 925      BB24A142 
- 925      57705D2E 
- 925      33FC595A 
- 926 068f ABD41172 		.ascii	"\253\324\021rG \315^#\254\311\212?x\005\366\233\204"
- 926      4720CD5E 
- 926      23ACC98A 
- 926      3F7805F6 
- 926      9B84
- 927 06a1 81A237D0 		.ascii	"\201\2427\320=\216\023\\9\272/(u&\2134\361\322'\200"
- 927      3D8E135C 
- 927      39BA2F28 
- 927      75268B34 
- 927      F1D22780 
- 928 06b5 ADBE030C 		.ascii	"\255\276\003\014\251\352\037\330\345V{\344a\002\027"
- 928      A9EA1FD8 
- 928      E5567BE4 
- 928      610217
- 929 06c4 301DEEF3 		.ascii	"0\035\356\363\274\031\032\017\210U\206k\224\3212\007"
- 929      BC191A0F 
- 929      8855866B 
- 929      94D13207 
- 930 06d4 E08D1EE3 		.ascii	"\340\215\036\343l\211J\377\232\000\001\233\337'4?\246"
- 930      6C894AFF 
- 930      9A00019B 
-ARM GAS  /tmp/ccJcvQVT.s 			page 29
+ 748      1F5C0A2D 
+ 748      E5964D49 
+ 748      AE
+ 749 0216 22540DB9 		.ascii	"\"T\015\271\244!\317\000w\315Z\203S\211e\"m\314\004"
+ 749      A421CF00 
+ 749      77CD5A83 
+ 749      53896522 
+ 749      6DCC04
+ 750 0229 FBD1C718 		.ascii	"\373\321\307\030\031>\325V\326\353\312\271\236C!R\350"
+ 750      193ED556 
+ 750      D6EBCAB9 
+ 750      9E432152 
+ 750      E8
+ 751 023a E01F527A 		.ascii	"\340\037RzP\004\322\315<Qo\211P\250g%\303\0111\273\035"
+ 751      5004D2CD 
+ 751      3C516F89 
+ 751      50A86725 
+ 751      C30931BB 
+ 752 024f 78EBC75A 		.ascii	"x\353\307ZW\277\235#\222m\250c\237\003\202\016\326P"
+ 752      57BF9D23 
+ 752      926DA863 
+ 752      9F03820E 
+ 752      D650
+ 753 0261 073C7E95 		.ascii	"\007<~\225)\324\342\026\362\252I wF\301l\222:`u\372"
+ 753      29D4E216 
+ 753      F2AA4920 
+ 753      7746C16C 
+ 753      923A6075 
+ 754 0276 F3449A94 		.ascii	"\363D\232\224B006\324X\245;I\261\020\307{2\327\036\032"
+ 754      42303036 
+ 754      D458A53B 
+ 754      49B110C7 
+ 754      7B32D71E 
+ 755 028b 4C40A767 		.ascii	"L@\247g'.\343%\263\244d\2435v\354\376m\0242\027\337"
+ 755      272EE325 
+ 755      B3A464A3 
+ 755      3576ECFE 
+ 755      6D143217 
+ 756 02a0 55660093 		.ascii	"Uf\000\2235\202\000\000\003\005\005\000\017\000\010"
+ 756      35820000 
+ 756      03050500 
+ 756      0F0008
+ 757 02af 11E56512 		.ascii	"\021\345e\022+\020\034\206+\216y\355\315\000\177\342"
+ 757      2B101C86 
+ 757      2B8E79ED 
+ 757      CD007FE2 
+ 758 02bf 5AF1FFB4 		.ascii	"Z\361\377\264\015\332(\015\277pS\310\253iy-\354\236"
+ 758      0DDA280D 
+ 758      BF7053C8 
+ 758      AB69792D 
+ 758      EC9E
+ 759 02d1 5A440B6D 		.ascii	"ZD\013m\223\031`>\360\003\323\237\353P_]\013\203nT\237"
+ 759      9319603E 
+ 759      F003D39F 
+ 759      EB505F5D 
+ 759      0B836E54 
+ 760 02e6 91390493 		.ascii	"\2219\004\223\203\223\337\362\253\347U\204\201\265\344"
+ARM GAS  /tmp/ccGKOTr9.s 			page 22
 
 
- 930      DF27343F 
- 930      A6
- 931 06e5 71B40C0A 		.ascii	"q\264\014\0121\342\352\016\214@\255\275\221\244l\300"
- 931      31E2EA0E 
- 931      8C40ADBD 
- 931      91A46CC0 
- 932 06f5 54A9B7FE 		.ascii	"T\251\267\376\235\330\271'\252\272J"
- 932      9DD8B927 
- 932      AABA4A
- 933              		.text
- 934              	.Letext0:
- 935              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 936              		.file 3 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 937              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
- 938              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 939              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 940              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
- 941              		.file 8 "Core/Inc/camera.h"
- 942              		.file 9 "Core/Inc/i2c_slave.h"
- 943              		.file 10 "libs/ssdv/test_card_ssdv.h"
- 944              		.file 11 "Core/Inc/watchdog.h"
- 945              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 946              		.file 13 "/usr/include/newlib/stdio.h"
- 947              		.file 14 "<built-in>"
- 948              		.file 15 "libs/flash/flash.h"
-ARM GAS  /tmp/ccJcvQVT.s 			page 30
+ 760      8393DFF2 
+ 760      ABE75584 
+ 760      81B5E4
+ 761 02f5 43B53AB1 		.ascii	"C\265:\2618\303|\337\247\177J\000\240u\011\015\271\205"
+ 761      38C37CDF 
+ 761      A77F4A00 
+ 761      A075090D 
+ 761      B985
+ 762 0307 E242C115 		.ascii	"\342B\301\025\003c\220\003\003\375)\363j\2174-\033D"
+ 762      03639003 
+ 762      03FD29F3 
+ 762      6A8F342D 
+ 762      1B44
+ 763 0319 A376EDDC 		.ascii	"\243v\355\334\347\223\216y\372T\223j9\201\304r7\231"
+ 763      E7938E79 
+ 763      FA54936A 
+ 763      3981C472 
+ 763      3799
+ 764 032b E76EF9B9 		.ascii	"\347n\371\271\014\271\310\307\245%\345\3747\026\256"
+ 764      0CB9C8C7 
+ 764      A525E5FC 
+ 764      3716AE
+ 765 033a B1874669 		.ascii	"\261\207Fi\025\212\223\234\374\270'\363\240\014\366"
+ 765      158A939C 
+ 765      FCB827F3 
+ 765      A00CF6
+ 766 0349 8CAE0807 		.ascii	"\214\256\010\007\007\245^\323ma\271V\017\031v\016\243"
+ 766      07A55ED3 
+ 766      6D61B956 
+ 766      0F19760E 
+ 766      A3
+ 767 035a 3BF68620 		.ascii	";\366\206 \324tK\345\335`u\212Yj+\362dO\213\276\256"
+ 767      D4744BE5 
+ 767      DD60758A 
+ 767      596A2BF2 
+ 767      644F8BBE 
+ 768 036f F86EB736 		.ascii	"\370n\2676~\231\3441\267\200\375\341\371\205\036>\260"
+ 768      7E99E431 
+ 768      B780FDE1 
+ 768      F9851E3E 
+ 768      B0
+ 769 0380 55660093 		.ascii	"Uf\000\2235\202\000\000\004\005\005\000\026\000\013"
+ 769      35820000 
+ 769      04050500 
+ 769      16000B
+ 770 038f E14F069D 		.ascii	"\341O\006\235\012\206\267P\303\"\241\226\325\227&2q"
+ 770      0A86B750 
+ 770      C322A196 
+ 770      D5972632 
+ 770      71
+ 771 03a0 9CE075A0 		.ascii	"\234\340u\240\017\346`\261\264\221T\224l\231\212\020"
+ 771      0FE660B1 
+ 771      B4915494 
+ 771      6C998A10 
+ 772 03b0 24CE3AF5 		.ascii	"$\316:\365\364\351Q\230,\306\322Q\0231+\341\345#9\364"
+ 772      F4E95198 
+ 772      2CC6D251 
+ARM GAS  /tmp/ccGKOTr9.s 			page 23
+
+
+ 772      13312BE1 
+ 772      E52339F4 
+ 773 03c4 E2B332CA 		.ascii	"\342\2632\312z\220s\324\032\261ijn\367\346R\201\027"
+ 773      7A9073D4 
+ 773      1AB1696A 
+ 773      6EF7E652 
+ 773      8117
+ 774 03d6 24952401 		.ascii	"$\225$\001\375(\002\305\375\254\020[\202\210D\202R\214"
+ 774      FD2802C5 
+ 774      FDAC105B 
+ 774      82884482 
+ 774      528C
+ 775 03e8 43120606 		.ascii	"C\022\006\006{\377:\233Ma\3665^T\264\304\026\017\214"
+ 775      7BFF3A9B 
+ 775      4D61F635 
+ 775      5E54B4C4 
+ 775      160F8C
+ 776 03fb FCB9C7BD 		.ascii	"\374\271\307\275$\032r4\3069%\022)\0123\264\214\026"
+ 776      241A7234 
+ 776      C6392512 
+ 776      290A33B4 
+ 776      8C16
+ 777 040d 1C63DEA0 		.ascii	"\034c\336\240\032k\023$bll]\3042\021\353\375\005\000"
+ 777      1A6B1324 
+ 777      626C6C5D 
+ 777      C43211EB 
+ 777      FD0500
+ 778 0420 5B96D2D5 		.ascii	"[\226\322\325\356&\314~Y\021\007\302\277|d\340R\033"
+ 778      EE26CC7E 
+ 778      591107C2 
+ 778      BF7C64E0 
+ 778      521B
+ 779 0432 2B52CAAB 		.ascii	"+R\312\253\011\004\270Nd?\030\033A\353\215QRd%c\335"
+ 779      0904B84E 
+ 779      643F181B 
+ 779      41EB8D51 
+ 779      52642563 
+ 780 0447 257DA997 		.ascii	"%}\251\227\020\331\305\376\204\230\217\267\011\322\343"
+ 780      10D9C5FE 
+ 780      84988FB7 
+ 780      09D2E3
+ 781 0456 A92A7B46 		.ascii	"\251*{F\277\016\316\"\260\377Uf\000\2235\202\000\000"
+ 781      BF0ECE22 
+ 781      B0FF5566 
+ 781      00933582 
+ 781      0000
+ 782 0468 05050500 		.ascii	"\005\005\005\000\031\000\016\334\335\351Y\227P\233k"
+ 782      19000EDC 
+ 782      DDE95997 
+ 782      509B6B
+ 783 0477 831F99BC 		.ascii	"\203\037\231\274\250\034\200Gj\207s\037\342n\276\264"
+ 783      A81C8047 
+ 783      6A87731F 
+ 783      E26EBEB4 
+ 784 0487 01E3EFE0 		.ascii	"\001\343\357\340\267\212\336'\204r\354\300\220I\034"
+ 784      B78ADE27 
+ 784      8472ECC0 
+ARM GAS  /tmp/ccGKOTr9.s 			page 24
+
+
+ 784      90491C
+ 785 0496 638E7EB5 		.ascii	"c\216~\265\237Nm\330\033\263\216\2434\332\000\277\272"
+ 785      9F4E6DD8 
+ 785      1BB38EA3 
+ 785      34DA00BF 
+ 785      BA
+ 786 04a7 44B50506 		.ascii	"D\265\005\006z\364\355\315\026\2573p\300\355\317\336"
+ 786      7AF4EDCD 
+ 786      16AF3370 
+ 786      C0EDCFDE 
+ 787 04b7 352C2C16 		.ascii	"5,,\026\335I8\031\353L\220\011\306\350\233,\007L\365"
+ 787      DD493819 
+ 787      EB4C9009 
+ 787      C6E89B2C 
+ 787      074CF5
+ 788 04ca A007CB6E 		.ascii	"\240\007\313n\262\202q\206\365\365\252\243\316\265v"
+ 788      B2827186 
+ 788      F5F5AAA3 
+ 788      CEB576
+ 789 04d9 DBD19482 		.ascii	"\333\321\224\202\010\310a\375j\026wS\202O\347Hdc\301"
+ 789      08C861FD 
+ 789      6A167753 
+ 789      824FE748 
+ 789      6463C1
+ 790 04ec E6802C26 		.ascii	"\346\200,&\243s\034\276b\311\203\362\344c\203\201\201"
+ 790      A3731CBE 
+ 790      62C983F2 
+ 790      E4638381 
+ 790      81
+ 791 04fd 4C17B38C 		.ascii	"L\027\263\214\2170\355d\330W\261^\225\0036\343\223\212"
+ 791      8F30ED64 
+ 791      D857B15E 
+ 791      950336E3 
+ 791      938A
+ 792 050f 4A009DDD 		.ascii	"J\000\235\335\356diX\215\307\251\351\355\253\027\276"
+ 792      EE646958 
+ 792      8DC7A9E9 
+ 792      EDAB17BE 
+ 793 051f A9064F4E 		.ascii	"\251\006ON\260;\374\355\245Yk\317\327J:\214\314\263"
+ 793      B03BFCED 
+ 793      A5596BCF 
+ 793      D74A3A8C 
+ 793      CCB3
+ 794 0531 F13D83C2 		.ascii	"\361=\203\302qv\255\332\367\332\207\310\376\034[Uf\000"
+ 794      7176ADDA 
+ 794      F7DA87C8 
+ 794      FE1C5B55 
+ 794      6600
+ 795 0543 93358200 		.ascii	"\2235\202\000\000\006\005\005\000\016\000\023L\330}"
+ 795      00060505 
+ 795      000E0013 
+ 795      4CD87D
+ 796 0552 6A4B5FE2 		.ascii	"jK_\342\372U\220\240z\320#\341\014lW\327\332\242\255"
+ 796      FA5590A0 
+ 796      7AD023E1 
+ 796      0C6C57D7 
+ 796      DAA2AD
+ARM GAS  /tmp/ccGKOTr9.s 			page 25
+
+
+ 797 0565 02808350 		.ascii	"\002\200\203P\311\032\354b\000\004\017J\005qeVkT d\002"
+ 797      C91AEC62 
+ 797      00040F4A 
+ 797      05716556 
+ 797      6B542064 
+ 798 057a 73C5259A 		.ascii	"s\305%\2327\233\234\034c\322\246\212\3424\214+\036A"
+ 798      379B9C1C 
+ 798      63D2A68A 
+ 798      E2348C2B 
+ 798      1E41
+ 799 058c F4A78B98 		.ascii	"\364\247\213\230@\340\221\370P1\2676\341\301u\034\367"
+ 799      40E091F8 
+ 799      5031B736 
+ 799      E1C1751C 
+ 799      F7
+ 800 059d 1EB59E46 		.ascii	"\036\265\236F\016+K\355Qz\237\312\253O\345Hr\204\203"
+ 800      0E2B4BED 
+ 800      517A9FCA 
+ 800      AB4FE548 
+ 800      728483
+ 801 05b0 9E462802 		.ascii	"\236F(\002\255\024\021\203\212\267oo\034\261\356l\347"
+ 801      AD141183 
+ 801      8AB76F6F 
+ 801      1CB1EE6C 
+ 801      E7
+ 802 05c1 3D8D0047 		.ascii	"=\215\000Go\237\233\037\215L\3620\340g>\2652\333\307"
+ 802      6F9F9B1F 
+ 802      8D4CF230 
+ 802      E0673EB5 
+ 802      32DBC7
+ 803 05d4 183B41E7 		.ascii	"\030;A\347\2574\2061\301Prx\"\201\020&\342y$\217\255"
+ 803      AF348631 
+ 803      C1507278 
+ 803      22811026 
+ 803      E279248F 
+ 804 05e9 39CEC0DB 		.ascii	"9\316\300\333\224\034\016\2252\306\243\034\023\236\364"
+ 804      941C0E95 
+ 804      32C6A31C 
+ 804      139EF4
+ 805 05f8 AD1A3921 		.ascii	"\255\0329!l\314H\361\220\001pH\246\0156\324\266/P5\004"
+ 805      6CCC48F1 
+ 805      90017048 
+ 805      A60D36D4 
+ 805      B62F5035 
+ 806 060d FDAEFB3F 		.ascii	"\375\256\373?:\376\237\035\315#\272:N\350e\343\325 "
+ 806      3AFE9F1D 
+ 806      CD23BA3A 
+ 806      4EE865E3 
+ 806      D520
+ 807 061f 88556600 		.ascii	"\210Uf\000\2235\202\000\000\007\005\005\004\377\377"
+ 807      93358200 
+ 807      00070505 
+ 807      04FFFF
+ 808 062e FF978C75 		.ascii	"\377\227\214u\240,\177->\203\214)j\237Xe\326\373d\341"
+ 808      A02C7F2D 
+ 808      3E838C29 
+ 808      6A9F5865 
+ARM GAS  /tmp/ccGKOTr9.s 			page 26
+
+
+ 808      D6FB64E1 
+ 809 0642 8297B09D 		.ascii	"\202\227\260\235ns<\231\232\217\010\325\006\353\024"
+ 809      6E733C99 
+ 809      9A8F08D5 
+ 809      06EB14
+ 810 0651 51B28760 		.ascii	"Q\262\207`\015\236c\354\011\312\177\270E6\333\304\301"
+ 810      0D9E63EC 
+ 810      09CA7FB8 
+ 810      4536DBC4 
+ 810      C1
+ 811 0662 E277107D 		.ascii	"\342w\020}\316S\234y\372oh\265f\313t1\022g\300\355\376"
+ 811      CE539C79 
+ 811      FA6F68B5 
+ 811      66CB7431 
+ 811      1267C0ED 
+ 812 0677 434CE92A 		.ascii	"CL\351*_\030%\226\273$\241BWp].3\374YZO\310\225\306"
+ 812      5F182596 
+ 812      BB24A142 
+ 812      57705D2E 
+ 812      33FC595A 
+ 813 068f ABD41172 		.ascii	"\253\324\021rG \315^#\254\311\212?x\005\366\233\204"
+ 813      4720CD5E 
+ 813      23ACC98A 
+ 813      3F7805F6 
+ 813      9B84
+ 814 06a1 81A237D0 		.ascii	"\201\2427\320=\216\023\\9\272/(u&\2134\361\322'\200"
+ 814      3D8E135C 
+ 814      39BA2F28 
+ 814      75268B34 
+ 814      F1D22780 
+ 815 06b5 ADBE030C 		.ascii	"\255\276\003\014\251\352\037\330\345V{\344a\002\027"
+ 815      A9EA1FD8 
+ 815      E5567BE4 
+ 815      610217
+ 816 06c4 301DEEF3 		.ascii	"0\035\356\363\274\031\032\017\210U\206k\224\3212\007"
+ 816      BC191A0F 
+ 816      8855866B 
+ 816      94D13207 
+ 817 06d4 E08D1EE3 		.ascii	"\340\215\036\343l\211J\377\232\000\001\233\337'4?\246"
+ 817      6C894AFF 
+ 817      9A00019B 
+ 817      DF27343F 
+ 817      A6
+ 818 06e5 71B40C0A 		.ascii	"q\264\014\0121\342\352\016\214@\255\275\221\244l\300"
+ 818      31E2EA0E 
+ 818      8C40ADBD 
+ 818      91A46CC0 
+ 819 06f5 54A9B7FE 		.ascii	"T\251\267\376\235\330\271'\252\272J"
+ 819      9DD8B927 
+ 819      AABA4A
+ 820              		.text
+ 821              	.Letext0:
+ 822              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 823              		.file 3 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 824              		.file 4 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 825              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 826              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ARM GAS  /tmp/ccGKOTr9.s 			page 27
+
+
+ 827              		.file 7 "libs/camera/camera.h"
+ 828              		.file 8 "Core/Inc/i2c_slave.h"
+ 829              		.file 9 "libs/ssdv/test_card_ssdv.h"
+ 830              		.file 10 "libs/watchdog/watchdog.h"
+ 831              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 832              		.file 12 "/usr/include/newlib/stdio.h"
+ 833              		.file 13 "<built-in>"
+ 834              		.file 14 "libs/flash/flash.h"
+ARM GAS  /tmp/ccGKOTr9.s 			page 28
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 i2c_slave.c
-     /tmp/ccJcvQVT.s:16     .text.HAL_I2C_ListenCpltCallback:0000000000000000 $t
-     /tmp/ccJcvQVT.s:24     .text.HAL_I2C_ListenCpltCallback:0000000000000000 HAL_I2C_ListenCpltCallback
-     /tmp/ccJcvQVT.s:47     .text.HAL_I2C_ErrorCallback:0000000000000000 $t
-     /tmp/ccJcvQVT.s:54     .text.HAL_I2C_ErrorCallback:0000000000000000 HAL_I2C_ErrorCallback
-     /tmp/ccJcvQVT.s:76     .rodata.check_i2c_timeout.str1.4:0000000000000000 $d
-     /tmp/ccJcvQVT.s:80     .text.check_i2c_timeout:0000000000000000 $t
-     /tmp/ccJcvQVT.s:87     .text.check_i2c_timeout:0000000000000000 check_i2c_timeout
-     /tmp/ccJcvQVT.s:176    .text.check_i2c_timeout:0000000000000068 $d
-     /tmp/ccJcvQVT.s:189    .rodata.HAL_I2C_AddrCallback.str1.4:0000000000000000 $d
-     /tmp/ccJcvQVT.s:196    .text.HAL_I2C_AddrCallback:0000000000000000 $t
-     /tmp/ccJcvQVT.s:203    .text.HAL_I2C_AddrCallback:0000000000000000 HAL_I2C_AddrCallback
-     /tmp/ccJcvQVT.s:430    .text.HAL_I2C_AddrCallback:000000000000010c $d
-     /tmp/ccJcvQVT.s:444    .rodata.HAL_I2C_SlaveRxCpltCallback.str1.4:0000000000000000 $d
-     /tmp/ccJcvQVT.s:472    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 $t
-     /tmp/ccJcvQVT.s:479    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 HAL_I2C_SlaveRxCpltCallback
-     /tmp/ccJcvQVT.s:714    .text.HAL_I2C_SlaveRxCpltCallback:00000000000000e8 $d
-     /tmp/ccJcvQVT.s:794    .bss.last_i2c_activity:0000000000000000 last_i2c_activity
-     /tmp/ccJcvQVT.s:756    .bss.RxData:0000000000000000 RxData
-     /tmp/ccJcvQVT.s:775    .bss.current_packet_index:0000000000000000 current_packet_index
-     /tmp/ccJcvQVT.s:818    .bss.send_all_packets:0000000000000000 send_all_packets
-     /tmp/ccJcvQVT.s:806    .bss.prestore_image_requested:0000000000000000 prestore_image_requested
-     /tmp/ccJcvQVT.s:762    .bss.capture_requested:0000000000000000 capture_requested
-     /tmp/ccJcvQVT.s:781    .bss.effect:0000000000000000 effect
-     /tmp/ccJcvQVT.s:812    .bss.saturation_lvl:0000000000000000 saturation_lvl
-     /tmp/ccJcvQVT.s:787    .bss.exposure_lvl:0000000000000000 exposure_lvl
-     /tmp/ccJcvQVT.s:768    .bss.contra_lvl:0000000000000000 contra_lvl
-     /tmp/ccJcvQVT.s:824    .bss.shrp_lvl:0000000000000000 shrp_lvl
-     /tmp/ccJcvQVT.s:800    .bss.lvl:0000000000000000 lvl
-     /tmp/ccJcvQVT.s:831    .data.test_card_ssdv_buffer:0000000000000000 test_card_ssdv_buffer
-     /tmp/ccJcvQVT.s:752    .bss.RxData:0000000000000000 $d
-     /tmp/ccJcvQVT.s:763    .bss.capture_requested:0000000000000000 $d
-     /tmp/ccJcvQVT.s:769    .bss.contra_lvl:0000000000000000 $d
-     /tmp/ccJcvQVT.s:771    .bss.current_packet_index:0000000000000000 $d
-     /tmp/ccJcvQVT.s:782    .bss.effect:0000000000000000 $d
-     /tmp/ccJcvQVT.s:788    .bss.exposure_lvl:0000000000000000 $d
-     /tmp/ccJcvQVT.s:790    .bss.last_i2c_activity:0000000000000000 $d
-     /tmp/ccJcvQVT.s:801    .bss.lvl:0000000000000000 $d
-     /tmp/ccJcvQVT.s:807    .bss.prestore_image_requested:0000000000000000 $d
-     /tmp/ccJcvQVT.s:813    .bss.saturation_lvl:0000000000000000 $d
-     /tmp/ccJcvQVT.s:819    .bss.send_all_packets:0000000000000000 $d
-     /tmp/ccJcvQVT.s:825    .bss.shrp_lvl:0000000000000000 $d
-     /tmp/ccJcvQVT.s:827    .data.test_card_ssdv_buffer:0000000000000000 $d
+     /tmp/ccGKOTr9.s:16     .text.HAL_I2C_ListenCpltCallback:0000000000000000 $t
+     /tmp/ccGKOTr9.s:24     .text.HAL_I2C_ListenCpltCallback:0000000000000000 HAL_I2C_ListenCpltCallback
+     /tmp/ccGKOTr9.s:47     .text.HAL_I2C_ErrorCallback:0000000000000000 $t
+     /tmp/ccGKOTr9.s:54     .text.HAL_I2C_ErrorCallback:0000000000000000 HAL_I2C_ErrorCallback
+     /tmp/ccGKOTr9.s:76     .rodata.HAL_I2C_AddrCallback.str1.4:0000000000000000 $d
+     /tmp/ccGKOTr9.s:83     .text.HAL_I2C_AddrCallback:0000000000000000 $t
+     /tmp/ccGKOTr9.s:90     .text.HAL_I2C_AddrCallback:0000000000000000 HAL_I2C_AddrCallback
+     /tmp/ccGKOTr9.s:317    .text.HAL_I2C_AddrCallback:000000000000010c $d
+     /tmp/ccGKOTr9.s:331    .rodata.HAL_I2C_SlaveRxCpltCallback.str1.4:0000000000000000 $d
+     /tmp/ccGKOTr9.s:359    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 $t
+     /tmp/ccGKOTr9.s:366    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 HAL_I2C_SlaveRxCpltCallback
+     /tmp/ccGKOTr9.s:601    .text.HAL_I2C_SlaveRxCpltCallback:00000000000000e8 $d
+     /tmp/ccGKOTr9.s:681    .bss.last_i2c_activity:0000000000000000 last_i2c_activity
+     /tmp/ccGKOTr9.s:643    .bss.RxData:0000000000000000 RxData
+     /tmp/ccGKOTr9.s:662    .bss.current_packet_index:0000000000000000 current_packet_index
+     /tmp/ccGKOTr9.s:705    .bss.send_all_packets:0000000000000000 send_all_packets
+     /tmp/ccGKOTr9.s:693    .bss.prestore_image_requested:0000000000000000 prestore_image_requested
+     /tmp/ccGKOTr9.s:649    .bss.capture_requested:0000000000000000 capture_requested
+     /tmp/ccGKOTr9.s:668    .bss.effect:0000000000000000 effect
+     /tmp/ccGKOTr9.s:699    .bss.saturation_lvl:0000000000000000 saturation_lvl
+     /tmp/ccGKOTr9.s:674    .bss.exposure_lvl:0000000000000000 exposure_lvl
+     /tmp/ccGKOTr9.s:655    .bss.contra_lvl:0000000000000000 contra_lvl
+     /tmp/ccGKOTr9.s:711    .bss.shrp_lvl:0000000000000000 shrp_lvl
+     /tmp/ccGKOTr9.s:687    .bss.lvl:0000000000000000 lvl
+     /tmp/ccGKOTr9.s:718    .data.test_card_ssdv_buffer:0000000000000000 test_card_ssdv_buffer
+     /tmp/ccGKOTr9.s:639    .bss.RxData:0000000000000000 $d
+     /tmp/ccGKOTr9.s:650    .bss.capture_requested:0000000000000000 $d
+     /tmp/ccGKOTr9.s:656    .bss.contra_lvl:0000000000000000 $d
+     /tmp/ccGKOTr9.s:658    .bss.current_packet_index:0000000000000000 $d
+     /tmp/ccGKOTr9.s:669    .bss.effect:0000000000000000 $d
+     /tmp/ccGKOTr9.s:675    .bss.exposure_lvl:0000000000000000 $d
+     /tmp/ccGKOTr9.s:677    .bss.last_i2c_activity:0000000000000000 $d
+     /tmp/ccGKOTr9.s:688    .bss.lvl:0000000000000000 $d
+     /tmp/ccGKOTr9.s:694    .bss.prestore_image_requested:0000000000000000 $d
+     /tmp/ccGKOTr9.s:700    .bss.saturation_lvl:0000000000000000 $d
+     /tmp/ccGKOTr9.s:706    .bss.send_all_packets:0000000000000000 $d
+     /tmp/ccGKOTr9.s:712    .bss.shrp_lvl:0000000000000000 $d
+     /tmp/ccGKOTr9.s:714    .data.test_card_ssdv_buffer:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2C_EnableListen_IT
 HAL_GetTick
-puts
-HAL_Delay
-MX_I2C2_Init
-hi2c2
 HAL_I2C_Slave_Seq_Transmit_IT
 printf
 HAL_I2C_Slave_Seq_Receive_IT
 watchdog_set_time_period
 memset
-ARM GAS  /tmp/ccJcvQVT.s 			page 31
-
-
 flash_read_buffer
 ssdv_packets_in_image
 ssdv_start_addr
+puts

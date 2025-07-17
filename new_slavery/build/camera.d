@@ -1,5 +1,5 @@
-build/camera.o: Core/Src/camera.c Core/Inc/camera.h libs/flash/flash.h \
- Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+build/camera.o: libs/camera/camera.c libs/camera/camera.h \
+ libs/flash/flash.h Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  Core/Inc/stm32f1xx_hal_conf.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -22,8 +22,8 @@ build/camera.o: Core/Src/camera.c Core/Inc/camera.h libs/flash/flash.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h libs/ssdv/ssdv.h \
- Core/Inc/main.h Core/Inc/i2c_slave.h Core/Inc/camera.h
-Core/Inc/camera.h:
+ Core/Inc/main.h Core/Inc/i2c_slave.h libs/camera/camera.h
+libs/camera/camera.h:
 libs/flash/flash.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 Core/Inc/stm32f1xx_hal_conf.h:
@@ -53,4 +53,4 @@ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 libs/ssdv/ssdv.h:
 Core/Inc/main.h:
 Core/Inc/i2c_slave.h:
-Core/Inc/camera.h:
+libs/camera/camera.h:

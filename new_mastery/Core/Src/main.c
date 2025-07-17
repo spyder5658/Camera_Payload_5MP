@@ -536,9 +536,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   printf("Master starting...\r\n");
   HAL_Delay(500);
-//   set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
-//   set_effect_(CAM_COLOR_FX_SEPIA );
-//   set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
+
 
   // Step 1: Request Image Capture
 
@@ -600,28 +598,31 @@ int main(void)
   while (1)
   {
     camera_on();
-    // HAL_Delay(3000);
+    HAL_Delay(3000);     //relaxation time for slave board to powerup and get configured ............
     /* === Periodic I2C bus health check === */
-    if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
-    {
-      last_i2c_check_time = HAL_GetTick();
+    // if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
+    // {
+    //   last_i2c_check_time = HAL_GetTick();
 
-      // Timeout: if no I2C activity in 3s, and BUSY flag still set
-      if ((HAL_GetTick() - last_i2c_activity > 3000) &&
-          (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
-      {
-        printf("I2C timeout detected! Resetting I2C2...\r\n");
+    //   // Timeout: if no I2C activity in 3s, and BUSY flag still set
+    //   if ((HAL_GetTick() - last_i2c_activity > 3000) &&
+    //       (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
+    //   {
+    //     printf("I2C timeout detected! Resetting I2C2...\r\n");
 
-        // Reset I2C2 peripheral safely
+    //     // Reset I2C2 peripheral safely
         __HAL_RCC_I2C2_FORCE_RESET();
         HAL_Delay(2);
         __HAL_RCC_I2C2_RELEASE_RESET();
         MX_I2C2_Init();  // Reinitialize I2C2
        
 
-      }
-    }
+    //   }
+    // }
     HAL_Delay(1000);
+      set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
+    set_effect_(CAM_COLOR_FX_BW );
+    set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
     request_image_capture();
     HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
 

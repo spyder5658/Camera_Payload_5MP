@@ -1,5 +1,6 @@
-build/watchdog.o: Core/Src/watchdog.c Core/Inc/watchdog.h Core/Inc/gpio.h \
- Core/Inc/main.h Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+build/watchdog.o: libs/watchdog/watchdog.c libs/watchdog/watchdog.h \
+ Core/Inc/gpio.h Core/Inc/main.h \
+ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  Core/Inc/stm32f1xx_hal_conf.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -22,7 +23,7 @@ build/watchdog.o: Core/Src/watchdog.c Core/Inc/watchdog.h Core/Inc/gpio.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h Core/Inc/usart.h
-Core/Inc/watchdog.h:
+libs/watchdog/watchdog.h:
 Core/Inc/gpio.h:
 Core/Inc/main.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
