@@ -97,7 +97,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
                 prestore_image_requested = 0;
                 current_packet_index = 0;
                 watchdog_set_time_period(WD_DELAY_1_S);
-                while (1); // ❗ Consider removing this in production
+                while (1); // 
             }
         }
         else if (send_all_packets && current_packet_index < ssdv_packets_in_image)
@@ -118,7 +118,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
             send_all_packets = 0;
             current_packet_index = 0;
             watchdog_set_time_period(WD_DELAY_1_S);
-            while (1); // ❗ Consider replacing with safe flag instead
+            while (1); // 
         }
     }
 }

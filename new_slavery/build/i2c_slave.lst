@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccGKOTr9.s 			page 1
+ARM GAS  /tmp/ccMX5Cxo.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
   29:Core/Src/i2c_slave.c **** 
   30:Core/Src/i2c_slave.c **** extern I2C_HandleTypeDef hi2c2;
   31:Core/Src/i2c_slave.c **** #define RxSize 2
-ARM GAS  /tmp/ccGKOTr9.s 			page 2
+ARM GAS  /tmp/ccMX5Cxo.s 			page 2
 
 
   32:Core/Src/i2c_slave.c **** uint8_t RxData[RxSize];
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
   46:Core/Src/i2c_slave.c **** }
   70              		.loc 1 46 1 is_stmt 0 view .LVU7
   71 0006 08BD     		pop	{r3, pc}
-ARM GAS  /tmp/ccGKOTr9.s 			page 3
+ARM GAS  /tmp/ccMX5Cxo.s 			page 3
 
 
   72              		.cfi_endproc
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
   93              		.loc 1 73 1 is_stmt 1 view -0
   94              		.cfi_startproc
   95              		@ args = 0, pretend = 0, frame = 224
-ARM GAS  /tmp/ccGKOTr9.s 			page 4
+ARM GAS  /tmp/ccMX5Cxo.s 			page 4
 
 
   96              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
   86:Core/Src/i2c_slave.c ****                 HAL_I2C_Slave_Seq_Transmit_IT(hi2c,
  138              		.loc 1 86 17 is_stmt 1 view .LVU23
   87:Core/Src/i2c_slave.c ****                     &test_card_ssdv_buffer[current_packet_index * SSDV_PKT_SIZE],
-ARM GAS  /tmp/ccGKOTr9.s 			page 5
+ARM GAS  /tmp/ccMX5Cxo.s 			page 5
 
 
  139              		.loc 1 87 65 is_stmt 0 view .LVU24
@@ -291,14 +291,14 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
   97:Core/Src/i2c_slave.c ****                 prestore_image_requested = 0;
   98:Core/Src/i2c_slave.c ****                 current_packet_index = 0;
   99:Core/Src/i2c_slave.c ****                 watchdog_set_time_period(WD_DELAY_1_S);
- 100:Core/Src/i2c_slave.c ****                 while (1); // ❗ Consider removing this in production
+ 100:Core/Src/i2c_slave.c ****                 while (1); // 
  101:Core/Src/i2c_slave.c ****             }
  102:Core/Src/i2c_slave.c ****         }
  103:Core/Src/i2c_slave.c ****         else if (send_all_packets && current_packet_index < ssdv_packets_in_image)
  104:Core/Src/i2c_slave.c ****         {
  105:Core/Src/i2c_slave.c ****             uint8_t ssdv_pkt[SSDV_PKT_SIZE] = {0};
  106:Core/Src/i2c_slave.c ****             flash_read_buffer(ssdv_pkt,
-ARM GAS  /tmp/ccGKOTr9.s 			page 6
+ARM GAS  /tmp/ccMX5Cxo.s 			page 6
 
 
  107:Core/Src/i2c_slave.c ****                 ssdv_start_addr + current_packet_index * SSDV_PKT_SIZE,
@@ -315,7 +315,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  118:Core/Src/i2c_slave.c ****             send_all_packets = 0;
  119:Core/Src/i2c_slave.c ****             current_packet_index = 0;
  120:Core/Src/i2c_slave.c ****             watchdog_set_time_period(WD_DELAY_1_S);
- 121:Core/Src/i2c_slave.c ****             while (1); // ❗ Consider replacing with safe flag instead
+ 121:Core/Src/i2c_slave.c ****             while (1); // 
  122:Core/Src/i2c_slave.c ****         }
  123:Core/Src/i2c_slave.c ****     }
  124:Core/Src/i2c_slave.c **** }
@@ -358,10 +358,10 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  204              		.loc 1 98 38 is_stmt 0 view .LVU37
  205 0080 244A     		ldr	r2, .L16+8
  206 0082 1380     		strh	r3, [r2]	@ movhi
-ARM GAS  /tmp/ccGKOTr9.s 			page 7
+ARM GAS  /tmp/ccMX5Cxo.s 			page 7
 
 
-  99:Core/Src/i2c_slave.c ****                 while (1); // ❗ Consider removing this in production
+  99:Core/Src/i2c_slave.c ****                 while (1); // 
  207              		.loc 1 99 17 is_stmt 1 view .LVU38
  208 0084 0420     		movs	r0, #4
  209 0086 FFF7FEFF 		bl	watchdog_set_time_period
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  247              		.loc 1 118 13 view .LVU51
  118:Core/Src/i2c_slave.c ****             current_packet_index = 0;
  248              		.loc 1 118 30 is_stmt 0 view .LVU52
-ARM GAS  /tmp/ccGKOTr9.s 			page 8
+ARM GAS  /tmp/ccMX5Cxo.s 			page 8
 
 
  249 00b2 0023     		movs	r3, #0
@@ -430,7 +430,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  253              		.loc 1 119 34 is_stmt 0 view .LVU54
  254 00b8 164A     		ldr	r2, .L16+8
  255 00ba 1380     		strh	r3, [r2]	@ movhi
- 120:Core/Src/i2c_slave.c ****             while (1); // ❗ Consider replacing with safe flag instead
+ 120:Core/Src/i2c_slave.c ****             while (1); // 
  256              		.loc 1 120 13 is_stmt 1 view .LVU55
  257 00bc 0420     		movs	r0, #4
  258 00be FFF7FEFF 		bl	watchdog_set_time_period
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  110:Core/Src/i2c_slave.c ****             printf("Sent flash SSDV packet %d\n", current_packet_index);
  291              		.loc 1 110 13 is_stmt 1 view .LVU65
  292 00ea 0823     		movs	r3, #8
-ARM GAS  /tmp/ccGKOTr9.s 			page 9
+ARM GAS  /tmp/ccMX5Cxo.s 			page 9
 
 
  293 00ec E022     		movs	r2, #224
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  336      65737465 
  337 0033 00       		.align	2
  338              	.LC4:
-ARM GAS  /tmp/ccGKOTr9.s 			page 10
+ARM GAS  /tmp/ccMX5Cxo.s 			page 10
 
 
  339 0034 50726573 		.ascii	"Prestored command received\015\000"
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  368              	.LFB71:
  125:Core/Src/i2c_slave.c **** 
  126:Core/Src/i2c_slave.c **** // ✅ Process master-to-slave command
-ARM GAS  /tmp/ccGKOTr9.s 			page 11
+ARM GAS  /tmp/ccMX5Cxo.s 			page 11
 
 
  127:Core/Src/i2c_slave.c **** void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  402 0018 2CD0     		beq	.L31
  148:Core/Src/i2c_slave.c ****     {
  149:Core/Src/i2c_slave.c ****         printf("Prestored command received\r\n");
-ARM GAS  /tmp/ccGKOTr9.s 			page 12
+ARM GAS  /tmp/ccMX5Cxo.s 			page 12
 
 
  150:Core/Src/i2c_slave.c ****         prestore_image_requested = 1;
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  180:Core/Src/i2c_slave.c ****     {
  181:Core/Src/i2c_slave.c ****         effect = RxData[1];
  427              		.loc 1 181 9 is_stmt 1 view .LVU95
-ARM GAS  /tmp/ccGKOTr9.s 			page 13
+ARM GAS  /tmp/ccMX5Cxo.s 			page 13
 
 
  428              		.loc 1 181 24 is_stmt 0 view .LVU96
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  470              	.LVL25:
  471              	.L30:
  143:Core/Src/i2c_slave.c ****         send_all_packets = 1;
-ARM GAS  /tmp/ccGKOTr9.s 			page 14
+ARM GAS  /tmp/ccMX5Cxo.s 			page 14
 
 
  472              		.loc 1 143 9 is_stmt 1 view .LVU111
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  513              	.LVL30:
  156:Core/Src/i2c_slave.c ****         printf("Brightness level: %i\n", lvl);
  514              		.loc 1 156 21 view .LVU125
-ARM GAS  /tmp/ccGKOTr9.s 			page 15
+ARM GAS  /tmp/ccMX5Cxo.s 			page 15
 
 
  515 008e 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  555              		.loc 1 167 9 is_stmt 1 view .LVU139
  556 00b8 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
  557 00ba 1B48     		ldr	r0, .L37+64
-ARM GAS  /tmp/ccGKOTr9.s 			page 16
+ARM GAS  /tmp/ccMX5Cxo.s 			page 16
 
 
  558 00bc FFF7FEFF 		bl	printf
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  599 00e6 00BF     		.align	2
  600              	.L37:
  601 00e8 00000000 		.word	.LANCHOR0
-ARM GAS  /tmp/ccGKOTr9.s 			page 17
+ARM GAS  /tmp/ccMX5Cxo.s 			page 17
 
 
  602 00ec 00000000 		.word	.LANCHOR1
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  665              		.set	.LANCHOR12,. + 0
  668              	effect:
  669 0000 00       		.space	1
-ARM GAS  /tmp/ccGKOTr9.s 			page 18
+ARM GAS  /tmp/ccMX5Cxo.s 			page 18
 
 
  670              		.section	.bss.exposure_lvl,"aw",%nobits
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  723      5F5D3EC3 
  723      74619B00 
  723      CB229CC8 
-ARM GAS  /tmp/ccGKOTr9.s 			page 19
+ARM GAS  /tmp/ccMX5Cxo.s 			page 19
 
 
  724 005f 0671F747 		.ascii	"\006q\367G\267\326\225,,\214\221y\250\"b\256^!6q\216"
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  735      63CC21F3 
  736 012b B877207B 		.ascii	"\270w {VsZ\314\267\006\002\240H:\202\300\177Z\224\351"
  736      56735ACC 
-ARM GAS  /tmp/ccGKOTr9.s 			page 20
+ARM GAS  /tmp/ccMX5Cxo.s 			page 20
 
 
  736      B70602A0 
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  747      B8
  748 0205 C2BB16C0 		.ascii	"\302\273\026\300\037w8\310\037\\\012-\345\226MI\256"
  748      1F7738C8 
-ARM GAS  /tmp/ccGKOTr9.s 			page 21
+ARM GAS  /tmp/ccMX5Cxo.s 			page 21
 
 
  748      1F5C0A2D 
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  759      EB505F5D 
  759      0B836E54 
  760 02e6 91390493 		.ascii	"\2219\004\223\203\223\337\362\253\347U\204\201\265\344"
-ARM GAS  /tmp/ccGKOTr9.s 			page 22
+ARM GAS  /tmp/ccMX5Cxo.s 			page 22
 
 
  760      8393DFF2 
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  772 03b0 24CE3AF5 		.ascii	"$\316:\365\364\351Q\230,\306\322Q\0231+\341\345#9\364"
  772      F4E95198 
  772      2CC6D251 
-ARM GAS  /tmp/ccGKOTr9.s 			page 23
+ARM GAS  /tmp/ccMX5Cxo.s 			page 23
 
 
  772      13312BE1 
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  784 0487 01E3EFE0 		.ascii	"\001\343\357\340\267\212\336'\204r\354\300\220I\034"
  784      B78ADE27 
  784      8472ECC0 
-ARM GAS  /tmp/ccGKOTr9.s 			page 24
+ARM GAS  /tmp/ccMX5Cxo.s 			page 24
 
 
  784      90491C
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  796      7AD023E1 
  796      0C6C57D7 
  796      DAA2AD
-ARM GAS  /tmp/ccGKOTr9.s 			page 25
+ARM GAS  /tmp/ccMX5Cxo.s 			page 25
 
 
  797 0565 02808350 		.ascii	"\002\200\203P\311\032\354b\000\004\017J\005qeVkT d\002"
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  808      A02C7F2D 
  808      3E838C29 
  808      6A9F5865 
-ARM GAS  /tmp/ccGKOTr9.s 			page 26
+ARM GAS  /tmp/ccMX5Cxo.s 			page 26
 
 
  808      D6FB64E1 
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  824              		.file 4 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
  825              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  826              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
-ARM GAS  /tmp/ccGKOTr9.s 			page 27
+ARM GAS  /tmp/ccMX5Cxo.s 			page 27
 
 
  827              		.file 7 "libs/camera/camera.h"
@@ -1569,49 +1569,49 @@ ARM GAS  /tmp/ccGKOTr9.s 			page 1
  832              		.file 12 "/usr/include/newlib/stdio.h"
  833              		.file 13 "<built-in>"
  834              		.file 14 "libs/flash/flash.h"
-ARM GAS  /tmp/ccGKOTr9.s 			page 28
+ARM GAS  /tmp/ccMX5Cxo.s 			page 28
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 i2c_slave.c
-     /tmp/ccGKOTr9.s:16     .text.HAL_I2C_ListenCpltCallback:0000000000000000 $t
-     /tmp/ccGKOTr9.s:24     .text.HAL_I2C_ListenCpltCallback:0000000000000000 HAL_I2C_ListenCpltCallback
-     /tmp/ccGKOTr9.s:47     .text.HAL_I2C_ErrorCallback:0000000000000000 $t
-     /tmp/ccGKOTr9.s:54     .text.HAL_I2C_ErrorCallback:0000000000000000 HAL_I2C_ErrorCallback
-     /tmp/ccGKOTr9.s:76     .rodata.HAL_I2C_AddrCallback.str1.4:0000000000000000 $d
-     /tmp/ccGKOTr9.s:83     .text.HAL_I2C_AddrCallback:0000000000000000 $t
-     /tmp/ccGKOTr9.s:90     .text.HAL_I2C_AddrCallback:0000000000000000 HAL_I2C_AddrCallback
-     /tmp/ccGKOTr9.s:317    .text.HAL_I2C_AddrCallback:000000000000010c $d
-     /tmp/ccGKOTr9.s:331    .rodata.HAL_I2C_SlaveRxCpltCallback.str1.4:0000000000000000 $d
-     /tmp/ccGKOTr9.s:359    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 $t
-     /tmp/ccGKOTr9.s:366    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 HAL_I2C_SlaveRxCpltCallback
-     /tmp/ccGKOTr9.s:601    .text.HAL_I2C_SlaveRxCpltCallback:00000000000000e8 $d
-     /tmp/ccGKOTr9.s:681    .bss.last_i2c_activity:0000000000000000 last_i2c_activity
-     /tmp/ccGKOTr9.s:643    .bss.RxData:0000000000000000 RxData
-     /tmp/ccGKOTr9.s:662    .bss.current_packet_index:0000000000000000 current_packet_index
-     /tmp/ccGKOTr9.s:705    .bss.send_all_packets:0000000000000000 send_all_packets
-     /tmp/ccGKOTr9.s:693    .bss.prestore_image_requested:0000000000000000 prestore_image_requested
-     /tmp/ccGKOTr9.s:649    .bss.capture_requested:0000000000000000 capture_requested
-     /tmp/ccGKOTr9.s:668    .bss.effect:0000000000000000 effect
-     /tmp/ccGKOTr9.s:699    .bss.saturation_lvl:0000000000000000 saturation_lvl
-     /tmp/ccGKOTr9.s:674    .bss.exposure_lvl:0000000000000000 exposure_lvl
-     /tmp/ccGKOTr9.s:655    .bss.contra_lvl:0000000000000000 contra_lvl
-     /tmp/ccGKOTr9.s:711    .bss.shrp_lvl:0000000000000000 shrp_lvl
-     /tmp/ccGKOTr9.s:687    .bss.lvl:0000000000000000 lvl
-     /tmp/ccGKOTr9.s:718    .data.test_card_ssdv_buffer:0000000000000000 test_card_ssdv_buffer
-     /tmp/ccGKOTr9.s:639    .bss.RxData:0000000000000000 $d
-     /tmp/ccGKOTr9.s:650    .bss.capture_requested:0000000000000000 $d
-     /tmp/ccGKOTr9.s:656    .bss.contra_lvl:0000000000000000 $d
-     /tmp/ccGKOTr9.s:658    .bss.current_packet_index:0000000000000000 $d
-     /tmp/ccGKOTr9.s:669    .bss.effect:0000000000000000 $d
-     /tmp/ccGKOTr9.s:675    .bss.exposure_lvl:0000000000000000 $d
-     /tmp/ccGKOTr9.s:677    .bss.last_i2c_activity:0000000000000000 $d
-     /tmp/ccGKOTr9.s:688    .bss.lvl:0000000000000000 $d
-     /tmp/ccGKOTr9.s:694    .bss.prestore_image_requested:0000000000000000 $d
-     /tmp/ccGKOTr9.s:700    .bss.saturation_lvl:0000000000000000 $d
-     /tmp/ccGKOTr9.s:706    .bss.send_all_packets:0000000000000000 $d
-     /tmp/ccGKOTr9.s:712    .bss.shrp_lvl:0000000000000000 $d
-     /tmp/ccGKOTr9.s:714    .data.test_card_ssdv_buffer:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:16     .text.HAL_I2C_ListenCpltCallback:0000000000000000 $t
+     /tmp/ccMX5Cxo.s:24     .text.HAL_I2C_ListenCpltCallback:0000000000000000 HAL_I2C_ListenCpltCallback
+     /tmp/ccMX5Cxo.s:47     .text.HAL_I2C_ErrorCallback:0000000000000000 $t
+     /tmp/ccMX5Cxo.s:54     .text.HAL_I2C_ErrorCallback:0000000000000000 HAL_I2C_ErrorCallback
+     /tmp/ccMX5Cxo.s:76     .rodata.HAL_I2C_AddrCallback.str1.4:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:83     .text.HAL_I2C_AddrCallback:0000000000000000 $t
+     /tmp/ccMX5Cxo.s:90     .text.HAL_I2C_AddrCallback:0000000000000000 HAL_I2C_AddrCallback
+     /tmp/ccMX5Cxo.s:317    .text.HAL_I2C_AddrCallback:000000000000010c $d
+     /tmp/ccMX5Cxo.s:331    .rodata.HAL_I2C_SlaveRxCpltCallback.str1.4:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:359    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 $t
+     /tmp/ccMX5Cxo.s:366    .text.HAL_I2C_SlaveRxCpltCallback:0000000000000000 HAL_I2C_SlaveRxCpltCallback
+     /tmp/ccMX5Cxo.s:601    .text.HAL_I2C_SlaveRxCpltCallback:00000000000000e8 $d
+     /tmp/ccMX5Cxo.s:681    .bss.last_i2c_activity:0000000000000000 last_i2c_activity
+     /tmp/ccMX5Cxo.s:643    .bss.RxData:0000000000000000 RxData
+     /tmp/ccMX5Cxo.s:662    .bss.current_packet_index:0000000000000000 current_packet_index
+     /tmp/ccMX5Cxo.s:705    .bss.send_all_packets:0000000000000000 send_all_packets
+     /tmp/ccMX5Cxo.s:693    .bss.prestore_image_requested:0000000000000000 prestore_image_requested
+     /tmp/ccMX5Cxo.s:649    .bss.capture_requested:0000000000000000 capture_requested
+     /tmp/ccMX5Cxo.s:668    .bss.effect:0000000000000000 effect
+     /tmp/ccMX5Cxo.s:699    .bss.saturation_lvl:0000000000000000 saturation_lvl
+     /tmp/ccMX5Cxo.s:674    .bss.exposure_lvl:0000000000000000 exposure_lvl
+     /tmp/ccMX5Cxo.s:655    .bss.contra_lvl:0000000000000000 contra_lvl
+     /tmp/ccMX5Cxo.s:711    .bss.shrp_lvl:0000000000000000 shrp_lvl
+     /tmp/ccMX5Cxo.s:687    .bss.lvl:0000000000000000 lvl
+     /tmp/ccMX5Cxo.s:718    .data.test_card_ssdv_buffer:0000000000000000 test_card_ssdv_buffer
+     /tmp/ccMX5Cxo.s:639    .bss.RxData:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:650    .bss.capture_requested:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:656    .bss.contra_lvl:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:658    .bss.current_packet_index:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:669    .bss.effect:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:675    .bss.exposure_lvl:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:677    .bss.last_i2c_activity:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:688    .bss.lvl:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:694    .bss.prestore_image_requested:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:700    .bss.saturation_lvl:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:706    .bss.send_all_packets:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:712    .bss.shrp_lvl:0000000000000000 $d
+     /tmp/ccMX5Cxo.s:714    .data.test_card_ssdv_buffer:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2C_EnableListen_IT
