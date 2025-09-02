@@ -39,19 +39,41 @@ uint8_t arducam_read_register(uint8_t reg) {
 
 
 
-// Burst read from FIFO
+// // Burst read from FIFO
+// uint32_t arducam_burst_read(uint8_t *buf, uint32_t max_len) {
+//     uint8_t burst_cmd = 0x3C; // Burst read register
+//     CS_LOW();
+//     HAL_SPI_Transmit(&hspi1, &burst_cmd, 1, HAL_MAX_DELAY);
+//     uint8_t dummy = 0x00;
+//     HAL_SPI_Transmit(&hspi1, &dummy, 1, HAL_MAX_DELAY); // First dummy byte
+
+//     HAL_SPI_Receive(&hspi1, buf, max_len, HAL_MAX_DELAY);
+//     CS_HIGH();
+//     return max_len;
+// }
+
+
+// Safer burst read from FIFO
 uint32_t arducam_burst_read(uint8_t *buf, uint32_t max_len) {
-    uint8_t burst_cmd = 0x3C; // Burst read register
+    uint8_t burst_cmd = 0x3C;
     CS_LOW();
     HAL_SPI_Transmit(&hspi1, &burst_cmd, 1, HAL_MAX_DELAY);
-    uint8_t dummy = 0x00;
-    HAL_SPI_Transmit(&hspi1, &dummy, 1, HAL_MAX_DELAY); // First dummy byte
 
-    HAL_SPI_Receive(&hspi1, buf, max_len, HAL_MAX_DELAY);
+    uint8_t dummy = 0x00;
+    HAL_SPI_Transmit(&hspi1, &dummy, 1, HAL_MAX_DELAY);
+
+    for (uint32_t i = 0; i < max_len; i++) {
+        uint8_t tx = 0x00;
+        uint8_t rx = 0x00;
+        if (HAL_SPI_TransmitReceive(&hspi1, &tx, &rx, 1, HAL_MAX_DELAY) != HAL_OK) {
+            CS_HIGH();
+            return i;
+        }
+        buf[i] = rx;
+    }
     CS_HIGH();
     return max_len;
 }
-
 
 void camersSetBrightness(CAM_BRIGHTNESS_LEVEL level )
 {
@@ -181,10 +203,11 @@ uint32_t find_jpeg( uint32_t bytes_read,  uint8_t image_buffer[MAX_IMAGE_SIZE])
 // //5th iteration
 void process_image_capture()
 {
+    current_packet_index = 0;
 
     // printf("setttinggggg.....camera\r\n");
     arducam_set_jpeg_mode();
-    // HAL_Delay(10);   
+    HAL_Delay(10);   
     printf("Starting image capture...\n");
     arducam_capture_image();
 
@@ -268,19 +291,19 @@ void process_image_capture()
     }
 
     /*------ READ BACK SSDV PACKETS --------*/
-    // printf("\n[READING BACK %lu SSDV PACKETS FROM FLASH]\n", ssdv_packets_in_image);
-    // for (uint32_t i = 0; i < ssdv_packets_in_image; i++) {
-    //     uint8_t buffer[SSDV_PKT_SIZE] = {0};
-    //     flash_read_buffer(buffer, ssdv_start_addr + i * SSDV_PKT_SIZE, SSDV_PKT_SIZE);
-    //     HAL_Delay(10);
+    printf("\n[READING BACK %lu SSDV PACKETS FROM FLASH]\n", ssdv_packets_in_image);
+    for (uint32_t i = 0; i < ssdv_packets_in_image; i++) {
+        uint8_t buffer[SSDV_PKT_SIZE] = {0};
+        flash_read_buffer(buffer, ssdv_start_addr + i * SSDV_PKT_SIZE, SSDV_PKT_SIZE);
+        HAL_Delay(10);
 
-    //     printf("Packet %02lu: ", i + 1);
-    //     for (uint16_t j = 0; j < SSDV_PKT_SIZE; j++) {
-    //         printf("0x%02X, ", buffer[j]);
-    //         if ((j + 1) % 16 == 0) printf("\n");
-    //     }
-    //     printf("\n-----------------------------\n");
-    // }
+        printf("Packet %02lu: ", i + 1);
+        for (uint16_t j = 0; j < SSDV_PKT_SIZE; j++) {
+            printf("0x%02X, ", buffer[j]);
+            if ((j + 1) % 16 == 0) printf("\n");
+        }
+        printf("\n-----------------------------\n");
+    }
 
     printf("[FLASH READ COMPLETE]\r\n");
 

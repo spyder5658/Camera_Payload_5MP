@@ -59,6 +59,14 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Payload_switch_Pin GPIO_PIN_6
 #define Payload_switch_GPIO_Port GPIOA
+#define SET2_Pin GPIO_PIN_9
+#define SET2_GPIO_Port GPIOA
+#define SET1_Pin GPIO_PIN_10
+#define SET1_GPIO_Port GPIOA
+#define SET0_Pin GPIO_PIN_11
+#define SET0_GPIO_Port GPIOA
+#define WDToggle_Pin GPIO_PIN_12
+#define WDToggle_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

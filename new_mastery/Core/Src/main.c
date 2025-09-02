@@ -28,6 +28,8 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <inttypes.h>
+#include "camera.h"
+#include "watchdog.h"
 int _write(int file, char *data, int len) {
     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
     return len;
@@ -37,297 +39,36 @@ int _write(int file, char *data, int len) {
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
-#define SSDV_SLAVE_ADDR (0x12<<1)
 
+#define SLAVE_ADDR      (0x12 << 1 )  // Change to your slave address (7-bit shifted)
+#define SSDV_PKT_SIZE   224
+#define MAX_PACKETS     256         // Max packets to read (adjust if needed)
 
-// uint8_t SSDV_Buffer[SSDV_PKT_SIZE];      // Buffer to hold each received packet
+uint8_t rx_buffer[SSDV_PKT_SIZE];
 
+// -------------------- I2C Commands --------------------
+#define CMD_CAPTURE         0x10
+#define CMD_STREAM_SSDV     0x20
+#define CMD_PRESTORED       0x90
 
-#define SSDV_PKT_SIZE       224
-#define SSDV_MAX_PACKETS    255
+// -------------------- Master functions --------------------
 
-uint32_t last_i2c_activity = 0; // ⬅️ Added for timeout tracking
-
-
-void request_image_capture() {
-     last_i2c_activity = HAL_GetTick();
-    uint8_t cmd[2] = {0x10,0};
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("Image capture command sent.\r\n");
-    } else {
-        printf("Failed to send image capture command.\r\n");
-    }
-}
-
-void request_prestored() {
-     last_i2c_activity = HAL_GetTick();
-    uint8_t cmd[2] = {0x90,0};
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("prestored command sent.\r\n");
-    } else {
-        printf("Failed to send prestored command.\r\n");
-    }
-}
-
-void request_ssdv_stream() {
-    uint8_t cmd[2] = {0x20,0};
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("SSDV stream command sent.\r\n");
-    } else {
-        printf("Failed to send SSDV stream command.\r\n");
-    }
-}
-
-void read_ssdv_stream() {
-     last_i2c_activity = HAL_GetTick();
-    uint8_t ssdv_pkt[SSDV_PKT_SIZE];
-    uint16_t packet_index = 0;
-
-    while (1) {
-        if (HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, ssdv_pkt, SSDV_PKT_SIZE, HAL_MAX_DELAY) != HAL_OK) {
-            printf("Error receiving packet %d\r\n", packet_index);
-            break;
-        }
-
-        // Stop when dummy packet 0xFF is received
-        if (ssdv_pkt[0] == 0xFF) {
-            printf("End of SSDV stream reached.\r\n");
-            break;
-        }
-
-        // Print packet content (optional)
-        printf("Packet %d received:\n", packet_index);
-        for (int i = 0; i < SSDV_PKT_SIZE; i++) {
-            printf("0x%02X, ", ssdv_pkt[i]);
-            if ((i + 1) % 16 == 0) printf("\n");
-        }
-        printf("\n-----------------------------\n");
-
-        packet_index++;
-        if (packet_index >= SSDV_MAX_PACKETS) {
-            printf("Max SSDV packet limit reached.\r\n");
-            break;
-        }
-    }
-}
-
-
-#define CAM_BRIGHTNESS_LEVEL_CMD  0x30
-#define CAM_SHARPNESS_LEVEL_CMD   0x40
-#define CAM_CONTRAST_LEVEL_CMD    0x50
-#define CAM_EV_LEVEL_CMD          0x60
-#define CAM_STAURATION_LEVEL_CMD  0x70
-#define CAM_COLOR_FX_CMD          0x80
-
-
-typedef enum {
-    CAM_BRIGHTNESS_LEVEL_MINUS_4 = 8, /**<Level -4 */
-    CAM_BRIGHTNESS_LEVEL_MINUS_3 = 6, /**<Level -3 */
-    CAM_BRIGHTNESS_LEVEL_MINUS_2 = 4, /**<Level -2 */
-    CAM_BRIGHTNESS_LEVEL_MINUS_1 = 2, /**<Level -1 */
-    CAM_BRIGHTNESS_LEVEL_DEFAULT = 0, /**<Level Default*/
-    CAM_BRIGHTNESS_LEVEL_1       = 1, /**<Level +1 */
-    CAM_BRIGHTNESS_LEVEL_2       = 3, /**<Level +2 */
-    CAM_BRIGHTNESS_LEVEL_3       = 5, /**<Level +3 */
-    CAM_BRIGHTNESS_LEVEL_4       = 7, /**<Level +4 */
-} CAM_BRIGHTNESS_LEVEL;
-
-typedef enum {
-    CAM_SHARPNESS_LEVEL_AUTO = 0, /**<Sharpness Auto */
-    CAM_SHARPNESS_LEVEL_1,        /**<Sharpness Level 1 */
-    CAM_SHARPNESS_LEVEL_2,        /**<Sharpness Level 2 */
-    CAM_SHARPNESS_LEVEL_3,        /**<Sharpness Level 3 */
-    CAM_SHARPNESS_LEVEL_4,        /**<Sharpness Level 4 */
-    CAM_SHARPNESS_LEVEL_5,        /**<Sharpness Level 5 */
-    CAM_SHARPNESS_LEVEL_6,        /**<Sharpness Level 6 */
-    CAM_SHARPNESS_LEVEL_7,        /**<Sharpness Level 7 */
-    CAM_SHARPNESS_LEVEL_8,        /**<Sharpness Level 8 */
-} CAM_SHARPNESS_LEVEL;
-
-
-typedef enum {
-    CAM_CONTRAST_LEVEL_MINUS_3 = 6, /**<Level -3 */
-    CAM_CONTRAST_LEVEL_MINUS_2 = 4, /**<Level -2 */
-    CAM_CONTRAST_LEVEL_MINUS_1 = 2, /**<Level -1 */
-    CAM_CONTRAST_LEVEL_DEFAULT = 0, /**<Level Default*/
-    CAM_CONTRAST_LEVEL_1       = 1, /**<Level +1 */
-    CAM_CONTRAST_LEVEL_2       = 3, /**<Level +2 */
-    CAM_CONTRAST_LEVEL_3       = 5, /**<Level +3 */
-} CAM_CONTRAST_LEVEL;
-
-
-typedef enum {
-    CAM_EV_LEVEL_MINUS_3 = 6, /**<Level -3 */
-    CAM_EV_LEVEL_MINUS_2 = 4, /**<Level -2 */
-    CAM_EV_LEVEL_MINUS_1 = 2, /**<Level -1 */
-    CAM_EV_LEVEL_DEFAULT = 0, /**<Level Default*/
-    CAM_EV_LEVEL_1       = 1, /**<Level +1 */
-    CAM_EV_LEVEL_2       = 3, /**<Level +2 */
-    CAM_EV_LEVEL_3       = 5, /**<Level +3 */
-} CAM_EV_LEVEL;
-
-
-typedef enum {
-    CAM_STAURATION_LEVEL_MINUS_3 = 6, /**<Level -3 */
-    CAM_STAURATION_LEVEL_MINUS_2 = 4, /**<Level -2 */
-    CAM_STAURATION_LEVEL_MINUS_1 = 2, /**<Level -1 */
-    CAM_STAURATION_LEVEL_DEFAULT = 0, /**<Level Default*/
-    CAM_STAURATION_LEVEL_1       = 1, /**<Level +1 */
-    CAM_STAURATION_LEVEL_2       = 3, /**<Level +2 */
-    CAM_STAURATION_LEVEL_3       = 5, /**<Level +3 */
-} CAM_STAURATION_LEVEL;
-
-
-typedef enum {
-    CAM_COLOR_FX_NONE = 0,      /**< no effect   */
-    CAM_COLOR_FX_BLUEISH,       /**< cool light   */
-    CAM_COLOR_FX_REDISH,        /**< warm   */
-    CAM_COLOR_FX_BW,            /**< Black/white   */
-    CAM_COLOR_FX_SEPIA,         /**<Sepia   */
-    CAM_COLOR_FX_NEGATIVE,      /**<positive/negative inversion  */
-    CAM_COLOR_FX_GRASS_GREEN,   /**<Grass green */
-    CAM_COLOR_FX_OVER_EXPOSURE, /**<Over exposure*/ //redish
-    CAM_COLOR_FX_SOLARIZE,      /**< Solarize   */
-} CAM_COLOR_FX;
-
-
-
-void set_brightness_(CAM_BRIGHTNESS_LEVEL level )
- {
-    uint8_t cmd[2];
-    cmd[0] = CAM_BRIGHTNESS_LEVEL_CMD;
-    cmd [1] = level ;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("brightness set.\r\n");
-    } else {
-        printf("Failed to set brigtness.\r\n");
-    }
-}
-
-void set_sharpness_(CAM_SHARPNESS_LEVEL level )
- {
-    uint8_t cmd[2];
-    cmd[0] = CAM_SHARPNESS_LEVEL_CMD;
-    cmd [1] = level ;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("sharpness set.\r\n");
-    } else {
-        printf("Failed to set sharpness.\r\n");
-
-    }
-}
-
-void set_contrast_(CAM_CONTRAST_LEVEL level )
- {
-    uint8_t cmd[2];
-    cmd[0] = CAM_CONTRAST_LEVEL_CMD;
-    cmd [1] = level ;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("contrast set.\r\n");
-    } else {
-        printf("Failed to set contrast.\r\n");
-
-    }
-}
-
-void set_exposure_(CAM_EV_LEVEL level )
- {
-    uint8_t cmd[2];
-    cmd[0] = CAM_EV_LEVEL_CMD;
-    cmd [1] = level ;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("expsoure set.\r\n");
-    } else {
-        printf("Failed to set expsoure.\r\n");
-
-    }
-}
-
-void set_saturation_(CAM_STAURATION_LEVEL level )
- {
-    uint8_t cmd[2];
-    cmd[0] = CAM_STAURATION_LEVEL_CMD;
-    cmd [1] = level ;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("saturation set.\r\n");
-    } else {
-        printf("Failed to set saturation.\r\n");
-
-    }
-}
-
-void set_effect_(CAM_COLOR_FX effect )
- {
-    uint8_t cmd[2];
-    cmd[0] = CAM_COLOR_FX_CMD;
-    cmd [1] = effect ;
-    if (HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY) == HAL_OK) {
-        printf("effect set.\r\n");
-    } else {
-        printf("Failed to set effect.\r\n");
-
-    }
-}
-
-
-
-
-#define SSDV_PKT_SIZE     224           // or 256 depending on your config
-#define MAX_PKT_COUNT     100           // maximum packets you expect
-
-uint8_t ssdv_packet[SSDV_PKT_SIZE];
-
-void request_prestored_image(void)
+void send_command(uint8_t cmd)
 {
-     last_i2c_activity = HAL_GetTick();
-    HAL_StatusTypeDef res;
-
-    // Step 1: Send 0x90 command to request prestored image
-    uint8_t cmd[2] = {0x90, 0x00}; // second byte is ignored
-    res = HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY);
-    if (res != HAL_OK) {
-        printf("Failed to send prestored command\n");
-        return;
-    }
-
-    read_ssdv_stream();
+    HAL_I2C_Master_Transmit(&hi2c2, SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY);
 }
 
-
-void camera_on()
+int read_ssdv_packet(uint8_t *packet)
 {
-    HAL_GPIO_WritePin(Payload_switch_GPIO_Port,Payload_switch_Pin,SET);
-}
+    HAL_StatusTypeDef status;
+    status = HAL_I2C_Master_Receive(&hi2c2, SLAVE_ADDR, packet, SSDV_PKT_SIZE, 100);
 
-void camera_off()
-{
-    HAL_GPIO_WritePin(Payload_switch_GPIO_Port,Payload_switch_Pin,RESET);
+    if (status != HAL_OK) return 0;
 
+    // Check for dummy packet indicating end of stream
+    if (packet[0] == 0xFF) return 0;
 
-}
-
-
-
-
-
-
-
-void check_i2c_timeout()
-{
-    if (HAL_GetTick() - last_i2c_activity > 3000) // 3 seconds no I2C activity
-    {
-        if (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY))
-        {
-            printf("I2C bus stuck, resetting...\r\n");
-            __HAL_RCC_I2C2_FORCE_RESET();
-            HAL_Delay(1);
-            __HAL_RCC_I2C2_RELEASE_RESET();
-            MX_I2C2_Init();  // Your re-init function
-            HAL_I2C_EnableListen_IT(&hi2c2);
-
-        }
-        last_i2c_activity = HAL_GetTick(); // Prevent repeated reset
-    }
+    return 1;
 }
 /* USER CODE END PTD */
 
@@ -387,134 +128,71 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-
   MX_I2C2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  printf("Master starting...\r\n");
-  HAL_Delay(500);
+  watchdog_init();
 
 
-  // Step 1: Request Image Capture
-
-//   request_image_capture();
-//   HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
-
-// //   // Step 2: Request SSDV Stream
-//   request_ssdv_stream();
-//   HAL_Delay(200);
-
-//   // Step 3: Read All SSDV Packets
-//   read_ssdv_stream();
-//     HAL_Delay(8000);
-    // request_prestored();
-//   HAL_Delay(200);
-//   read_ssdv_stream();
-    // request_prestored_image();
+    // printf("Master MCU initialized.\n");
     // camera_on();
-    // HAL_Delay(1000);
-    // request_image_capture();
-    // HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+    // HAL_Delay(3000);
 
-    //   // Step 2: Request SSDV Stream
-    // request_ssdv_stream();
+    // // -------------------- Capture Image --------------------
+    // printf("Sending capture command to slave...\n");
+    // send_command(CMD_CAPTURE);
+
+    // HAL_Delay(8000); // Wait for slave to capture & encode
+
+    // // -------------------- Stream SSDV Packets --------------------
+    // printf("Requesting SSDV stream from slave...\n");
+    // send_command(CMD_STREAM_SSDV);
     // HAL_Delay(200);
 
-    // Step 3: Read All SSDV Packets
-    // read_ssdv_stream();
+    // int packet_count = 0;
+    // while (packet_count < MAX_PACKETS)
+    // {
+    //     if (!read_ssdv_packet(rx_buffer)) break;
+
+    //     printf("Packet %d:\n", packet_count + 1);
+    //     for (int i = 0; i < SSDV_PKT_SIZE; i++)
+    //     {
+    //         printf("0x%02X, ", rx_buffer[i]);
+    //         if ((i + 1) % 16 == 0) printf("\n");
+    //     }
+    //     printf("\n-----------------------------\n");
+
+    //     packet_count++;
+    //     HAL_Delay(5); // Optional: small delay between packets
+    // }
+
+    // printf("SSDV streaming complete. Total packets: %d\n", packet_count);
     // HAL_Delay(1000);
     // camera_off();
 
 
+ 
+
+    //final camera capture flow;
+    // /*-----------------------------------------------------*/
     // camera_on();
-    // request_image_capture();
-    // HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
-
-    // //   // Step 2: Request SSDV Stream
-    // request_ssdv_stream();
-    // HAL_Delay(200);
-
-    // // Step 3: Read All SSDV Packets
-    // read_ssdv_stream();
+    // HAL_Delay(3000);
+    // i2c_check();
+    // HAL_Delay(1000);
+    // // set_properties() // optional
+    // camera_request_payload();
     // camera_off();
-    // // HAL_Delay(1500);
-    // // printf("capturing prestored image now!!\n");
 
+    // HAL_Delay(5000);
 
     // camera_on();
+    // HAL_Delay(3000);
+    // i2c_check();
+    // HAL_Delay(1000);
     // request_prestored_image();
-    // HAL_Delay(1000);
     // camera_off();
 
-  uint32_t last_i2c_check_time = 0;
-
-void i2c_check()
-{
-    if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
-    {
-      last_i2c_check_time = HAL_GetTick();
-
-      // Timeout: if no I2C activity in 3s, and BUSY flag still set
-      if ((HAL_GetTick() - last_i2c_activity > 3000) &&                    // uint32_t last_i2c_check_time = 0;   use this at the beginning if not declared;
-          (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
-      {
-        printf("I2C timeout detected! Resetting I2C2...\r\n");
-
-        // Reset I2C2 peripheral safely
-        __HAL_RCC_I2C2_FORCE_RESET();
-        HAL_Delay(2);
-        __HAL_RCC_I2C2_RELEASE_RESET();
-        MX_I2C2_Init();  // Reinitialize I2C2
-       
-
-      }
-    }
-}
-
- void camera_request_payload()
- {
-    request_image_capture();
-    i2c_check();
-    // Wait
-    HAL_UART_Transmit(&huart1, (uint8_t*)"/* ", 3, HAL_MAX_DELAY);
-    for (uint8_t i = 0; i < 8; i++)
-    {
-        HAL_UART_Transmit(&huart1, (uint8_t*)"!", 1, HAL_MAX_DELAY);
-        HAL_Delay(1000);
-    }
-    HAL_UART_Transmit(&huart1, (uint8_t*)" */\n", 4, HAL_MAX_DELAY);
-
-    // Step 2: Request SSDV Stream
-    request_ssdv_stream();
-    HAL_Delay(200);
-
-    // Step 3: Read All SSDV Packets
-    read_ssdv_stream();
-    // camera_off();
-
- }
-
-//final camera capture flow;
-/*-----------------------------------------------------*/
-// camera_on();
-// HAL_Delay(3000);
-// i2c_check();
-// HAL_Delay(1000);
-// // set_properties() // optional
-// camera_request_payload();
-// camera_off();
-
-// HAL_Delay(5000);
-
-// camera_on();
-// HAL_Delay(3000);
-// i2c_check();
-// HAL_Delay(1000);
-// request_prestored_image();
-// camera_off();
-
-/*-----------------------------------------------------*/
-
+    /*-----------------------------------------------------*/
 
   /* USER CODE END 2 */
 
@@ -522,6 +200,8 @@ void i2c_check()
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+    //  HAL_Delay(1000);
     // camera_on();
     // HAL_Delay(3000);     //relaxation time for slave board to powerup and get configured ............
     // /* === Periodic I2C bus health check === */
@@ -557,9 +237,9 @@ void i2c_check()
 
     // // Step 3: Read All SSDV Packets
     // read_ssdv_stream();
-    // // camera_off();
+    // camera_off();
     // HAL_Delay(5000);
-    // // printf("capturing prestored image now!!\n");
+    // printf("capturing prestored image now!!\n");
     // if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
     // {
     //   last_i2c_check_time = HAL_GetTick();
@@ -581,14 +261,40 @@ void i2c_check()
     // }
 
 
-    // // camera_on();
-    // // HAL_Delay(1000);
-    // printf("running prestored image\r\n");
-    // request_prestored_image();
-    // HAL_Delay(9000);
-    // // printf("i2c recovery going on....\r\n");
-    // camera_off();
+
+    // printf("i2c recovery going on....\r\n");
+    // printf("turining camera on\r\n");
+    // camera_on();
     // HAL_Delay(3000);
+    // i2c_check();
+    // HAL_Delay(1000);
+    // // set_properties() // optional
+    // camera_request_payload();
+    // // printf("turining camera off\r\n");
+    // camera_off();
+
+    // HAL_Delay(5000);
+
+
+
+
+
+
+
+
+
+
+
+
+    // printf("turining camera on\r\n");
+    // camera_on();
+    // HAL_Delay(3000);
+    // i2c_check();
+    // HAL_Delay(1000);
+    // request_prestored_image();
+    // // printf("turining camera off\r\n");
+    // camera_off();
+
     camera_on();
     HAL_Delay(3000);
     i2c_check();
@@ -597,14 +303,16 @@ void i2c_check()
     camera_request_payload();
     camera_off();
 
-    HAL_Delay(5000);
+    // HAL_Delay(5000);
 
-    camera_on();
-    HAL_Delay(3000);
-    i2c_check();
-    HAL_Delay(1000);
-    request_prestored_image();
-    camera_off();
+    // camera_on();
+    // HAL_Delay(3000);
+    // i2c_check();
+    // HAL_Delay(1000);
+    // request_prestored_image();
+    // camera_off();
+
+
 
 
 

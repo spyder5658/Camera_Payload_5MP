@@ -123,7 +123,6 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
     }
 }
 
-// ✅ Process master-to-slave command
 void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
     last_i2c_activity = HAL_GetTick(); // ⬅️ Activity timestamp

@@ -122,6 +122,8 @@ int main(void)
 
     if (capture_requested)
     {
+      arducam_set_jpeg_mode();
+      HAL_Delay(2000);
       process_image_capture();
       capture_requested = 0;
     }
