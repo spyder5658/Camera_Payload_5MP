@@ -1,0 +1,757 @@
+ARM GAS  /tmp/cc8LulXY.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"si446x_ctrl.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.si446x_ctrl_wait_cts,"ax",%progbits
+  16              		.align	1
+  17              		.global	si446x_ctrl_wait_cts
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	si446x_ctrl_wait_cts:
+  25              	.LFB71:
+  26              		.file 1 "si446x/si446x_ctrl.c"
+   1:si446x/si446x_ctrl.c **** #include "si446x_hal.h"
+   2:si446x/si446x_ctrl.c **** #include "si446x_ctrl.h"
+   3:si446x/si446x_ctrl.c **** #include "si446x_defs.h"
+   4:si446x/si446x_ctrl.c **** 
+   5:si446x/si446x_ctrl.c **** #include <string.h>
+   6:si446x/si446x_ctrl.c **** 
+   7:si446x/si446x_ctrl.c **** uint8_t si446x_ctrl_wait_cts(void)
+   8:si446x/si446x_ctrl.c **** {
+  27              		.loc 1 8 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 38B5     		push	{r3, r4, r5, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 3, -16
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+   9:si446x/si446x_ctrl.c ****   for(uint16_t i=0; i < Si446x_CONF_MAX_CTS_TRIES; i++)
+  38              		.loc 1 9 3 view .LVU1
+  39              	.LBB32:
+  40              		.loc 1 9 7 view .LVU2
+  41              	.LVL0:
+  42              		.loc 1 9 16 is_stmt 0 view .LVU3
+  43 0002 0025     		movs	r5, #0
+  44              	.LVL1:
+  45              	.L2:
+  46              		.loc 1 9 21 is_stmt 1 discriminator 1 view .LVU4
+  47              		.loc 1 9 3 is_stmt 0 discriminator 1 view .LVU5
+  48 0004 40F6C313 		movw	r3, #2499
+  49 0008 9D42     		cmp	r5, r3
+ARM GAS  /tmp/cc8LulXY.s 			page 2
+
+
+  50 000a 10D8     		bhi	.L7
+  51              	.LBB33:
+  10:si446x/si446x_ctrl.c ****   {
+  11:si446x/si446x_ctrl.c ****     si446x_hal_spi_nsel_low();
+  52              		.loc 1 11 5 is_stmt 1 view .LVU6
+  53              	.LBB34:
+  54              	.LBI34:
+  55              		.file 2 "si446x/si446x_hal.h"
+   1:si446x/si446x_hal.h **** /**
+   2:si446x/si446x_hal.h ****  * @brief Hardware abstraction layer
+   3:si446x/si446x_hal.h ****  * @author Rishav
+   4:si446x/si446x_hal.h ****  * @date 2023-06-06 04:55:37 AM +0545
+   5:si446x/si446x_hal.h **** */
+   6:si446x/si446x_hal.h **** 
+   7:si446x/si446x_hal.h **** #ifndef _si446x_SPI_H_
+   8:si446x/si446x_hal.h **** #define _si446x_SPI_H_
+   9:si446x/si446x_hal.h **** 
+  10:si446x/si446x_hal.h **** #include <inttypes.h>
+  11:si446x/si446x_hal.h **** #include "stm32f1xx.h"
+  12:si446x/si446x_hal.h **** 
+  13:si446x/si446x_hal.h **** void si446x_hal_init(void);
+  14:si446x/si446x_hal.h **** void si446x_hal_spi_init(void);
+  15:si446x/si446x_hal.h **** void si446x_hal_sdn_init(void);
+  16:si446x/si446x_hal.h **** void si446x_hal_morse_init(void);
+  17:si446x/si446x_hal.h **** 
+  18:si446x/si446x_hal.h **** uint8_t si446x_hal_spi_read_byte(const uint8_t cmd);
+  19:si446x/si446x_hal.h **** void si446x_hal_spi_write_byte(const uint8_t cmd);
+  20:si446x/si446x_hal.h **** void si446x_hal_spi_read(uint8_t* buffer, const uint8_t len);
+  21:si446x/si446x_hal.h **** void si446x_hal_spi_write(const uint8_t* buffer, const uint8_t len);
+  22:si446x/si446x_hal.h **** 
+  23:si446x/si446x_hal.h **** inline void si446x_morse_low(void)
+  24:si446x/si446x_hal.h **** {
+  25:si446x/si446x_hal.h ****   GPIOB->BRR = GPIO_BRR_BR0;
+  26:si446x/si446x_hal.h **** }
+  27:si446x/si446x_hal.h **** 
+  28:si446x/si446x_hal.h **** inline void si446x_morse_high(void)
+  29:si446x/si446x_hal.h **** {
+  30:si446x/si446x_hal.h ****   GPIOB->BSRR = GPIO_BSRR_BS0;
+  31:si446x/si446x_hal.h **** }
+  32:si446x/si446x_hal.h **** 
+  33:si446x/si446x_hal.h **** inline void si446x_hal_spi_nsel_low(void)
+  56              		.loc 2 33 13 view .LVU7
+  57              	.LBB35:
+  34:si446x/si446x_hal.h **** {
+  35:si446x/si446x_hal.h ****   GPIOB->BRR |= GPIO_BRR_BR12;
+  58              		.loc 2 35 3 view .LVU8
+  59              		.loc 2 35 14 is_stmt 0 view .LVU9
+  60 000c 0A4C     		ldr	r4, .L8
+  61 000e 6369     		ldr	r3, [r4, #20]
+  62 0010 43F48053 		orr	r3, r3, #4096
+  63 0014 6361     		str	r3, [r4, #20]
+  64              	.LBE35:
+  65              	.LBE34:
+  12:si446x/si446x_ctrl.c ****     uint8_t cts = si446x_hal_spi_read_byte(Si446x_CMD_READ_CMD_BUFF);
+  66              		.loc 1 12 5 is_stmt 1 view .LVU10
+  67              		.loc 1 12 19 is_stmt 0 view .LVU11
+  68 0016 4420     		movs	r0, #68
+ARM GAS  /tmp/cc8LulXY.s 			page 3
+
+
+  69 0018 FFF7FEFF 		bl	si446x_hal_spi_read_byte
+  70              	.LVL2:
+  13:si446x/si446x_ctrl.c ****     si446x_hal_spi_nsel_high();
+  71              		.loc 1 13 5 is_stmt 1 view .LVU12
+  72              	.LBB36:
+  73              	.LBI36:
+  36:si446x/si446x_hal.h **** }
+  37:si446x/si446x_hal.h **** 
+  38:si446x/si446x_hal.h **** inline void si446x_hal_spi_nsel_high(void)
+  74              		.loc 2 38 13 view .LVU13
+  75              	.LBB37:
+  39:si446x/si446x_hal.h **** {
+  40:si446x/si446x_hal.h ****   GPIOB->BSRR |= GPIO_BSRR_BS12;
+  76              		.loc 2 40 3 view .LVU14
+  77              		.loc 2 40 15 is_stmt 0 view .LVU15
+  78 001c 2369     		ldr	r3, [r4, #16]
+  79 001e 43F48053 		orr	r3, r3, #4096
+  80 0022 2361     		str	r3, [r4, #16]
+  81              	.LBE37:
+  82              	.LBE36:
+  14:si446x/si446x_ctrl.c **** 
+  15:si446x/si446x_ctrl.c ****     if(cts == Si446x_CTS_RESPONSE)
+  83              		.loc 1 15 5 is_stmt 1 view .LVU16
+  84              		.loc 1 15 7 is_stmt 0 view .LVU17
+  85 0024 FF28     		cmp	r0, #255
+  86 0026 04D0     		beq	.L5
+  87              	.LBE33:
+   9:si446x/si446x_ctrl.c ****   {
+  88              		.loc 1 9 52 is_stmt 1 discriminator 2 view .LVU18
+   9:si446x/si446x_ctrl.c ****   {
+  89              		.loc 1 9 53 is_stmt 0 discriminator 2 view .LVU19
+  90 0028 0135     		adds	r5, r5, #1
+  91              	.LVL3:
+   9:si446x/si446x_ctrl.c ****   {
+  92              		.loc 1 9 53 discriminator 2 view .LVU20
+  93 002a ADB2     		uxth	r5, r5
+  94              	.LVL4:
+   9:si446x/si446x_ctrl.c ****   {
+  95              		.loc 1 9 53 discriminator 2 view .LVU21
+  96 002c EAE7     		b	.L2
+  97              	.LVL5:
+  98              	.L7:
+   9:si446x/si446x_ctrl.c ****   {
+  99              		.loc 1 9 53 discriminator 2 view .LVU22
+ 100              	.LBE32:
+  16:si446x/si446x_ctrl.c ****     {
+  17:si446x/si446x_ctrl.c ****       return 1;
+  18:si446x/si446x_ctrl.c ****     }
+  19:si446x/si446x_ctrl.c ****   }
+  20:si446x/si446x_ctrl.c ****   return 0;
+ 101              		.loc 1 20 10 view .LVU23
+ 102 002e 0020     		movs	r0, #0
+ 103              	.LBB39:
+ 104 0030 00E0     		b	.L3
+ 105              	.LVL6:
+ 106              	.L5:
+ 107              	.LBB38:
+ARM GAS  /tmp/cc8LulXY.s 			page 4
+
+
+  17:si446x/si446x_ctrl.c ****     }
+ 108              		.loc 1 17 14 view .LVU24
+ 109 0032 0120     		movs	r0, #1
+ 110              	.LVL7:
+ 111              	.L3:
+  17:si446x/si446x_ctrl.c ****     }
+ 112              		.loc 1 17 14 view .LVU25
+ 113              	.LBE38:
+ 114              	.LBE39:
+  21:si446x/si446x_ctrl.c **** }
+ 115              		.loc 1 21 1 view .LVU26
+ 116 0034 38BD     		pop	{r3, r4, r5, pc}
+ 117              	.LVL8:
+ 118              	.L9:
+ 119              		.loc 1 21 1 view .LVU27
+ 120 0036 00BF     		.align	2
+ 121              	.L8:
+ 122 0038 000C0140 		.word	1073810432
+ 123              		.cfi_endproc
+ 124              	.LFE71:
+ 126              		.section	.text.si446x_ctrl_get_response,"ax",%progbits
+ 127              		.align	1
+ 128              		.global	si446x_ctrl_get_response
+ 129              		.syntax unified
+ 130              		.thumb
+ 131              		.thumb_func
+ 132              		.fpu softvfp
+ 134              	si446x_ctrl_get_response:
+ 135              	.LVL9:
+ 136              	.LFB72:
+  22:si446x/si446x_ctrl.c **** 
+  23:si446x/si446x_ctrl.c **** uint8_t si446x_ctrl_get_response(uint8_t *buffer, const uint8_t len)
+  24:si446x/si446x_ctrl.c **** {
+ 137              		.loc 1 24 1 is_stmt 1 view -0
+ 138              		.cfi_startproc
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 0, uses_anonymous_args = 0
+ 141              		.loc 1 24 1 is_stmt 0 view .LVU29
+ 142 0000 70B5     		push	{r4, r5, r6, lr}
+ 143              	.LCFI1:
+ 144              		.cfi_def_cfa_offset 16
+ 145              		.cfi_offset 4, -16
+ 146              		.cfi_offset 5, -12
+ 147              		.cfi_offset 6, -8
+ 148              		.cfi_offset 14, -4
+ 149 0002 0446     		mov	r4, r0
+ 150 0004 0D46     		mov	r5, r1
+  25:si446x/si446x_ctrl.c ****   if(si446x_ctrl_wait_cts())
+ 151              		.loc 1 25 3 is_stmt 1 view .LVU30
+ 152              		.loc 1 25 6 is_stmt 0 view .LVU31
+ 153 0006 FFF7FEFF 		bl	si446x_ctrl_wait_cts
+ 154              	.LVL10:
+ 155              		.loc 1 25 5 view .LVU32
+ 156 000a 00B9     		cbnz	r0, .L13
+ 157              	.L11:
+  26:si446x/si446x_ctrl.c ****   {
+  27:si446x/si446x_ctrl.c ****     si446x_hal_spi_nsel_low();
+ARM GAS  /tmp/cc8LulXY.s 			page 5
+
+
+  28:si446x/si446x_ctrl.c ****     si446x_hal_spi_read_byte(Si446x_CMD_READ_CMD_BUFF);
+  29:si446x/si446x_ctrl.c ****     si446x_hal_spi_read(buffer, len);
+  30:si446x/si446x_ctrl.c ****     si446x_hal_spi_nsel_high();
+  31:si446x/si446x_ctrl.c ****     return 1;
+  32:si446x/si446x_ctrl.c ****   }
+  33:si446x/si446x_ctrl.c ****   return 0;
+  34:si446x/si446x_ctrl.c **** }
+ 158              		.loc 1 34 1 view .LVU33
+ 159 000c 70BD     		pop	{r4, r5, r6, pc}
+ 160              	.LVL11:
+ 161              	.L13:
+  27:si446x/si446x_ctrl.c ****     si446x_hal_spi_read_byte(Si446x_CMD_READ_CMD_BUFF);
+ 162              		.loc 1 27 5 is_stmt 1 view .LVU34
+ 163              	.LBB40:
+ 164              	.LBI40:
+  33:si446x/si446x_hal.h **** {
+ 165              		.loc 2 33 13 view .LVU35
+ 166              	.LBB41:
+  35:si446x/si446x_hal.h **** }
+ 167              		.loc 2 35 3 view .LVU36
+  35:si446x/si446x_hal.h **** }
+ 168              		.loc 2 35 14 is_stmt 0 view .LVU37
+ 169 000e 094E     		ldr	r6, .L14
+ 170 0010 7369     		ldr	r3, [r6, #20]
+ 171 0012 43F48053 		orr	r3, r3, #4096
+ 172 0016 7361     		str	r3, [r6, #20]
+ 173              	.LBE41:
+ 174              	.LBE40:
+  28:si446x/si446x_ctrl.c ****     si446x_hal_spi_read(buffer, len);
+ 175              		.loc 1 28 5 is_stmt 1 view .LVU38
+ 176 0018 4420     		movs	r0, #68
+ 177 001a FFF7FEFF 		bl	si446x_hal_spi_read_byte
+ 178              	.LVL12:
+  29:si446x/si446x_ctrl.c ****     si446x_hal_spi_nsel_high();
+ 179              		.loc 1 29 5 view .LVU39
+ 180 001e 2946     		mov	r1, r5
+ 181 0020 2046     		mov	r0, r4
+ 182 0022 FFF7FEFF 		bl	si446x_hal_spi_read
+ 183              	.LVL13:
+  30:si446x/si446x_ctrl.c ****     return 1;
+ 184              		.loc 1 30 5 view .LVU40
+ 185              	.LBB42:
+ 186              	.LBI42:
+  38:si446x/si446x_hal.h **** {
+ 187              		.loc 2 38 13 view .LVU41
+ 188              	.LBB43:
+ 189              		.loc 2 40 3 view .LVU42
+ 190              		.loc 2 40 15 is_stmt 0 view .LVU43
+ 191 0026 3369     		ldr	r3, [r6, #16]
+ 192 0028 43F48053 		orr	r3, r3, #4096
+ 193 002c 3361     		str	r3, [r6, #16]
+ 194              	.LBE43:
+ 195              	.LBE42:
+  31:si446x/si446x_ctrl.c ****   }
+ 196              		.loc 1 31 5 is_stmt 1 view .LVU44
+  31:si446x/si446x_ctrl.c ****   }
+ 197              		.loc 1 31 12 is_stmt 0 view .LVU45
+ARM GAS  /tmp/cc8LulXY.s 			page 6
+
+
+ 198 002e 0120     		movs	r0, #1
+ 199 0030 ECE7     		b	.L11
+ 200              	.L15:
+ 201 0032 00BF     		.align	2
+ 202              	.L14:
+ 203 0034 000C0140 		.word	1073810432
+ 204              		.cfi_endproc
+ 205              	.LFE72:
+ 207              		.section	.text.si446x_ctrl_send_cmd,"ax",%progbits
+ 208              		.align	1
+ 209              		.global	si446x_ctrl_send_cmd
+ 210              		.syntax unified
+ 211              		.thumb
+ 212              		.thumb_func
+ 213              		.fpu softvfp
+ 215              	si446x_ctrl_send_cmd:
+ 216              	.LVL14:
+ 217              	.LFB73:
+  35:si446x/si446x_ctrl.c **** 
+  36:si446x/si446x_ctrl.c **** void si446x_ctrl_send_cmd(const uint8_t cmd)
+  37:si446x/si446x_ctrl.c **** {
+ 218              		.loc 1 37 1 is_stmt 1 view -0
+ 219              		.cfi_startproc
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222              		.loc 1 37 1 is_stmt 0 view .LVU47
+ 223 0000 10B5     		push	{r4, lr}
+ 224              	.LCFI2:
+ 225              		.cfi_def_cfa_offset 8
+ 226              		.cfi_offset 4, -8
+ 227              		.cfi_offset 14, -4
+  38:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_low();
+ 228              		.loc 1 38 3 is_stmt 1 view .LVU48
+ 229              	.LBB44:
+ 230              	.LBI44:
+  33:si446x/si446x_hal.h **** {
+ 231              		.loc 2 33 13 view .LVU49
+ 232              	.LBB45:
+  35:si446x/si446x_hal.h **** }
+ 233              		.loc 2 35 3 view .LVU50
+  35:si446x/si446x_hal.h **** }
+ 234              		.loc 2 35 14 is_stmt 0 view .LVU51
+ 235 0002 074C     		ldr	r4, .L18
+ 236 0004 6369     		ldr	r3, [r4, #20]
+ 237 0006 43F48053 		orr	r3, r3, #4096
+ 238 000a 6361     		str	r3, [r4, #20]
+ 239              	.LBE45:
+ 240              	.LBE44:
+  39:si446x/si446x_ctrl.c ****   si446x_hal_spi_write_byte(cmd);
+ 241              		.loc 1 39 3 is_stmt 1 view .LVU52
+ 242 000c FFF7FEFF 		bl	si446x_hal_spi_write_byte
+ 243              	.LVL15:
+  40:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_high();
+ 244              		.loc 1 40 3 view .LVU53
+ 245              	.LBB46:
+ 246              	.LBI46:
+  38:si446x/si446x_hal.h **** {
+ARM GAS  /tmp/cc8LulXY.s 			page 7
+
+
+ 247              		.loc 2 38 13 view .LVU54
+ 248              	.LBB47:
+ 249              		.loc 2 40 3 view .LVU55
+ 250              		.loc 2 40 15 is_stmt 0 view .LVU56
+ 251 0010 2369     		ldr	r3, [r4, #16]
+ 252 0012 43F48053 		orr	r3, r3, #4096
+ 253 0016 2361     		str	r3, [r4, #16]
+ 254              	.LBE47:
+ 255              	.LBE46:
+  41:si446x/si446x_ctrl.c ****   si446x_ctrl_wait_cts();
+ 256              		.loc 1 41 3 is_stmt 1 view .LVU57
+ 257 0018 FFF7FEFF 		bl	si446x_ctrl_wait_cts
+ 258              	.LVL16:
+  42:si446x/si446x_ctrl.c **** }
+ 259              		.loc 1 42 1 is_stmt 0 view .LVU58
+ 260 001c 10BD     		pop	{r4, pc}
+ 261              	.L19:
+ 262 001e 00BF     		.align	2
+ 263              	.L18:
+ 264 0020 000C0140 		.word	1073810432
+ 265              		.cfi_endproc
+ 266              	.LFE73:
+ 268              		.section	.text.si446x_ctrl_read_rx_fifo,"ax",%progbits
+ 269              		.align	1
+ 270              		.global	si446x_ctrl_read_rx_fifo
+ 271              		.syntax unified
+ 272              		.thumb
+ 273              		.thumb_func
+ 274              		.fpu softvfp
+ 276              	si446x_ctrl_read_rx_fifo:
+ 277              	.LVL17:
+ 278              	.LFB74:
+  43:si446x/si446x_ctrl.c **** 
+  44:si446x/si446x_ctrl.c **** void si446x_ctrl_read_rx_fifo(uint8_t *buffer, const uint8_t len)
+  45:si446x/si446x_ctrl.c **** {
+ 279              		.loc 1 45 1 is_stmt 1 view -0
+ 280              		.cfi_startproc
+ 281              		@ args = 0, pretend = 0, frame = 0
+ 282              		@ frame_needed = 0, uses_anonymous_args = 0
+ 283              		.loc 1 45 1 is_stmt 0 view .LVU60
+ 284 0000 70B5     		push	{r4, r5, r6, lr}
+ 285              	.LCFI3:
+ 286              		.cfi_def_cfa_offset 16
+ 287              		.cfi_offset 4, -16
+ 288              		.cfi_offset 5, -12
+ 289              		.cfi_offset 6, -8
+ 290              		.cfi_offset 14, -4
+ 291 0002 0546     		mov	r5, r0
+ 292 0004 0E46     		mov	r6, r1
+  46:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_low();
+ 293              		.loc 1 46 3 is_stmt 1 view .LVU61
+ 294              	.LBB48:
+ 295              	.LBI48:
+  33:si446x/si446x_hal.h **** {
+ 296              		.loc 2 33 13 view .LVU62
+ 297              	.LBB49:
+  35:si446x/si446x_hal.h **** }
+ARM GAS  /tmp/cc8LulXY.s 			page 8
+
+
+ 298              		.loc 2 35 3 view .LVU63
+  35:si446x/si446x_hal.h **** }
+ 299              		.loc 2 35 14 is_stmt 0 view .LVU64
+ 300 0006 084C     		ldr	r4, .L22
+ 301 0008 6369     		ldr	r3, [r4, #20]
+ 302 000a 43F48053 		orr	r3, r3, #4096
+ 303 000e 6361     		str	r3, [r4, #20]
+ 304              	.LBE49:
+ 305              	.LBE48:
+  47:si446x/si446x_ctrl.c ****   si446x_hal_spi_read_byte(Si446x_CMD_READ_RX_FIFO);
+ 306              		.loc 1 47 3 is_stmt 1 view .LVU65
+ 307 0010 7720     		movs	r0, #119
+ 308              	.LVL18:
+ 309              		.loc 1 47 3 is_stmt 0 view .LVU66
+ 310 0012 FFF7FEFF 		bl	si446x_hal_spi_read_byte
+ 311              	.LVL19:
+  48:si446x/si446x_ctrl.c ****   si446x_hal_spi_read(buffer, len);
+ 312              		.loc 1 48 3 is_stmt 1 view .LVU67
+ 313 0016 3146     		mov	r1, r6
+ 314 0018 2846     		mov	r0, r5
+ 315 001a FFF7FEFF 		bl	si446x_hal_spi_read
+ 316              	.LVL20:
+  49:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_high();
+ 317              		.loc 1 49 3 view .LVU68
+ 318              	.LBB50:
+ 319              	.LBI50:
+  38:si446x/si446x_hal.h **** {
+ 320              		.loc 2 38 13 view .LVU69
+ 321              	.LBB51:
+ 322              		.loc 2 40 3 view .LVU70
+ 323              		.loc 2 40 15 is_stmt 0 view .LVU71
+ 324 001e 2369     		ldr	r3, [r4, #16]
+ 325 0020 43F48053 		orr	r3, r3, #4096
+ 326 0024 2361     		str	r3, [r4, #16]
+ 327              	.LBE51:
+ 328              	.LBE50:
+  50:si446x/si446x_ctrl.c **** }
+ 329              		.loc 1 50 1 view .LVU72
+ 330 0026 70BD     		pop	{r4, r5, r6, pc}
+ 331              	.LVL21:
+ 332              	.L23:
+ 333              		.loc 1 50 1 view .LVU73
+ 334              		.align	2
+ 335              	.L22:
+ 336 0028 000C0140 		.word	1073810432
+ 337              		.cfi_endproc
+ 338              	.LFE74:
+ 340              		.section	.text.si446x_ctrl_write_tx_fifo,"ax",%progbits
+ 341              		.align	1
+ 342              		.global	si446x_ctrl_write_tx_fifo
+ 343              		.syntax unified
+ 344              		.thumb
+ 345              		.thumb_func
+ 346              		.fpu softvfp
+ 348              	si446x_ctrl_write_tx_fifo:
+ 349              	.LVL22:
+ 350              	.LFB75:
+ARM GAS  /tmp/cc8LulXY.s 			page 9
+
+
+  51:si446x/si446x_ctrl.c **** 
+  52:si446x/si446x_ctrl.c **** void si446x_ctrl_write_tx_fifo(const uint8_t* buffer, const uint8_t len)
+  53:si446x/si446x_ctrl.c **** {
+ 351              		.loc 1 53 1 is_stmt 1 view -0
+ 352              		.cfi_startproc
+ 353              		@ args = 0, pretend = 0, frame = 0
+ 354              		@ frame_needed = 0, uses_anonymous_args = 0
+ 355              		.loc 1 53 1 is_stmt 0 view .LVU75
+ 356 0000 70B5     		push	{r4, r5, r6, lr}
+ 357              	.LCFI4:
+ 358              		.cfi_def_cfa_offset 16
+ 359              		.cfi_offset 4, -16
+ 360              		.cfi_offset 5, -12
+ 361              		.cfi_offset 6, -8
+ 362              		.cfi_offset 14, -4
+ 363 0002 0546     		mov	r5, r0
+ 364 0004 0E46     		mov	r6, r1
+  54:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_low();
+ 365              		.loc 1 54 3 is_stmt 1 view .LVU76
+ 366              	.LBB52:
+ 367              	.LBI52:
+  33:si446x/si446x_hal.h **** {
+ 368              		.loc 2 33 13 view .LVU77
+ 369              	.LBB53:
+  35:si446x/si446x_hal.h **** }
+ 370              		.loc 2 35 3 view .LVU78
+  35:si446x/si446x_hal.h **** }
+ 371              		.loc 2 35 14 is_stmt 0 view .LVU79
+ 372 0006 084C     		ldr	r4, .L26
+ 373 0008 6369     		ldr	r3, [r4, #20]
+ 374 000a 43F48053 		orr	r3, r3, #4096
+ 375 000e 6361     		str	r3, [r4, #20]
+ 376              	.LBE53:
+ 377              	.LBE52:
+  55:si446x/si446x_ctrl.c ****   si446x_hal_spi_write_byte(Si446x_CMD_WRITE_TX_FIFO);
+ 378              		.loc 1 55 3 is_stmt 1 view .LVU80
+ 379 0010 6620     		movs	r0, #102
+ 380              	.LVL23:
+ 381              		.loc 1 55 3 is_stmt 0 view .LVU81
+ 382 0012 FFF7FEFF 		bl	si446x_hal_spi_write_byte
+ 383              	.LVL24:
+  56:si446x/si446x_ctrl.c ****   si446x_hal_spi_write(buffer, len);
+ 384              		.loc 1 56 3 is_stmt 1 view .LVU82
+ 385 0016 3146     		mov	r1, r6
+ 386 0018 2846     		mov	r0, r5
+ 387 001a FFF7FEFF 		bl	si446x_hal_spi_write
+ 388              	.LVL25:
+  57:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_high();
+ 389              		.loc 1 57 3 view .LVU83
+ 390              	.LBB54:
+ 391              	.LBI54:
+  38:si446x/si446x_hal.h **** {
+ 392              		.loc 2 38 13 view .LVU84
+ 393              	.LBB55:
+ 394              		.loc 2 40 3 view .LVU85
+ 395              		.loc 2 40 15 is_stmt 0 view .LVU86
+ 396 001e 2369     		ldr	r3, [r4, #16]
+ARM GAS  /tmp/cc8LulXY.s 			page 10
+
+
+ 397 0020 43F48053 		orr	r3, r3, #4096
+ 398 0024 2361     		str	r3, [r4, #16]
+ 399              	.LBE55:
+ 400              	.LBE54:
+  58:si446x/si446x_ctrl.c **** }
+ 401              		.loc 1 58 1 view .LVU87
+ 402 0026 70BD     		pop	{r4, r5, r6, pc}
+ 403              	.LVL26:
+ 404              	.L27:
+ 405              		.loc 1 58 1 view .LVU88
+ 406              		.align	2
+ 407              	.L26:
+ 408 0028 000C0140 		.word	1073810432
+ 409              		.cfi_endproc
+ 410              	.LFE75:
+ 412              		.section	.text.si446x_ctrl_send_stream,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	si446x_ctrl_send_stream
+ 415              		.syntax unified
+ 416              		.thumb
+ 417              		.thumb_func
+ 418              		.fpu softvfp
+ 420              	si446x_ctrl_send_stream:
+ 421              	.LVL27:
+ 422              	.LFB76:
+  59:si446x/si446x_ctrl.c **** 
+  60:si446x/si446x_ctrl.c **** void si446x_ctrl_send_stream(const uint8_t *buffer, const uint8_t len)
+  61:si446x/si446x_ctrl.c **** {
+ 423              		.loc 1 61 1 is_stmt 1 view -0
+ 424              		.cfi_startproc
+ 425              		@ args = 0, pretend = 0, frame = 0
+ 426              		@ frame_needed = 0, uses_anonymous_args = 0
+ 427              		.loc 1 61 1 is_stmt 0 view .LVU90
+ 428 0000 10B5     		push	{r4, lr}
+ 429              	.LCFI5:
+ 430              		.cfi_def_cfa_offset 8
+ 431              		.cfi_offset 4, -8
+ 432              		.cfi_offset 14, -4
+  62:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_low();
+ 433              		.loc 1 62 3 is_stmt 1 view .LVU91
+ 434              	.LBB56:
+ 435              	.LBI56:
+  33:si446x/si446x_hal.h **** {
+ 436              		.loc 2 33 13 view .LVU92
+ 437              	.LBB57:
+  35:si446x/si446x_hal.h **** }
+ 438              		.loc 2 35 3 view .LVU93
+  35:si446x/si446x_hal.h **** }
+ 439              		.loc 2 35 14 is_stmt 0 view .LVU94
+ 440 0002 074C     		ldr	r4, .L30
+ 441 0004 6369     		ldr	r3, [r4, #20]
+ 442 0006 43F48053 		orr	r3, r3, #4096
+ 443 000a 6361     		str	r3, [r4, #20]
+ 444              	.LBE57:
+ 445              	.LBE56:
+  63:si446x/si446x_ctrl.c ****   si446x_hal_spi_write(buffer, len);
+ 446              		.loc 1 63 3 is_stmt 1 view .LVU95
+ARM GAS  /tmp/cc8LulXY.s 			page 11
+
+
+ 447 000c FFF7FEFF 		bl	si446x_hal_spi_write
+ 448              	.LVL28:
+  64:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_high();
+ 449              		.loc 1 64 3 view .LVU96
+ 450              	.LBB58:
+ 451              	.LBI58:
+  38:si446x/si446x_hal.h **** {
+ 452              		.loc 2 38 13 view .LVU97
+ 453              	.LBB59:
+ 454              		.loc 2 40 3 view .LVU98
+ 455              		.loc 2 40 15 is_stmt 0 view .LVU99
+ 456 0010 2369     		ldr	r3, [r4, #16]
+ 457 0012 43F48053 		orr	r3, r3, #4096
+ 458 0016 2361     		str	r3, [r4, #16]
+ 459              	.LBE59:
+ 460              	.LBE58:
+  65:si446x/si446x_ctrl.c ****   si446x_ctrl_wait_cts();
+ 461              		.loc 1 65 3 is_stmt 1 view .LVU100
+ 462 0018 FFF7FEFF 		bl	si446x_ctrl_wait_cts
+ 463              	.LVL29:
+  66:si446x/si446x_ctrl.c **** }
+ 464              		.loc 1 66 1 is_stmt 0 view .LVU101
+ 465 001c 10BD     		pop	{r4, pc}
+ 466              	.L31:
+ 467 001e 00BF     		.align	2
+ 468              	.L30:
+ 469 0020 000C0140 		.word	1073810432
+ 470              		.cfi_endproc
+ 471              	.LFE76:
+ 473              		.section	.text.si446x_ctrl_send_cmd_stream,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	si446x_ctrl_send_cmd_stream
+ 476              		.syntax unified
+ 477              		.thumb
+ 478              		.thumb_func
+ 479              		.fpu softvfp
+ 481              	si446x_ctrl_send_cmd_stream:
+ 482              	.LVL30:
+ 483              	.LFB77:
+  67:si446x/si446x_ctrl.c **** 
+  68:si446x/si446x_ctrl.c **** void si446x_ctrl_send_cmd_stream(const uint8_t cmd, const uint8_t* buffer, const uint8_t len)
+  69:si446x/si446x_ctrl.c **** {
+ 484              		.loc 1 69 1 is_stmt 1 view -0
+ 485              		.cfi_startproc
+ 486              		@ args = 0, pretend = 0, frame = 0
+ 487              		@ frame_needed = 0, uses_anonymous_args = 0
+ 488              		.loc 1 69 1 is_stmt 0 view .LVU103
+ 489 0000 70B5     		push	{r4, r5, r6, lr}
+ 490              	.LCFI6:
+ 491              		.cfi_def_cfa_offset 16
+ 492              		.cfi_offset 4, -16
+ 493              		.cfi_offset 5, -12
+ 494              		.cfi_offset 6, -8
+ 495              		.cfi_offset 14, -4
+ 496 0002 0D46     		mov	r5, r1
+ 497 0004 1646     		mov	r6, r2
+  70:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_low();
+ARM GAS  /tmp/cc8LulXY.s 			page 12
+
+
+ 498              		.loc 1 70 3 is_stmt 1 view .LVU104
+ 499              	.LBB60:
+ 500              	.LBI60:
+  33:si446x/si446x_hal.h **** {
+ 501              		.loc 2 33 13 view .LVU105
+ 502              	.LBB61:
+  35:si446x/si446x_hal.h **** }
+ 503              		.loc 2 35 3 view .LVU106
+  35:si446x/si446x_hal.h **** }
+ 504              		.loc 2 35 14 is_stmt 0 view .LVU107
+ 505 0006 094C     		ldr	r4, .L34
+ 506 0008 6369     		ldr	r3, [r4, #20]
+ 507 000a 43F48053 		orr	r3, r3, #4096
+ 508 000e 6361     		str	r3, [r4, #20]
+ 509              	.LBE61:
+ 510              	.LBE60:
+  71:si446x/si446x_ctrl.c ****   si446x_hal_spi_write_byte(cmd);
+ 511              		.loc 1 71 3 is_stmt 1 view .LVU108
+ 512 0010 FFF7FEFF 		bl	si446x_hal_spi_write_byte
+ 513              	.LVL31:
+  72:si446x/si446x_ctrl.c ****   si446x_hal_spi_write(buffer, len);
+ 514              		.loc 1 72 3 view .LVU109
+ 515 0014 3146     		mov	r1, r6
+ 516 0016 2846     		mov	r0, r5
+ 517 0018 FFF7FEFF 		bl	si446x_hal_spi_write
+ 518              	.LVL32:
+  73:si446x/si446x_ctrl.c ****   si446x_hal_spi_nsel_high();
+ 519              		.loc 1 73 3 view .LVU110
+ 520              	.LBB62:
+ 521              	.LBI62:
+  38:si446x/si446x_hal.h **** {
+ 522              		.loc 2 38 13 view .LVU111
+ 523              	.LBB63:
+ 524              		.loc 2 40 3 view .LVU112
+ 525              		.loc 2 40 15 is_stmt 0 view .LVU113
+ 526 001c 2369     		ldr	r3, [r4, #16]
+ 527 001e 43F48053 		orr	r3, r3, #4096
+ 528 0022 2361     		str	r3, [r4, #16]
+ 529              	.LBE63:
+ 530              	.LBE62:
+  74:si446x/si446x_ctrl.c ****   si446x_ctrl_wait_cts();
+ 531              		.loc 1 74 3 is_stmt 1 view .LVU114
+ 532 0024 FFF7FEFF 		bl	si446x_ctrl_wait_cts
+ 533              	.LVL33:
+  75:si446x/si446x_ctrl.c **** }
+ 534              		.loc 1 75 1 is_stmt 0 view .LVU115
+ 535 0028 70BD     		pop	{r4, r5, r6, pc}
+ 536              	.LVL34:
+ 537              	.L35:
+ 538              		.loc 1 75 1 view .LVU116
+ 539 002a 00BF     		.align	2
+ 540              	.L34:
+ 541 002c 000C0140 		.word	1073810432
+ 542              		.cfi_endproc
+ 543              	.LFE77:
+ 545              		.text
+ 546              	.Letext0:
+ARM GAS  /tmp/cc8LulXY.s 			page 13
+
+
+ 547              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 548              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ARM GAS  /tmp/cc8LulXY.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 si446x_ctrl.c
+     /tmp/cc8LulXY.s:16     .text.si446x_ctrl_wait_cts:0000000000000000 $t
+     /tmp/cc8LulXY.s:24     .text.si446x_ctrl_wait_cts:0000000000000000 si446x_ctrl_wait_cts
+     /tmp/cc8LulXY.s:122    .text.si446x_ctrl_wait_cts:0000000000000038 $d
+     /tmp/cc8LulXY.s:127    .text.si446x_ctrl_get_response:0000000000000000 $t
+     /tmp/cc8LulXY.s:134    .text.si446x_ctrl_get_response:0000000000000000 si446x_ctrl_get_response
+     /tmp/cc8LulXY.s:203    .text.si446x_ctrl_get_response:0000000000000034 $d
+     /tmp/cc8LulXY.s:208    .text.si446x_ctrl_send_cmd:0000000000000000 $t
+     /tmp/cc8LulXY.s:215    .text.si446x_ctrl_send_cmd:0000000000000000 si446x_ctrl_send_cmd
+     /tmp/cc8LulXY.s:264    .text.si446x_ctrl_send_cmd:0000000000000020 $d
+     /tmp/cc8LulXY.s:269    .text.si446x_ctrl_read_rx_fifo:0000000000000000 $t
+     /tmp/cc8LulXY.s:276    .text.si446x_ctrl_read_rx_fifo:0000000000000000 si446x_ctrl_read_rx_fifo
+     /tmp/cc8LulXY.s:336    .text.si446x_ctrl_read_rx_fifo:0000000000000028 $d
+     /tmp/cc8LulXY.s:341    .text.si446x_ctrl_write_tx_fifo:0000000000000000 $t
+     /tmp/cc8LulXY.s:348    .text.si446x_ctrl_write_tx_fifo:0000000000000000 si446x_ctrl_write_tx_fifo
+     /tmp/cc8LulXY.s:408    .text.si446x_ctrl_write_tx_fifo:0000000000000028 $d
+     /tmp/cc8LulXY.s:413    .text.si446x_ctrl_send_stream:0000000000000000 $t
+     /tmp/cc8LulXY.s:420    .text.si446x_ctrl_send_stream:0000000000000000 si446x_ctrl_send_stream
+     /tmp/cc8LulXY.s:469    .text.si446x_ctrl_send_stream:0000000000000020 $d
+     /tmp/cc8LulXY.s:474    .text.si446x_ctrl_send_cmd_stream:0000000000000000 $t
+     /tmp/cc8LulXY.s:481    .text.si446x_ctrl_send_cmd_stream:0000000000000000 si446x_ctrl_send_cmd_stream
+     /tmp/cc8LulXY.s:541    .text.si446x_ctrl_send_cmd_stream:000000000000002c $d
+
+UNDEFINED SYMBOLS
+si446x_hal_spi_read_byte
+si446x_hal_spi_read
+si446x_hal_spi_write_byte
+si446x_hal_spi_write

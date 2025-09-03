@@ -30,6 +30,9 @@
 #include <inttypes.h>
 #include "camera.h"
 #include "watchdog.h"
+#include "radio.h"
+#include "mini_morse.h"
+
 int _write(int file, char *data, int len) {
     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
     return len;
@@ -44,7 +47,7 @@ int _write(int file, char *data, int len) {
 #define SSDV_PKT_SIZE   224
 #define MAX_PACKETS     256         // Max packets to read (adjust if needed)
 
-uint8_t rx_buffer[SSDV_PKT_SIZE];
+// uint8_t rx_buffer[SSDV_PKT_SIZE];
 
 // -------------------- I2C Commands --------------------
 #define CMD_CAPTURE         0x10
@@ -132,6 +135,17 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   watchdog_init();
+    if (!radio_init())
+  {
+    printf("Radio error\n");
+    while (1);
+  }
+  else
+  {
+    printf("Radio success!\n");
+  }
+
+  printf("after setup\n");
 
 
     // printf("Master MCU initialized.\n");
@@ -303,14 +317,14 @@ int main(void)
     camera_request_payload();
     camera_off();
 
-    // HAL_Delay(5000);
+    HAL_Delay(5000);
 
-    // camera_on();
-    // HAL_Delay(3000);
-    // i2c_check();
-    // HAL_Delay(1000);
-    // request_prestored_image();
-    // camera_off();
+    camera_on();
+    HAL_Delay(3000);
+    i2c_check();
+    HAL_Delay(1000);
+    request_prestored_image();
+    camera_off();
 
 
 

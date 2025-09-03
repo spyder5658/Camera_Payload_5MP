@@ -1,5 +1,9 @@
 
 #include "camera.h"
+
+#include "mini_morse.h"
+#include "radio.h"
+
 uint32_t last_i2c_activity = 0; // Added for timeout tracking
 
 
@@ -41,6 +45,8 @@ void read_ssdv_stream()
      last_i2c_activity = HAL_GetTick();
     uint8_t ssdv_pkt[SSDV_PKT_SIZE];
     uint16_t packet_index = 0;
+    radio_init_gfsk(GFSK_500BPS_1KHZ);
+    
 
     while (1) {
         if (HAL_I2C_Master_Receive(&hi2c2, SSDV_SLAVE_ADDR, ssdv_pkt, SSDV_PKT_SIZE, HAL_MAX_DELAY) != HAL_OK) {
@@ -53,10 +59,11 @@ void read_ssdv_stream()
             printf("End of SSDV stream reached.\r\n");
             break;
         }
-        printf("transmitting through gsk\r\n");
-        printf("\n-----------------------------\n");
+        // printf("transmitting through gsk\r\n");
+        // printf("\n-----------------------------\n");
+        radio_tx_gfsk(ssdv_pkt,sizeof(ssdv_pkt)/sizeof(ssdv_pkt[0]));
 
-        HAL_Delay(2000);
+        // HAL_Delay(2000);
 
         // Print packet content (optional)
         printf("Packet %d received:\n", packet_index);

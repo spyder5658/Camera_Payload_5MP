@@ -61,7 +61,11 @@ Core/Src/system_stm32f1xx.c \
 Core/Src/sysmem.c \
 Core/Src/syscalls.c \
 Core/Src/camera.c \
-Core/Src/watchdog.c
+Core/Src/watchdog.c \
+si446x/mini_morse.c \
+si446x/radio.c \
+si446x/si446x_ctrl.c \
+si446x/si446x_hal.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -125,7 +129,8 @@ C_INCLUDES =  \
 -IDrivers/STM32F1xx_HAL_Driver/Inc \
 -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
--IDrivers/CMSIS/Include
+-IDrivers/CMSIS/Include \
+-Isi446x \
 
 
 # compile gcc flags

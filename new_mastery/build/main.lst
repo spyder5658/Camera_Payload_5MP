@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccIolfGZ.s 			page 1
+ARM GAS  /tmp/ccJ1HYDu.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,42 +58,45 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   29:Core/Src/main.c **** #include <stdio.h>
   30:Core/Src/main.c **** #include <inttypes.h>
   31:Core/Src/main.c **** #include "camera.h"
-ARM GAS  /tmp/ccIolfGZ.s 			page 2
+ARM GAS  /tmp/ccJ1HYDu.s 			page 2
 
 
   32:Core/Src/main.c **** #include "watchdog.h"
-  33:Core/Src/main.c **** int _write(int file, char *data, int len) {
-  28              		.loc 1 33 43 view -0
+  33:Core/Src/main.c **** #include "radio.h"
+  34:Core/Src/main.c **** #include "mini_morse.h"
+  35:Core/Src/main.c **** 
+  36:Core/Src/main.c **** int _write(int file, char *data, int len) {
+  28              		.loc 1 36 43 view -0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32              		.loc 1 33 43 is_stmt 0 view .LVU1
+  32              		.loc 1 36 43 is_stmt 0 view .LVU1
   33 0000 10B5     		push	{r4, lr}
   34              	.LCFI0:
   35              		.cfi_def_cfa_offset 8
   36              		.cfi_offset 4, -8
   37              		.cfi_offset 14, -4
   38 0002 1446     		mov	r4, r2
-  34:Core/Src/main.c ****     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
-  39              		.loc 1 34 5 is_stmt 1 view .LVU2
+  37:Core/Src/main.c ****     HAL_UART_Transmit(&huart1, (uint8_t*)data, len, HAL_MAX_DELAY);
+  39              		.loc 1 37 5 is_stmt 1 view .LVU2
   40 0004 4FF0FF33 		mov	r3, #-1
   41 0008 92B2     		uxth	r2, r2
   42              	.LVL1:
-  43              		.loc 1 34 5 is_stmt 0 view .LVU3
+  43              		.loc 1 37 5 is_stmt 0 view .LVU3
   44 000a 0248     		ldr	r0, .L3
   45              	.LVL2:
-  46              		.loc 1 34 5 view .LVU4
+  46              		.loc 1 37 5 view .LVU4
   47 000c FFF7FEFF 		bl	HAL_UART_Transmit
   48              	.LVL3:
-  35:Core/Src/main.c ****     return len;
-  49              		.loc 1 35 5 is_stmt 1 view .LVU5
-  36:Core/Src/main.c **** }
-  50              		.loc 1 36 1 is_stmt 0 view .LVU6
+  38:Core/Src/main.c ****     return len;
+  49              		.loc 1 38 5 is_stmt 1 view .LVU5
+  39:Core/Src/main.c **** }
+  50              		.loc 1 39 1 is_stmt 0 view .LVU6
   51 0010 2046     		mov	r0, r4
   52 0012 10BD     		pop	{r4, pc}
   53              	.LVL4:
   54              	.L4:
-  55              		.loc 1 36 1 view .LVU7
+  55              		.loc 1 39 1 view .LVU7
   56              		.align	2
   57              	.L3:
   58 0014 00000000 		.word	huart1
@@ -109,35 +112,35 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   70              	send_command:
   71              	.LVL5:
   72              	.LFB69:
-  37:Core/Src/main.c **** /* USER CODE END Includes */
-  38:Core/Src/main.c **** 
-  39:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
-  40:Core/Src/main.c **** /* USER CODE BEGIN PTD */
+  40:Core/Src/main.c **** /* USER CODE END Includes */
   41:Core/Src/main.c **** 
-  42:Core/Src/main.c **** 
-  43:Core/Src/main.c **** #define SLAVE_ADDR      (0x12 << 1 )  // Change to your slave address (7-bit shifted)
-  44:Core/Src/main.c **** #define SSDV_PKT_SIZE   224
-  45:Core/Src/main.c **** #define MAX_PACKETS     256         // Max packets to read (adjust if needed)
-ARM GAS  /tmp/ccIolfGZ.s 			page 3
+  42:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
+  43:Core/Src/main.c **** /* USER CODE BEGIN PTD */
+  44:Core/Src/main.c **** 
+  45:Core/Src/main.c **** 
+ARM GAS  /tmp/ccJ1HYDu.s 			page 3
 
 
-  46:Core/Src/main.c **** 
-  47:Core/Src/main.c **** uint8_t rx_buffer[SSDV_PKT_SIZE];
-  48:Core/Src/main.c **** 
-  49:Core/Src/main.c **** // -------------------- I2C Commands --------------------
-  50:Core/Src/main.c **** #define CMD_CAPTURE         0x10
-  51:Core/Src/main.c **** #define CMD_STREAM_SSDV     0x20
-  52:Core/Src/main.c **** #define CMD_PRESTORED       0x90
-  53:Core/Src/main.c **** 
-  54:Core/Src/main.c **** // -------------------- Master functions --------------------
-  55:Core/Src/main.c **** 
-  56:Core/Src/main.c **** void send_command(uint8_t cmd)
-  57:Core/Src/main.c **** {
-  73              		.loc 1 57 1 is_stmt 1 view -0
+  46:Core/Src/main.c **** #define SLAVE_ADDR      (0x12 << 1 )  // Change to your slave address (7-bit shifted)
+  47:Core/Src/main.c **** #define SSDV_PKT_SIZE   224
+  48:Core/Src/main.c **** #define MAX_PACKETS     256         // Max packets to read (adjust if needed)
+  49:Core/Src/main.c **** 
+  50:Core/Src/main.c **** // uint8_t rx_buffer[SSDV_PKT_SIZE];
+  51:Core/Src/main.c **** 
+  52:Core/Src/main.c **** // -------------------- I2C Commands --------------------
+  53:Core/Src/main.c **** #define CMD_CAPTURE         0x10
+  54:Core/Src/main.c **** #define CMD_STREAM_SSDV     0x20
+  55:Core/Src/main.c **** #define CMD_PRESTORED       0x90
+  56:Core/Src/main.c **** 
+  57:Core/Src/main.c **** // -------------------- Master functions --------------------
+  58:Core/Src/main.c **** 
+  59:Core/Src/main.c **** void send_command(uint8_t cmd)
+  60:Core/Src/main.c **** {
+  73              		.loc 1 60 1 is_stmt 1 view -0
   74              		.cfi_startproc
   75              		@ args = 0, pretend = 0, frame = 8
   76              		@ frame_needed = 0, uses_anonymous_args = 0
-  77              		.loc 1 57 1 is_stmt 0 view .LVU9
+  77              		.loc 1 60 1 is_stmt 0 view .LVU9
   78 0000 00B5     		push	{lr}
   79              	.LCFI1:
   80              		.cfi_def_cfa_offset 4
@@ -146,8 +149,8 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   83              	.LCFI2:
   84              		.cfi_def_cfa_offset 24
   85 0004 8DF80F00 		strb	r0, [sp, #15]
-  58:Core/Src/main.c ****     HAL_I2C_Master_Transmit(&hi2c2, SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY);
-  86              		.loc 1 58 5 is_stmt 1 view .LVU10
+  61:Core/Src/main.c ****     HAL_I2C_Master_Transmit(&hi2c2, SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY);
+  86              		.loc 1 61 5 is_stmt 1 view .LVU10
   87 0008 4FF0FF33 		mov	r3, #-1
   88 000c 0093     		str	r3, [sp]
   89 000e 0123     		movs	r3, #1
@@ -155,11 +158,11 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   91 0014 2421     		movs	r1, #36
   92 0016 0348     		ldr	r0, .L7
   93              	.LVL6:
-  94              		.loc 1 58 5 is_stmt 0 view .LVU11
+  94              		.loc 1 61 5 is_stmt 0 view .LVU11
   95 0018 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
   96              	.LVL7:
-  59:Core/Src/main.c **** }
-  97              		.loc 1 59 1 view .LVU12
+  62:Core/Src/main.c **** }
+  97              		.loc 1 62 1 view .LVU12
   98 001c 05B0     		add	sp, sp, #20
   99              	.LCFI3:
  100              		.cfi_def_cfa_offset 4
@@ -175,23 +178,23 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  111              		.align	1
  112              		.global	read_ssdv_packet
  113              		.syntax unified
+ARM GAS  /tmp/ccJ1HYDu.s 			page 4
+
+
  114              		.thumb
  115              		.thumb_func
  116              		.fpu softvfp
-ARM GAS  /tmp/ccIolfGZ.s 			page 4
-
-
  118              	read_ssdv_packet:
  119              	.LVL8:
  120              	.LFB70:
-  60:Core/Src/main.c **** 
-  61:Core/Src/main.c **** int read_ssdv_packet(uint8_t *packet)
-  62:Core/Src/main.c **** {
- 121              		.loc 1 62 1 is_stmt 1 view -0
+  63:Core/Src/main.c **** 
+  64:Core/Src/main.c **** int read_ssdv_packet(uint8_t *packet)
+  65:Core/Src/main.c **** {
+ 121              		.loc 1 65 1 is_stmt 1 view -0
  122              		.cfi_startproc
  123              		@ args = 0, pretend = 0, frame = 0
  124              		@ frame_needed = 0, uses_anonymous_args = 0
- 125              		.loc 1 62 1 is_stmt 0 view .LVU14
+ 125              		.loc 1 65 1 is_stmt 0 view .LVU14
  126 0000 10B5     		push	{r4, lr}
  127              	.LCFI4:
  128              		.cfi_def_cfa_offset 8
@@ -201,11 +204,11 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  132              	.LCFI5:
  133              		.cfi_def_cfa_offset 16
  134 0004 0446     		mov	r4, r0
-  63:Core/Src/main.c ****     HAL_StatusTypeDef status;
- 135              		.loc 1 63 5 is_stmt 1 view .LVU15
-  64:Core/Src/main.c ****     status = HAL_I2C_Master_Receive(&hi2c2, SLAVE_ADDR, packet, SSDV_PKT_SIZE, 100);
- 136              		.loc 1 64 5 view .LVU16
- 137              		.loc 1 64 14 is_stmt 0 view .LVU17
+  66:Core/Src/main.c ****     HAL_StatusTypeDef status;
+ 135              		.loc 1 66 5 is_stmt 1 view .LVU15
+  67:Core/Src/main.c ****     status = HAL_I2C_Master_Receive(&hi2c2, SLAVE_ADDR, packet, SSDV_PKT_SIZE, 100);
+ 136              		.loc 1 67 5 view .LVU16
+ 137              		.loc 1 67 14 is_stmt 0 view .LVU17
  138 0006 6423     		movs	r3, #100
  139 0008 0093     		str	r3, [sp]
  140 000a E023     		movs	r3, #224
@@ -213,34 +216,34 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  142 000e 2421     		movs	r1, #36
  143 0010 0648     		ldr	r0, .L14
  144              	.LVL9:
- 145              		.loc 1 64 14 view .LVU18
+ 145              		.loc 1 67 14 view .LVU18
  146 0012 FFF7FEFF 		bl	HAL_I2C_Master_Receive
  147              	.LVL10:
-  65:Core/Src/main.c **** 
-  66:Core/Src/main.c ****     if (status != HAL_OK) return 0;
- 148              		.loc 1 66 5 is_stmt 1 view .LVU19
- 149              		.loc 1 66 8 is_stmt 0 view .LVU20
+  68:Core/Src/main.c **** 
+  69:Core/Src/main.c ****     if (status != HAL_OK) return 0;
+ 148              		.loc 1 69 5 is_stmt 1 view .LVU19
+ 149              		.loc 1 69 8 is_stmt 0 view .LVU20
  150 0016 28B9     		cbnz	r0, .L11
-  67:Core/Src/main.c **** 
-  68:Core/Src/main.c ****     // Check for dummy packet indicating end of stream
-  69:Core/Src/main.c ****     if (packet[0] == 0xFF) return 0;
- 151              		.loc 1 69 5 is_stmt 1 view .LVU21
- 152              		.loc 1 69 15 is_stmt 0 view .LVU22
+  70:Core/Src/main.c **** 
+  71:Core/Src/main.c ****     // Check for dummy packet indicating end of stream
+  72:Core/Src/main.c ****     if (packet[0] == 0xFF) return 0;
+ 151              		.loc 1 72 5 is_stmt 1 view .LVU21
+ 152              		.loc 1 72 15 is_stmt 0 view .LVU22
  153 0018 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
- 154              		.loc 1 69 8 view .LVU23
+ 154              		.loc 1 72 8 view .LVU23
  155 001a FF2B     		cmp	r3, #255
  156 001c 04D0     		beq	.L12
-  70:Core/Src/main.c **** 
-  71:Core/Src/main.c ****     return 1;
- 157              		.loc 1 71 12 view .LVU24
+  73:Core/Src/main.c **** 
+  74:Core/Src/main.c ****     return 1;
+ 157              		.loc 1 74 12 view .LVU24
  158 001e 0120     		movs	r0, #1
  159              	.LVL11:
+ARM GAS  /tmp/ccJ1HYDu.s 			page 5
+
+
  160              	.L9:
-  72:Core/Src/main.c **** }
- 161              		.loc 1 72 1 view .LVU25
-ARM GAS  /tmp/ccIolfGZ.s 			page 5
-
-
+  75:Core/Src/main.c **** }
+ 161              		.loc 1 75 1 view .LVU25
  162 0020 02B0     		add	sp, sp, #8
  163              	.LCFI6:
  164              		.cfi_remember_state
@@ -251,21 +254,21 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  169              	.L11:
  170              	.LCFI7:
  171              		.cfi_restore_state
-  66:Core/Src/main.c **** 
- 172              		.loc 1 66 34 view .LVU26
+  69:Core/Src/main.c **** 
+ 172              		.loc 1 69 34 view .LVU26
  173 0024 0020     		movs	r0, #0
  174              	.LVL13:
-  66:Core/Src/main.c **** 
- 175              		.loc 1 66 34 view .LVU27
+  69:Core/Src/main.c **** 
+ 175              		.loc 1 69 34 view .LVU27
  176 0026 FBE7     		b	.L9
  177              	.LVL14:
  178              	.L12:
-  69:Core/Src/main.c **** 
- 179              		.loc 1 69 35 view .LVU28
+  72:Core/Src/main.c **** 
+ 179              		.loc 1 72 35 view .LVU28
  180 0028 0020     		movs	r0, #0
  181              	.LVL15:
-  69:Core/Src/main.c **** 
- 182              		.loc 1 69 35 view .LVU29
+  72:Core/Src/main.c **** 
+ 182              		.loc 1 72 35 view .LVU29
  183 002a F9E7     		b	.L9
  184              	.L15:
  185              		.align	2
@@ -282,336 +285,347 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  197              		.fpu softvfp
  199              	Error_Handler:
  200              	.LFB73:
-  73:Core/Src/main.c **** /* USER CODE END PTD */
-  74:Core/Src/main.c **** 
-  75:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
-  76:Core/Src/main.c **** /* USER CODE BEGIN PD */
+  76:Core/Src/main.c **** /* USER CODE END PTD */
   77:Core/Src/main.c **** 
-  78:Core/Src/main.c **** /* USER CODE END PD */
-  79:Core/Src/main.c **** 
-  80:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
-  81:Core/Src/main.c **** /* USER CODE BEGIN PM */
+  78:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
+  79:Core/Src/main.c **** /* USER CODE BEGIN PD */
+  80:Core/Src/main.c **** 
+  81:Core/Src/main.c **** /* USER CODE END PD */
   82:Core/Src/main.c **** 
-  83:Core/Src/main.c **** /* USER CODE END PM */
-  84:Core/Src/main.c **** 
-  85:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
-  86:Core/Src/main.c **** 
-  87:Core/Src/main.c **** /* USER CODE BEGIN PV */
-  88:Core/Src/main.c **** 
-ARM GAS  /tmp/ccIolfGZ.s 			page 6
+  83:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
+  84:Core/Src/main.c **** /* USER CODE BEGIN PM */
+  85:Core/Src/main.c **** 
+  86:Core/Src/main.c **** /* USER CODE END PM */
+  87:Core/Src/main.c **** 
+  88:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
+ARM GAS  /tmp/ccJ1HYDu.s 			page 6
 
 
-  89:Core/Src/main.c **** /* USER CODE END PV */
-  90:Core/Src/main.c **** 
-  91:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
-  92:Core/Src/main.c **** void SystemClock_Config(void);
-  93:Core/Src/main.c **** /* USER CODE BEGIN PFP */
-  94:Core/Src/main.c **** 
-  95:Core/Src/main.c **** /* USER CODE END PFP */
-  96:Core/Src/main.c **** 
-  97:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
-  98:Core/Src/main.c **** /* USER CODE BEGIN 0 */
+  89:Core/Src/main.c **** 
+  90:Core/Src/main.c **** /* USER CODE BEGIN PV */
+  91:Core/Src/main.c **** 
+  92:Core/Src/main.c **** /* USER CODE END PV */
+  93:Core/Src/main.c **** 
+  94:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
+  95:Core/Src/main.c **** void SystemClock_Config(void);
+  96:Core/Src/main.c **** /* USER CODE BEGIN PFP */
+  97:Core/Src/main.c **** 
+  98:Core/Src/main.c **** /* USER CODE END PFP */
   99:Core/Src/main.c **** 
- 100:Core/Src/main.c **** /* USER CODE END 0 */
- 101:Core/Src/main.c **** 
- 102:Core/Src/main.c **** /**
- 103:Core/Src/main.c ****   * @brief  The application entry point.
- 104:Core/Src/main.c ****   * @retval int
- 105:Core/Src/main.c ****   */
- 106:Core/Src/main.c **** int main(void)
- 107:Core/Src/main.c **** {
- 108:Core/Src/main.c **** 
- 109:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
- 110:Core/Src/main.c **** 
- 111:Core/Src/main.c ****   /* USER CODE END 1 */
- 112:Core/Src/main.c **** 
- 113:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
- 114:Core/Src/main.c **** 
- 115:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
- 116:Core/Src/main.c ****   HAL_Init();
+ 100:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
+ 101:Core/Src/main.c **** /* USER CODE BEGIN 0 */
+ 102:Core/Src/main.c **** 
+ 103:Core/Src/main.c **** /* USER CODE END 0 */
+ 104:Core/Src/main.c **** 
+ 105:Core/Src/main.c **** /**
+ 106:Core/Src/main.c ****   * @brief  The application entry point.
+ 107:Core/Src/main.c ****   * @retval int
+ 108:Core/Src/main.c ****   */
+ 109:Core/Src/main.c **** int main(void)
+ 110:Core/Src/main.c **** {
+ 111:Core/Src/main.c **** 
+ 112:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
+ 113:Core/Src/main.c **** 
+ 114:Core/Src/main.c ****   /* USER CODE END 1 */
+ 115:Core/Src/main.c **** 
+ 116:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
  117:Core/Src/main.c **** 
- 118:Core/Src/main.c ****   /* USER CODE BEGIN Init */
- 119:Core/Src/main.c **** 
- 120:Core/Src/main.c ****   /* USER CODE END Init */
- 121:Core/Src/main.c **** 
- 122:Core/Src/main.c ****   /* Configure the system clock */
- 123:Core/Src/main.c ****   SystemClock_Config();
+ 118:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+ 119:Core/Src/main.c ****   HAL_Init();
+ 120:Core/Src/main.c **** 
+ 121:Core/Src/main.c ****   /* USER CODE BEGIN Init */
+ 122:Core/Src/main.c **** 
+ 123:Core/Src/main.c ****   /* USER CODE END Init */
  124:Core/Src/main.c **** 
- 125:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
- 126:Core/Src/main.c **** 
- 127:Core/Src/main.c ****   /* USER CODE END SysInit */
- 128:Core/Src/main.c **** 
- 129:Core/Src/main.c ****   /* Initialize all configured peripherals */
- 130:Core/Src/main.c ****   MX_GPIO_Init();
- 131:Core/Src/main.c ****   MX_I2C2_Init();
- 132:Core/Src/main.c ****   MX_USART1_UART_Init();
- 133:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 134:Core/Src/main.c ****   watchdog_init();
- 135:Core/Src/main.c **** 
- 136:Core/Src/main.c **** 
- 137:Core/Src/main.c ****     // printf("Master MCU initialized.\n");
- 138:Core/Src/main.c ****     // camera_on();
- 139:Core/Src/main.c ****     // HAL_Delay(3000);
- 140:Core/Src/main.c **** 
- 141:Core/Src/main.c ****     // // -------------------- Capture Image --------------------
- 142:Core/Src/main.c ****     // printf("Sending capture command to slave...\n");
- 143:Core/Src/main.c ****     // send_command(CMD_CAPTURE);
- 144:Core/Src/main.c **** 
- 145:Core/Src/main.c ****     // HAL_Delay(8000); // Wait for slave to capture & encode
-ARM GAS  /tmp/ccIolfGZ.s 			page 7
+ 125:Core/Src/main.c ****   /* Configure the system clock */
+ 126:Core/Src/main.c ****   SystemClock_Config();
+ 127:Core/Src/main.c **** 
+ 128:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
+ 129:Core/Src/main.c **** 
+ 130:Core/Src/main.c ****   /* USER CODE END SysInit */
+ 131:Core/Src/main.c **** 
+ 132:Core/Src/main.c ****   /* Initialize all configured peripherals */
+ 133:Core/Src/main.c ****   MX_GPIO_Init();
+ 134:Core/Src/main.c ****   MX_I2C2_Init();
+ 135:Core/Src/main.c ****   MX_USART1_UART_Init();
+ 136:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 137:Core/Src/main.c ****   watchdog_init();
+ 138:Core/Src/main.c ****     if (!radio_init())
+ 139:Core/Src/main.c ****   {
+ 140:Core/Src/main.c ****     printf("Radio error\n");
+ 141:Core/Src/main.c ****     while (1);
+ 142:Core/Src/main.c ****   }
+ 143:Core/Src/main.c ****   else
+ 144:Core/Src/main.c ****   {
+ 145:Core/Src/main.c ****     printf("Radio success!\n");
+ARM GAS  /tmp/ccJ1HYDu.s 			page 7
 
 
- 146:Core/Src/main.c **** 
- 147:Core/Src/main.c ****     // // -------------------- Stream SSDV Packets --------------------
- 148:Core/Src/main.c ****     // printf("Requesting SSDV stream from slave...\n");
- 149:Core/Src/main.c ****     // send_command(CMD_STREAM_SSDV);
- 150:Core/Src/main.c ****     // HAL_Delay(200);
- 151:Core/Src/main.c **** 
- 152:Core/Src/main.c ****     // int packet_count = 0;
- 153:Core/Src/main.c ****     // while (packet_count < MAX_PACKETS)
- 154:Core/Src/main.c ****     // {
- 155:Core/Src/main.c ****     //     if (!read_ssdv_packet(rx_buffer)) break;
- 156:Core/Src/main.c **** 
- 157:Core/Src/main.c ****     //     printf("Packet %d:\n", packet_count + 1);
- 158:Core/Src/main.c ****     //     for (int i = 0; i < SSDV_PKT_SIZE; i++)
- 159:Core/Src/main.c ****     //     {
- 160:Core/Src/main.c ****     //         printf("0x%02X, ", rx_buffer[i]);
- 161:Core/Src/main.c ****     //         if ((i + 1) % 16 == 0) printf("\n");
- 162:Core/Src/main.c ****     //     }
- 163:Core/Src/main.c ****     //     printf("\n-----------------------------\n");
- 164:Core/Src/main.c **** 
- 165:Core/Src/main.c ****     //     packet_count++;
- 166:Core/Src/main.c ****     //     HAL_Delay(5); // Optional: small delay between packets
- 167:Core/Src/main.c ****     // }
- 168:Core/Src/main.c **** 
- 169:Core/Src/main.c ****     // printf("SSDV streaming complete. Total packets: %d\n", packet_count);
- 170:Core/Src/main.c ****     // HAL_Delay(1000);
- 171:Core/Src/main.c ****     // camera_off();
- 172:Core/Src/main.c **** 
- 173:Core/Src/main.c **** 
- 174:Core/Src/main.c ****  
- 175:Core/Src/main.c **** 
- 176:Core/Src/main.c ****     //final camera capture flow;
- 177:Core/Src/main.c ****     // /*-----------------------------------------------------*/
- 178:Core/Src/main.c ****     // camera_on();
- 179:Core/Src/main.c ****     // HAL_Delay(3000);
- 180:Core/Src/main.c ****     // i2c_check();
- 181:Core/Src/main.c ****     // HAL_Delay(1000);
- 182:Core/Src/main.c ****     // // set_properties() // optional
- 183:Core/Src/main.c ****     // camera_request_payload();
- 184:Core/Src/main.c ****     // camera_off();
- 185:Core/Src/main.c **** 
- 186:Core/Src/main.c ****     // HAL_Delay(5000);
+ 146:Core/Src/main.c ****   }
+ 147:Core/Src/main.c **** 
+ 148:Core/Src/main.c ****   printf("after setup\n");
+ 149:Core/Src/main.c **** 
+ 150:Core/Src/main.c **** 
+ 151:Core/Src/main.c ****     // printf("Master MCU initialized.\n");
+ 152:Core/Src/main.c ****     // camera_on();
+ 153:Core/Src/main.c ****     // HAL_Delay(3000);
+ 154:Core/Src/main.c **** 
+ 155:Core/Src/main.c ****     // // -------------------- Capture Image --------------------
+ 156:Core/Src/main.c ****     // printf("Sending capture command to slave...\n");
+ 157:Core/Src/main.c ****     // send_command(CMD_CAPTURE);
+ 158:Core/Src/main.c **** 
+ 159:Core/Src/main.c ****     // HAL_Delay(8000); // Wait for slave to capture & encode
+ 160:Core/Src/main.c **** 
+ 161:Core/Src/main.c ****     // // -------------------- Stream SSDV Packets --------------------
+ 162:Core/Src/main.c ****     // printf("Requesting SSDV stream from slave...\n");
+ 163:Core/Src/main.c ****     // send_command(CMD_STREAM_SSDV);
+ 164:Core/Src/main.c ****     // HAL_Delay(200);
+ 165:Core/Src/main.c **** 
+ 166:Core/Src/main.c ****     // int packet_count = 0;
+ 167:Core/Src/main.c ****     // while (packet_count < MAX_PACKETS)
+ 168:Core/Src/main.c ****     // {
+ 169:Core/Src/main.c ****     //     if (!read_ssdv_packet(rx_buffer)) break;
+ 170:Core/Src/main.c **** 
+ 171:Core/Src/main.c ****     //     printf("Packet %d:\n", packet_count + 1);
+ 172:Core/Src/main.c ****     //     for (int i = 0; i < SSDV_PKT_SIZE; i++)
+ 173:Core/Src/main.c ****     //     {
+ 174:Core/Src/main.c ****     //         printf("0x%02X, ", rx_buffer[i]);
+ 175:Core/Src/main.c ****     //         if ((i + 1) % 16 == 0) printf("\n");
+ 176:Core/Src/main.c ****     //     }
+ 177:Core/Src/main.c ****     //     printf("\n-----------------------------\n");
+ 178:Core/Src/main.c **** 
+ 179:Core/Src/main.c ****     //     packet_count++;
+ 180:Core/Src/main.c ****     //     HAL_Delay(5); // Optional: small delay between packets
+ 181:Core/Src/main.c ****     // }
+ 182:Core/Src/main.c **** 
+ 183:Core/Src/main.c ****     // printf("SSDV streaming complete. Total packets: %d\n", packet_count);
+ 184:Core/Src/main.c ****     // HAL_Delay(1000);
+ 185:Core/Src/main.c ****     // camera_off();
+ 186:Core/Src/main.c **** 
  187:Core/Src/main.c **** 
- 188:Core/Src/main.c ****     // camera_on();
- 189:Core/Src/main.c ****     // HAL_Delay(3000);
- 190:Core/Src/main.c ****     // i2c_check();
- 191:Core/Src/main.c ****     // HAL_Delay(1000);
- 192:Core/Src/main.c ****     // request_prestored_image();
- 193:Core/Src/main.c ****     // camera_off();
- 194:Core/Src/main.c **** 
- 195:Core/Src/main.c ****     /*-----------------------------------------------------*/
- 196:Core/Src/main.c **** 
- 197:Core/Src/main.c ****   /* USER CODE END 2 */
- 198:Core/Src/main.c **** 
- 199:Core/Src/main.c ****   /* Infinite loop */
- 200:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
- 201:Core/Src/main.c ****   while (1)
- 202:Core/Src/main.c ****   {
-ARM GAS  /tmp/ccIolfGZ.s 			page 8
+ 188:Core/Src/main.c ****  
+ 189:Core/Src/main.c **** 
+ 190:Core/Src/main.c ****     //final camera capture flow;
+ 191:Core/Src/main.c ****     // /*-----------------------------------------------------*/
+ 192:Core/Src/main.c ****     // camera_on();
+ 193:Core/Src/main.c ****     // HAL_Delay(3000);
+ 194:Core/Src/main.c ****     // i2c_check();
+ 195:Core/Src/main.c ****     // HAL_Delay(1000);
+ 196:Core/Src/main.c ****     // // set_properties() // optional
+ 197:Core/Src/main.c ****     // camera_request_payload();
+ 198:Core/Src/main.c ****     // camera_off();
+ 199:Core/Src/main.c **** 
+ 200:Core/Src/main.c ****     // HAL_Delay(5000);
+ 201:Core/Src/main.c **** 
+ 202:Core/Src/main.c ****     // camera_on();
+ARM GAS  /tmp/ccJ1HYDu.s 			page 8
 
 
- 203:Core/Src/main.c **** 
- 204:Core/Src/main.c ****     //  HAL_Delay(1000);
- 205:Core/Src/main.c ****     // camera_on();
- 206:Core/Src/main.c ****     // HAL_Delay(3000);     //relaxation time for slave board to powerup and get configured .......
- 207:Core/Src/main.c ****     // /* === Periodic I2C bus health check === */
- 208:Core/Src/main.c ****     // if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
- 209:Core/Src/main.c ****     // {
- 210:Core/Src/main.c ****     //   last_i2c_check_time = HAL_GetTick();
- 211:Core/Src/main.c **** 
- 212:Core/Src/main.c ****     //   // Timeout: if no I2C activity in 3s, and BUSY flag still set
- 213:Core/Src/main.c ****     //   if ((HAL_GetTick() - last_i2c_activity > 3000) &&
- 214:Core/Src/main.c ****     //       (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
- 215:Core/Src/main.c ****     //   {
- 216:Core/Src/main.c ****     //     printf("I2C timeout detected! Resetting I2C2...\r\n");
+ 203:Core/Src/main.c ****     // HAL_Delay(3000);
+ 204:Core/Src/main.c ****     // i2c_check();
+ 205:Core/Src/main.c ****     // HAL_Delay(1000);
+ 206:Core/Src/main.c ****     // request_prestored_image();
+ 207:Core/Src/main.c ****     // camera_off();
+ 208:Core/Src/main.c **** 
+ 209:Core/Src/main.c ****     /*-----------------------------------------------------*/
+ 210:Core/Src/main.c **** 
+ 211:Core/Src/main.c ****   /* USER CODE END 2 */
+ 212:Core/Src/main.c **** 
+ 213:Core/Src/main.c ****   /* Infinite loop */
+ 214:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
+ 215:Core/Src/main.c ****   while (1)
+ 216:Core/Src/main.c ****   {
  217:Core/Src/main.c **** 
- 218:Core/Src/main.c ****     // //     // Reset I2C2 peripheral safely
- 219:Core/Src/main.c ****     //     __HAL_RCC_I2C2_FORCE_RESET();
- 220:Core/Src/main.c ****     //     HAL_Delay(2);
- 221:Core/Src/main.c ****     //     __HAL_RCC_I2C2_RELEASE_RESET();
- 222:Core/Src/main.c ****     //     MX_I2C2_Init();  // Reinitialize I2C2
- 223:Core/Src/main.c ****        
- 224:Core/Src/main.c **** 
- 225:Core/Src/main.c ****     //   }
- 226:Core/Src/main.c ****     // }
- 227:Core/Src/main.c ****     // HAL_Delay(1000);
- 228:Core/Src/main.c ****     //   set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
- 229:Core/Src/main.c ****     // set_effect_(CAM_COLOR_FX_BW );
- 230:Core/Src/main.c ****     // set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
- 231:Core/Src/main.c ****     // request_image_capture();
- 232:Core/Src/main.c ****     // HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
- 233:Core/Src/main.c **** 
- 234:Core/Src/main.c ****     // //   // Step 2: Request SSDV Stream
- 235:Core/Src/main.c ****     // request_ssdv_stream();
- 236:Core/Src/main.c ****     // HAL_Delay(200);
- 237:Core/Src/main.c **** 
- 238:Core/Src/main.c ****     // // Step 3: Read All SSDV Packets
- 239:Core/Src/main.c ****     // read_ssdv_stream();
- 240:Core/Src/main.c ****     // camera_off();
- 241:Core/Src/main.c ****     // HAL_Delay(5000);
- 242:Core/Src/main.c ****     // printf("capturing prestored image now!!\n");
- 243:Core/Src/main.c ****     // if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
- 244:Core/Src/main.c ****     // {
- 245:Core/Src/main.c ****     //   last_i2c_check_time = HAL_GetTick();
- 246:Core/Src/main.c **** 
- 247:Core/Src/main.c ****     //   // Timeout: if no I2C activity in 3s, and BUSY flag still set
- 248:Core/Src/main.c ****     //   if ((HAL_GetTick() - last_i2c_activity > 3000) &&
- 249:Core/Src/main.c ****     //       (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
- 250:Core/Src/main.c ****     //   {
- 251:Core/Src/main.c ****     //     printf("I2C timeout detected! Resetting I2C2...\r\n");
- 252:Core/Src/main.c **** 
- 253:Core/Src/main.c ****     //     // Reset I2C2 peripheral safely
- 254:Core/Src/main.c ****     //     __HAL_RCC_I2C2_FORCE_RESET();
- 255:Core/Src/main.c ****     //     HAL_Delay(2);
- 256:Core/Src/main.c ****     //     __HAL_RCC_I2C2_RELEASE_RESET();
- 257:Core/Src/main.c ****     //     MX_I2C2_Init();  // Reinitialize I2C2
- 258:Core/Src/main.c ****        
- 259:Core/Src/main.c **** 
-ARM GAS  /tmp/ccIolfGZ.s 			page 9
+ 218:Core/Src/main.c ****     //  HAL_Delay(1000);
+ 219:Core/Src/main.c ****     // camera_on();
+ 220:Core/Src/main.c ****     // HAL_Delay(3000);     //relaxation time for slave board to powerup and get configured .......
+ 221:Core/Src/main.c ****     // /* === Periodic I2C bus health check === */
+ 222:Core/Src/main.c ****     // if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
+ 223:Core/Src/main.c ****     // {
+ 224:Core/Src/main.c ****     //   last_i2c_check_time = HAL_GetTick();
+ 225:Core/Src/main.c **** 
+ 226:Core/Src/main.c ****     //   // Timeout: if no I2C activity in 3s, and BUSY flag still set
+ 227:Core/Src/main.c ****     //   if ((HAL_GetTick() - last_i2c_activity > 3000) &&
+ 228:Core/Src/main.c ****     //       (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
+ 229:Core/Src/main.c ****     //   {
+ 230:Core/Src/main.c ****     //     printf("I2C timeout detected! Resetting I2C2...\r\n");
+ 231:Core/Src/main.c **** 
+ 232:Core/Src/main.c ****     // //     // Reset I2C2 peripheral safely
+ 233:Core/Src/main.c ****     //     __HAL_RCC_I2C2_FORCE_RESET();
+ 234:Core/Src/main.c ****     //     HAL_Delay(2);
+ 235:Core/Src/main.c ****     //     __HAL_RCC_I2C2_RELEASE_RESET();
+ 236:Core/Src/main.c ****     //     MX_I2C2_Init();  // Reinitialize I2C2
+ 237:Core/Src/main.c ****        
+ 238:Core/Src/main.c **** 
+ 239:Core/Src/main.c ****     //   }
+ 240:Core/Src/main.c ****     // }
+ 241:Core/Src/main.c ****     // HAL_Delay(1000);
+ 242:Core/Src/main.c ****     //   set_brightness_(CAM_BRIGHTNESS_LEVEL_4);
+ 243:Core/Src/main.c ****     // set_effect_(CAM_COLOR_FX_BW );
+ 244:Core/Src/main.c ****     // set_contrast_(CAM_CONTRAST_LEVEL_MINUS_3 );
+ 245:Core/Src/main.c ****     // request_image_capture();
+ 246:Core/Src/main.c ****     // HAL_Delay(8000);  // Allow time for image capture & SSDV encoding
+ 247:Core/Src/main.c **** 
+ 248:Core/Src/main.c ****     // //   // Step 2: Request SSDV Stream
+ 249:Core/Src/main.c ****     // request_ssdv_stream();
+ 250:Core/Src/main.c ****     // HAL_Delay(200);
+ 251:Core/Src/main.c **** 
+ 252:Core/Src/main.c ****     // // Step 3: Read All SSDV Packets
+ 253:Core/Src/main.c ****     // read_ssdv_stream();
+ 254:Core/Src/main.c ****     // camera_off();
+ 255:Core/Src/main.c ****     // HAL_Delay(5000);
+ 256:Core/Src/main.c ****     // printf("capturing prestored image now!!\n");
+ 257:Core/Src/main.c ****     // if (HAL_GetTick() - last_i2c_check_time > 1000)  // every 1s
+ 258:Core/Src/main.c ****     // {
+ 259:Core/Src/main.c ****     //   last_i2c_check_time = HAL_GetTick();
+ARM GAS  /tmp/ccJ1HYDu.s 			page 9
 
 
- 260:Core/Src/main.c ****     //   }
- 261:Core/Src/main.c ****     // }
- 262:Core/Src/main.c **** 
- 263:Core/Src/main.c **** 
- 264:Core/Src/main.c **** 
- 265:Core/Src/main.c ****     // printf("i2c recovery going on....\r\n");
- 266:Core/Src/main.c ****     // printf("turining camera on\r\n");
- 267:Core/Src/main.c ****     // camera_on();
- 268:Core/Src/main.c ****     // HAL_Delay(3000);
- 269:Core/Src/main.c ****     // i2c_check();
- 270:Core/Src/main.c ****     // HAL_Delay(1000);
- 271:Core/Src/main.c ****     // // set_properties() // optional
- 272:Core/Src/main.c ****     // camera_request_payload();
- 273:Core/Src/main.c ****     // // printf("turining camera off\r\n");
- 274:Core/Src/main.c ****     // camera_off();
- 275:Core/Src/main.c **** 
- 276:Core/Src/main.c ****     // HAL_Delay(5000);
+ 260:Core/Src/main.c **** 
+ 261:Core/Src/main.c ****     //   // Timeout: if no I2C activity in 3s, and BUSY flag still set
+ 262:Core/Src/main.c ****     //   if ((HAL_GetTick() - last_i2c_activity > 3000) &&
+ 263:Core/Src/main.c ****     //       (__HAL_I2C_GET_FLAG(&hi2c2, I2C_FLAG_BUSY)))
+ 264:Core/Src/main.c ****     //   {
+ 265:Core/Src/main.c ****     //     printf("I2C timeout detected! Resetting I2C2...\r\n");
+ 266:Core/Src/main.c **** 
+ 267:Core/Src/main.c ****     //     // Reset I2C2 peripheral safely
+ 268:Core/Src/main.c ****     //     __HAL_RCC_I2C2_FORCE_RESET();
+ 269:Core/Src/main.c ****     //     HAL_Delay(2);
+ 270:Core/Src/main.c ****     //     __HAL_RCC_I2C2_RELEASE_RESET();
+ 271:Core/Src/main.c ****     //     MX_I2C2_Init();  // Reinitialize I2C2
+ 272:Core/Src/main.c ****        
+ 273:Core/Src/main.c **** 
+ 274:Core/Src/main.c ****     //   }
+ 275:Core/Src/main.c ****     // }
+ 276:Core/Src/main.c **** 
  277:Core/Src/main.c **** 
  278:Core/Src/main.c **** 
- 279:Core/Src/main.c **** 
- 280:Core/Src/main.c **** 
- 281:Core/Src/main.c **** 
- 282:Core/Src/main.c **** 
- 283:Core/Src/main.c **** 
- 284:Core/Src/main.c **** 
- 285:Core/Src/main.c **** 
- 286:Core/Src/main.c **** 
- 287:Core/Src/main.c **** 
- 288:Core/Src/main.c **** 
- 289:Core/Src/main.c ****     // printf("turining camera on\r\n");
- 290:Core/Src/main.c ****     // camera_on();
- 291:Core/Src/main.c ****     // HAL_Delay(3000);
- 292:Core/Src/main.c ****     // i2c_check();
- 293:Core/Src/main.c ****     // HAL_Delay(1000);
- 294:Core/Src/main.c ****     // request_prestored_image();
- 295:Core/Src/main.c ****     // // printf("turining camera off\r\n");
- 296:Core/Src/main.c ****     // camera_off();
+ 279:Core/Src/main.c ****     // printf("i2c recovery going on....\r\n");
+ 280:Core/Src/main.c ****     // printf("turining camera on\r\n");
+ 281:Core/Src/main.c ****     // camera_on();
+ 282:Core/Src/main.c ****     // HAL_Delay(3000);
+ 283:Core/Src/main.c ****     // i2c_check();
+ 284:Core/Src/main.c ****     // HAL_Delay(1000);
+ 285:Core/Src/main.c ****     // // set_properties() // optional
+ 286:Core/Src/main.c ****     // camera_request_payload();
+ 287:Core/Src/main.c ****     // // printf("turining camera off\r\n");
+ 288:Core/Src/main.c ****     // camera_off();
+ 289:Core/Src/main.c **** 
+ 290:Core/Src/main.c ****     // HAL_Delay(5000);
+ 291:Core/Src/main.c **** 
+ 292:Core/Src/main.c **** 
+ 293:Core/Src/main.c **** 
+ 294:Core/Src/main.c **** 
+ 295:Core/Src/main.c **** 
+ 296:Core/Src/main.c **** 
  297:Core/Src/main.c **** 
- 298:Core/Src/main.c ****     camera_on();
- 299:Core/Src/main.c ****     HAL_Delay(3000);
- 300:Core/Src/main.c ****     i2c_check();
- 301:Core/Src/main.c ****     HAL_Delay(1000);
- 302:Core/Src/main.c ****     // set_properties() // optional
- 303:Core/Src/main.c ****     camera_request_payload();
- 304:Core/Src/main.c ****     camera_off();
- 305:Core/Src/main.c **** 
- 306:Core/Src/main.c ****     // HAL_Delay(5000);
- 307:Core/Src/main.c **** 
- 308:Core/Src/main.c ****     // camera_on();
- 309:Core/Src/main.c ****     // HAL_Delay(3000);
- 310:Core/Src/main.c ****     // i2c_check();
- 311:Core/Src/main.c ****     // HAL_Delay(1000);
- 312:Core/Src/main.c ****     // request_prestored_image();
- 313:Core/Src/main.c ****     // camera_off();
- 314:Core/Src/main.c **** 
- 315:Core/Src/main.c **** 
- 316:Core/Src/main.c **** 
-ARM GAS  /tmp/ccIolfGZ.s 			page 10
+ 298:Core/Src/main.c **** 
+ 299:Core/Src/main.c **** 
+ 300:Core/Src/main.c **** 
+ 301:Core/Src/main.c **** 
+ 302:Core/Src/main.c **** 
+ 303:Core/Src/main.c ****     // printf("turining camera on\r\n");
+ 304:Core/Src/main.c ****     // camera_on();
+ 305:Core/Src/main.c ****     // HAL_Delay(3000);
+ 306:Core/Src/main.c ****     // i2c_check();
+ 307:Core/Src/main.c ****     // HAL_Delay(1000);
+ 308:Core/Src/main.c ****     // request_prestored_image();
+ 309:Core/Src/main.c ****     // // printf("turining camera off\r\n");
+ 310:Core/Src/main.c ****     // camera_off();
+ 311:Core/Src/main.c **** 
+ 312:Core/Src/main.c ****     camera_on();
+ 313:Core/Src/main.c ****     HAL_Delay(3000);
+ 314:Core/Src/main.c ****     i2c_check();
+ 315:Core/Src/main.c ****     HAL_Delay(1000);
+ 316:Core/Src/main.c ****     // set_properties() // optional
+ARM GAS  /tmp/ccJ1HYDu.s 			page 10
 
 
- 317:Core/Src/main.c **** 
- 318:Core/Src/main.c **** 
+ 317:Core/Src/main.c ****     camera_request_payload();
+ 318:Core/Src/main.c ****     camera_off();
  319:Core/Src/main.c **** 
- 320:Core/Src/main.c **** 
+ 320:Core/Src/main.c ****     HAL_Delay(5000);
  321:Core/Src/main.c **** 
- 322:Core/Src/main.c **** 
- 323:Core/Src/main.c ****     /* USER CODE END WHILE */
- 324:Core/Src/main.c **** 
- 325:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
- 326:Core/Src/main.c ****   }
- 327:Core/Src/main.c ****   /* USER CODE END 3 */
- 328:Core/Src/main.c **** }
+ 322:Core/Src/main.c ****     camera_on();
+ 323:Core/Src/main.c ****     HAL_Delay(3000);
+ 324:Core/Src/main.c ****     i2c_check();
+ 325:Core/Src/main.c ****     HAL_Delay(1000);
+ 326:Core/Src/main.c ****     request_prestored_image();
+ 327:Core/Src/main.c ****     camera_off();
+ 328:Core/Src/main.c **** 
  329:Core/Src/main.c **** 
- 330:Core/Src/main.c **** /**
- 331:Core/Src/main.c ****   * @brief System Clock Configuration
- 332:Core/Src/main.c ****   * @retval None
- 333:Core/Src/main.c ****   */
- 334:Core/Src/main.c **** void SystemClock_Config(void)
- 335:Core/Src/main.c **** {
- 336:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 337:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 330:Core/Src/main.c **** 
+ 331:Core/Src/main.c **** 
+ 332:Core/Src/main.c **** 
+ 333:Core/Src/main.c **** 
+ 334:Core/Src/main.c **** 
+ 335:Core/Src/main.c **** 
+ 336:Core/Src/main.c **** 
+ 337:Core/Src/main.c ****     /* USER CODE END WHILE */
  338:Core/Src/main.c **** 
- 339:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
- 340:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
- 341:Core/Src/main.c ****   */
- 342:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
- 343:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
- 344:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 345:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 346:Core/Src/main.c ****   {
- 347:Core/Src/main.c ****     Error_Handler();
- 348:Core/Src/main.c ****   }
- 349:Core/Src/main.c **** 
- 350:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
- 351:Core/Src/main.c ****   */
- 352:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
- 353:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 354:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
- 355:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 356:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 357:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 358:Core/Src/main.c **** 
- 359:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+ 339:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
+ 340:Core/Src/main.c ****   }
+ 341:Core/Src/main.c ****   /* USER CODE END 3 */
+ 342:Core/Src/main.c **** }
+ 343:Core/Src/main.c **** 
+ 344:Core/Src/main.c **** /**
+ 345:Core/Src/main.c ****   * @brief System Clock Configuration
+ 346:Core/Src/main.c ****   * @retval None
+ 347:Core/Src/main.c ****   */
+ 348:Core/Src/main.c **** void SystemClock_Config(void)
+ 349:Core/Src/main.c **** {
+ 350:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 351:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 352:Core/Src/main.c **** 
+ 353:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
+ 354:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
+ 355:Core/Src/main.c ****   */
+ 356:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+ 357:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 358:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 359:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
  360:Core/Src/main.c ****   {
  361:Core/Src/main.c ****     Error_Handler();
  362:Core/Src/main.c ****   }
- 363:Core/Src/main.c **** }
- 364:Core/Src/main.c **** 
- 365:Core/Src/main.c **** /* USER CODE BEGIN 4 */
- 366:Core/Src/main.c **** 
- 367:Core/Src/main.c **** /* USER CODE END 4 */
- 368:Core/Src/main.c **** 
- 369:Core/Src/main.c **** /**
- 370:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
- 371:Core/Src/main.c ****   * @retval None
- 372:Core/Src/main.c ****   */
- 373:Core/Src/main.c **** void Error_Handler(void)
-ARM GAS  /tmp/ccIolfGZ.s 			page 11
+ 363:Core/Src/main.c **** 
+ 364:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
+ 365:Core/Src/main.c ****   */
+ 366:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 367:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 368:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
+ 369:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 370:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 371:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 372:Core/Src/main.c **** 
+ 373:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+ARM GAS  /tmp/ccJ1HYDu.s 			page 11
 
 
- 374:Core/Src/main.c **** {
- 201              		.loc 1 374 1 is_stmt 1 view -0
+ 374:Core/Src/main.c ****   {
+ 375:Core/Src/main.c ****     Error_Handler();
+ 376:Core/Src/main.c ****   }
+ 377:Core/Src/main.c **** }
+ 378:Core/Src/main.c **** 
+ 379:Core/Src/main.c **** /* USER CODE BEGIN 4 */
+ 380:Core/Src/main.c **** 
+ 381:Core/Src/main.c **** /* USER CODE END 4 */
+ 382:Core/Src/main.c **** 
+ 383:Core/Src/main.c **** /**
+ 384:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
+ 385:Core/Src/main.c ****   * @retval None
+ 386:Core/Src/main.c ****   */
+ 387:Core/Src/main.c **** void Error_Handler(void)
+ 388:Core/Src/main.c **** {
+ 201              		.loc 1 388 1 is_stmt 1 view -0
  202              		.cfi_startproc
  203              		@ Volatile: function does not return.
  204              		@ args = 0, pretend = 0, frame = 0
  205              		@ frame_needed = 0, uses_anonymous_args = 0
  206              		@ link register save eliminated.
- 375:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
- 376:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
- 377:Core/Src/main.c ****   __disable_irq();
- 207              		.loc 1 377 3 view .LVU31
+ 389:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 390:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
+ 391:Core/Src/main.c ****   __disable_irq();
+ 207              		.loc 1 391 3 view .LVU31
  208              	.LBB4:
  209              	.LBI4:
  210              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
@@ -644,6 +658,9 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   27:Drivers/CMSIS/Include/cmsis_gcc.h **** 
   28:Drivers/CMSIS/Include/cmsis_gcc.h **** /* ignore some GCC warnings */
   29:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic push
+ARM GAS  /tmp/ccJ1HYDu.s 			page 12
+
+
   30:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
   31:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
   32:Drivers/CMSIS/Include/cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -658,9 +675,6 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
   42:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   43:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
-ARM GAS  /tmp/ccIolfGZ.s 			page 12
-
-
   44:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
   45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
@@ -704,6 +718,9 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   84:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))-
   85:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   86:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_READ
+ARM GAS  /tmp/ccJ1HYDu.s 			page 13
+
+
   87:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
   88:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
   89:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
@@ -718,9 +735,6 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
   98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
   99:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
  100:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
-ARM GAS  /tmp/ccIolfGZ.s 			page 13
-
-
  101:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
  102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
  103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
@@ -764,6 +778,9 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  211              		.loc 2 140 27 view .LVU32
  212              	.LBB5:
  141:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ARM GAS  /tmp/ccJ1HYDu.s 			page 14
+
+
  142:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
  213              		.loc 2 142 3 view .LVU33
  214              		.syntax unified
@@ -775,16 +792,13 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  220              	.L17:
  221              	.LBE5:
  222              	.LBE4:
- 378:Core/Src/main.c ****   while (1)
- 223              		.loc 1 378 3 discriminator 1 view .LVU34
- 379:Core/Src/main.c ****   {
-ARM GAS  /tmp/ccIolfGZ.s 			page 14
-
-
- 380:Core/Src/main.c ****   }
- 224              		.loc 1 380 3 discriminator 1 view .LVU35
- 378:Core/Src/main.c ****   while (1)
- 225              		.loc 1 378 9 discriminator 1 view .LVU36
+ 392:Core/Src/main.c ****   while (1)
+ 223              		.loc 1 392 3 discriminator 1 view .LVU34
+ 393:Core/Src/main.c ****   {
+ 394:Core/Src/main.c ****   }
+ 224              		.loc 1 394 3 discriminator 1 view .LVU35
+ 392:Core/Src/main.c ****   while (1)
+ 225              		.loc 1 392 9 discriminator 1 view .LVU36
  226 0002 FEE7     		b	.L17
  227              		.cfi_endproc
  228              	.LFE73:
@@ -797,8 +811,8 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  236              		.fpu softvfp
  238              	SystemClock_Config:
  239              	.LFB72:
- 335:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 240              		.loc 1 335 1 view -0
+ 349:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ 240              		.loc 1 349 1 view -0
  241              		.cfi_startproc
  242              		@ args = 0, pretend = 0, frame = 64
  243              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -809,247 +823,329 @@ ARM GAS  /tmp/ccIolfGZ.s 			page 1
  248 0002 91B0     		sub	sp, sp, #68
  249              	.LCFI9:
  250              		.cfi_def_cfa_offset 72
- 336:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 251              		.loc 1 336 3 view .LVU38
- 336:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 252              		.loc 1 336 22 is_stmt 0 view .LVU39
+ 350:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 251              		.loc 1 350 3 view .LVU38
+ 350:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 252              		.loc 1 350 22 is_stmt 0 view .LVU39
  253 0004 2822     		movs	r2, #40
  254 0006 0021     		movs	r1, #0
  255 0008 06A8     		add	r0, sp, #24
  256 000a FFF7FEFF 		bl	memset
  257              	.LVL16:
- 337:Core/Src/main.c **** 
- 258              		.loc 1 337 3 is_stmt 1 view .LVU40
- 337:Core/Src/main.c **** 
- 259              		.loc 1 337 22 is_stmt 0 view .LVU41
+ 351:Core/Src/main.c **** 
+ 258              		.loc 1 351 3 is_stmt 1 view .LVU40
+ 351:Core/Src/main.c **** 
+ 259              		.loc 1 351 22 is_stmt 0 view .LVU41
  260 000e 0023     		movs	r3, #0
  261 0010 0193     		str	r3, [sp, #4]
+ARM GAS  /tmp/ccJ1HYDu.s 			page 15
+
+
  262 0012 0293     		str	r3, [sp, #8]
  263 0014 0393     		str	r3, [sp, #12]
  264 0016 0493     		str	r3, [sp, #16]
  265 0018 0593     		str	r3, [sp, #20]
- 342:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
- 266              		.loc 1 342 3 is_stmt 1 view .LVU42
- 342:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
- 267              		.loc 1 342 36 is_stmt 0 view .LVU43
+ 356:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 266              		.loc 1 356 3 is_stmt 1 view .LVU42
+ 356:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 267              		.loc 1 356 36 is_stmt 0 view .LVU43
  268 001a 0123     		movs	r3, #1
  269 001c 0693     		str	r3, [sp, #24]
- 343:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 270              		.loc 1 343 3 is_stmt 1 view .LVU44
- 343:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
- 271              		.loc 1 343 30 is_stmt 0 view .LVU45
-ARM GAS  /tmp/ccIolfGZ.s 			page 15
-
-
+ 357:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 270              		.loc 1 357 3 is_stmt 1 view .LVU44
+ 357:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+ 271              		.loc 1 357 30 is_stmt 0 view .LVU45
  272 001e 4FF48033 		mov	r3, #65536
  273 0022 0793     		str	r3, [sp, #28]
- 344:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 274              		.loc 1 344 3 is_stmt 1 view .LVU46
- 345:Core/Src/main.c ****   {
- 275              		.loc 1 345 3 view .LVU47
- 345:Core/Src/main.c ****   {
- 276              		.loc 1 345 7 is_stmt 0 view .LVU48
+ 358:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 274              		.loc 1 358 3 is_stmt 1 view .LVU46
+ 359:Core/Src/main.c ****   {
+ 275              		.loc 1 359 3 view .LVU47
+ 359:Core/Src/main.c ****   {
+ 276              		.loc 1 359 7 is_stmt 0 view .LVU48
  277 0024 06A8     		add	r0, sp, #24
  278 0026 FFF7FEFF 		bl	HAL_RCC_OscConfig
  279              	.LVL17:
- 345:Core/Src/main.c ****   {
- 280              		.loc 1 345 6 view .LVU49
+ 359:Core/Src/main.c ****   {
+ 280              		.loc 1 359 6 view .LVU49
  281 002a 70B9     		cbnz	r0, .L22
- 352:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 282              		.loc 1 352 3 is_stmt 1 view .LVU50
- 352:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
- 283              		.loc 1 352 31 is_stmt 0 view .LVU51
+ 366:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 282              		.loc 1 366 3 is_stmt 1 view .LVU50
+ 366:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 283              		.loc 1 366 31 is_stmt 0 view .LVU51
  284 002c 0F23     		movs	r3, #15
  285 002e 0193     		str	r3, [sp, #4]
- 354:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 286              		.loc 1 354 3 is_stmt 1 view .LVU52
- 354:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 287              		.loc 1 354 34 is_stmt 0 view .LVU53
+ 368:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 286              		.loc 1 368 3 is_stmt 1 view .LVU52
+ 368:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 287              		.loc 1 368 34 is_stmt 0 view .LVU53
  288 0030 0123     		movs	r3, #1
  289 0032 0293     		str	r3, [sp, #8]
- 355:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 290              		.loc 1 355 3 is_stmt 1 view .LVU54
- 355:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 291              		.loc 1 355 35 is_stmt 0 view .LVU55
+ 369:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 290              		.loc 1 369 3 is_stmt 1 view .LVU54
+ 369:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 291              		.loc 1 369 35 is_stmt 0 view .LVU55
  292 0034 0021     		movs	r1, #0
  293 0036 0391     		str	r1, [sp, #12]
- 356:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 294              		.loc 1 356 3 is_stmt 1 view .LVU56
- 356:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 295              		.loc 1 356 36 is_stmt 0 view .LVU57
+ 370:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 294              		.loc 1 370 3 is_stmt 1 view .LVU56
+ 370:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 295              		.loc 1 370 36 is_stmt 0 view .LVU57
  296 0038 0491     		str	r1, [sp, #16]
- 357:Core/Src/main.c **** 
- 297              		.loc 1 357 3 is_stmt 1 view .LVU58
- 357:Core/Src/main.c **** 
- 298              		.loc 1 357 36 is_stmt 0 view .LVU59
+ 371:Core/Src/main.c **** 
+ 297              		.loc 1 371 3 is_stmt 1 view .LVU58
+ 371:Core/Src/main.c **** 
+ 298              		.loc 1 371 36 is_stmt 0 view .LVU59
  299 003a 0591     		str	r1, [sp, #20]
- 359:Core/Src/main.c ****   {
- 300              		.loc 1 359 3 is_stmt 1 view .LVU60
- 359:Core/Src/main.c ****   {
- 301              		.loc 1 359 7 is_stmt 0 view .LVU61
+ 373:Core/Src/main.c ****   {
+ARM GAS  /tmp/ccJ1HYDu.s 			page 16
+
+
+ 300              		.loc 1 373 3 is_stmt 1 view .LVU60
+ 373:Core/Src/main.c ****   {
+ 301              		.loc 1 373 7 is_stmt 0 view .LVU61
  302 003c 01A8     		add	r0, sp, #4
  303 003e FFF7FEFF 		bl	HAL_RCC_ClockConfig
  304              	.LVL18:
- 359:Core/Src/main.c ****   {
- 305              		.loc 1 359 6 view .LVU62
+ 373:Core/Src/main.c ****   {
+ 305              		.loc 1 373 6 view .LVU62
  306 0042 20B9     		cbnz	r0, .L23
- 363:Core/Src/main.c **** 
- 307              		.loc 1 363 1 view .LVU63
+ 377:Core/Src/main.c **** 
+ 307              		.loc 1 377 1 view .LVU63
  308 0044 11B0     		add	sp, sp, #68
  309              	.LCFI10:
  310              		.cfi_remember_state
-ARM GAS  /tmp/ccIolfGZ.s 			page 16
-
-
  311              		.cfi_def_cfa_offset 4
  312              		@ sp needed
  313 0046 5DF804FB 		ldr	pc, [sp], #4
  314              	.L22:
  315              	.LCFI11:
  316              		.cfi_restore_state
- 347:Core/Src/main.c ****   }
- 317              		.loc 1 347 5 is_stmt 1 view .LVU64
+ 361:Core/Src/main.c ****   }
+ 317              		.loc 1 361 5 is_stmt 1 view .LVU64
  318 004a FFF7FEFF 		bl	Error_Handler
  319              	.LVL19:
  320              	.L23:
- 361:Core/Src/main.c ****   }
- 321              		.loc 1 361 5 view .LVU65
+ 375:Core/Src/main.c ****   }
+ 321              		.loc 1 375 5 view .LVU65
  322 004e FFF7FEFF 		bl	Error_Handler
  323              	.LVL20:
  324              		.cfi_endproc
  325              	.LFE72:
- 327              		.section	.text.main,"ax",%progbits
- 328              		.align	1
- 329              		.global	main
- 330              		.syntax unified
- 331              		.thumb
- 332              		.thumb_func
- 333              		.fpu softvfp
- 335              	main:
- 336              	.LFB71:
- 107:Core/Src/main.c **** 
- 337              		.loc 1 107 1 view -0
- 338              		.cfi_startproc
- 339              		@ Volatile: function does not return.
- 340              		@ args = 0, pretend = 0, frame = 0
- 341              		@ frame_needed = 0, uses_anonymous_args = 0
- 342 0000 08B5     		push	{r3, lr}
- 343              	.LCFI12:
- 344              		.cfi_def_cfa_offset 8
- 345              		.cfi_offset 3, -8
- 346              		.cfi_offset 14, -4
- 116:Core/Src/main.c **** 
- 347              		.loc 1 116 3 view .LVU67
- 348 0002 FFF7FEFF 		bl	HAL_Init
- 349              	.LVL21:
- 123:Core/Src/main.c **** 
- 350              		.loc 1 123 3 view .LVU68
- 351 0006 FFF7FEFF 		bl	SystemClock_Config
- 352              	.LVL22:
- 130:Core/Src/main.c ****   MX_I2C2_Init();
- 353              		.loc 1 130 3 view .LVU69
- 354 000a FFF7FEFF 		bl	MX_GPIO_Init
- 355              	.LVL23:
- 131:Core/Src/main.c ****   MX_USART1_UART_Init();
- 356              		.loc 1 131 3 view .LVU70
- 357 000e FFF7FEFF 		bl	MX_I2C2_Init
- 358              	.LVL24:
- 132:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
- 359              		.loc 1 132 3 view .LVU71
- 360 0012 FFF7FEFF 		bl	MX_USART1_UART_Init
- 361              	.LVL25:
-ARM GAS  /tmp/ccIolfGZ.s 			page 17
+ 327              		.section	.rodata.main.str1.4,"aMS",%progbits,1
+ 328              		.align	2
+ 329              	.LC0:
+ 330 0000 52616469 		.ascii	"Radio error\000"
+ 330      6F206572 
+ 330      726F7200 
+ 331              		.align	2
+ 332              	.LC1:
+ 333 000c 52616469 		.ascii	"Radio success!\000"
+ 333      6F207375 
+ 333      63636573 
+ 333      732100
+ 334 001b 00       		.align	2
+ 335              	.LC2:
+ 336 001c 61667465 		.ascii	"after setup\000"
+ 336      72207365 
+ 336      74757000 
+ 337              		.section	.text.main,"ax",%progbits
+ 338              		.align	1
+ 339              		.global	main
+ 340              		.syntax unified
+ 341              		.thumb
+ 342              		.thumb_func
+ 343              		.fpu softvfp
+ 345              	main:
+ 346              	.LFB71:
+ARM GAS  /tmp/ccJ1HYDu.s 			page 17
 
 
- 134:Core/Src/main.c **** 
- 362              		.loc 1 134 3 view .LVU72
- 363 0016 FFF7FEFF 		bl	watchdog_init
- 364              	.LVL26:
- 365              	.L25:
- 201:Core/Src/main.c ****   {
- 366              		.loc 1 201 3 discriminator 1 view .LVU73
- 298:Core/Src/main.c ****     HAL_Delay(3000);
- 367              		.loc 1 298 5 discriminator 1 view .LVU74
- 368 001a FFF7FEFF 		bl	camera_on
- 369              	.LVL27:
- 299:Core/Src/main.c ****     i2c_check();
- 370              		.loc 1 299 5 discriminator 1 view .LVU75
- 371 001e 40F6B830 		movw	r0, #3000
- 372 0022 FFF7FEFF 		bl	HAL_Delay
- 373              	.LVL28:
- 300:Core/Src/main.c ****     HAL_Delay(1000);
- 374              		.loc 1 300 5 discriminator 1 view .LVU76
- 375 0026 FFF7FEFF 		bl	i2c_check
- 376              	.LVL29:
- 301:Core/Src/main.c ****     // set_properties() // optional
- 377              		.loc 1 301 5 discriminator 1 view .LVU77
- 378 002a 4FF47A70 		mov	r0, #1000
- 379 002e FFF7FEFF 		bl	HAL_Delay
- 380              	.LVL30:
- 303:Core/Src/main.c ****     camera_off();
- 381              		.loc 1 303 5 discriminator 1 view .LVU78
- 382 0032 FFF7FEFF 		bl	camera_request_payload
- 383              	.LVL31:
- 304:Core/Src/main.c **** 
- 384              		.loc 1 304 5 discriminator 1 view .LVU79
- 385 0036 FFF7FEFF 		bl	camera_off
- 386              	.LVL32:
- 201:Core/Src/main.c ****   {
- 387              		.loc 1 201 9 discriminator 1 view .LVU80
- 388 003a EEE7     		b	.L25
- 389              		.cfi_endproc
- 390              	.LFE71:
- 392              		.global	rx_buffer
- 393              		.section	.bss.rx_buffer,"aw",%nobits
- 394              		.align	2
- 397              	rx_buffer:
- 398 0000 00000000 		.space	224
- 398      00000000 
- 398      00000000 
- 398      00000000 
- 398      00000000 
- 399              		.text
- 400              	.Letext0:
- 401              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
- 402              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
- 403              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 404              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
- 405              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
- 406              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 407              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
- 408              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
-ARM GAS  /tmp/ccIolfGZ.s 			page 18
+ 110:Core/Src/main.c **** 
+ 347              		.loc 1 110 1 view -0
+ 348              		.cfi_startproc
+ 349              		@ Volatile: function does not return.
+ 350              		@ args = 0, pretend = 0, frame = 0
+ 351              		@ frame_needed = 0, uses_anonymous_args = 0
+ 352 0000 08B5     		push	{r3, lr}
+ 353              	.LCFI12:
+ 354              		.cfi_def_cfa_offset 8
+ 355              		.cfi_offset 3, -8
+ 356              		.cfi_offset 14, -4
+ 119:Core/Src/main.c **** 
+ 357              		.loc 1 119 3 view .LVU67
+ 358 0002 FFF7FEFF 		bl	HAL_Init
+ 359              	.LVL21:
+ 126:Core/Src/main.c **** 
+ 360              		.loc 1 126 3 view .LVU68
+ 361 0006 FFF7FEFF 		bl	SystemClock_Config
+ 362              	.LVL22:
+ 133:Core/Src/main.c ****   MX_I2C2_Init();
+ 363              		.loc 1 133 3 view .LVU69
+ 364 000a FFF7FEFF 		bl	MX_GPIO_Init
+ 365              	.LVL23:
+ 134:Core/Src/main.c ****   MX_USART1_UART_Init();
+ 366              		.loc 1 134 3 view .LVU70
+ 367 000e FFF7FEFF 		bl	MX_I2C2_Init
+ 368              	.LVL24:
+ 135:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 369              		.loc 1 135 3 view .LVU71
+ 370 0012 FFF7FEFF 		bl	MX_USART1_UART_Init
+ 371              	.LVL25:
+ 137:Core/Src/main.c ****     if (!radio_init())
+ 372              		.loc 1 137 3 view .LVU72
+ 373 0016 FFF7FEFF 		bl	watchdog_init
+ 374              	.LVL26:
+ 138:Core/Src/main.c ****   {
+ 375              		.loc 1 138 5 view .LVU73
+ 138:Core/Src/main.c ****   {
+ 376              		.loc 1 138 10 is_stmt 0 view .LVU74
+ 377 001a FFF7FEFF 		bl	radio_init
+ 378              	.LVL27:
+ 138:Core/Src/main.c ****   {
+ 379              		.loc 1 138 8 view .LVU75
+ 380 001e 18B9     		cbnz	r0, .L25
+ 140:Core/Src/main.c ****     while (1);
+ 381              		.loc 1 140 5 is_stmt 1 view .LVU76
+ 382 0020 1748     		ldr	r0, .L29
+ 383 0022 FFF7FEFF 		bl	puts
+ 384              	.LVL28:
+ 385              	.L26:
+ 141:Core/Src/main.c ****   }
+ 386              		.loc 1 141 5 discriminator 1 view .LVU77
+ 141:Core/Src/main.c ****   }
+ 387              		.loc 1 141 14 discriminator 1 view .LVU78
+ 141:Core/Src/main.c ****   }
+ 388              		.loc 1 141 11 discriminator 1 view .LVU79
+ 389 0026 FEE7     		b	.L26
+ARM GAS  /tmp/ccJ1HYDu.s 			page 18
 
 
- 409              		.file 11 "Core/Inc/i2c.h"
- 410              		.file 12 "Core/Inc/usart.h"
- 411              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 412              		.file 14 "Core/Inc/gpio.h"
- 413              		.file 15 "Core/Inc/watchdog.h"
- 414              		.file 16 "Core/Inc/camera.h"
- 415              		.file 17 "<built-in>"
-ARM GAS  /tmp/ccIolfGZ.s 			page 19
+ 390              	.L25:
+ 145:Core/Src/main.c ****   }
+ 391              		.loc 1 145 5 view .LVU80
+ 392 0028 1648     		ldr	r0, .L29+4
+ 393 002a FFF7FEFF 		bl	puts
+ 394              	.LVL29:
+ 148:Core/Src/main.c **** 
+ 395              		.loc 1 148 3 view .LVU81
+ 396 002e 1648     		ldr	r0, .L29+8
+ 397 0030 FFF7FEFF 		bl	puts
+ 398              	.LVL30:
+ 399              	.L27:
+ 215:Core/Src/main.c ****   {
+ 400              		.loc 1 215 3 discriminator 1 view .LVU82
+ 312:Core/Src/main.c ****     HAL_Delay(3000);
+ 401              		.loc 1 312 5 discriminator 1 view .LVU83
+ 402 0034 FFF7FEFF 		bl	camera_on
+ 403              	.LVL31:
+ 313:Core/Src/main.c ****     i2c_check();
+ 404              		.loc 1 313 5 discriminator 1 view .LVU84
+ 405 0038 40F6B830 		movw	r0, #3000
+ 406 003c FFF7FEFF 		bl	HAL_Delay
+ 407              	.LVL32:
+ 314:Core/Src/main.c ****     HAL_Delay(1000);
+ 408              		.loc 1 314 5 discriminator 1 view .LVU85
+ 409 0040 FFF7FEFF 		bl	i2c_check
+ 410              	.LVL33:
+ 315:Core/Src/main.c ****     // set_properties() // optional
+ 411              		.loc 1 315 5 discriminator 1 view .LVU86
+ 412 0044 4FF47A70 		mov	r0, #1000
+ 413 0048 FFF7FEFF 		bl	HAL_Delay
+ 414              	.LVL34:
+ 317:Core/Src/main.c ****     camera_off();
+ 415              		.loc 1 317 5 discriminator 1 view .LVU87
+ 416 004c FFF7FEFF 		bl	camera_request_payload
+ 417              	.LVL35:
+ 318:Core/Src/main.c **** 
+ 418              		.loc 1 318 5 discriminator 1 view .LVU88
+ 419 0050 FFF7FEFF 		bl	camera_off
+ 420              	.LVL36:
+ 320:Core/Src/main.c **** 
+ 421              		.loc 1 320 5 discriminator 1 view .LVU89
+ 422 0054 41F28830 		movw	r0, #5000
+ 423 0058 FFF7FEFF 		bl	HAL_Delay
+ 424              	.LVL37:
+ 322:Core/Src/main.c ****     HAL_Delay(3000);
+ 425              		.loc 1 322 5 discriminator 1 view .LVU90
+ 426 005c FFF7FEFF 		bl	camera_on
+ 427              	.LVL38:
+ 323:Core/Src/main.c ****     i2c_check();
+ 428              		.loc 1 323 5 discriminator 1 view .LVU91
+ 429 0060 40F6B830 		movw	r0, #3000
+ 430 0064 FFF7FEFF 		bl	HAL_Delay
+ 431              	.LVL39:
+ 324:Core/Src/main.c ****     HAL_Delay(1000);
+ 432              		.loc 1 324 5 discriminator 1 view .LVU92
+ 433 0068 FFF7FEFF 		bl	i2c_check
+ARM GAS  /tmp/ccJ1HYDu.s 			page 19
+
+
+ 434              	.LVL40:
+ 325:Core/Src/main.c ****     request_prestored_image();
+ 435              		.loc 1 325 5 discriminator 1 view .LVU93
+ 436 006c 4FF47A70 		mov	r0, #1000
+ 437 0070 FFF7FEFF 		bl	HAL_Delay
+ 438              	.LVL41:
+ 326:Core/Src/main.c ****     camera_off();
+ 439              		.loc 1 326 5 discriminator 1 view .LVU94
+ 440 0074 FFF7FEFF 		bl	request_prestored_image
+ 441              	.LVL42:
+ 327:Core/Src/main.c **** 
+ 442              		.loc 1 327 5 discriminator 1 view .LVU95
+ 443 0078 FFF7FEFF 		bl	camera_off
+ 444              	.LVL43:
+ 215:Core/Src/main.c ****   {
+ 445              		.loc 1 215 9 discriminator 1 view .LVU96
+ 446 007c DAE7     		b	.L27
+ 447              	.L30:
+ 448 007e 00BF     		.align	2
+ 449              	.L29:
+ 450 0080 00000000 		.word	.LC0
+ 451 0084 0C000000 		.word	.LC1
+ 452 0088 1C000000 		.word	.LC2
+ 453              		.cfi_endproc
+ 454              	.LFE71:
+ 456              		.text
+ 457              	.Letext0:
+ 458              		.file 3 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
+ 459              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 460              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 461              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 462              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 463              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 464              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 465              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 466              		.file 11 "Core/Inc/i2c.h"
+ 467              		.file 12 "Core/Inc/usart.h"
+ 468              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 469              		.file 14 "Core/Inc/gpio.h"
+ 470              		.file 15 "Core/Inc/watchdog.h"
+ 471              		.file 16 "si446x/radio.h"
+ 472              		.file 17 "<built-in>"
+ 473              		.file 18 "Core/Inc/camera.h"
+ARM GAS  /tmp/ccJ1HYDu.s 			page 20
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/ccIolfGZ.s:16     .text._write:0000000000000000 $t
-     /tmp/ccIolfGZ.s:24     .text._write:0000000000000000 _write
-     /tmp/ccIolfGZ.s:58     .text._write:0000000000000014 $d
-     /tmp/ccIolfGZ.s:63     .text.send_command:0000000000000000 $t
-     /tmp/ccIolfGZ.s:70     .text.send_command:0000000000000000 send_command
-     /tmp/ccIolfGZ.s:106    .text.send_command:0000000000000024 $d
-     /tmp/ccIolfGZ.s:111    .text.read_ssdv_packet:0000000000000000 $t
-     /tmp/ccIolfGZ.s:118    .text.read_ssdv_packet:0000000000000000 read_ssdv_packet
-     /tmp/ccIolfGZ.s:187    .text.read_ssdv_packet:000000000000002c $d
-     /tmp/ccIolfGZ.s:192    .text.Error_Handler:0000000000000000 $t
-     /tmp/ccIolfGZ.s:199    .text.Error_Handler:0000000000000000 Error_Handler
-     /tmp/ccIolfGZ.s:231    .text.SystemClock_Config:0000000000000000 $t
-     /tmp/ccIolfGZ.s:238    .text.SystemClock_Config:0000000000000000 SystemClock_Config
-     /tmp/ccIolfGZ.s:328    .text.main:0000000000000000 $t
-     /tmp/ccIolfGZ.s:335    .text.main:0000000000000000 main
-     /tmp/ccIolfGZ.s:397    .bss.rx_buffer:0000000000000000 rx_buffer
-     /tmp/ccIolfGZ.s:394    .bss.rx_buffer:0000000000000000 $d
+     /tmp/ccJ1HYDu.s:16     .text._write:0000000000000000 $t
+     /tmp/ccJ1HYDu.s:24     .text._write:0000000000000000 _write
+     /tmp/ccJ1HYDu.s:58     .text._write:0000000000000014 $d
+     /tmp/ccJ1HYDu.s:63     .text.send_command:0000000000000000 $t
+     /tmp/ccJ1HYDu.s:70     .text.send_command:0000000000000000 send_command
+     /tmp/ccJ1HYDu.s:106    .text.send_command:0000000000000024 $d
+     /tmp/ccJ1HYDu.s:111    .text.read_ssdv_packet:0000000000000000 $t
+     /tmp/ccJ1HYDu.s:118    .text.read_ssdv_packet:0000000000000000 read_ssdv_packet
+     /tmp/ccJ1HYDu.s:187    .text.read_ssdv_packet:000000000000002c $d
+     /tmp/ccJ1HYDu.s:192    .text.Error_Handler:0000000000000000 $t
+     /tmp/ccJ1HYDu.s:199    .text.Error_Handler:0000000000000000 Error_Handler
+     /tmp/ccJ1HYDu.s:231    .text.SystemClock_Config:0000000000000000 $t
+     /tmp/ccJ1HYDu.s:238    .text.SystemClock_Config:0000000000000000 SystemClock_Config
+     /tmp/ccJ1HYDu.s:328    .rodata.main.str1.4:0000000000000000 $d
+     /tmp/ccJ1HYDu.s:338    .text.main:0000000000000000 $t
+     /tmp/ccJ1HYDu.s:345    .text.main:0000000000000000 main
+     /tmp/ccJ1HYDu.s:450    .text.main:0000000000000080 $d
 
 UNDEFINED SYMBOLS
 HAL_UART_Transmit
@@ -1065,8 +1161,11 @@ MX_GPIO_Init
 MX_I2C2_Init
 MX_USART1_UART_Init
 watchdog_init
+radio_init
+puts
 camera_on
 HAL_Delay
 i2c_check
 camera_request_payload
 camera_off
+request_prestored_image
