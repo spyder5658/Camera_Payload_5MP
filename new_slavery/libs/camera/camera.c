@@ -114,8 +114,8 @@ void arducam_set_jpeg_mode() {
     arducam_write_register(0x20, 0x01);  // JPEG mode
     HAL_Delay(10);  // Small delay for settings to apply
 
-     // 2. Set resolution to 320x240
-    arducam_write_register(0x21, 0x01);  // Resolution = 320x240
+     // 2. Set resolution to 128x128
+    arducam_write_register(0x21, cam_size);  // Resolution = 128x128
     HAL_Delay(10);
 
     camersSetBrightness(lvl);
@@ -310,6 +310,7 @@ void process_image_capture()
     current_packet_index = 0;
     send_all_packets = 0;
     prestore_image_requested = 0;
+    // previous_send_flash_packets= 0;
 }
 
 

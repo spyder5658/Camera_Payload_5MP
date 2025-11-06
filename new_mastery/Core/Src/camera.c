@@ -1,11 +1,8 @@
 
 #include "camera.h"
-
-#include "mini_morse.h"
 #include "radio.h"
 
 uint32_t last_i2c_activity = 0; // Added for timeout tracking
-
 
 
 void request_image_capture() 
@@ -18,6 +15,8 @@ void request_image_capture()
         printf("Failed to send image capture command.\r\n");
     }
 }
+
+
 
 void request_prestored() 
 {
@@ -177,6 +176,23 @@ void request_prestored_image(void)
     read_ssdv_stream();
 }
 
+void purano_request_payload(void)
+{
+     last_i2c_activity = HAL_GetTick();
+    HAL_StatusTypeDef res;
+
+    // Step 1: Send 0x91 command to request purano image
+    uint8_t cmd[2] = {0x91, 0x00}; // second byte is ignored
+    res = HAL_I2C_Master_Transmit(&hi2c2, SSDV_SLAVE_ADDR, cmd, 2, HAL_MAX_DELAY);
+    if (res != HAL_OK) {
+        printf("Failed to send purano image command\n");
+        return;
+    }
+
+    read_ssdv_stream();
+}
+
+
 
 void camera_on()
 {
@@ -262,6 +278,10 @@ void camera_request_payload()
     // camera_off();
 
 }
+
+
+
+
 
 
 

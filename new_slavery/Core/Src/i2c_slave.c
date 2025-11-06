@@ -10,6 +10,9 @@
 #define CAM_EV_LEVEL_CMD          0x60
 #define CAM_STAURATION_LEVEL_CMD  0x70
 #define CAM_COLOR_FX_CMD          0x80
+#define CAM_SIZE_CMD              0x81
+
+
 
 volatile CAM_BRIGHTNESS_LEVEL lvl = 0;
 volatile CAM_SHARPNESS_LEVEL shrp_lvl = 0;
@@ -17,6 +20,7 @@ volatile CAM_CONTRAST_LEVEL contra_lvl = 0;
 volatile CAM_EV_LEVEL exposure_lvl = 0;
 volatile CAM_STAURATION_LEVEL saturation_lvl = 0;
 volatile CAM_COLOR_FX effect = 0;
+volatile CAM_IMAGE_MODE cam_size = CAM_IMAGE_MODE_128X128;
 
 volatile uint8_t capture_requested = 0;
 volatile uint8_t prestore_image_requested = 0;
@@ -180,5 +184,9 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
         effect = RxData[1];
         printf("Effect: %i\n", effect);
     }
+    else if (cmd == CAM_SIZE_CMD)
+    {
+        cam_size =  RxData[1];
+        printf("Cam Size: %i\n", cam_size);
+    }
 }
-

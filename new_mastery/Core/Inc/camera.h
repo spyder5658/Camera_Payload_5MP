@@ -136,5 +136,6 @@ void camera_off();
 void check_i2c_timeout();
 void i2c_check();
 void camera_request_payload();
+void purano_request_payload();
 
 #endif

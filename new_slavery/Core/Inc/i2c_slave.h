@@ -14,8 +14,10 @@ extern volatile CAM_CONTRAST_LEVEL contra_lvl;
 extern volatile CAM_EV_LEVEL exposure_lvl;
 extern volatile CAM_STAURATION_LEVEL saturation_lvl;
 extern volatile CAM_COLOR_FX effect;
+extern volatile CAM_IMAGE_MODE cam_size ;
 
 extern volatile uint8_t prestore_image_requested;
+extern volatile uint8_t previous_send_flash_packets;
 
 
 

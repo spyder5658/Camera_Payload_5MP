@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccAwUBCd.s 			page 1
+ARM GAS  /tmp/cc7wPAuY.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
   47 0010 00080140 		.word	1073809408
   48              		.cfi_endproc
   49              	.LFE65:
-ARM GAS  /tmp/ccAwUBCd.s 			page 2
+ARM GAS  /tmp/cc7wPAuY.s 			page 2
 
 
   51              		.section	.text.flash_cs_high,"ax",%progbits
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  102              		.cfi_offset 14, -4
  103 0002 87B0     		sub	sp, sp, #28
  104              	.LCFI3:
-ARM GAS  /tmp/ccAwUBCd.s 			page 3
+ARM GAS  /tmp/cc7wPAuY.s 			page 3
 
 
  105              		.cfi_def_cfa_offset 32
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  148 003c FFF7FEFF 		bl	flash_cs_high
  149              	.LVL3:
   27:libs/flash/flash.c **** 
-ARM GAS  /tmp/ccAwUBCd.s 			page 4
+ARM GAS  /tmp/cc7wPAuY.s 			page 4
 
 
   28:libs/flash/flash.c **** }
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  203              	flash_send_byte:
  204              	.LVL5:
  205              	.LFB69:
-ARM GAS  /tmp/ccAwUBCd.s 			page 5
+ARM GAS  /tmp/cc7wPAuY.s 			page 5
 
 
   33:libs/flash/flash.c **** 
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  255              		.fpu softvfp
  257              	FLASH_SendHalfWord:
  258              	.LVL8:
-ARM GAS  /tmp/ccAwUBCd.s 			page 6
+ARM GAS  /tmp/cc7wPAuY.s 			page 6
 
 
  259              	.LFB70:
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  308              		.thumb_func
  309              		.fpu softvfp
  311              	flash_write_enable:
-ARM GAS  /tmp/ccAwUBCd.s 			page 7
+ARM GAS  /tmp/cc7wPAuY.s 			page 7
 
 
  312              	.LFB71:
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
   55:libs/flash/flash.c ****     flash_cs_low();
  358              		.loc 1 55 5 view .LVU50
  359 0002 FFF7FEFF 		bl	flash_cs_low
-ARM GAS  /tmp/ccAwUBCd.s 			page 8
+ARM GAS  /tmp/cc7wPAuY.s 			page 8
 
 
  360              	.LVL15:
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
   66:libs/flash/flash.c ****     flash_write_enable();
  406              		.loc 1 66 5 is_stmt 1 view .LVU61
  407 0004 FFF7FEFF 		bl	flash_write_enable
-ARM GAS  /tmp/ccAwUBCd.s 			page 9
+ARM GAS  /tmp/cc7wPAuY.s 			page 9
 
 
  408              	.LVL20:
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  454 0000 08B5     		push	{r3, lr}
  455              	.LCFI15:
  456              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/ccAwUBCd.s 			page 10
+ARM GAS  /tmp/cc7wPAuY.s 			page 10
 
 
  457              		.cfi_offset 3, -8
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  505 0006 1546     		mov	r5, r2
   85:libs/flash/flash.c ****     flash_write_enable();
  506              		.loc 1 85 5 is_stmt 1 view .LVU80
-ARM GAS  /tmp/ccAwUBCd.s 			page 11
+ARM GAS  /tmp/cc7wPAuY.s 			page 11
 
 
  507 0008 FFF7FEFF 		bl	flash_write_enable
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
   92:libs/flash/flash.c ****         flash_send_byte(pBuffer[i]);
  550              		.loc 1 92 26 is_stmt 1 discriminator 1 view .LVU94
   92:libs/flash/flash.c ****         flash_send_byte(pBuffer[i]);
-ARM GAS  /tmp/ccAwUBCd.s 			page 12
+ARM GAS  /tmp/cc7wPAuY.s 			page 12
 
 
  551              		.loc 1 92 5 is_stmt 0 discriminator 1 view .LVU95
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  102:libs/flash/flash.c **** 
  103:libs/flash/flash.c ****     Addr = WriteAddr % FLASH_SPI_PAGESIZE;
  599              		.loc 1 103 5 view .LVU103
-ARM GAS  /tmp/ccAwUBCd.s 			page 13
+ARM GAS  /tmp/cc7wPAuY.s 			page 13
 
 
  600              		.loc 1 103 10 is_stmt 0 view .LVU104
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  641              	.LVL57:
  642              	.L40:
  112:libs/flash/flash.c ****                 flash_write_page(pBuffer, WriteAddr, FLASH_SPI_PAGESIZE);
-ARM GAS  /tmp/ccAwUBCd.s 			page 14
+ARM GAS  /tmp/cc7wPAuY.s 			page 14
 
 
  643              		.loc 1 112 19 is_stmt 1 view .LVU122
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  660              	.LVL60:
  661              	.L39:
  662              		.loc 1 150 1 view .LVU127
-ARM GAS  /tmp/ccAwUBCd.s 			page 15
+ARM GAS  /tmp/cc7wPAuY.s 			page 15
 
 
  663 0046 C3F10008 		rsb	r8, r3, #0
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  701              		.loc 1 126 17 view .LVU143
  702 0070 E7E7     		b	.L38
  703              	.LVL69:
-ARM GAS  /tmp/ccAwUBCd.s 			page 16
+ARM GAS  /tmp/cc7wPAuY.s 			page 16
 
 
  704              	.L44:
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  742              		.loc 1 139 19 is_stmt 0 view .LVU159
  743 0094 0AE0     		b	.L45
  744              	.LVL79:
-ARM GAS  /tmp/ccAwUBCd.s 			page 17
+ARM GAS  /tmp/cc7wPAuY.s 			page 17
 
 
  745              	.L46:
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  788              		.align	1
  789              		.global	flash_read_buffer
  790              		.syntax unified
-ARM GAS  /tmp/ccAwUBCd.s 			page 18
+ARM GAS  /tmp/cc7wPAuY.s 			page 18
 
 
  791              		.thumb
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  837              	.LVL92:
  838              		.loc 1 159 5 view .LVU183
  839 002a 05E0     		b	.L49
-ARM GAS  /tmp/ccAwUBCd.s 			page 19
+ARM GAS  /tmp/cc7wPAuY.s 			page 19
 
 
  840              	.LVL93:
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  884              		@ frame_needed = 0, uses_anonymous_args = 0
  885 0000 70B5     		push	{r4, r5, r6, lr}
  886              	.LCFI19:
-ARM GAS  /tmp/ccAwUBCd.s 			page 20
+ARM GAS  /tmp/cc7wPAuY.s 			page 20
 
 
  887              		.cfi_def_cfa_offset 16
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  930              		.loc 1 177 26 view .LVU209
  931 002a 44EA0644 		orr	r4, r4, r6, lsl #16
  932              	.LVL109:
-ARM GAS  /tmp/ccAwUBCd.s 			page 21
+ARM GAS  /tmp/cc7wPAuY.s 			page 21
 
 
  178:libs/flash/flash.c ****     return Temp;
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  980              		.loc 1 186 5 view .LVU220
  981 001e E0B2     		uxtb	r0, r4
  982 0020 FFF7FEFF 		bl	flash_send_byte
-ARM GAS  /tmp/ccAwUBCd.s 			page 22
+ARM GAS  /tmp/cc7wPAuY.s 			page 22
 
 
  983              	.LVL116:
@@ -1309,49 +1309,49 @@ ARM GAS  /tmp/ccAwUBCd.s 			page 1
  1026              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
  1027              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
  1028              		.file 9 "Core/Inc/spi.h"
-ARM GAS  /tmp/ccAwUBCd.s 			page 23
+ARM GAS  /tmp/cc7wPAuY.s 			page 23
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 flash.c
-     /tmp/ccAwUBCd.s:16     .text.flash_cs_low:0000000000000000 $t
-     /tmp/ccAwUBCd.s:24     .text.flash_cs_low:0000000000000000 flash_cs_low
-     /tmp/ccAwUBCd.s:47     .text.flash_cs_low:0000000000000010 $d
-     /tmp/ccAwUBCd.s:52     .text.flash_cs_high:0000000000000000 $t
-     /tmp/ccAwUBCd.s:59     .text.flash_cs_high:0000000000000000 flash_cs_high
-     /tmp/ccAwUBCd.s:81     .text.flash_cs_high:0000000000000010 $d
-     /tmp/ccAwUBCd.s:86     .text.flash_init:0000000000000000 $t
-     /tmp/ccAwUBCd.s:93     .text.flash_init:0000000000000000 flash_init
-     /tmp/ccAwUBCd.s:159    .text.flash_init:0000000000000048 $d
-     /tmp/ccAwUBCd.s:164    .text.flash_deinit:0000000000000000 $t
-     /tmp/ccAwUBCd.s:171    .text.flash_deinit:0000000000000000 flash_deinit
-     /tmp/ccAwUBCd.s:191    .text.flash_deinit:000000000000000c $d
-     /tmp/ccAwUBCd.s:196    .text.flash_send_byte:0000000000000000 $t
-     /tmp/ccAwUBCd.s:203    .text.flash_send_byte:0000000000000000 flash_send_byte
-     /tmp/ccAwUBCd.s:245    .text.flash_send_byte:0000000000000030 $d
-     /tmp/ccAwUBCd.s:250    .text.FLASH_SendHalfWord:0000000000000000 $t
-     /tmp/ccAwUBCd.s:257    .text.FLASH_SendHalfWord:0000000000000000 FLASH_SendHalfWord
-     /tmp/ccAwUBCd.s:299    .text.FLASH_SendHalfWord:0000000000000030 $d
-     /tmp/ccAwUBCd.s:304    .text.flash_write_enable:0000000000000000 $t
-     /tmp/ccAwUBCd.s:311    .text.flash_write_enable:0000000000000000 flash_write_enable
-     /tmp/ccAwUBCd.s:338    .text.flash_wait_for_write_end:0000000000000000 $t
-     /tmp/ccAwUBCd.s:345    .text.flash_wait_for_write_end:0000000000000000 flash_wait_for_write_end
-     /tmp/ccAwUBCd.s:385    .text.flash_erase_sector:0000000000000000 $t
-     /tmp/ccAwUBCd.s:392    .text.flash_erase_sector:0000000000000000 flash_erase_sector
-     /tmp/ccAwUBCd.s:441    .text.flash_erase_block:0000000000000000 $t
-     /tmp/ccAwUBCd.s:448    .text.flash_erase_block:0000000000000000 flash_erase_block
-     /tmp/ccAwUBCd.s:481    .text.flash_write_page:0000000000000000 $t
-     /tmp/ccAwUBCd.s:488    .text.flash_write_page:0000000000000000 flash_write_page
-     /tmp/ccAwUBCd.s:568    .text.flash_write_buffer:0000000000000000 $t
-     /tmp/ccAwUBCd.s:575    .text.flash_write_buffer:0000000000000000 flash_write_buffer
-     /tmp/ccAwUBCd.s:788    .text.flash_read_buffer:0000000000000000 $t
-     /tmp/ccAwUBCd.s:795    .text.flash_read_buffer:0000000000000000 flash_read_buffer
-     /tmp/ccAwUBCd.s:872    .text.flash_read_id:0000000000000000 $t
-     /tmp/ccAwUBCd.s:879    .text.flash_read_id:0000000000000000 flash_read_id
-     /tmp/ccAwUBCd.s:944    .text.flash_start_read_sequence:0000000000000000 $t
-     /tmp/ccAwUBCd.s:951    .text.flash_start_read_sequence:0000000000000000 flash_start_read_sequence
-     /tmp/ccAwUBCd.s:991    .text.flash_read_byte:0000000000000000 $t
-     /tmp/ccAwUBCd.s:998    .text.flash_read_byte:0000000000000000 flash_read_byte
+     /tmp/cc7wPAuY.s:16     .text.flash_cs_low:0000000000000000 $t
+     /tmp/cc7wPAuY.s:24     .text.flash_cs_low:0000000000000000 flash_cs_low
+     /tmp/cc7wPAuY.s:47     .text.flash_cs_low:0000000000000010 $d
+     /tmp/cc7wPAuY.s:52     .text.flash_cs_high:0000000000000000 $t
+     /tmp/cc7wPAuY.s:59     .text.flash_cs_high:0000000000000000 flash_cs_high
+     /tmp/cc7wPAuY.s:81     .text.flash_cs_high:0000000000000010 $d
+     /tmp/cc7wPAuY.s:86     .text.flash_init:0000000000000000 $t
+     /tmp/cc7wPAuY.s:93     .text.flash_init:0000000000000000 flash_init
+     /tmp/cc7wPAuY.s:159    .text.flash_init:0000000000000048 $d
+     /tmp/cc7wPAuY.s:164    .text.flash_deinit:0000000000000000 $t
+     /tmp/cc7wPAuY.s:171    .text.flash_deinit:0000000000000000 flash_deinit
+     /tmp/cc7wPAuY.s:191    .text.flash_deinit:000000000000000c $d
+     /tmp/cc7wPAuY.s:196    .text.flash_send_byte:0000000000000000 $t
+     /tmp/cc7wPAuY.s:203    .text.flash_send_byte:0000000000000000 flash_send_byte
+     /tmp/cc7wPAuY.s:245    .text.flash_send_byte:0000000000000030 $d
+     /tmp/cc7wPAuY.s:250    .text.FLASH_SendHalfWord:0000000000000000 $t
+     /tmp/cc7wPAuY.s:257    .text.FLASH_SendHalfWord:0000000000000000 FLASH_SendHalfWord
+     /tmp/cc7wPAuY.s:299    .text.FLASH_SendHalfWord:0000000000000030 $d
+     /tmp/cc7wPAuY.s:304    .text.flash_write_enable:0000000000000000 $t
+     /tmp/cc7wPAuY.s:311    .text.flash_write_enable:0000000000000000 flash_write_enable
+     /tmp/cc7wPAuY.s:338    .text.flash_wait_for_write_end:0000000000000000 $t
+     /tmp/cc7wPAuY.s:345    .text.flash_wait_for_write_end:0000000000000000 flash_wait_for_write_end
+     /tmp/cc7wPAuY.s:385    .text.flash_erase_sector:0000000000000000 $t
+     /tmp/cc7wPAuY.s:392    .text.flash_erase_sector:0000000000000000 flash_erase_sector
+     /tmp/cc7wPAuY.s:441    .text.flash_erase_block:0000000000000000 $t
+     /tmp/cc7wPAuY.s:448    .text.flash_erase_block:0000000000000000 flash_erase_block
+     /tmp/cc7wPAuY.s:481    .text.flash_write_page:0000000000000000 $t
+     /tmp/cc7wPAuY.s:488    .text.flash_write_page:0000000000000000 flash_write_page
+     /tmp/cc7wPAuY.s:568    .text.flash_write_buffer:0000000000000000 $t
+     /tmp/cc7wPAuY.s:575    .text.flash_write_buffer:0000000000000000 flash_write_buffer
+     /tmp/cc7wPAuY.s:788    .text.flash_read_buffer:0000000000000000 $t
+     /tmp/cc7wPAuY.s:795    .text.flash_read_buffer:0000000000000000 flash_read_buffer
+     /tmp/cc7wPAuY.s:872    .text.flash_read_id:0000000000000000 $t
+     /tmp/cc7wPAuY.s:879    .text.flash_read_id:0000000000000000 flash_read_id
+     /tmp/cc7wPAuY.s:944    .text.flash_start_read_sequence:0000000000000000 $t
+     /tmp/cc7wPAuY.s:951    .text.flash_start_read_sequence:0000000000000000 flash_start_read_sequence
+     /tmp/cc7wPAuY.s:991    .text.flash_read_byte:0000000000000000 $t
+     /tmp/cc7wPAuY.s:998    .text.flash_read_byte:0000000000000000 flash_read_byte
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin

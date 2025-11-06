@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cchV6drj.s 			page 1
+ARM GAS  /tmp/ccm17Rvl.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   29:libs/ssdv/rs8.c **** 
   30:libs/ssdv/rs8.c **** static const uint8_t INDEX_OF[] = {
   31:libs/ssdv/rs8.c **** 0xFF,0x00,0x01,0x63,0x02,0xC6,0x64,0x6A,0x03,0xCD,0xC7,0xBC,0x65,0x7E,0x6B,0x2A,
-ARM GAS  /tmp/cchV6drj.s 			page 2
+ARM GAS  /tmp/ccm17Rvl.s 			page 2
 
 
   32:libs/ssdv/rs8.c **** 0x04,0x8D,0xCE,0x4E,0xC8,0xD4,0xBD,0xE1,0x66,0xDD,0x7F,0x31,0x6C,0x20,0x2B,0xF3,
@@ -118,7 +118,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   35              		.cfi_def_cfa_offset 24
   36              		.cfi_offset 4, -24
   37              		.cfi_offset 5, -20
-ARM GAS  /tmp/cchV6drj.s 			page 3
+ARM GAS  /tmp/ccm17Rvl.s 			page 3
 
 
   38              		.cfi_offset 6, -16
@@ -178,7 +178,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   80 0020 FE2B     		cmp	r3, #254
   81 0022 F9DC     		bgt	.L6
   62:libs/ssdv/rs8.c **** }
-ARM GAS  /tmp/cchV6drj.s 			page 4
+ARM GAS  /tmp/ccm17Rvl.s 			page 4
 
 
   82              		.loc 1 62 2 view .LVU17
@@ -238,7 +238,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  121              		.loc 1 57 7 discriminator 3 view .LVU32
  122              	.LBE36:
  123              	.LBE37:
-ARM GAS  /tmp/cchV6drj.s 			page 5
+ARM GAS  /tmp/ccm17Rvl.s 			page 5
 
 
   89:libs/ssdv/rs8.c **** 				parity[j] ^= ALPHA_TO[mod255(feedback + GENPOLY[NROOTS - j])];
@@ -298,7 +298,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   84:libs/ssdv/rs8.c **** 	{
  161              		.loc 1 84 13 is_stmt 1 discriminator 1 view .LVU46
   84:libs/ssdv/rs8.c **** 	{
-ARM GAS  /tmp/cchV6drj.s 			page 6
+ARM GAS  /tmp/ccm17Rvl.s 			page 6
 
 
  162              		.loc 1 84 29 is_stmt 0 discriminator 1 view .LVU47
@@ -358,7 +358,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  201 0084 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
  202              	.LVL20:
  203              	.L18:
-ARM GAS  /tmp/cchV6drj.s 			page 7
+ARM GAS  /tmp/ccm17Rvl.s 			page 7
 
 
  204              		.loc 1 100 1 view .LVU62
@@ -418,7 +418,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  246              		.cfi_offset 7, -24
  247              		.cfi_offset 8, -20
  248              		.cfi_offset 9, -16
-ARM GAS  /tmp/cchV6drj.s 			page 8
+ARM GAS  /tmp/ccm17Rvl.s 			page 8
 
 
  249              		.cfi_offset 10, -12
@@ -478,7 +478,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  294 0034 6B44     		add	r3, sp, r3
  295 0036 03F8441C 		strb	r1, [r3, #-68]
  296              	.L25:
-ARM GAS  /tmp/cchV6drj.s 			page 9
+ARM GAS  /tmp/ccm17Rvl.s 			page 9
 
 
  120:libs/ssdv/rs8.c **** 		{
@@ -538,7 +538,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  339 0068 D9B2     		uxtb	r1, r3
   60:libs/ssdv/rs8.c **** 	}
  340              		.loc 1 60 5 view .LVU105
-ARM GAS  /tmp/cchV6drj.s 			page 10
+ARM GAS  /tmp/ccm17Rvl.s 			page 10
 
 
  341 006a 01EB2323 		add	r3, r1, r3, asr #8
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  380              		.loc 1 129 8 view .LVU118
  381 0096 0346     		mov	r3, r0
  382              	.L30:
-ARM GAS  /tmp/cchV6drj.s 			page 11
+ARM GAS  /tmp/ccm17Rvl.s 			page 11
 
 
  383              	.LVL34:
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  150:libs/ssdv/rs8.c **** 		lambda[1] = ALPHA_TO[MODNN(PRIM * (NN - 1 - eras_pos[0]))];
  151:libs/ssdv/rs8.c **** 		for(i = 1; i < no_eras; i++)
  152:libs/ssdv/rs8.c **** 		{
-ARM GAS  /tmp/cchV6drj.s 			page 12
+ARM GAS  /tmp/ccm17Rvl.s 			page 12
 
 
  153:libs/ssdv/rs8.c **** 			u = MODNN(PRIM * (NN - 1 - eras_pos[i]));
@@ -718,7 +718,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  207:libs/ssdv/rs8.c **** 				 * lambda(x)
  208:libs/ssdv/rs8.c **** 				 */
  209:libs/ssdv/rs8.c **** 				for(i = 0; i <= NROOTS; i++)
-ARM GAS  /tmp/cchV6drj.s 			page 13
+ARM GAS  /tmp/ccm17Rvl.s 			page 13
 
 
  210:libs/ssdv/rs8.c **** 					b[i] = (lambda[i] == 0) ? A0 : MODNN(INDEX_OF[lambda[i]] - discr_r + NN);
@@ -778,7 +778,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  264:libs/ssdv/rs8.c **** 		goto finish;
  265:libs/ssdv/rs8.c **** 	}
  266:libs/ssdv/rs8.c **** 	
-ARM GAS  /tmp/cchV6drj.s 			page 14
+ARM GAS  /tmp/ccm17Rvl.s 			page 14
 
 
  267:libs/ssdv/rs8.c **** 	/*
@@ -838,7 +838,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  421              	.LVL38:
  422              		.loc 1 313 14 is_stmt 1 discriminator 1 view .LVU135
  423              		.loc 1 313 3 is_stmt 0 discriminator 1 view .LVU136
-ARM GAS  /tmp/cchV6drj.s 			page 15
+ARM GAS  /tmp/ccm17Rvl.s 			page 15
 
 
  424 00be 8342     		cmp	r3, r0
@@ -898,7 +898,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   57:libs/ssdv/rs8.c **** 	{
  468              		.loc 1 57 7 is_stmt 0 view .LVU153
  469 00f6 03E0     		b	.L34
-ARM GAS  /tmp/cchV6drj.s 			page 16
+ARM GAS  /tmp/ccm17Rvl.s 			page 16
 
 
  470              	.L35:
@@ -958,7 +958,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  508 0118 C2F1FE02 		rsb	r2, r2, #254
  509 011c 02EB8203 		add	r3, r2, r2, lsl #2
  510 0120 02EB4302 		add	r2, r2, r3, lsl #1
-ARM GAS  /tmp/cchV6drj.s 			page 17
+ARM GAS  /tmp/ccm17Rvl.s 			page 17
 
 
  511              	.LVL49:
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  550              	.LBB47:
   59:libs/ssdv/rs8.c **** 		x = (x >> 8) + (x & 255);
  551              		.loc 1 59 3 is_stmt 1 view .LVU185
-ARM GAS  /tmp/cchV6drj.s 			page 18
+ARM GAS  /tmp/ccm17Rvl.s 			page 18
 
 
   59:libs/ssdv/rs8.c **** 		x = (x >> 8) + (x & 255);
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  592 0160 D6DD     		ble	.L36
  156:libs/ssdv/rs8.c **** 				if(tmp != A0) lambda[j] ^= ALPHA_TO[MODNN(u + tmp)];
  593              		.loc 1 156 5 is_stmt 1 view .LVU200
-ARM GAS  /tmp/cchV6drj.s 			page 19
+ARM GAS  /tmp/ccm17Rvl.s 			page 19
 
 
  156:libs/ssdv/rs8.c **** 				if(tmp != A0) lambda[j] ^= ALPHA_TO[MODNN(u + tmp)];
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  633              		.loc 1 164 8 discriminator 3 view .LVU215
  634 018c 02F8681C 		strb	r1, [r2, #-104]
  163:libs/ssdv/rs8.c **** 		b[i] = INDEX_OF[lambda[i]];
-ARM GAS  /tmp/cchV6drj.s 			page 20
+ARM GAS  /tmp/ccm17Rvl.s 			page 20
 
 
  635              		.loc 1 163 29 is_stmt 1 discriminator 3 view .LVU216
@@ -1198,7 +1198,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  675              	.LBE51:
  676              	.LBE50:
  180:libs/ssdv/rs8.c **** 			}
-ARM GAS  /tmp/cchV6drj.s 			page 21
+ARM GAS  /tmp/ccm17Rvl.s 			page 21
 
 
  677              		.loc 1 180 24 view .LVU231
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   55:libs/ssdv/rs8.c **** {
  718              		.loc 1 55 19 is_stmt 1 view .LVU245
  719              	.LBB52:
-ARM GAS  /tmp/cchV6drj.s 			page 22
+ARM GAS  /tmp/ccm17Rvl.s 			page 22
 
 
   57:libs/ssdv/rs8.c **** 	{
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  758 01fe FFF7FEFF 		bl	memmove
  759              	.LVL80:
  188:libs/ssdv/rs8.c **** 		}
-ARM GAS  /tmp/cchV6drj.s 			page 23
+ARM GAS  /tmp/ccm17Rvl.s 			page 23
 
 
  760              		.loc 1 188 4 is_stmt 1 view .LVU262
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  799              		.loc 1 62 2 view .LVU277
  800              	.LVL85:
   62:libs/ssdv/rs8.c **** }
-ARM GAS  /tmp/cchV6drj.s 			page 24
+ARM GAS  /tmp/ccm17Rvl.s 			page 24
 
 
  801              		.loc 1 62 2 is_stmt 0 view .LVU278
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  841 0260 0AEB0803 		add	r3, r10, r8
  202:libs/ssdv/rs8.c **** 			{
  842              		.loc 1 202 6 view .LVU293
-ARM GAS  /tmp/cchV6drj.s 			page 25
+ARM GAS  /tmp/ccm17Rvl.s 			page 25
 
 
  843 0264 B3EB490F 		cmp	r3, r9, lsl #1
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  885              		.loc 1 204 8 is_stmt 0 view .LVU305
  886 02ac A3EB0909 		sub	r9, r3, r9
  887              	.LVL93:
-ARM GAS  /tmp/cchV6drj.s 			page 26
+ARM GAS  /tmp/ccm17Rvl.s 			page 26
 
 
  209:libs/ssdv/rs8.c **** 					b[i] = (lambda[i] == 0) ? A0 : MODNN(INDEX_OF[lambda[i]] - discr_r + NN);
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  927              	.LBE56:
  210:libs/ssdv/rs8.c **** 			}
  928              		.loc 1 210 11 view .LVU321
-ARM GAS  /tmp/cchV6drj.s 			page 27
+ARM GAS  /tmp/ccm17Rvl.s 			page 27
 
 
  929 02ca DBB2     		uxtb	r3, r3
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  969              		.loc 1 225 2 is_stmt 0 discriminator 1 view .LVU335
  970 02f6 202B     		cmp	r3, #32
  971 02f8 12DC     		bgt	.L131
-ARM GAS  /tmp/cchV6drj.s 			page 28
+ARM GAS  /tmp/ccm17Rvl.s 			page 28
 
 
  227:libs/ssdv/rs8.c **** 		if(lambda[i] != A0) deg_lambda = i;
@@ -1678,7 +1678,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1016 035c CDF84130 		str	r3, [sp, #65]	@ unaligned
  233:libs/ssdv/rs8.c **** 	for(i = 1, k = IPRIM - 1; i <= NN; i++, k = MODNN(k + IPRIM))
  1017              		.loc 1 233 2 is_stmt 1 view .LVU346
-ARM GAS  /tmp/cchV6drj.s 			page 29
+ARM GAS  /tmp/ccm17Rvl.s 			page 29
 
 
  1018              	.LVL106:
@@ -1738,7 +1738,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  242:libs/ssdv/rs8.c **** 			}
  1057              		.loc 1 242 18 is_stmt 0 view .LVU362
  1058 0382 774A     		ldr	r2, .L142
-ARM GAS  /tmp/cchV6drj.s 			page 30
+ARM GAS  /tmp/ccm17Rvl.s 			page 30
 
 
  1059 0384 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
@@ -1798,7 +1798,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  246:libs/ssdv/rs8.c **** 		
  1098              		.loc 1 246 6 is_stmt 0 view .LVU378
  1099 03a6 B8F1000F 		cmp	r8, #0
-ARM GAS  /tmp/cchV6drj.s 			page 31
+ARM GAS  /tmp/ccm17Rvl.s 			page 31
 
 
  1100 03aa 09D1     		bne	.L76
@@ -1858,7 +1858,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1138              		.loc 1 60 3 is_stmt 1 view .LVU394
   60:libs/ssdv/rs8.c **** 	}
  1139              		.loc 1 60 21 is_stmt 0 view .LVU395
-ARM GAS  /tmp/cchV6drj.s 			page 32
+ARM GAS  /tmp/ccm17Rvl.s 			page 32
 
 
  1140 03ca CBB2     		uxtb	r3, r1
@@ -1918,7 +1918,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
   59:libs/ssdv/rs8.c **** 		x = (x >> 8) + (x & 255);
  1180              		.loc 1 59 3 is_stmt 1 view .LVU410
   59:libs/ssdv/rs8.c **** 		x = (x >> 8) + (x & 255);
-ARM GAS  /tmp/cchV6drj.s 			page 33
+ARM GAS  /tmp/ccm17Rvl.s 			page 33
 
 
  1181              		.loc 1 59 5 is_stmt 0 view .LVU411
@@ -1978,7 +1978,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1220 0414 6B44     		add	r3, sp, r3
  1221 0416 13F8443C 		ldrb	r3, [r3, #-68]	@ zero_extendqisi2
  277:libs/ssdv/rs8.c **** 				tmp ^= ALPHA_TO[MODNN(s[i - j] + lambda[j])];
-ARM GAS  /tmp/cchV6drj.s 			page 34
+ARM GAS  /tmp/ccm17Rvl.s 			page 34
 
 
  1222              		.loc 1 277 6 view .LVU427
@@ -2038,7 +2038,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1262              		.loc 1 272 13 is_stmt 1 discriminator 1 view .LVU441
  272:libs/ssdv/rs8.c **** 	{
  1263              		.loc 1 272 2 is_stmt 0 discriminator 1 view .LVU442
-ARM GAS  /tmp/cchV6drj.s 			page 35
+ARM GAS  /tmp/ccm17Rvl.s 			page 35
 
 
  1264 0444 CC45     		cmp	ip, r9
@@ -2098,7 +2098,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1303              		.loc 1 292 12 is_stmt 0 view .LVU457
  1304 0466 0EF58C73 		add	r3, lr, #280
  1305 046a 6B44     		add	r3, sp, r3
-ARM GAS  /tmp/cchV6drj.s 			page 36
+ARM GAS  /tmp/ccm17Rvl.s 			page 36
 
 
  1306 046c 13F8B03C 		ldrb	r3, [r3, #-176]	@ zero_extendqisi2
@@ -2158,7 +2158,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1345 0490 0CF58C73 		add	r3, ip, #280
  1346 0494 6B44     		add	r3, sp, r3
  1347 0496 13F8D08C 		ldrb	r8, [r3, #-208]	@ zero_extendqisi2
-ARM GAS  /tmp/cchV6drj.s 			page 37
+ARM GAS  /tmp/ccm17Rvl.s 			page 37
 
 
  1348 049a C8EBC803 		rsb	r3, r8, r8, lsl #3
@@ -2218,7 +2218,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1387 04ba 1F2F     		cmp	r7, #31
  1388 04bc A8BF     		it	ge
  1389 04be 1F22     		movge	r2, #31
-ARM GAS  /tmp/cchV6drj.s 			page 38
+ARM GAS  /tmp/ccm17Rvl.s 			page 38
 
 
  298:libs/ssdv/rs8.c **** 		{
@@ -2278,7 +2278,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1429              		.loc 1 300 28 is_stmt 1 discriminator 1 view .LVU502
  300:libs/ssdv/rs8.c **** 		}
  1430              		.loc 1 300 44 is_stmt 0 discriminator 1 view .LVU503
-ARM GAS  /tmp/cchV6drj.s 			page 39
+ARM GAS  /tmp/ccm17Rvl.s 			page 39
 
 
  1431 04ea 02FB0833 		mla	r3, r2, r8, r3
@@ -2338,7 +2338,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  287:libs/ssdv/rs8.c **** 	{
  1471              		.loc 1 287 29 is_stmt 1 discriminator 2 view .LVU518
  287:libs/ssdv/rs8.c **** 	{
-ARM GAS  /tmp/cchV6drj.s 			page 40
+ARM GAS  /tmp/ccm17Rvl.s 			page 40
 
 
  1472              		.loc 1 287 30 is_stmt 0 discriminator 2 view .LVU519
@@ -2398,7 +2398,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1512              		.loc 1 60 21 is_stmt 0 view .LVU533
  1513 0536 D9B2     		uxtb	r1, r3
   60:libs/ssdv/rs8.c **** 	}
-ARM GAS  /tmp/cchV6drj.s 			page 41
+ARM GAS  /tmp/ccm17Rvl.s 			page 41
 
 
  1514              		.loc 1 60 5 view .LVU534
@@ -2458,7 +2458,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  316:libs/ssdv/rs8.c **** 	return(count);
  317:libs/ssdv/rs8.c **** }
  1558              		.loc 1 317 1 view .LVU543
-ARM GAS  /tmp/cchV6drj.s 			page 42
+ARM GAS  /tmp/ccm17Rvl.s 			page 42
 
 
  1559 0558 7047     		bx	lr
@@ -2518,7 +2518,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1599      E955AAD3 
  1599      2142848F 
  1599      99B5
-ARM GAS  /tmp/cchV6drj.s 			page 43
+ARM GAS  /tmp/ccm17Rvl.s 			page 43
 
 
  1600 005d ED5DBAF3 		.ascii	"\355]\272\363a\302\003\006\014\0300`\300\007\016\034"
@@ -2578,7 +2578,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1617      7E2B0442 
  1617      3BF900
  1618              		.section	.rodata.INDEX_OF,"a"
-ARM GAS  /tmp/cchV6drj.s 			page 44
+ARM GAS  /tmp/ccm17Rvl.s 			page 44
 
 
  1619              		.align	2
@@ -2638,7 +2638,7 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1634      FE297DBB 
  1635 00c7 CCE0D34D 		.ascii	"\314\340\323M\214\362\0370\334\202\253\347V\263\223"
  1635      8CF21F30 
-ARM GAS  /tmp/cchV6drj.s 			page 45
+ARM GAS  /tmp/ccm17Rvl.s 			page 45
 
 
  1635      DC82ABE7 
@@ -2659,25 +2659,25 @@ ARM GAS  /tmp/cchV6drj.s 			page 1
  1641              		.file 2 "/usr/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h"
  1642              		.file 3 "<built-in>"
  1643              		.file 4 "/usr/include/newlib/string.h"
-ARM GAS  /tmp/cchV6drj.s 			page 46
+ARM GAS  /tmp/ccm17Rvl.s 			page 46
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 rs8.c
-     /tmp/cchV6drj.s:16     .text.encode_rs_8:0000000000000000 $t
-     /tmp/cchV6drj.s:24     .text.encode_rs_8:0000000000000000 encode_rs_8
-     /tmp/cchV6drj.s:207    .text.encode_rs_8:0000000000000088 $d
-     /tmp/cchV6drj.s:214    .text.decode_rs_8:0000000000000000 $t
-     /tmp/cchV6drj.s:221    .text.decode_rs_8:0000000000000000 decode_rs_8
-     /tmp/cchV6drj.s:994    .text.decode_rs_8:0000000000000318 $d
-     /tmp/cchV6drj.s:999    .text.decode_rs_8:0000000000000320 $t
-     /tmp/cchV6drj.s:1584   .text.decode_rs_8:0000000000000560 $d
-     /tmp/cchV6drj.s:1590   .rodata.ALPHA_TO:0000000000000000 $d
-     /tmp/cchV6drj.s:1594   .rodata.ALPHA_TO:0000000000000000 ALPHA_TO
-     /tmp/cchV6drj.s:1611   .rodata.GENPOLY:0000000000000000 $d
-     /tmp/cchV6drj.s:1615   .rodata.GENPOLY:0000000000000000 GENPOLY
-     /tmp/cchV6drj.s:1619   .rodata.INDEX_OF:0000000000000000 $d
-     /tmp/cchV6drj.s:1623   .rodata.INDEX_OF:0000000000000000 INDEX_OF
+     /tmp/ccm17Rvl.s:16     .text.encode_rs_8:0000000000000000 $t
+     /tmp/ccm17Rvl.s:24     .text.encode_rs_8:0000000000000000 encode_rs_8
+     /tmp/ccm17Rvl.s:207    .text.encode_rs_8:0000000000000088 $d
+     /tmp/ccm17Rvl.s:214    .text.decode_rs_8:0000000000000000 $t
+     /tmp/ccm17Rvl.s:221    .text.decode_rs_8:0000000000000000 decode_rs_8
+     /tmp/ccm17Rvl.s:994    .text.decode_rs_8:0000000000000318 $d
+     /tmp/ccm17Rvl.s:999    .text.decode_rs_8:0000000000000320 $t
+     /tmp/ccm17Rvl.s:1584   .text.decode_rs_8:0000000000000560 $d
+     /tmp/ccm17Rvl.s:1590   .rodata.ALPHA_TO:0000000000000000 $d
+     /tmp/ccm17Rvl.s:1594   .rodata.ALPHA_TO:0000000000000000 ALPHA_TO
+     /tmp/ccm17Rvl.s:1611   .rodata.GENPOLY:0000000000000000 $d
+     /tmp/ccm17Rvl.s:1615   .rodata.GENPOLY:0000000000000000 GENPOLY
+     /tmp/ccm17Rvl.s:1619   .rodata.INDEX_OF:0000000000000000 $d
+     /tmp/ccm17Rvl.s:1623   .rodata.INDEX_OF:0000000000000000 INDEX_OF
 
 UNDEFINED SYMBOLS
 memset

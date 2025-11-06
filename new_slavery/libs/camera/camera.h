@@ -86,6 +86,15 @@ typedef enum {
 } CAM_COLOR_FX;
 
 	
+typedef enum {
+    CAM_IMAGE_160X120  = 0x00,  /**<160x120 */
+    CAM_IMAGE_MODE_320x240   = 0x01,  /**<320x240*/
+    CAM_IMAGE_MODE_96X96  = 0x0a,  /**<96x96*/
+    CAM_IMAGE_MODE_128X128 = 0x0b, /**<128x128*/
+    CAM_IMAGE_MODE_320X320 = 0x0c, /**<320x320*/
+    /// @endcond
+} CAM_IMAGE_MODE;
+
 /* SSDV */
 
 

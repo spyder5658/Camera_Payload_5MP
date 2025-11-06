@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <inttypes.h>
+#include <string.h>
 #include "camera.h"
 #include "watchdog.h"
 #include "radio.h"
@@ -43,36 +44,19 @@ int _write(int file, char *data, int len) {
 /* USER CODE BEGIN PTD */
 
 
-#define SLAVE_ADDR      (0x12 << 1 )  // Change to your slave address (7-bit shifted)
-#define SSDV_PKT_SIZE   224
-#define MAX_PACKETS     256         // Max packets to read (adjust if needed)
+// #define SLAVE_ADDR      (0x12 << 1 )  // Change to your slave address (7-bit shifted)
+// #define SSDV_PKT_SIZE   224
+// #define MAX_PACKETS     256         // Max packets to read (adjust if needed)
 
-// uint8_t rx_buffer[SSDV_PKT_SIZE];
+// // uint8_t rx_buffer[SSDV_PKT_SIZE];
 
-// -------------------- I2C Commands --------------------
-#define CMD_CAPTURE         0x10
-#define CMD_STREAM_SSDV     0x20
-#define CMD_PRESTORED       0x90
+// // -------------------- I2C Commands --------------------
+// #define CMD_CAPTURE         0x10
+// #define CMD_STREAM_SSDV     0x20
+// #define CMD_PRESTORED       0x90
 
 // -------------------- Master functions --------------------
 
-void send_command(uint8_t cmd)
-{
-    HAL_I2C_Master_Transmit(&hi2c2, SLAVE_ADDR, &cmd, 1, HAL_MAX_DELAY);
-}
-
-int read_ssdv_packet(uint8_t *packet)
-{
-    HAL_StatusTypeDef status;
-    status = HAL_I2C_Master_Receive(&hi2c2, SLAVE_ADDR, packet, SSDV_PKT_SIZE, 100);
-
-    if (status != HAL_OK) return 0;
-
-    // Check for dummy packet indicating end of stream
-    if (packet[0] == 0xFF) return 0;
-
-    return 1;
-}
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -132,7 +116,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C2_Init();
-  MX_USART1_UART_Init();
+  // MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   watchdog_init();
     if (!radio_init())
@@ -144,45 +128,11 @@ int main(void)
   {
     printf("Radio success!\n");
   }
+  uint8_t msg[] = "hello sarthak\n";
+    radio_init_gfsk(GFSK_500BPS_1KHZ);
 
   printf("after setup\n");
 
-
-    // printf("Master MCU initialized.\n");
-    // camera_on();
-    // HAL_Delay(3000);
-
-    // // -------------------- Capture Image --------------------
-    // printf("Sending capture command to slave...\n");
-    // send_command(CMD_CAPTURE);
-
-    // HAL_Delay(8000); // Wait for slave to capture & encode
-
-    // // -------------------- Stream SSDV Packets --------------------
-    // printf("Requesting SSDV stream from slave...\n");
-    // send_command(CMD_STREAM_SSDV);
-    // HAL_Delay(200);
-
-    // int packet_count = 0;
-    // while (packet_count < MAX_PACKETS)
-    // {
-    //     if (!read_ssdv_packet(rx_buffer)) break;
-
-    //     printf("Packet %d:\n", packet_count + 1);
-    //     for (int i = 0; i < SSDV_PKT_SIZE; i++)
-    //     {
-    //         printf("0x%02X, ", rx_buffer[i]);
-    //         if ((i + 1) % 16 == 0) printf("\n");
-    //     }
-    //     printf("\n-----------------------------\n");
-
-    //     packet_count++;
-    //     HAL_Delay(5); // Optional: small delay between packets
-    // }
-
-    // printf("SSDV streaming complete. Total packets: %d\n", packet_count);
-    // HAL_Delay(1000);
-    // camera_off();
 
 
  
@@ -215,6 +165,8 @@ int main(void)
   while (1)
   {
 
+    radio_tx_gfsk(msg,strlen(msg));
+    HAL_Delay(2000);
     //  HAL_Delay(1000);
     // camera_on();
     // HAL_Delay(3000);     //relaxation time for slave board to powerup and get configured ............
@@ -276,55 +228,34 @@ int main(void)
 
 
 
-    // printf("i2c recovery going on....\r\n");
-    // printf("turining camera on\r\n");
+
     // camera_on();
-    // HAL_Delay(3000);
+    // HAL_Delay(3000);     //relaxation time for slave
     // i2c_check();
     // HAL_Delay(1000);
     // // set_properties() // optional
     // camera_request_payload();
-    // // printf("turining camera off\r\n");
     // camera_off();
 
     // HAL_Delay(5000);
 
-
-
-
-
-
-
-
-
-
-
-
-    // printf("turining camera on\r\n");
     // camera_on();
     // HAL_Delay(3000);
     // i2c_check();
     // HAL_Delay(1000);
     // request_prestored_image();
-    // // printf("turining camera off\r\n");
     // camera_off();
 
-    camera_on();
-    HAL_Delay(3000);
-    i2c_check();
-    HAL_Delay(1000);
-    // set_properties() // optional
-    camera_request_payload();
-    camera_off();
+    // HAL_Delay(5000);
 
-    HAL_Delay(5000);
 
-    camera_on();
-    HAL_Delay(3000);
-    i2c_check();
-    HAL_Delay(1000);
-    request_prestored_image();
-    camera_off();
+    //  camera_on();
+    // HAL_Delay(3000);
+    // i2c_check();
+    // HAL_Delay(1000);
+    // // set_properties() // optional
+    // purano_request_payload();
+    // camera_off();
 
 
 
